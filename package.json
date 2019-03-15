@@ -59,11 +59,11 @@
     "axios": "^0.18.0",
     "element-ui": "^2.6.1",
     "nedb": "^1.8.0",
-    "vue": "^2.5.16",
+    "vue": "^2.6.9",
     "vue-electron": "^1.0.6",
-    "vue-router": "^3.0.1",
-    "vuex": "^3.0.1",
-    "vuex-electron": "^1.0.0"
+    "vue-router": "^3.0.2",
+    "vuex": "^3.1.0",
+    "vuex-electron": "^1.0.3"
   },
   "devDependencies": {
     "ajv": "^6.5.0",
@@ -121,7 +121,7 @@
     "vue-html-loader": "^1.2.4",
     "vue-loader": "^15.2.4",
     "vue-style-loader": "^4.1.0",
-    "vue-template-compiler": "^2.5.16",
+    "vue-template-compiler": "^2.6.9",
     "webpack-cli": "^3.0.8",
     "webpack": "^4.15.1",
     "webpack-dev-server": "^3.1.4",
