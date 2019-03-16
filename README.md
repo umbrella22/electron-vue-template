@@ -1,4 +1,4 @@
-# my-project
+# Electron-Vue-template
 
 > An electron-vue project
 
@@ -17,9 +17,6 @@ npm run build
 # run unit & end-to-end tests
 npm test
 
-
-# lint all JS/Vue component files in `src/`
-npm run lint
 
 ```
 
