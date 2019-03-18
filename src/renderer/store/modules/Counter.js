@@ -1,16 +1,17 @@
 // 记录的数值
-const state = {
+const Counter = {
+  state: {
 
+  },
+
+  mutations: {
+
+  },
+
+  actions: {
+
+  }
 }
-
-const mutations = {
-
-}
-
-const actions = {
-
-}
-
 export default {
-  state
+  Counter
 }
