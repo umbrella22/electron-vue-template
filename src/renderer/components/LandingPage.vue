@@ -5,7 +5,14 @@
       <div class="left-side">
         <span class="title">Welcome to your new project!</span>
         <system-information></system-information>
-        <span>{{text}}</span>
+        <div>
+          <span>{{text}}</span>
+        </div>
+        <div v-for="(itme,index) in textarray" :key="index">
+          <span>{{itme._id}}</span>
+          <span>{{itme.name}}</span>
+          <span>{{itme.age}}</span>
+        </div>
       </div>
 
       <div class="right-side">
@@ -14,6 +21,7 @@
           <el-button type="primary" round @click="open()">控制台打印</el-button>
           <el-button type="primary" round @click="setdata">写入数据</el-button>
           <el-button type="primary" round @click="getdata">读取数据</el-button>
+          <el-button type="primary" round @click="deledata">清除数据</el-button>
         </div>
       </div>
     </main>
@@ -31,7 +39,8 @@ export default {
     newdata: {
       name: "yyy",
       age: "12"
-    }
+    },
+    textarray: []
   }),
   methods: {
     open(link) {
@@ -46,8 +55,17 @@ export default {
     getdata() {
       this.$db
         .finddata()
-        .then(res => console.log(res))
+        .then(res => {
+          console.log(res);
+          this.textarray = res;
+          console.log(this.textarray);
+        })
         .catch(err => console.log(err));
+    },
+    deledata(){
+      this.$db.deleall().then(res=>{
+        
+      })
     }
   }
 };
