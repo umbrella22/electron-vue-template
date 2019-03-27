@@ -13,7 +13,8 @@ nrm use taobao
 # 安装依赖
 npm install
 
-# 启动之后，会在9080端口监听，如要修改则请到.electron-vue文件夹下的dev-runner.js中的第76行位置更改即可，记得更改后重新运行run dev
+# 启动之后，会在9080端口监听，如要修改则请到.electron-vue文件夹下的dev-runner.js中的第76行位置更改即可
+# 需要重新运行一次此命令
 npm run dev
 
 # build命令在不同系统环境中，需要的的不一样，Windows中需要vs协助。
