@@ -63,8 +63,11 @@ export default {
         .catch(err => console.log(err));
     },
     deledata(){
-      this.$db.deleall().then(res=>{
-        
+      let data={
+        name:"yyy"
+      }
+      this.$db.deleall(data).then(res=>{
+        console.log(res)
       })
     }
   }
