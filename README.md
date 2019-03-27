@@ -5,6 +5,12 @@
 #### Build Setup
 
 ``` bash
+# For Chinese Developers
+# install nrm
+npm i -g nrm
+# Switch to Taobao Source with NRM
+nrm ls
+nrm use taobao
 # install dependencies
 npm install
 

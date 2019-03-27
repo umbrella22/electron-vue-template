@@ -21,7 +21,7 @@
           <el-button type="primary" round @click="open()">控制台打印</el-button>
           <el-button type="primary" round @click="setdata">写入数据</el-button>
           <el-button type="primary" round @click="getdata">读取数据</el-button>
-          <el-button type="primary" round @click="deledata">清除数据</el-button>
+          <el-button type="primary" round @click="deledata">清除所有数据</el-button>
         </div>
       </div>
     </main>
