@@ -17,7 +17,7 @@ npm install
 # 需要重新运行一次此命令
 npm run dev
 
-# build命令在不同系统环境中，需要的的不一样，Windows中需要vs协助。
+# build命令在不同系统环境中，需要的的不一样，需要自己根据自身环境进行配置
 npm run build
 
 # run unit & end-to-end tests
