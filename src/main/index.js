@@ -30,7 +30,10 @@ function createWindow () {
     useContentSize: true,
     width: 1000,
     show: false,
-    backgroundColor: '#fffff'
+    backgroundColor: '#fffff',
+    titleBarStyle: 'hidden',
+    // 隐藏边框
+    // frame: false,
   })
 
   mainWindow.once('ready-to-show', () => {
