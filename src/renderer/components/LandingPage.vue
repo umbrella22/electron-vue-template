@@ -43,16 +43,18 @@ export default {
     textarray: []
   }),
   methods: {
-    open(link) {
-      this.textarray.length
+    // 获取electron方法
+    open() {
       console.log(this.$electron);
     },
+    // 设置数据库的数据
     setdata() {
       this.$db
         .adddata(this.newdata)
-        .then(res => console.log(res))
+        .then(res => this.getdata())
         .catch(err => console.log(err));
     },
+    // 获取数据库的数据
     getdata() {
       this.$db
         .finddata()
@@ -63,6 +65,7 @@ export default {
         })
         .catch(err => console.log(err));
     },
+    // 清空数据库的数据
     deledata(){
       // dialog为electron实例，data则是显示需要的参数，fun是需要执行的函数，此选项不是为必选的
       const dialog = this.$electron.remote.dialog
@@ -73,7 +76,12 @@ export default {
       }
       const fun = this.$db.deleall({name:'yyy'})
       api.MessageBox(dialog,data,fun).then(res=>{
-        console.log(res)
+        this.getdata()
+        this.$message({
+          showClose: true,
+          message: '成功删除'+res+'条',
+          type: 'success'
+        });
       })
     },
   }
