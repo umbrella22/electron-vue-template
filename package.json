@@ -1,7 +1,7 @@
 {
   "name": "my-project",
   "version": "0.0.1",
-  "author": "fengjie <fengjie1438@f-road.com.cn>",
+  "author": "sky <https://github.com/umbrella22>",
   "description": "An electron-vue project",
   "license": null,
   "main": "./dist/electron/main.js",

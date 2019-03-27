@@ -30,7 +30,7 @@
 
 <script>
 import SystemInformation from "./LandingPage/SystemInformation";
-
+import api from '../tools/dialog'
 export default {
   name: "landing-page",
   components: { SystemInformation },
@@ -63,13 +63,16 @@ export default {
         .catch(err => console.log(err));
     },
     deledata(){
-      let data={
-        name:"yyy"
+      const dialog = this.$electron.remote.dialog
+      const data = {
+        title:'清除数据',
+        buttons:['OK', 'Cancel'],
+        message:'此操作会清空本地数据库中的所有数据，是否继续？'
       }
-      this.$db.deleall(data).then(res=>{
+      api.MessageBox(dialog,data,this.$db.deleall({name:'yyy'})).then(res=>{
         console.log(res)
       })
-    }
+    },
   }
 };
 </script>
