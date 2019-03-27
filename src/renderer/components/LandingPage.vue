@@ -5,10 +5,10 @@
       <div class="left-side">
         <span class="title">Welcome to your new project!</span>
         <system-information></system-information>
-        <div>
+        <div v-if="textarray.length === 0">
           <span>{{text}}</span>
         </div>
-        <div v-for="(itme,index) in textarray" :key="index">
+        <div v-for="(itme,index) in textarray" :key="index" v-else>
           <span>{{itme._id}}</span>
           <span>{{itme.name}}</span>
           <span>{{itme.age}}</span>
@@ -44,6 +44,7 @@ export default {
   }),
   methods: {
     open(link) {
+      this.textarray.length
       console.log(this.$electron);
     },
     setdata() {
@@ -63,13 +64,15 @@ export default {
         .catch(err => console.log(err));
     },
     deledata(){
+      // dialog为electron实例，data则是显示需要的参数，fun是需要执行的函数，此选项不是为必选的
       const dialog = this.$electron.remote.dialog
       const data = {
         title:'清除数据',
         buttons:['OK', 'Cancel'],
         message:'此操作会清空本地数据库中的所有数据，是否继续？'
       }
-      api.MessageBox(dialog,data,this.$db.deleall({name:'yyy'})).then(res=>{
+      const fun = this.$db.deleall({name:'yyy'})
+      api.MessageBox(dialog,data,fun).then(res=>{
         console.log(res)
       })
     },
