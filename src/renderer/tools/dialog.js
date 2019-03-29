@@ -28,5 +28,17 @@ export default {
             })
         })
     },
-    
+    /**
+     * @export
+     * @param {Array} data
+     * @param {Object} dialog
+     * @returns
+     * @feature 错误消息弹窗
+     */
+    ErrorMessageBox(dialog, data) {
+        return dialog.showErrorBox({
+            title: data.title,
+            content: data.message
+        })
+    }
 }
