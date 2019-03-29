@@ -1,7 +1,7 @@
 import db from '../utils/db'
 
 export default {
-  adddata(data) {
+  adddata (data) {
     return new Promise((resolve, reject) => {
       db.insert(data, (err, newdoc) => {
         if (err) {
@@ -12,7 +12,7 @@ export default {
       })
     })
   },
-  finddata(query) {
+  finddata (query) {
     return new Promise((resolve, reject) => {
       db.find(query, (err, res) => {
         if (err) {
@@ -23,7 +23,7 @@ export default {
       })
     })
   },
-  findone(query) {
+  findone (query) {
     return new Promise((resolve, reject) => {
       db.findOne(query, (err, res) => {
         if (err) {
@@ -34,8 +34,8 @@ export default {
       })
     })
   },
-  deleone(query) {
-    return new Promise((reslove, reject) => {
+  deleone (query) {
+    return new Promise((resolve, reject) => {
       db.remove(query, (err, number) => {
         if (err) {
           reject(err)
@@ -45,8 +45,8 @@ export default {
       })
     })
   },
-  deleall(query) {
-    return new Promise((reslove, reject) => {
+  deleall (query) {
+    return new Promise((resolve, reject) => {
       db.remove(query, {
         multi: true
       }, (err, number) => {
