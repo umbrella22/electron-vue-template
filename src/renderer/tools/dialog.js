@@ -36,9 +36,9 @@ export default {
      * @feature 错误消息弹窗
      */
     ErrorMessageBox(dialog, data) {
-        return dialog.showErrorBox({
-            title: data.title,
-            content: data.message
-        })
+        return dialog.showErrorBox(
+            data.title,
+            data.message
+        )
     }
 }

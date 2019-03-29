@@ -83,6 +83,11 @@ export default {
           type: 'success'
         });
       })
+      // const data = {
+      //   title:'发生致命错误',
+      //   message:'?'
+      // }
+      // api.ErrorMessageBox(dialog,data)
     },
   }
 };
