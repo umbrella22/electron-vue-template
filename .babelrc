@@ -23,7 +23,7 @@
         ["env", {
           "modules": false
         }],
-        "stage-0"
+        "stage-3"
       ]
     },
     "web": {
@@ -31,9 +31,9 @@
         ["env", {
           "modules": false
         }],
-        "stage-0"
+        "stage-3"
       ]
     }
   },
-  "plugins": ["transform-runtime"]
+  "plugins": ["transform-runtime","dynamic-import-webpack"]
 }

@@ -41,7 +41,7 @@ export default {
           reject(err)
           return false
         }
-        reslove(number)
+        resolve(number)
       })
     })
   },
@@ -54,7 +54,7 @@ export default {
           reject(err)
           return false
         }
-        reslove(number)
+        resolve(number)
       })
     })
   }
