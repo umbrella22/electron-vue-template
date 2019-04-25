@@ -69,25 +69,25 @@ export default {
     deledata(){
       // dialog为electron实例，data则是显示需要的参数，fun是需要执行的函数，此选项不是为必选的
       const dialog = this.$electron.remote.dialog
-      const data = {
-        title:'清除数据',
-        buttons:['OK', 'Cancel'],
-        message:'此操作会清空本地数据库中的所有数据，是否继续？'
-      }
-      const fun = this.$db.deleall({name:'yyy'})
-      api.MessageBox(dialog,data,fun).then(res=>{
-        this.getdata()
-        this.$message({
-          showClose: true,
-          message: '成功删除'+res+'条',
-          type: 'success'
-        });
-      })
       // const data = {
-      //   title:'发生致命错误',
-      //   message:'?'
+      //   title:'清除数据',
+      //   buttons:['OK', 'Cancel'],
+      //   message:'此操作会清空本地数据库中的所有数据，是否继续？'
       // }
-      // api.ErrorMessageBox(dialog,data)
+      // const fun = this.$db.deleall({name:'yyy'})
+      // api.MessageBox(dialog,data,fun).then(res=>{
+      //   this.getdata()
+      //   this.$message({
+      //     showClose: true,
+      //     message: '成功删除'+res+'条',
+      //     type: 'success'
+      //   });
+      // })
+      const data = {
+        title:'发生致命错误',
+        message:'?'
+      }
+      api.ErrorMessageBox(dialog,data)
     },
   }
 };
