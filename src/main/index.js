@@ -31,7 +31,7 @@ function createWindow () {
     width: 1000,
     show: false,
     backgroundColor: '#fffff',
-    titleBarStyle: 'hidden',
+    titleBarStyle: 'hidden'
     // 隐藏边框
     // frame: false,
   })
