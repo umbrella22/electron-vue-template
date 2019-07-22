@@ -105,14 +105,9 @@ body {
 }
 
 #wrapper {
-  background: radial-gradient(
-    ellipse at top left,
-    rgba(255, 255, 255, 1) 40%,
-    rgba(229, 229, 229, 0.9) 100%
-  );
-  height: 100vh;
+  background-color: #d1d1d1ab;
+  height: 93vh;
   padding: 60px 80px;
-  width: 100vw;
 }
 
 #logo {

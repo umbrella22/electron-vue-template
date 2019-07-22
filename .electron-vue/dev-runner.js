@@ -34,10 +34,11 @@ function logStats(proc, data) {
   }
 
   log += '\n' + chalk.yellow.bold(`┗ ${new Array(28 + 1).join('-')}`) + '\n'
+  console.log(log)
 }
 
 function startRenderer() {
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     rendererConfig.entry.renderer = [path.join(__dirname, 'dev-client')].concat(rendererConfig.entry.renderer)
     rendererConfig.mode = 'development'
     const compiler = webpack(rendererConfig)
@@ -76,7 +77,7 @@ function startRenderer() {
 }
 
 function startMain() {
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     mainConfig.entry.main = [path.join(__dirname, '../src/main/index.dev.js')].concat(mainConfig.entry.main)
     mainConfig.mode = 'development'
     const compiler = webpack(mainConfig)

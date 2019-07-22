@@ -11,10 +11,14 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const { VueLoaderPlugin } = require('vue-loader')
 
+function resolve(dir) {
+  return path.join(__dirname, '..', dir)
+}
+
 let webConfig = {
   devtool: '#cheap-module-eval-source-map',
   entry: {
-    web: path.join(__dirname, '../src/renderer/main.js')
+    web: resolve('src/renderer/main.js')
   },
   module: {
     rules: [
@@ -52,7 +56,7 @@ let webConfig = {
       {
         test: /\.js$/,
         use: 'babel-loader',
-        include: [ path.resolve(__dirname, '../src/renderer') ],
+        include: [resolve('src/renderer')],
         exclude: /node_modules/
       },
       {
@@ -70,14 +74,23 @@ let webConfig = {
         }
       },
       {
+        test: /\.svg$/,
+        loader: 'svg-sprite-loader',
+        include: [resolve('src/renderer/icons')],
+        options: {
+          symbolId: 'icon-[name]'
+        }
+      },
+      {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
+        exclude: [resolve('src/renderer/icons')],
         use: {
           loader: 'url-loader',
           query: {
             limit: 10000,
             name: 'imgs/[name].[ext]'
           }
-        }
+        },
       },
       {
         test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
@@ -93,7 +106,7 @@ let webConfig = {
   },
   plugins: [
     new VueLoaderPlugin(),
-    new MiniCssExtractPlugin({filename: 'styles.css'}),
+    new MiniCssExtractPlugin({ filename: 'styles.css' }),
     new HtmlWebpackPlugin({
       filename: 'index.html',
       template: path.resolve(__dirname, '../src/index.ejs'),

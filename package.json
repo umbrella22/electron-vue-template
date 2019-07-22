@@ -1,9 +1,9 @@
 {
-  "name": "my-project",
+  "name": "electron-vue-admin",
   "version": "0.0.1",
   "author": "sky <https://github.com/umbrella22>",
   "description": "An electron-vue project",
-  "license": null,
+  "license":"MIT",
   "main": "./dist/electron/main.js",
   "scripts": {
     "build": "node .electron-vue/build.js && electron-builder",
@@ -19,8 +19,8 @@
     "unit": "karma start test/unit/karma.conf.js"
   },
   "build": {
-    "productName": "my-project",
-    "appId": "com.example.yourapp",
+    "productName": "electron-vue-admin",
+    "appId": "org.simulatedgreg.electron-vue",
     "directories": {
       "output": "build"
     },
@@ -54,7 +54,9 @@
   },
   "dependencies": {
     "axios": "^0.19.0",
+    "date-fns": "^1.30.1",
     "element-ui": "^2.10.1",
+    "js-cookie": "^2.2.0",
     "nedb": "^1.8.0",
     "vue": "^2.6.10",
     "vue-electron": "^1.0.6",
@@ -115,6 +117,7 @@
     "sass-loader": "^7.0.3",
     "spectron": "^3.8.0",
     "style-loader": "^0.21.0",
+    "svg-sprite-loader": "^4.1.6",
     "url-loader": "^2.1.0",
     "vue-html-loader": "^1.2.4",
     "vue-loader": "^15.7.1",

@@ -9,6 +9,9 @@ import db from './api/operationalData'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 
+import './icons'
+import '@/styles/index.scss'
+
 if (!process.env.IS_WEB) Vue.use(require('vue-electron'))
 
 Vue.use(ElementUI)
@@ -18,9 +21,7 @@ Vue.prototype.$db = db
 Vue.config.productionTip = false
 /* eslint-disable no-new */
 new Vue({
-  components: {
-    App
-  },
+  components: { App },
   router,
   store,
   template: '<App/>'

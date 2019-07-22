@@ -1,4 +1,5 @@
-// const getters = {
-//   : state => state.Counter.
-// }
-// export default getters
+const getters = {
+  sidebar: state => state.app.sidebar,
+  device: state => state.app.device
+}
+export default getters
