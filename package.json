@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "author": "sky <https://github.com/umbrella22>",
   "description": "An electron-vue project",
-  "license":"MIT",
+  "license": "MIT",
   "main": "./dist/electron/main.js",
   "scripts": {
     "build": "node .electron-vue/build.js && electron-builder",
