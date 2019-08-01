@@ -36,7 +36,7 @@ const menu = [{
       dialog.showMessageBox({
         title: '关于',
         type: 'info',
-        message: '程序使用electron搭建，程序制作Sky'
+        message: '存放显示这个的信息是在，src/main/menu.js中，请自行修改'
       })
     }
   }]
