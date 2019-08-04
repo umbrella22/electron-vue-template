@@ -1,94 +1,113 @@
 <template>
-  <div class="menu-wrapper">
-    <template v-for="item in routes" v-if="!item.hidden&&item.children">
-      <router-link
-        v-if="hasOneShowingChildren(item.children) && !item.children[0].children&&!item.alwaysShow"
-        :to="item.path+'/'+item.children[0].path"
-        :key="item.children[0].name"
+  <div v-if="!item.hidden&&item.children" class="menu-wrapper">
+    <router-link
+      v-if="hasOneShowingChild(item.children) && !onlyOneChild.children&&!item.alwaysShow"
+      :to="resolvePath(onlyOneChild.path)"
+    >
+      <el-menu-item
+        :index="resolvePath(onlyOneChild.path)"
+        :class="{'submenu-title-noDropdown':!isNest}"
       >
-        <el-menu-item
-          :index="item.path+'/'+item.children[0].path"
-          :class="{'submenu-title-noDropdown':!isNest}"
-        >
-          <svg-icon
-            v-if="item.children[0].meta&&item.children[0].meta.icon"
-            :icon-class="item.children[0].meta.icon"
-          ></svg-icon>
-          <span
-            v-if="item.children[0].meta&&item.children[0].meta.title"
-            slot="title"
-          >{{item.children[0].meta.title}}</span>
-        </el-menu-item>
-      </router-link>
+        <svg-icon
+          v-if="onlyOneChild.meta&&onlyOneChild.meta.icon"
+          :icon-class="onlyOneChild.meta.icon"
+        ></svg-icon>
+        <span
+          v-if="onlyOneChild.meta&&onlyOneChild.meta.title"
+          slot="title"
+        >{{onlyOneChild.meta.title}}</span>
+      </el-menu-item>
+    </router-link>
 
-      <el-submenu v-else :index="item.name||item.path" :key="item.name">
-        <template slot="title">
-          <svg-icon v-if="item.meta&&item.meta.icon" :icon-class="item.meta.icon"></svg-icon>
-          <span v-if="item.meta&&item.meta.title" slot="title">{{item.meta.title}}</span>
-        </template>
+    <el-submenu v-else :index="item.name||item.path">
+      <template slot="title">
+        <svg-icon v-if="item.meta&&item.meta.icon" :icon-class="item.meta.icon"></svg-icon>
+        <span v-if="item.meta&&item.meta.title" slot="title">{{item.meta.title}}</span>
+      </template>
 
-        <template v-for="child in item.children" v-if="!child.hidden">
-          <sidebar-item
-            :is-nest="true"
-            class="nest-menu"
-            v-if="child.children&&child.children.length>0"
-            :routes="[child]"
-            :key="child.path"
-          ></sidebar-item>
+      <template v-for="child in item.children" v-if="!child.hidden">
+        <sidebar-item
+          :is-nest="true"
+          class="nest-menu"
+          v-if="child.children&&child.children.length>0"
+          :item="child"
+          :key="child.path"
+          :base-path="resolvePath(child.path)"
+        ></sidebar-item>
 
-          <router-link v-else :to="item.path+'/'+child.path" :key="child.name">
-            <el-menu-item :index="item.path+'/'+child.path">
-              <svg-icon v-if="child.meta&&child.meta.icon" :icon-class="child.meta.icon"></svg-icon>
-              <span v-if="child.meta&&child.meta.title" slot="title">{{child.meta.title}}</span>
-            </el-menu-item>
-          </router-link>
-        </template>
-      </el-submenu>
-    </template>
+        <router-link v-else :to="resolvePath(child.path)" :key="child.name">
+          <el-menu-item :index="resolvePath(child.path)">
+            <svg-icon v-if="child.meta&&child.meta.icon" :icon-class="child.meta.icon"></svg-icon>
+            <span v-if="child.meta&&child.meta.title" slot="title">{{child.meta.title}}</span>
+          </el-menu-item>
+        </router-link>
+      </template>
+    </el-submenu>
   </div>
 </template>
 
 <script>
+import path from "path";
+
 export default {
   name: "SidebarItem",
   props: {
-    routes: {
-      type: Array
+    // route配置json
+    item: {
+      type: Object,
+      required: true
     },
     isNest: {
       type: Boolean,
       default: false
+    },
+    basePath: {
+      type: String,
+      default: ""
     }
   },
+  data() {
+    return {
+      onlyOneChild: null
+    };
+  },
   methods: {
-    hasOneShowingChildren(children) {
+    hasOneShowingChild(children) {
       const showingChildren = children.filter(item => {
-        return !item.hidden;
+        if (item.hidden) {
+          return false;
+        } else {
+          this.onlyOneChild = item;
+          return true;
+        }
       });
       if (showingChildren.length === 1) {
         return true;
       }
       return false;
+    },
+    resolvePath(...paths) {
+      return path.resolve(this.basePath, ...paths);
     }
   }
 };
 </script>
 <style lang="scss" scoped>
-@import '@/styles/color.scss';
+@import "@/styles/color.scss";
 .menu-wrapper {
   /deep/ .el-menu-item,
   .el-submenu__title {
     height: 46px;
     line-height: 46px;
   }
-  /deep/ a{
+  /deep/ a {
     background-color: #ffc248;
   }
-  /deep/ .el-menu-item.is-active{
+  /deep/ .el-menu-item.is-active {
     margin-left: 8px;
-    background-color: $Theme-color!important;
+    background-color: $Theme-color !important;
   }
-  /deep/ .el-menu-item{
+  /deep/ .el-menu-item {
     padding: 0 20px 0 12px;
   }
 }

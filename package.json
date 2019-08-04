@@ -58,6 +58,7 @@
     "element-ui": "^2.11.1",
     "js-cookie": "^2.2.0",
     "nedb": "^1.8.0",
+    "nprogress": "^0.2.0",
     "vue": "^2.6.10",
     "vue-electron": "^1.0.6",
     "vue-router": "^3.0.7",

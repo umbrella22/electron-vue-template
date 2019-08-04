@@ -32,7 +32,7 @@ export default {
     classObj() {
       return {
         hideSidebar: !this.sidebar.opened,
-        openSidebar: this.sidebar.opened,
+        openSidebar: this.sidebar.opened
       };
     }
   }

@@ -8,6 +8,7 @@ import db from './api/operationalData'
 // 引用element
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
+import './permission'
 
 import './icons'
 import '@/styles/index.scss'

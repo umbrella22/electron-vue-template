@@ -9,15 +9,8 @@
       :collapse="isCollapse"
       active-text-color="#ffffff"
     >
-      <div class="title" :class="{minititle:isCollapse}">
-        <!-- <svg-icon icon-class="logo" icon-name></svg-icon> -->
-        <el-image>
-          <div slot="error" class="image-slot">
-            这是logo存放位置
-          </div>
-        </el-image>
-      </div>
-      <sidebar-item :routes="routes"></sidebar-item>
+      <Logo :collapse="isCollapse" />
+      <sidebar-item v-for="route in routes" :key="route.name" :item="route" :base-path="route.path"></sidebar-item>
     </el-menu>
   </scroll-bar>
 </template>
@@ -26,9 +19,10 @@
 import { mapGetters } from "vuex";
 import SidebarItem from "./SidebarItem";
 import ScrollBar from "@/components/ScrollBar";
+import Logo from "./logo";
 
 export default {
-  components: { SidebarItem, ScrollBar },
+  components: { SidebarItem, ScrollBar, Logo },
   computed: {
     ...mapGetters(["sidebar"]),
     routes() {

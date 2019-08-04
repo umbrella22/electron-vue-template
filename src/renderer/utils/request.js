@@ -9,6 +9,8 @@ const serves = axios.create({
 
 // 设置请求发送之前的拦截器
 serves.interceptors.request.use(config => {
+  console.log(config)
+  console.log(process.env)
   // 设置发送之前数据需要做什么处理
   return config
 }, err => Promise.reject(err))
