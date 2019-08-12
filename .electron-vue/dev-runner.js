@@ -83,7 +83,7 @@ function startMain() {
     const compiler = webpack(mainConfig)
 
     compiler.hooks.watchRun.tapAsync('watch-run', (compilation, done) => {
-      logStats('Main', chalk.white.bold('compiling...'))
+      logStats('Main', chalk.white.bold('主进程编译中...'))
       hotMiddleware.publish({ action: 'compiling' })
       done()
     })
@@ -171,7 +171,7 @@ function greeting() {
       space: false
     })
   } else console.log(chalk.yellow.bold('\n  electron-vue'))
-  console.log(chalk.blue('  getting ready...') + '\n')
+  console.log(chalk.blue('  已准备好启动资源...') + '\n')
 }
 
 function init() {
