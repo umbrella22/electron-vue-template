@@ -20,10 +20,10 @@
                   <i class="el-icon-picture-outline"></i>
                 </div>
               </el-image>
-              <span class="el-dropdown-link">
+              <div class="el-dropdown-link">
                 这里是用户名
                 <i class="el-icon-arrow-down el-icon--right"></i>
-              </span>
+              </div>
             </div>
             <el-dropdown-menu slot="dropdown">
               <router-link to="/">
@@ -139,6 +139,7 @@ export default {
     .avatar {
       width: 30px;
       height: 30px;
+      margin-right: 10px;
       /deep/ img {
         width: 100%;
         height: 100%;
@@ -159,9 +160,13 @@ export default {
         font-size: 6px;
       }
       .select-right {
-        .el-dropdown-link {
+        /deep/ .el-dropdown-link {
           color: #333333;
           font-weight: 400;
+        }
+        /deep/ .el-dropdown-selfdefine {
+          display: flex;
+          align-items: center;
         }
       }
     }
