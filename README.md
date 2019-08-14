@@ -25,18 +25,11 @@ npm run dev
 # build命令在不同系统环境中，需要的的不一样，需要自己根据自身环境进行配置
 npm run build
 
-# 启动单元测试模块,但是需要注意的是,我没有更新依赖,所以很可能会导致失败
-npm test
-
 
 ```
+
 
 ---
 
 这个项目使用了 [electron-vue](https://github.com/SimulatedGREG/electron-vue)@[8fae476](https://github.com/SimulatedGREG/electron-vue/tree/8fae4763e9d225d3691b627e83b9e09b56f6c935) using [vue-cli](https://github.com/vuejs/vue-cli). 文档你们可以在这里看到: [here](https://simulatedgreg.gitbooks.io/electron-vue/content/index.html).
 这是花裤衩大大原本的[地址](https://github.com/PanJiaChen/electron-vue-admin)
-
-# 更新日志
-- 2019年8月10日更新：添加各个平台的build脚本，当您直接使用build时，则会打包您当前操作系统对应的安装包，mac需要在macos上才能进行打包，而linux打包win的话，需要wine的支持，否则会失败
-- 2019年8月4日更新：修正原webpack配置中没有将config注入的小问题，添加了拦截实例，修改了侧栏，侧栏需要底色的请勿更新，此更新可能会导致侧栏底色无法完全覆盖（待修正），添加axios接口示例，待测。
-- 2019年8月1日更新：将node-sass版本更新至最新版本，尝试修正由于nodejs环境是12版导致失败（注意！此次更新可能会导致32位系统或者nodejs版本低于10的用户安装依赖报错）去除路由表中重复路由，解决控制台无端报错问题。

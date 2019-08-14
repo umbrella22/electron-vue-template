@@ -1,12 +1,8 @@
 'use strict'
 
-import {
-  app,
-  BrowserWindow,
-  Menu
-} from 'electron'
+import { app } from 'electron'
 import '../renderer/store'
-import menuconfig from './menu'
+import loadindWindow from './services/windowManager'
 
 /**
  * Set `__static` path to static files in production
@@ -16,43 +12,13 @@ if (process.env.NODE_ENV !== 'development') {
   global.__static = require('path').join(__dirname, '/static').replace(/\\/g, '\\\\')
 }
 
-let mainWindow
-const winURL = process.env.NODE_ENV === 'development'
-  ? `http://localhost:9080`
-  : `file://${__dirname}/index.html`
+const loadingURL = process.env.NODE_ENV === 'development' ? `http://localhost:9080/static/loader.html` : `file://${__static}/loader.html`
 
-function createWindow () {
-  /**
-   * Initial window options
-   */
-  mainWindow = new BrowserWindow({
-    height: 563,
-    useContentSize: true,
-    width: 1000,
-    show: false,
-    backgroundColor: '#fffff',
-    titleBarStyle: 'hidden',
-    webPreferences: {
-      nodeIntegration: true
-    }
-    // 隐藏边框
-    // frame: false,
-  })
-
-  mainWindow.once('ready-to-show', () => {
-    mainWindow.show()
-  })
-
-  const menu = Menu.buildFromTemplate(menuconfig)
-  Menu.setApplicationMenu(menu)
-  mainWindow.loadURL(winURL)
-
-  mainWindow.on('closed', () => {
-    mainWindow = null
-  })
+function onAppReady () {
+  loadindWindow(loadingURL)
 }
 
-app.on('ready', createWindow)
+app.isReady() ? onAppReady() : app.on('ready', onAppReady)
 
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
@@ -60,11 +26,11 @@ app.on('window-all-closed', () => {
   }
 })
 
-app.on('activate', () => {
-  if (mainWindow === null) {
-    createWindow()
-  }
-})
+// app.on('activate', () => {
+//   if (mainWindow === null) {
+//     createWindow()
+//   }
+// })
 
 /**
  * Auto Updater

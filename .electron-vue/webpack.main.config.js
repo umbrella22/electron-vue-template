@@ -8,6 +8,10 @@ const webpack = require('webpack')
 
 const MinifyPlugin = require("babel-minify-webpack-plugin");
 
+function resolve(dir) {
+  return path.join(__dirname, '..', dir)
+}
+
 let mainConfig = {
   entry: {
     main: path.join(__dirname, '../src/main/index.js')
@@ -52,6 +56,9 @@ let mainConfig = {
     new webpack.NoEmitOnErrorsPlugin()
   ],
   resolve: {
+    alias: {
+      'config': resolve('config'),
+    },
     extensions: ['.js', '.json', '.node']
   },
   target: 'electron-main'
