@@ -15,7 +15,7 @@
         <div class="select-right">
           <el-dropdown trigger="click">
             <div>
-              <el-image src="" class="avatar">
+              <el-image :src="himg" class="avatar">
                 <div slot="error" class="image-slot">
                   <i class="el-icon-picture-outline"></i>
                 </div>
@@ -55,6 +55,7 @@ export default {
   },
   data: () => ({
     time: "",
+    himg:require('@/assets/user.png')
   }),
   mounted() {
     this.set_time();
