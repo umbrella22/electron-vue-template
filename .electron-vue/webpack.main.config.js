@@ -59,7 +59,7 @@ let mainConfig = {
     alias: {
       '@config': resolve('config'),
     },
-    extensions: ['.js', '.json', '.node']
+    extensions: ['.tsx', '.ts', '.js', '.json', '.node']
   },
   target: 'electron-main'
 }

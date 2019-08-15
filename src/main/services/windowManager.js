@@ -13,6 +13,7 @@ function createMainWindow () {
     useContentSize: true,
     width: 1000,
     show: false,
+    // transparent: true,
     titleBarStyle: 'hidden',
     webPreferences: {
       nodeIntegration: true
@@ -37,6 +38,7 @@ function loadindWindow (loadingURL) {
     width: 400,
     height: 600,
     frame: false,
+
     transparent: true,
     webPreferences: { experimentalFeatures: true }
   })
@@ -45,10 +47,10 @@ function loadindWindow (loadingURL) {
 
   loadWindow.show()
 
-  setTimeout(() => {
-    createMainWindow()
-    loadWindow.destroy()
-  }, 2000)
+  // setTimeout(() => {
+  //   createMainWindow()
+  //   loadWindow.destroy()
+  // }, 2000)
 }
 function initWindow (loadingURL) {
   if (require('@config').UseStartupChart) {
