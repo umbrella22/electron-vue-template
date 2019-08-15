@@ -2,20 +2,21 @@
 
 import { app } from 'electron'
 import '../renderer/store'
-import loadindWindow from './services/windowManager'
+import initWindow from './services/windowManager'
+import path from 'path'
 
 /**
  * Set `__static` path to static files in production
  * https://simulatedgreg.gitbooks.io/electron-vue/content/en/using-static-assets.html
  */
 if (process.env.NODE_ENV !== 'development') {
-  global.__static = require('path').join(__dirname, '/static').replace(/\\/g, '\\\\')
+  global.__static = path.join(__dirname, '/static').replace(/\\/g, '\\\\')
 }
 
 const loadingURL = process.env.NODE_ENV === 'development' ? `http://localhost:9080/static/loader.html` : `file://${__static}/loader.html`
 
 function onAppReady () {
-  loadindWindow(loadingURL)
+  initWindow(loadingURL)
 }
 
 app.isReady() ? onAppReady() : app.on('ready', onAppReady)
@@ -25,7 +26,9 @@ app.on('window-all-closed', () => {
     app.quit()
   }
 })
-
+app.on('browser-window-created', () => {
+  console.log(11111)
+})
 // app.on('activate', () => {
 //   if (mainWindow === null) {
 //     createWindow()

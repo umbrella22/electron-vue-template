@@ -57,7 +57,7 @@ let mainConfig = {
   ],
   resolve: {
     alias: {
-      'config': resolve('config'),
+      '@config': resolve('config'),
     },
     extensions: ['.js', '.json', '.node']
   },

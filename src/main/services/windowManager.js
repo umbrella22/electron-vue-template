@@ -13,7 +13,6 @@ function createMainWindow () {
     useContentSize: true,
     width: 1000,
     show: false,
-    backgroundColor: '#fffff',
     titleBarStyle: 'hidden',
     webPreferences: {
       nodeIntegration: true
@@ -32,15 +31,14 @@ function createMainWindow () {
     mainWindow = null
   })
 }
-// if(require('config').UseUseStartupChart){
 
-// }
 function loadindWindow (loadingURL) {
   const loadWindow = new BrowserWindow({
     width: 400,
     height: 600,
     frame: false,
-    backgroundColor: '#222428'
+    transparent: true,
+    webPreferences: { experimentalFeatures: true }
   })
 
   loadWindow.loadURL(loadingURL)
@@ -52,5 +50,11 @@ function loadindWindow (loadingURL) {
     loadWindow.destroy()
   }, 2000)
 }
-
-export default loadindWindow
+function initWindow (loadingURL) {
+  if (require('@config').UseStartupChart) {
+    return loadindWindow(loadingURL)
+  } else {
+    return createMainWindow()
+  }
+}
+export default initWindow
