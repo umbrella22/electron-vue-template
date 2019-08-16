@@ -14,3 +14,4 @@ yarn-error.log*
 *.njsproj
 *.sln
 package-lock.json
+electron-vue-template-ts.7z

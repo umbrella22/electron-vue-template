@@ -27,7 +27,7 @@ app.on('window-all-closed', () => {
   }
 })
 app.on('browser-window-created', () => {
-  console.log(11111)
+  console.log('window-created')
 })
 // app.on('activate', () => {
 //   if (mainWindow === null) {

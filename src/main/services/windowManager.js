@@ -1,5 +1,6 @@
 import { BrowserWindow, Menu } from 'electron'
 import menuconfig from '../config/menu'
+import config from '@config'
 
 const winURL = process.env.NODE_ENV === 'development' ? `http://localhost:9080` : `file://${__dirname}/index.html`
 
@@ -47,13 +48,13 @@ function loadindWindow (loadingURL) {
 
   loadWindow.show()
 
-  // setTimeout(() => {
-  //   createMainWindow()
-  //   loadWindow.destroy()
-  // }, 2000)
+  setTimeout(() => {
+    createMainWindow()
+    loadWindow.destroy()
+  }, 2000)
 }
 function initWindow (loadingURL) {
-  if (require('@config').UseStartupChart) {
+  if (config.UseStartupChart) {
     return loadindWindow(loadingURL)
   } else {
     return createMainWindow()
