@@ -1,7 +1,6 @@
 'use strict'
 
 import { app } from 'electron'
-import '../renderer/store'
 import initWindow from './services/windowManager'
 import path from 'path'
 
