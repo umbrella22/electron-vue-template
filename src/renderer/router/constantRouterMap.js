@@ -18,6 +18,7 @@ const Notfound = () => import('@/views/404')
  * hidden: true                 如果在模板中使用该选项,则不会在侧栏显示该路由(例如：Dashboard),如果是在第一个子路由中使用,侧栏则只显示第一个子路由的名字和图标(例如: Form)
  * alwaysShow: true             如果设置为true它则会始终显示根菜单,无视自路由长度,没有设置的话,就会折叠起来(不清楚为什么没有作用,可能是我写错位置了?)
  * redirect: noredirect         若设置为noredirect则顶部面包屑不能够为其重定向.
+ * onlyShowfirst: false         若该设置为true时，将会无视其有多少个孩子路由，只会显示第一个子路由并将其设置为根菜单
  * name:'router-name'           路由名称,此项为必须填写项
  * meta : {
     title: 'title'               这里的名字决定了面包屑和侧栏的名字
@@ -31,10 +32,11 @@ export default [
     path: '/',
     component: Layout,
     redirect: '/dashboard',
-    name: 'Dashboard',
+    name: '主页',
     hidden: true,
     children: [{
       path: 'dashboard',
+      name: '总览',
       component: () => import('@/components/LandingPage')
     }]
   },
@@ -48,6 +50,18 @@ export default [
         name: 'Form',
         component: () => import('@/views/form/index'),
         meta: { title: '表单', icon: 'form' }
+      }
+    ]
+  },
+  {
+    path: '/table',
+    component: Layout,
+    children: [
+      {
+        path: 'index',
+        name: '表格',
+        component: () => import('@/views/table/index'),
+        meta: { title: '表格', icon: 'table' }
       }
     ]
   }

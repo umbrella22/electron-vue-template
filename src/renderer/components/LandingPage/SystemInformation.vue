@@ -1,29 +1,29 @@
 <template>
   <div>
-    <div class="title">Information</div>
+    <div class="title">关于系统</div>
     <div class="items">
       <div class="item">
-        <div class="name">Path:</div>
+        <div class="name">当前所在页面:</div>
         <div class="value">{{ path }}</div>
       </div>
       <div class="item">
-        <div class="name">Route Name:</div>
+        <div class="name">当前页面名称:</div>
         <div class="value">{{ name }}</div>
       </div>
       <div class="item">
-        <div class="name">Vue.js:</div>
+        <div class="name">Vue.js版本:</div>
         <div class="value">{{ vue }}</div>
       </div>
       <div class="item">
-        <div class="name">Electron:</div>
+        <div class="name">Electron版本:</div>
         <div class="value">{{ electron }}</div>
       </div>
       <div class="item">
-        <div class="name">Node:</div>
+        <div class="name">Node版本:</div>
         <div class="value">{{ node }}</div>
       </div>
       <div class="item">
-        <div class="name">Platform:</div>
+        <div class="name">所运行的系统:</div>
         <div class="value">{{ platform }}</div>
       </div>
     </div>
@@ -41,6 +41,9 @@
         platform: require('os').platform(),
         vue: require('vue/package.json').version
       }
+    },
+    mounted(){
+      console.log(this.$route)
     }
   }
 </script>
@@ -58,7 +61,9 @@
 
   .item {
     display: flex;
+    align-items: center;
     margin-bottom: 6px;
+    line-height: 24px;
   }
 
   .item .name {

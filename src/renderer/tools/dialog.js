@@ -16,7 +16,7 @@ export default {
         message: data.message
       }, index => {
         if (index === 0) {
-          const tempfun = async () => {
+          let tempfun = async () => {
             try {
               resolve(await fun)
             } catch (error) {
