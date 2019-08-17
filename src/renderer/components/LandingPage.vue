@@ -1,9 +1,9 @@
 <template>
   <div id="wrapper">
-    <img id="logo" src="~@/assets/logo.png" alt="electron-vue">
+    <img id="logo" src="~@/assets/logo.png" alt="electron-vue" />
     <main>
       <div class="left-side">
-        <span class="title">Welcome to your new project!</span>
+        <span class="title">欢迎进入本框架</span>
         <system-information></system-information>
         <div v-if="textarray.length === 0">
           <span>{{text}}</span>
@@ -17,7 +17,7 @@
 
       <div class="right-side">
         <div class="doc">
-          <div class="title alt">Other Documentation</div>
+          <div class="title alt">您可以点击的按钮</div>
           <el-button type="primary" round @click="open()">控制台打印</el-button>
           <el-button type="primary" round @click="setdata">写入数据</el-button>
           <el-button type="primary" round @click="getdata">读取数据</el-button>
@@ -30,7 +30,7 @@
 
 <script>
 import SystemInformation from "./LandingPage/SystemInformation";
-import api from '../tools/dialog'
+import api from "../tools/dialog";
 export default {
   name: "landing-page",
   components: { SystemInformation },
@@ -45,7 +45,7 @@ export default {
   methods: {
     // 获取electron方法
     open() {
-      console.log(this.$electron);
+      console.log(this.$store);
     },
     // 设置数据库的数据
     setdata() {
@@ -66,28 +66,28 @@ export default {
         .catch(err => console.log(err));
     },
     // 清空数据库的数据
-    deledata(){
+    deledata() {
       // dialog为electron实例，data则是显示需要的参数，fun是需要执行的函数，此选项不是为必选的
-      const dialog = this.$electron.remote.dialog
-      // const data = {
-      //   title:'清除数据',
-      //   buttons:['OK', 'Cancel'],
-      //   message:'此操作会清空本地数据库中的所有数据，是否继续？'
-      // }
-      // const fun = this.$db.deleall({name:'yyy'})
-      // api.MessageBox(dialog,data,fun).then(res=>{
-      //   this.getdata()
-      //   this.$message({
-      //     showClose: true,
-      //     message: '成功删除'+res+'条',
-      //     type: 'success'
-      //   });
-      // })
+      const dialog = this.$electron.remote.dialog;
       const data = {
-        title:'发生致命错误',
-        message:'?'
-      }
-      api.ErrorMessageBox(dialog,data)
+        title: "清除数据",
+        buttons: ["OK", "Cancel"],
+        message: "此操作会清空本地数据库中的所有数据，是否继续？"
+      };
+      const fun = this.$db.deleall({ name: "yyy" });
+      api.MessageBox(dialog, data, fun).then(res => {
+        this.getdata();
+        this.$message({
+          showClose: true,
+          message: "成功删除" + res + "条",
+          type: "success"
+        });
+      });
+      // const data = {
+      //   title:'发生致命错误',
+      //   message:'?'
+      // }
+      // api.ErrorMessageBox(dialog,data)
     },
   }
 };

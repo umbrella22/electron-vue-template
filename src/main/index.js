@@ -5,7 +5,6 @@ import {
   BrowserWindow,
   Menu
 } from 'electron'
-import '../renderer/store'
 import menuconfig from './menu'
 
 /**

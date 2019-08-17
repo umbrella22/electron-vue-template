@@ -32,10 +32,11 @@ export default [
     path: '/',
     component: Layout,
     redirect: '/dashboard',
-    name: 'Dashboard',
+    name: '主页',
     hidden: true,
     children: [{
       path: 'dashboard',
+      name: '总览',
       component: () => import('@/components/LandingPage')
     }]
   },
@@ -49,6 +50,18 @@ export default [
         name: 'Form',
         component: () => import('@/views/form/index'),
         meta: { title: '表单', icon: 'form' }
+      }
+    ]
+  },
+  {
+    path: '/table',
+    component: Layout,
+    children: [
+      {
+        path: 'index',
+        name: '表格',
+        component: () => import('@/views/table/index'),
+        meta: { title: '表格', icon: 'table' }
       }
     ]
   }

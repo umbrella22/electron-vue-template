@@ -21,7 +21,7 @@
                 </div>
               </el-image>
               <div class="el-dropdown-link">
-                这里是用户名
+               尊敬的： {{name}}
                 <i class="el-icon-arrow-down el-icon--right"></i>
               </div>
             </div>
@@ -29,10 +29,10 @@
               <router-link to="/">
                 <el-dropdown-item>返回首页</el-dropdown-item>
               </router-link>
-              <el-dropdown-item @click.native="change_user">
+              <el-dropdown-item @click.native="logout">
                 <span>切换账号</span>
               </el-dropdown-item>
-              <el-dropdown-item @click.native="LogOut">
+              <el-dropdown-item @click.native="logout">
                 <span>退出登录</span>
               </el-dropdown-item>
             </el-dropdown-menu>
@@ -55,7 +55,7 @@ export default {
   },
   data: () => ({
     time: "",
-    userImage:require('@/assets/user.png')
+    userImage: require("@/assets/user.png")
   }),
   mounted() {
     this.set_time();
@@ -69,25 +69,11 @@ export default {
     },
     logout() {
       this.$store.dispatch("LogOut").then(() => {
+        this.$message({
+          message: "退出成功",
+          type: "success"
+        });
         location.reload(); // 为了重新实例化vue-router对象 避免bug
-      });
-    },
-    change_user() {
-      this.$store.dispatch("LogOut").then(() => {
-        this.$message({
-          message: "退出成功",
-          type: "success"
-        });
-        this.$router.push({ path: "/new/login", query: { to: "server" } });
-      });
-    },
-    LogOut() {
-      this.$store.dispatch("LogOut").then(() => {
-        this.$message({
-          message: "退出成功",
-          type: "success"
-        });
-        this.$router.push("/");
       });
     },
     set_time() {
@@ -95,7 +81,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(["user_data", "sidebar"])
+    ...mapGetters(["name", "role", "sidebar"])
   },
   beforeDestroy() {
     console.log("销毁计时器------------");

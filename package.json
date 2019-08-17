@@ -31,7 +31,8 @@
       "dist/electron/**/*"
     ],
     "dmg": {
-      "contents": [{
+      "contents": [
+        {
           "x": 410,
           "y": 150,
           "type": "link",
@@ -61,6 +62,7 @@
     "js-cookie": "^2.2.0",
     "nedb": "^1.8.0",
     "nprogress": "^0.2.0",
+    "sortablejs": "^1.10.0-rc3",
     "vue": "^2.6.10",
     "vue-electron": "^1.0.6",
     "vue-router": "^3.0.7",

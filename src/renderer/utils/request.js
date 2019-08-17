@@ -1,7 +1,5 @@
 import axios from 'axios'
-import {
-  Message
-} from 'element-ui'
+import { Message } from 'element-ui'
 const serves = axios.create({
   baseURL: process.env.BASE_API,
   timeout: 5000
@@ -9,8 +7,6 @@ const serves = axios.create({
 
 // 设置请求发送之前的拦截器
 serves.interceptors.request.use(config => {
-  console.log(config)
-  console.log(process.env)
   // 设置发送之前数据需要做什么处理
   return config
 }, err => Promise.reject(err))
@@ -18,6 +14,9 @@ serves.interceptors.request.use(config => {
 // 设置请求接受拦截器
 serves.interceptors.response.use(res => {
   // 设置接受数据之后，做什么处理
+  if (res.data.code === 50000) {
+    Message.error(res.data.data)
+  }
   return res
 }, err => {
   // 判断请求异常信息中是否含有超时timeout字符串
