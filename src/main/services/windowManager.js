@@ -47,10 +47,10 @@ function loadindWindow (loadingURL) {
 
   loadWindow.show()
 
-  // setTimeout(() => {
-  //   createMainWindow()
-  //   loadWindow.destroy()
-  // }, 2000)
+  setTimeout(() => {
+    createMainWindow()
+    loadWindow.destroy()
+  }, 2000)
 }
 
 function initWindow (loadingURL) {
