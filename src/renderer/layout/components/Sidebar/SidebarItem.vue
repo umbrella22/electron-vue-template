@@ -1,6 +1,5 @@
 <template>
   <div v-if="!item.hidden&&item.children" class="menu-wrapper">
-    
     <div v-if="item.onlyShowfirst">
       <router-link
         v-if="OneShowingChild(item.children[0]) && !onlyOneChild.children&&!item.alwaysShow"
@@ -111,7 +110,7 @@ export default {
       return false;
     },
     resolvePath(...paths) {
-      return this.basePath + "/" +paths[0]
+      return this.basePath + "/" + paths[0];
     },
     OneShowingChild(children) {
       this.onlyOneChild = children;
@@ -130,6 +129,9 @@ export default {
   }
   /deep/ a {
     background-color: #ffc248;
+  }
+  /deep/ .el-menu-item:hover {
+    color: #ffffff !important;
   }
   /deep/ .el-menu-item.is-active {
     margin-left: 8px;
