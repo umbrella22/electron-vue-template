@@ -1,4 +1,4 @@
-import Layout from '../layout'
+import Layout from '@/layout'
 const Login = () => import('@/views/login')
 const Notfound = () => import('@/views/404')
 /**
@@ -27,7 +27,7 @@ const Notfound = () => import('@/views/404')
  **/
 export default [
   { path: '/login', component: Login, hidden: true },
-  { path: '/404', component: Notfound, hidden: true },
+  { path: '*', component: Notfound, hidden: true },
   {
     path: '/',
     component: Layout,
@@ -44,12 +44,19 @@ export default [
   {
     path: '/form',
     component: Layout,
+    meta: { title: '表单', icon: 'form' },
     children: [
       {
         path: 'index',
         name: 'Form',
         component: () => import('@/views/form/index'),
         meta: { title: '表单', icon: 'form' }
+      },
+      {
+        path: 'index2',
+        name: 'Form2',
+        component: () => import('@/views/form/index'),
+        meta: { title: '表单2', icon: 'form' }
       }
     ]
   },

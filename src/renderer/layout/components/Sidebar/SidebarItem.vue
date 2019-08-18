@@ -71,7 +71,7 @@
 </template>
 
 <script>
-import path from "path";
+// import path from "path";
 
 export default {
   name: "SidebarItem",
@@ -111,7 +111,7 @@ export default {
       return false;
     },
     resolvePath(...paths) {
-      return path.resolve(this.basePath, ...paths);
+      return this.basePath + "/" +paths[0]
     },
     OneShowingChild(children) {
       this.onlyOneChild = children;
