@@ -1,6 +1,7 @@
 import { BrowserWindow, Menu } from 'electron'
 import menuconfig from '../config/menu'
 import config from '@config'
+import electronDevtoolsInstaller, { VUEJS_DEVTOOLS } from 'electron-devtools-installer'
 
 const winURL = process.env.NODE_ENV === 'development' ? `http://localhost:9080` : `file://${__dirname}/index.html`
 
@@ -24,9 +25,18 @@ function createMainWindow () {
   Menu.setApplicationMenu(menu)
   mainWindow.loadURL(winURL)
 
-  mainWindow.once('ready-to-show', () => {
-    mainWindow.show()
-  })
+  if (process.env.NODE_ENV === 'development') {
+    mainWindow.webContents.once('dom-ready', () => {
+      mainWindow.show()
+      electronDevtoolsInstaller(VUEJS_DEVTOOLS)
+        .then((name) => console.log(`installed: ${name}`))
+        .catch(err => console.log('Unable to install `vue-devtools`: \n', err))
+    })
+  } else {
+    mainWindow.webContents.once('dom-ready', () => {
+      mainWindow.show()
+    })
+  }
 
   mainWindow.on('closed', () => {
     mainWindow = null
