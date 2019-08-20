@@ -27,7 +27,7 @@ const Notfound = () => import('@/views/404')
  **/
 export default [
   { path: '/login', component: Login, hidden: true },
-  { path: '/404', component: Notfound, hidden: true },
+  { path: '*', component: Notfound, hidden: true },
   {
     path: '/',
     component: Layout,
