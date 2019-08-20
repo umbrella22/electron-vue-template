@@ -5,6 +5,7 @@ const electron = require('electron')
 const path = require('path')
 const { say } = require('cfonts')
 const { spawn } = require('child_process')
+const config = require('../config')
 const webpack = require('webpack')
 const WebpackDevServer = require('webpack-dev-server')
 const webpackHotMiddleware = require('webpack-hot-middleware')
@@ -35,6 +36,27 @@ function logStats(proc, data) {
 
   log += '\n' + chalk.yellow.bold(`┗ ${new Array(28 + 1).join('-')}`) + '\n'
   console.log(log)
+}
+function removeJunk(chunk) {
+  if (config.dev.removeElectronJunk) {
+    // Example: 2018-08-10 22:48:42.866 Electron[90311:4883863] *** WARNING: Textured window <AtomNSWindow: 0x7fb75f68a770>
+    if (/\d+-\d+-\d+ \d+:\d+:\d+\.\d+ Electron(?: Helper)?\[\d+:\d+] /.test(chunk)) {
+      return false;
+    }
+
+    // Example: [90789:0810/225804.894349:ERROR:CONSOLE(105)] "Uncaught (in promise) Error: Could not instantiate: ProductRegistryImpl.Registry", source: chrome-devtools://devtools/bundled/inspector.js (105)
+    if (/\[\d+:\d+\/|\d+\.\d+:ERROR:CONSOLE\(\d+\)\]/.test(chunk)) {
+      return false;
+    }
+
+    // Example: ALSA lib confmisc.c:767:(parse_card) cannot find card '0'
+    if (/ALSA lib [a-z]+\.c:\d+:\([a-z_]+\)/.test(chunk)) {
+      return false;
+    }
+  }
+
+
+  return chunk;
 }
 
 function startRenderer() {
@@ -126,10 +148,10 @@ function startElectron() {
   electronProcess = spawn(electron, args)
 
   electronProcess.stdout.on('data', data => {
-    electronLog(data, 'blue')
+    electronLog(removeJunk(data), 'blue')
   })
   electronProcess.stderr.on('data', data => {
-    electronLog(data, 'red')
+    electronLog(removeJunk(data), 'red')
   })
 
   electronProcess.on('close', () => {
@@ -138,20 +160,23 @@ function startElectron() {
 }
 
 function electronLog(data, color) {
-  let log = ''
-  data = data.toString().split(/\r?\n/)
-  data.forEach(line => {
-    log += `  ${line}\n`
-  })
-  if (/[0-9A-z]+/.test(log)) {
-    console.log(
-      chalk[color].bold('┏ Electron -------------------') +
-      '\n\n' +
-      log +
-      chalk[color].bold('┗ ----------------------------') +
-      '\n'
-    )
+  if (data) {
+    let log = ''
+    data = data.toString().split(/\r?\n/)
+    data.forEach(line => {
+      log += `  ${line}\n`
+    })
+    if (/[0-9A-z]+/.test(log)) {
+      console.log(
+        chalk[color].bold('┏ Electron -------------------') +
+        '\n\n' +
+        log +
+        chalk[color].bold('┗ ----------------------------') +
+        '\n'
+      )
+    }
   }
+
 }
 
 function greeting() {

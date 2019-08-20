@@ -16,6 +16,7 @@ export default {
         message: data.message
       }, index => {
         if (index === 0) {
+          // eslint-disable-next-line prefer-const
           let tempfun = async () => {
             try {
               resolve(await fun)

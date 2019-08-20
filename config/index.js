@@ -4,7 +4,8 @@ module.exports = {
     DisableF12: true
   },
   dev: {
-    env: require('./dev.env')
+    env: require('./dev.env'),
+    removeElectronJunk: true
   },
   UseStartupChart: true
 }

@@ -3,7 +3,7 @@
 import { app } from 'electron'
 import initWindow from './services/windowManager'
 import path from 'path'
-
+import DisableButton from './config/DisableButton'
 /**
  * Set `__static` path to static files in production
  * https://simulatedgreg.gitbooks.io/electron-vue/content/en/using-static-assets.html
@@ -16,6 +16,7 @@ const loadingURL = process.env.NODE_ENV === 'development' ? `http://localhost:90
 
 function onAppReady () {
   initWindow(loadingURL)
+  DisableButton()
 }
 
 app.isReady() ? onAppReady() : app.on('ready', onAppReady)
