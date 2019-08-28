@@ -13,5 +13,4 @@ yarn-error.log*
 *.ntvs*
 *.njsproj
 *.sln
-package-lock.json
 electron-vue-template-ts.7z

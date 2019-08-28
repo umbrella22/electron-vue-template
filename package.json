@@ -96,16 +96,16 @@
     "babel-eslint": "^9.0.0",
     "babel-loader": "^8.0.6",
     "babel-minify-webpack-plugin": "^0.3.1",
-    "cfonts": "^2.1.2",
+    "cfonts": "^2.4.5",
     "chalk": "^2.4.2",
     "copy-webpack-plugin": "^5.0.4",
     "cross-env": "^5.1.6",
     "css-loader": "^3.1.0",
     "del": "^5.0.0",
-    "electron": "^6.0.2",
+    "electron": "^6.0.5",
     "electron-builder": "^21.2.0",
     "electron-devtools-installer": "^2.2.4",
-    "eslint": "^6.2.0",
+    "eslint": "^6.2.2",
     "eslint-config-standard": "^13.0.1",
     "eslint-friendly-formatter": "^4.0.1",
     "eslint-loader": "^2.2.1",
@@ -130,10 +130,10 @@
     "vue-loader": "^15.7.1",
     "vue-style-loader": "^4.1.2",
     "vue-template-compiler": "^2.6.10",
-    "webpack": "^4.39.2",
+    "webpack": "^4.39.3",
     "webpack-cli": "^3.3.7",
     "webpack-dev-server": "^3.7.2",
     "webpack-hot-middleware": "^2.25.0",
-    "webpack-merge": "^4.2.1"
+    "webpack-merge": "^4.2.2"
   }
 }
