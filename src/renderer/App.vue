@@ -1,15 +1,17 @@
 <template>
   <div id="app">
+    <c-header></c-header>
     <router-view></router-view>
   </div>
 </template>
 
 <script>
-  export default {
-    
-  }
+import CHeader from "./components/title";
+export default {
+  components: { CHeader }
+};
 </script>
 
 <style>
-  /* CSS */
+/* CSS */
 </style>

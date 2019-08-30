@@ -45,7 +45,7 @@ export default {
   methods: {
     // 获取electron方法
     open() {
-      console.log(this.$store);
+      console.log(this.$electron);
     },
     // 设置数据库的数据
     setdata() {
