@@ -46,6 +46,7 @@ export default {
   position: relative;
   height: 100%;
   width: 100%;
+  top: 38px;
   .container-set {
     position: relative;
     padding-top: 62px;

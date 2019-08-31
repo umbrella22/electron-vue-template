@@ -1,6 +1,6 @@
 <!--  -->
 <template>
-  <div class="title">
+  <div class="window-title">
     <!-- 软件logo预留位置 -->
     <div style="-webkit-app-region: drag;" class="logo"></div>
     <!-- 菜单栏位置 -->
@@ -33,18 +33,34 @@ export default {
   mounted() {},
 
   methods: {
-    
+    Mini() {
+      this.$electron.ipcRenderer.send("windows-mini");
+    },
+    MixOrReduction() {
+      this.$electron.ipcRenderer.send("window-max");
+      this.$electron.ipcRenderer.on(
+        "window-confirm",
+        (event, arg) => (this.mix = arg)
+      );
+    },
+    Close() {
+      this.$electron.ipcRenderer.send("window-close");
+    }
   }
 };
 </script>
 <style rel='stylesheet/scss' lang='scss' scoped>
-.title {
+.window-title {
   width: 100%;
   height: 30px;
   line-height: 30px;
   background-color: #ffffff;
   color: rgba(60, 60, 60, 0.6);
   display: flex;
+  -webkit-app-region: drag;
+  position: fixed;
+  top: 0;
+  z-index: 99999;
   .controls-container {
     display: flex;
     flex-grow: 0;

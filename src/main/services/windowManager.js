@@ -1,6 +1,7 @@
-import { BrowserWindow, Menu } from 'electron'
+import { BrowserWindow, Menu, ipcMain } from 'electron'
 import menuconfig from '../config/menu'
 import config from '@config'
+import setIpc from './ipcMain'
 import electronDevtoolsInstaller, { VUEJS_DEVTOOLS } from 'electron-devtools-installer'
 
 const winURL = process.env.NODE_ENV === 'development' ? `http://localhost:9080` : `file://${__dirname}/index.html`
@@ -8,13 +9,14 @@ const winURL = process.env.NODE_ENV === 'development' ? `http://localhost:9080` 
 function createMainWindow () {
   let mainWindow
   /**
-       * Initial window options
-       */
+   * Initial window options
+   */
   mainWindow = new BrowserWindow({
     height: 600,
     useContentSize: true,
     width: 1000,
     show: false,
+    frame: false,
     titleBarStyle: 'hidden',
     webPreferences: {
       nodeIntegration: true
@@ -24,6 +26,8 @@ function createMainWindow () {
   const menu = Menu.buildFromTemplate(menuconfig)
   Menu.setApplicationMenu(menu)
   mainWindow.loadURL(winURL)
+
+  setIpc.Mainfunc(ipcMain, mainWindow)
 
   if (process.env.NODE_ENV === 'development') {
     mainWindow.webContents.once('dom-ready', () => {

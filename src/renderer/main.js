@@ -21,9 +21,11 @@ Vue.prototype.$db = db
 
 Vue.config.productionTip = false
 /* eslint-disable no-new */
-new Vue({
+const vue = new Vue({
   components: { App },
   router,
   store,
   template: '<App/>'
 }).$mount('#app')
+
+export default vue
