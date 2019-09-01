@@ -106,7 +106,6 @@ body {
 
 #wrapper {
   background-color: #d1d1d1ab;
-  height: 93vh;
   padding: 60px 80px;
 }
 
