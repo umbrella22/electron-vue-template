@@ -1,5 +1,9 @@
 export default {
-  Mainfunc (ipc, mainWindow) {
+  Mainfunc (ipc, mainWindow, IsUseSysTitle) {
+    ipc.on('IsUseSysTitle', (event) => {
+      const data = IsUseSysTitle
+      event.reply('CisUseSysTitle', data)
+    })
     ipc.on('windows-mini', () => {
       mainWindow.minimize()
     })

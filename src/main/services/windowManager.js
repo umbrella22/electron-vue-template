@@ -16,7 +16,7 @@ function createMainWindow () {
     useContentSize: true,
     width: 1000,
     show: false,
-    frame: false,
+    frame: config.IsUseSysTitle,
     titleBarStyle: 'hidden',
     webPreferences: {
       nodeIntegration: true
@@ -27,7 +27,7 @@ function createMainWindow () {
   Menu.setApplicationMenu(menu)
   mainWindow.loadURL(winURL)
 
-  setIpc.Mainfunc(ipcMain, mainWindow)
+  setIpc.Mainfunc(ipcMain, mainWindow, config.IsUseSysTitle)
 
   if (process.env.NODE_ENV === 'development') {
     mainWindow.webContents.once('dom-ready', () => {

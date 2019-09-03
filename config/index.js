@@ -7,5 +7,6 @@ module.exports = {
     env: require('./dev.env'),
     removeElectronJunk: true
   },
-  UseStartupChart: true
+  UseStartupChart: true,
+  IsUseSysTitle: true
 }

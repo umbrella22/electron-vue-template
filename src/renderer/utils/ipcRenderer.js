@@ -1,9 +1,10 @@
-import $Vm from '../main'
+import $electron from 'electron'
 
 export default {
-  send (data) {
-    $Vm.$electron.ipcRenderer.send(data, (event, arg) => {
-
-    })
+  send (data, cb) {
+    $electron.ipcRenderer.send(data, (event, arg) => cb(event, arg))
+  },
+  on (data, cb) {
+    $electron.ipcRenderer.on(data, (event, arg) => cb(event, arg))
   }
 }

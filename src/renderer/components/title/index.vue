@@ -1,12 +1,14 @@
 <!--  -->
 <template>
-  <div class="window-title">
+  <div class="window-title" v-if="!IsUseSysTitle">
     <!-- 软件logo预留位置 -->
-    <div style="-webkit-app-region: drag;" class="logo"></div>
+    <div style="-webkit-app-region: drag;" class="logo">
+      <svg-icon icon-class="electron-logo"></svg-icon>
+    </div>
     <!-- 菜单栏位置 -->
     <div></div>
     <!-- 中间标题位置 -->
-    <div style="-webkit-app-region: drag;">标题文字</div>
+    <div style="-webkit-app-region: drag;" class="title">标题文字</div>
     <div class="controls-container">
       <div class="windows-icon-bg" @click="Mini">
         <svg-icon icon-class="mini" class-name="icon-size"></svg-icon>
@@ -23,28 +25,31 @@
 </template>
 
 <script>
+import ipcApi from "@/utils/ipcRenderer";
 export default {
   data: () => ({
-    mix: false
+    mix: false,
+    IsUseSysTitle: false
   }),
 
   components: {},
+  created() {
+    ipcApi.send("IsUseSysTitle");
+    ipcApi.on("CisUseSysTitle", (event, arg) => (this.IsUseSysTitle = arg));
+  },
 
   mounted() {},
 
   methods: {
     Mini() {
-      this.$electron.ipcRenderer.send("windows-mini");
+      ipcApi.send("windows-mini");
     },
     MixOrReduction() {
-      this.$electron.ipcRenderer.send("window-max");
-      this.$electron.ipcRenderer.on(
-        "window-confirm",
-        (event, arg) => (this.mix = arg)
-      );
+      ipcApi.send("window-max");
+      ipcApi.on("window-confirm", (event, arg) => (this.mix = arg));
     },
     Close() {
-      this.$electron.ipcRenderer.send("window-close");
+      ipcApi.send("window-close");
     }
   }
 };
@@ -54,13 +59,15 @@ export default {
   width: 100%;
   height: 30px;
   line-height: 30px;
-  background-color: #ffffff;
-  color: rgba(60, 60, 60, 0.6);
+  background-color: rgba(60, 60, 60, 0.6);
   display: flex;
   -webkit-app-region: drag;
   position: fixed;
   top: 0;
   z-index: 99999;
+  .title {
+    text-align: center;
+  }
   .controls-container {
     display: flex;
     flex-grow: 0;
@@ -77,13 +84,14 @@ export default {
       -webkit-app-region: no-drag;
       height: 100%;
       width: 33.34%;
+      color: rgba(129, 129, 129, 0.6);
       .icon-size {
         width: 12px;
         height: 12px;
       }
     }
     .windows-icon-bg:hover {
-      background-color: rgba(85, 85, 85, 0.2);
+      background-color: rgba(182, 182, 182, 0.2);
       color: #333;
     }
     .close-icon:hover {
