@@ -27,7 +27,11 @@ npm run build
 
 # 启动单元测试模块,但是需要注意的是,我没有更新依赖,所以很可能会导致失败
 npm test
-
+# 如若实在不行无法安装electron依赖，请使用
+npm config edit
+# 该命令会打开npm的配置文件，请在registry=https://registry.npm.taobao.org/这行代码后的下一行添加
+# ELECTRON_MIRROR=http://npm.taobao.org/mirrors/electron/  和  sass_binary_site=https://npm.taobao.org/mirrors/node-sass/
+# 然后关闭该窗口，重启命令行，删除node_modules文件夹，并重新安装依赖即可
 
 ```
 
@@ -37,6 +41,7 @@ npm test
 这是花裤衩大大原本的[地址](https://github.com/PanJiaChen/electron-vue-admin)
 
 # 更新日志
+- 2019年9月16日更新：去除easymock，直接粗暴更改登陆验证，如有需要请自行修改，例行更新新分支依赖，修正当自定义头部和系统头部互换时，布局不会做出相应变化的问题。
 - 2019年9月3日更新：修正了当nodejs >= 12时，出现process未定义的问题，新分支加入自定义头部，现在我们可以做出更cooool~~的效果了。
 - 2019年8月20日更新：添加登录拦击，实现登录功能，在dev中加入关闭ELECTRON无用控制台输出，新分支例行更新依赖，加入生产环境屏蔽f12按键。
 - 2019年8月13日更新：将新分支的所有依赖均更新至最新（但是我觉得，babel似乎有些东西不需要，还是保留着吧，日后测试后移除）依赖更新之后通过打包和dev测试
