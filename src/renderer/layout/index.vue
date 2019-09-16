@@ -1,10 +1,12 @@
 <template>
-  <div class="app-wrapper" :class="classObj">
-    <navbar></navbar>
-    <div class="container-set">
-      <sidebar class="sidebar-container"></sidebar>
-      <div class="main-container">
-        <app-main></app-main>
+  <div class="app-wrapper" :class="IsUseSysTitle?'UseSysTitle':'NoUseSysTitle'">
+    <div :class="classObj">
+      <navbar></navbar>
+      <div class="container-set">
+        <sidebar class="sidebar-container" :class="IsUseSysTitle?'UseSysTitle':'NoUseSysTitle'"></sidebar>
+        <div class="main-container">
+          <app-main></app-main>
+        </div>
       </div>
     </div>
   </div>
@@ -22,6 +24,9 @@ export default {
     Navbar
   },
   mixins: [ResizeMixin],
+  data: () => ({
+    IsUseSysTitle: require("./../../../config").IsUseSysTitle
+  }),
   computed: {
     sidebar() {
       return this.$store.state.app.sidebar;
@@ -46,10 +51,15 @@ export default {
   position: relative;
   height: 100%;
   width: 100%;
-  top: 38px;
   .container-set {
     position: relative;
     padding-top: 62px;
   }
+}
+.UseSysTitle{
+  top:0px;
+}
+.NoUseSysTitle{
+  top:38px
 }
 </style>
