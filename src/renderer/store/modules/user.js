@@ -28,54 +28,54 @@ const user = {
   actions: {
     // 登录
     Login ({ commit }, userInfo) {
-      console.log(userInfo)
-      const username = userInfo.username.trim()
       return new Promise((resolve, reject) => {
-        const data = {
-          username: username,
-          password: userInfo.password
-        }
-        login(data).then(response => {
-          const data = response.data.data
-          setToken(data.token)
-          commit('SET_TOKEN', data.token)
-          resolve()
-        }).catch(error => {
-          reject(error)
-        })
+        // login(data).then(response => {
+        //   const data = response.data
+        //   setToken(data.token)
+        //   commit('SET_TOKEN', data.token)
+        //   resolve()
+        // }).catch(error => {
+        //   reject(error)
+        // })
+        commit('SET_TOKEN', 'admin')
+        resolve()
       })
     },
 
     // 获取用户信息
     GetInfo ({ commit, state }) {
       return new Promise((resolve, reject) => {
-        getInfo(state.token).then(response => {
-          const data = response.data.data
-          if (data.roles && data.roles.length > 0) { // 验证返回的roles是否是一个非空数组
-            commit('SET_ROLES', data.roles)
-          } else {
-            reject('getInfo: roles must be a non-null array !')
-          }
-          commit('SET_NAME', data.name)
-          commit('SET_AVATAR', data.avatar)
-          resolve(response)
-        }).catch(error => {
-          reject(error)
-        })
+        // getInfo(state.token).then(response => {
+        //   const data = response.data
+        //   if (data.roles && data.roles.length > 0) { // 验证返回的roles是否是一个非空数组
+        //     commit('SET_ROLES', data.roles)
+        //   } else {
+        //     reject('getInfo: roles must be a non-null array !')
+        //   }
+        //   commit('SET_NAME', data.name)
+        //   commit('SET_AVATAR', data.avatar)
+        //   resolve(response)
+        // }).catch(error => {
+        //   reject(error)
+        // })
+        commit('SET_ROLES', ['admin'])
+        commit('SET_NAME', 'Super Admin')
+        commit('SET_AVATAR', 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif')
+        resolve()
       })
     },
 
     // 登出
     LogOut ({ commit, state }) {
       return new Promise((resolve, reject) => {
-        logout(state.token).then(() => {
-          commit('SET_TOKEN', '')
-          commit('SET_ROLES', [])
-          removeToken()
-          resolve()
-        }).catch(error => {
-          reject(error)
-        })
+        // logout(state.token).then(() => {
+        commit('SET_TOKEN', '')
+        commit('SET_ROLES', [])
+        removeToken()
+        resolve()
+        // }).catch(error => {
+        //   reject(error)
+        // })
       })
     },
 
