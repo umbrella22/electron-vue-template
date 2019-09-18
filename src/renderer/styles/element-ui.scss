@@ -1,4 +1,5 @@
- //to reset element-ui default css
+@import './color.scss';
+//to reset element-ui default css
 .el-upload {
   input[type="file"] {
     display: none !important;
@@ -24,6 +25,14 @@
     .el-upload-dragger {
       width: 100%;
       height: 200px;
+    }
+  }
+}
+// 设置当选中时，popr的背景色被设置为白色的尴尬场景
+.el-menu--vertical{
+  /deep/.el-menu--popup{
+    /deep/ .el-menu-item.is-active{
+      background-color: $Theme-color !important;
     }
   }
 }
