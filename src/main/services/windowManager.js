@@ -5,21 +5,23 @@ import setIpc from './ipcMain'
 import electronDevtoolsInstaller, { VUEJS_DEVTOOLS } from 'electron-devtools-installer'
 
 const winURL = process.env.NODE_ENV === 'development' ? `http://localhost:9080` : `file://${__dirname}/index.html`
+var loadWindow = null
+var mainWindow = null
 
 function createMainWindow () {
-  let mainWindow
   /**
    * Initial window options
    */
   mainWindow = new BrowserWindow({
-    height: 600,
+    height: 800,
     useContentSize: true,
-    width: 1000,
+    width: 1700,
     show: false,
     frame: config.IsUseSysTitle,
     titleBarStyle: 'hidden',
     webPreferences: {
-      nodeIntegration: true
+      nodeIntegration: true,
+      webSecurity: false
     }
   })
 
@@ -35,10 +37,12 @@ function createMainWindow () {
       electronDevtoolsInstaller(VUEJS_DEVTOOLS)
         .then((name) => console.log(`installed: ${name}`))
         .catch(err => console.log('Unable to install `vue-devtools`: \n', err))
+      loadWindow.destroy()
     })
   } else {
     mainWindow.webContents.once('dom-ready', () => {
       mainWindow.show()
+      loadWindow.destroy()
     })
   }
 
@@ -48,7 +52,7 @@ function createMainWindow () {
 }
 
 function loadindWindow (loadingURL) {
-  const loadWindow = new BrowserWindow({
+  loadWindow = new BrowserWindow({
     width: 400,
     height: 600,
     frame: false,
@@ -63,7 +67,6 @@ function loadindWindow (loadingURL) {
 
   setTimeout(() => {
     createMainWindow()
-    loadWindow.destroy()
   }, 2000)
 }
 

@@ -16,7 +16,7 @@ const loadingURL = process.env.NODE_ENV === 'development' ? `http://localhost:90
 
 function onAppReady () {
   initWindow(loadingURL)
-  DisableButton()
+  DisableButton.Disablef12()
 }
 
 app.isReady() ? onAppReady() : app.on('ready', onAppReady)

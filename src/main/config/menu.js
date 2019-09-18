@@ -22,12 +22,15 @@ const menu = [
       label: '关于',
       role: 'about',
       click: function () {
-        dialog.showMessageBox({
-          title: '关于',
-          type: 'info',
-          message: '存放显示这个的信息是在，src/main/menu.js中，请自行修改'
-        })
+        info()
       }
     }]
   }]
+function info () {
+  dialog.showMessageBox({
+    title: '关于',
+    type: 'info',
+    message: ''
+  })
+}
 export default menu
