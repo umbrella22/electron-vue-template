@@ -24,7 +24,7 @@ else build()
 
 function clean () {
   del.sync(['build/*', '!build/icons', '!build/icons/icon.*'])
-  console.log(`\n${doneLog}\n`)
+  console.log(`\n${doneLog}clear done`)
   process.exit()
 }
 

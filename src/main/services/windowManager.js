@@ -4,7 +4,7 @@ import config from '@config'
 import setIpc from './ipcMain'
 import electronDevtoolsInstaller, { VUEJS_DEVTOOLS } from 'electron-devtools-installer'
 
-const winURL = process.env.NODE_ENV === 'development' ? `http://localhost:9080` : `file://${__dirname}/index.html`
+const winURL = process.env.NODE_ENV === 'development' ? 'http://localhost:9080' : `file://${__dirname}/index.html`
 var loadWindow = null
 var mainWindow = null
 
@@ -16,12 +16,17 @@ function createMainWindow () {
     height: 800,
     useContentSize: true,
     width: 1700,
+    minWidth: 1366,
     show: false,
     frame: config.IsUseSysTitle,
     titleBarStyle: 'hidden',
     webPreferences: {
       nodeIntegration: true,
-      webSecurity: false
+      webSecurity: false,
+      // 如果是开发模式可以使用devTools
+      devTools: process.env.NODE_ENV === 'development',
+      // 在macos中启用橡皮动画
+      scrollBounce: process.platform === 'darwin'
     }
   })
 
