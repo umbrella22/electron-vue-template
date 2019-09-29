@@ -71,7 +71,8 @@ export default {
       const dialog = this.$electron.remote.dialog;
       const data = {
         title: "清除数据",
-        buttons: ["OK", "Cancel"],
+        buttons: ["确定了！", "才不要，我手滑了"],
+        noLink: true,
         message: "此操作会清空本地数据库中的所有数据，是否继续？"
       };
       const fun = this.$db.deleall({ name: "yyy" });

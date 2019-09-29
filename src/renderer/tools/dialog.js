@@ -13,7 +13,8 @@ export default {
         type: 'info',
         title: data.title,
         buttons: data.buttons,
-        message: data.message
+        message: data.message,
+        noLink: data.noLink || false
       }, index => {
         if (index === 0) {
           // eslint-disable-next-line prefer-const

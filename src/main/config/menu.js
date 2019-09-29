@@ -1,5 +1,7 @@
 // 这里是定义菜单的地方，详情请查看 https://electronjs.org/docs/api/menu
 const { dialog } = require('electron')
+const os = require('os')
+const version = require('../../../package.json').version
 const menu = [
   {
     label: '设置',
@@ -30,7 +32,10 @@ function info () {
   dialog.showMessageBox({
     title: '关于',
     type: 'info',
-    message: ''
+    message: 'electron-Vue框架',
+    detail: `版本信息：${version}\n引擎版本：${process.versions.v8}\n当前系统：${os.type()} ${os.arch()} ${os.release()}`,
+    noLink: true,
+    buttons: ['查看github', '确定']
   })
 }
 export default menu
