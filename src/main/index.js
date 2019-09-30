@@ -32,7 +32,9 @@ function createWindow () {
     backgroundColor: '#fffff',
     titleBarStyle: 'hidden',
     webPreferences: {
-      nodeIntegration: true
+      nodeIntegration: true,
+      webSecurity: false,
+      experimentalFeatures: true
     }
     // 隐藏边框
     // frame: false,
