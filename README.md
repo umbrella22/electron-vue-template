@@ -51,3 +51,8 @@ npm config edit
 - 2019年8月10日更新：添加各个平台的build脚本，当您直接使用build时，则会打包您当前操作系统对应的安装包，mac需要在macos上才能进行打包，而linux打包win的话，需要wine的支持，否则会失败
 - 2019年8月4日更新：修正原webpack配置中没有将config注入的小问题，添加了拦截实例，修改了侧栏，侧栏需要底色的请勿更新，此更新可能会导致侧栏底色无法完全覆盖（待修正），添加axios接口示例，待测。
 - 2019年8月1日更新：将node-sass版本更新至最新版本，尝试修正由于nodejs环境是12版导致失败（注意！此次更新可能会导致32位系统或者nodejs版本低于10的用户安装依赖报错）去除路由表中重复路由，解决控制台无端报错问题。
+## License
+
+[MIT](https://github.com/umbrella22/electron-vue-template/master/LICENSE)
+
+Copyright (c) 2019-present umbrella22
