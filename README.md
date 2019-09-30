@@ -53,6 +53,6 @@ npm config edit
 - 2019年8月1日更新：将node-sass版本更新至最新版本，尝试修正由于nodejs环境是12版导致失败（注意！此次更新可能会导致32位系统或者nodejs版本低于10的用户安装依赖报错）去除路由表中重复路由，解决控制台无端报错问题。
 ## License
 
-[MIT](https://github.com/umbrella22/electron-vue-template/master/LICENSE)
+[MIT](https://github.com/umbrella22/electron-vue-template/blob/master/LICENSE)
 
 Copyright (c) 2019-present umbrella22
