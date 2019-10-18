@@ -3,6 +3,7 @@ import menuconfig from '../config/menu'
 import config from '@config'
 import setIpc from './ipcMain'
 import electronDevtoolsInstaller, { VUEJS_DEVTOOLS } from 'electron-devtools-installer'
+import upload from './checkupdate'
 
 const winURL = process.env.NODE_ENV === 'development' ? 'http://localhost:9080' : `file://${__dirname}/index.html`
 var loadWindow = null
@@ -35,6 +36,7 @@ function createMainWindow () {
   mainWindow.loadURL(winURL)
 
   setIpc.Mainfunc(ipcMain, mainWindow, config.IsUseSysTitle)
+  upload.Update(mainWindow)
 
   if (process.env.NODE_ENV === 'development') {
     mainWindow.webContents.once('dom-ready', () => {

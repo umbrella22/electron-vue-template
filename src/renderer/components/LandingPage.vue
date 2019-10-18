@@ -22,15 +22,22 @@
           <el-button type="primary" round @click="setdata">写入数据</el-button>
           <el-button type="primary" round @click="getdata">读取数据</el-button>
           <el-button type="primary" round @click="deledata">清除所有数据</el-button>
+          <el-button type="primary" round @click="CheckUpdate">检查更新</el-button>
         </div>
       </div>
     </main>
+    <el-dialog title="进度" :visible.sync="dialogVisible" :before-close="handleClose" center  width="14%" top="45vh">
+      <div class="conten">
+        <el-progress type="dashboard" :percentage="percentage" :color="colors"></el-progress>
+      </div>
+    </el-dialog>
   </div>
 </template>
 
 <script>
 import SystemInformation from "./LandingPage/SystemInformation";
 import api from "../tools/dialog";
+import ipcApi from "../utils/ipcRenderer";
 export default {
   name: "landing-page",
   components: { SystemInformation },
@@ -40,8 +47,18 @@ export default {
       name: "yyy",
       age: "12"
     },
-    textarray: []
+    textarray: [],
+    percentage:0,
+    colors: [
+      { color: "#f56c6c", percentage: 20 },
+      { color: "#e6a23c", percentage: 40 },
+      { color: "#6f7ad3", percentage: 60 },
+      { color: "#1989fa", percentage: 80 },
+      { color: "#5cb87a", percentage: 100 }
+    ],
+    dialogVisible: true
   }),
+  created() {},
   methods: {
     // 获取electron方法
     open() {
@@ -90,6 +107,54 @@ export default {
       // }
       // api.ErrorMessageBox(dialog,data)
     },
+    CheckUpdate() {
+      const dialog = this.$electron.remote.dialog;
+      ipcApi.send("check-update");
+      console.log("启动检查");
+      ipcApi.on("UpdateMsg", (event, data) => {
+        console.log(data)
+        switch (data.state) {
+          case -1:
+            const msgdata = {
+              title: "警告",
+              message: "更新检查失败！"
+            };
+            api.MessageBox(dialog, msgdata);
+            break;
+          case 0:
+            this.$message("正在检查更新");
+            break;
+          case 1:
+            this.$message({
+              type: "success",
+              message: "已检查到新版本，开始下载"
+            });
+            this.dialogVisible = true
+            break;
+          case 2:
+            this.$message({ type: "success", message: "无新版本" });
+            break;
+          case 3:
+            this.percentage = data.msg.percent.toFixed(1)
+            break;
+          case 4:
+            this.$alert("更新下载完成！", "提示", {
+              confirmButtonText: "确定",
+              callback: action => {
+                ipcApi.send("confirm-update");
+              }
+            });
+            break;
+
+          default:
+            break;
+        }
+      });
+    },
+    handleClose(){
+      this.dialogVisible = false
+    }
+    
   }
 };
 </script>
@@ -151,5 +216,8 @@ main > div {
 .doc p {
   color: black;
   margin-bottom: 10px;
+}
+.conten {
+  text-align: center;
 }
 </style>
