@@ -13,3 +13,4 @@ yarn-error.log*
 *.ntvs*
 *.njsproj
 *.sln
+server/client/electron-vue-admin Setup 0.0.1.exe
