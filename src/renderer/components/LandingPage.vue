@@ -56,7 +56,7 @@ export default {
       { color: "#1989fa", percentage: 80 },
       { color: "#5cb87a", percentage: 100 }
     ],
-    dialogVisible: true
+    dialogVisible: false
   }),
   created() {},
   methods: {
