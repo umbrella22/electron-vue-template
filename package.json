@@ -17,7 +17,7 @@
     "pack": "npm run pack:main && npm run pack:renderer",
     "pack:main": "cross-env NODE_ENV=production webpack --progress --colors --config .electron-vue/webpack.main.config.js",
     "pack:renderer": "cross-env NODE_ENV=production webpack --progress --colors --config .electron-vue/webpack.renderer.config.js",
-    "update:serve":"node server/index.js"
+    "update:serve": "node server/index.js"
   },
   "build": {
     "publish": [
@@ -111,7 +111,7 @@
     "cross-env": "^6.0.3",
     "css-loader": "^3.1.0",
     "del": "^5.0.0",
-    "electron": "^6.0.12",
+    "electron": "^6.1.0",
     "electron-builder": "^21.2.0",
     "electron-devtools-installer": "^2.2.4",
     "eslint": "^6.5.1",
@@ -141,7 +141,7 @@
     "vue-loader": "^15.7.1",
     "vue-style-loader": "^4.1.2",
     "vue-template-compiler": "^2.6.10",
-    "webpack": "^4.41.1",
+    "webpack": "^4.41.2",
     "webpack-cli": "^3.3.9",
     "webpack-dev-server": "^3.8.2",
     "webpack-hot-middleware": "^2.25.0",
