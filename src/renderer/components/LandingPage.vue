@@ -116,8 +116,7 @@ export default {
         switch (data.state) {
           case -1:
             const msgdata = {
-              title: "警告",
-              message: "更新检查失败！"
+              title: data.msg,
             };
             api.MessageBox(dialog, msgdata);
             break;

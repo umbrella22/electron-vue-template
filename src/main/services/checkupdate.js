@@ -19,8 +19,10 @@ export default {
     // 当更新发生错误的时候触发。
     autoUpdater.on('error', (err) => {
       console.log('更新出现错误')
-      console.log(err)
-      Message(mainWindow, -1, err)
+      console.log(err.message)
+      if (err.message.includes('sha512 checksum mismatch')) {
+        Message(mainWindow, -1, 'sha512校验失败')
+      }
     })
 
     // 当开始检查更新的时候触发
@@ -53,7 +55,9 @@ export default {
     })
     // 执行自动更新检查
     ipcMain.on('check-update', () => {
-      autoUpdater.checkForUpdates()
+      autoUpdater.checkForUpdates().catch(err => {
+        console.log('网络连接问题', err)
+      })
     })
     // 渲染进程执行更新操作
     ipcMain.on('confirm-update', () => {
