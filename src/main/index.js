@@ -12,7 +12,7 @@ if (process.env.NODE_ENV !== 'development') {
   global.__static = path.join(__dirname, '/static').replace(/\\/g, '\\\\')
 }
 
-const loadingURL = process.env.NODE_ENV === 'development' ? `http://localhost:9080/static/loader.html` : `file://${__static}/loader.html`
+const loadingURL = process.env.NODE_ENV === 'development' ? 'http://localhost:9080/static/loader.html' : `file://${__static}/loader.html`
 
 function onAppReady () {
   initWindow(loadingURL)

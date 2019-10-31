@@ -41,6 +41,89 @@ npm config edit
 这是花裤衩大大原本的[地址](https://github.com/PanJiaChen/electron-vue-admin)
 
 # 更新日志
+- 2019年10月31日更新：升级electron版本至7，但是需要做一些修改，由于淘宝的问题，导致electron新的下载器出现故障，故我们需要对electron的下载器做一些更改，这非常容易，不用担心
+首先我们在淘宝代理设置下，安装完成依赖，此时是报错的，现在进入项目的node_modules文件夹内找到electron,点击进入，然后修改其中的package.json文件，修改dependencies对象中的依赖为：
+```json
+  "dependencies": {
+    "@types/node": "^12.0.12",
+    "extract-zip": "^1.0.3",
+    "electron-download": "^4.1.0"
+  },
+```
+然后我们需要再修改install.js中的代码（实际就是6中的install代码）
+```js
+#!/usr/bin/env node
+
+var version = require('./package').version
+
+var fs = require('fs')
+var os = require('os')
+var path = require('path')
+var extract = require('extract-zip')
+var download = require('electron-download')
+
+var installedVersion = null
+try {
+  installedVersion = fs.readFileSync(path.join(__dirname, 'dist', 'version'), 'utf-8').replace(/^v/, '')
+} catch (ignored) {
+  // do nothing
+}
+
+if (process.env.ELECTRON_SKIP_BINARY_DOWNLOAD) {
+  process.exit(0)
+}
+
+var platformPath = getPlatformPath()
+
+var electronPath = process.env.ELECTRON_OVERRIDE_DIST_PATH || path.join(__dirname, 'dist', platformPath)
+
+if (installedVersion === version && fs.existsSync(electronPath)) {
+  process.exit(0)
+}
+
+// downloads if not cached
+download({
+  cache: process.env.electron_config_cache,
+  version: version,
+  platform: process.env.npm_config_platform,
+  arch: process.env.npm_config_arch,
+  strictSSL: process.env.npm_config_strict_ssl === 'true',
+  force: process.env.force_no_cache === 'true',
+  quiet: process.env.npm_config_loglevel === 'silent' || process.env.CI
+}, extractFile)
+
+// unzips and makes path.txt point at the correct executable
+function extractFile (err, zipPath) {
+  if (err) return onerror(err)
+  extract(zipPath, { dir: path.join(__dirname, 'dist') }, function (err) {
+    if (err) return onerror(err)
+    fs.writeFile(path.join(__dirname, 'path.txt'), platformPath, function (err) {
+      if (err) return onerror(err)
+    })
+  })
+}
+
+function onerror (err) {
+  throw err
+}
+
+function getPlatformPath () {
+  var platform = process.env.npm_config_platform || os.platform()
+
+  switch (platform) {
+    case 'darwin':
+      return 'Electron.app/Contents/MacOS/Electron'
+    case 'freebsd':
+    case 'linux':
+      return 'electron'
+    case 'win32':
+      return 'electron.exe'
+    default:
+      throw new Error('Electron builds are not available on platform: ' + platform)
+  }
+}
+```
+然后执行npm i 即可完成安装，至于打包的话，您可能需要去淘宝镜像手动下载并且放好位置，才能完成打包操作，不然依旧还是报下载错误的信息。
 - 2019年10月18日更新：不知不觉中倒也过去了一个月，啊哈哈这次更新给大家带来的是updater的示例，这依旧是个实验特性，所以在新分支中才可以使用，使用方式则是，安装依赖，
 运行 `npm run update:serve` 来启动这个node服务器，然后您如果想在dev的时候就看到效果需要先运行build拿到 `latest.yml`文件，然后将其更名为 `dev-app-update.yml` 放入`dist/electron`中，和`main.js`同级，然后你需要关闭或者排除webpack的自动清除插件(我已经屏蔽了，所以无需大家自己动手)，然后点击软件中的检查更新即可，记住当软件正在运行的时候，是无法应用安装的，所以您需要关闭之后方可安装。这并不是一个错误！
 
