@@ -4,8 +4,18 @@ import config from '@config'
 import setIpc from './ipcMain'
 import electronDevtoolsInstaller, { VUEJS_DEVTOOLS } from 'electron-devtools-installer'
 import upload from './checkupdate'
-
+import path from 'path'
+/**
+ * Set `__static` path to static files in production
+ * https://simulatedgreg.gitbooks.io/electron-vue/content/en/using-static-assets.html
+ */
+// 这个瓜皮全局变量只能在单个js中生效，而并不是整个主进程中
+if (process.env.NODE_ENV !== 'development') {
+  global.__static = path.join(__dirname, '/static').replace(/\\/g, '\\\\')
+}
+// 将文件地址挪到这里
 const winURL = process.env.NODE_ENV === 'development' ? 'http://localhost:9080' : `file://${__dirname}/index.html`
+const loadingURL = process.env.NODE_ENV === 'development' ? 'http://localhost:9080/static/loader.html' : `file://${__static}/loader.html`
 var loadWindow = null
 var mainWindow = null
 
@@ -30,7 +40,18 @@ function createMainWindow () {
       scrollBounce: process.platform === 'darwin'
     }
   })
-
+  // 这里设置只有开发环境才注入显示开发者模式
+  if (process.env.NODE_ENV === 'development') {
+    menuconfig.push({
+      label: '开发者设置',
+      submenu: [{
+        label: '切换到开发者模式',
+        accelerator: 'CmdOrCtrl+I',
+        role: 'toggledevtools'
+      }]
+    })
+  }
+  // 载入菜单
   const menu = Menu.buildFromTemplate(menuconfig)
   Menu.setApplicationMenu(menu)
   mainWindow.loadURL(winURL)
@@ -58,7 +79,7 @@ function createMainWindow () {
   })
 }
 
-function loadindWindow (loadingURL) {
+function loadindWindow () {
   loadWindow = new BrowserWindow({
     width: 400,
     height: 600,
@@ -77,9 +98,9 @@ function loadindWindow (loadingURL) {
   }, 2000)
 }
 
-function initWindow (loadingURL) {
+function initWindow () {
   if (config.UseStartupChart) {
-    return loadindWindow(loadingURL)
+    return loadindWindow()
   } else {
     return createMainWindow()
   }

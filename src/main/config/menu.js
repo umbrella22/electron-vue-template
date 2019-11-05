@@ -17,10 +17,6 @@ const menu = [
   }, {
     label: '帮助',
     submenu: [{
-      label: '切换到开发者模式',
-      accelerator: 'CmdOrCtrl+I',
-      role: 'toggledevtools'
-    }, {
       label: '关于',
       role: 'about',
       click: function () {
