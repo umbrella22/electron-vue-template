@@ -22,13 +22,26 @@
           <el-button type="primary" round @click="setdata">写入数据</el-button>
           <el-button type="primary" round @click="getdata">读取数据</el-button>
           <el-button type="primary" round @click="deledata">清除所有数据</el-button>
-          <el-button type="primary" round @click="CheckUpdate">检查更新</el-button>
+          <el-button type="primary" round @click="CheckUpdate('one')">检查更新</el-button>
+          <el-button type="primary" round @click="CheckUpdate('two')">检查更新（第二种方法）</el-button>
         </div>
       </div>
     </main>
-    <el-dialog title="进度" :visible.sync="dialogVisible" :before-close="handleClose" center  width="14%" top="45vh">
+    <el-dialog
+      title="进度"
+      :visible.sync="dialogVisible"
+      :before-close="handleClose"
+      center
+      width="14%"
+      top="45vh"
+    >
       <div class="conten">
-        <el-progress type="dashboard" :percentage="percentage" :color="colors"></el-progress>
+        <el-progress
+          type="dashboard"
+          :percentage="percentage"
+          :color="colors"
+          :status="progressStaus"
+        ></el-progress>
       </div>
     </el-dialog>
   </div>
@@ -48,7 +61,7 @@ export default {
       age: "12"
     },
     textarray: [],
-    percentage:0,
+    percentage: 0,
     colors: [
       { color: "#f56c6c", percentage: 20 },
       { color: "#e6a23c", percentage: 40 },
@@ -56,7 +69,9 @@ export default {
       { color: "#1989fa", percentage: 80 },
       { color: "#5cb87a", percentage: 100 }
     ],
-    dialogVisible: false
+    dialogVisible: false,
+    progressStaus: null,
+    filePath: ""
   }),
   created() {},
   methods: {
@@ -107,53 +122,89 @@ export default {
       // }
       // api.ErrorMessageBox(dialog,data)
     },
-    CheckUpdate() {
-      const dialog = this.$electron.remote.dialog;
-      ipcApi.send("check-update");
-      console.log("启动检查");
-      ipcApi.on("UpdateMsg", (event, data) => {
-        console.log(data)
-        switch (data.state) {
-          case -1:
-            const msgdata = {
-              title: data.msg,
-            };
-            api.MessageBox(dialog, msgdata);
-            break;
-          case 0:
-            this.$message("正在检查更新");
-            break;
-          case 1:
-            this.$message({
-              type: "success",
-              message: "已检查到新版本，开始下载"
-            });
-            this.dialogVisible = true
-            break;
-          case 2:
-            this.$message({ type: "success", message: "无新版本" });
-            break;
-          case 3:
-            this.percentage = data.msg.percent.toFixed(1)
-            break;
-          case 4:
+    CheckUpdate(data) {
+      switch (data) {
+        case "one":
+          const dialog = this.$electron.remote.dialog;
+          ipcApi.send("check-update");
+          console.log("启动检查");
+          ipcApi.on("UpdateMsg", (event, data) => {
+            console.log(data);
+            switch (data.state) {
+              case -1:
+                const msgdata = {
+                  title: data.msg
+                };
+                api.MessageBox(dialog, msgdata);
+                break;
+              case 0:
+                this.$message("正在检查更新");
+                break;
+              case 1:
+                this.$message({
+                  type: "success",
+                  message: "已检查到新版本，开始下载"
+                });
+                this.dialogVisible = true;
+                break;
+              case 2:
+                this.$message({ type: "success", message: "无新版本" });
+                break;
+              case 3:
+                this.percentage = data.msg.percent.toFixed(1);
+                break;
+              case 4:
+                this.progressStaus = "success";
+                this.$alert("更新下载完成！", "提示", {
+                  confirmButtonText: "确定",
+                  callback: action => {
+                    ipcApi.send("confirm-update");
+                  }
+                });
+                break;
+
+              default:
+                break;
+            }
+          });
+          break;
+        case "two":
+          console.log(111);
+          ipcApi.send("satrt-download");
+          ipcApi.on("confirm-download", (event, arg) => {
+            if (arg) {
+              this.dialogVisible = true;
+            }
+          });
+          ipcApi.on("download-progress", (event, arg) => {
+            this.percentage = Number(arg);
+          });
+          ipcApi.on("download-error", (event, arg) => {
+            if (arg) {
+              this.progressStaus = "exception";
+              this.percentage = 40;
+              this.colors = "#d81e06";
+            }
+          });
+          ipcApi.on("download-done", (event, age) => {
+            this.filePath = age.filePath;
+            this.progressStaus = "success";
             this.$alert("更新下载完成！", "提示", {
               confirmButtonText: "确定",
               callback: action => {
-                ipcApi.send("confirm-update");
+                this.$electron.shell.openItem(this.filePath);
               }
             });
-            break;
+          });
+          break;
 
-          default:
-            break;
-        }
-      });
+        default:
+          break;
+      }
     },
-    handleClose(){
-      this.dialogVisible = false
+    handleClose() {
+      this.dialogVisible = false;
     }
-    
   }
 };
 </script>

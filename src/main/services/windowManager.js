@@ -4,7 +4,9 @@ import config from '@config'
 import setIpc from './ipcMain'
 import electronDevtoolsInstaller, { VUEJS_DEVTOOLS } from 'electron-devtools-installer'
 import upload from './checkupdate'
+import DownloadUpdate from './downloadFile'
 import path from 'path'
+
 /**
  * Set `__static` path to static files in production
  * https://simulatedgreg.gitbooks.io/electron-vue/content/en/using-static-assets.html
@@ -58,6 +60,7 @@ function createMainWindow () {
 
   setIpc.Mainfunc(ipcMain, mainWindow, config.IsUseSysTitle)
   upload.Update(mainWindow)
+  DownloadUpdate.download(mainWindow)
 
   if (process.env.NODE_ENV === 'development') {
     mainWindow.webContents.once('dom-ready', () => {
