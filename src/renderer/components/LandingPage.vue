@@ -23,6 +23,8 @@
           <el-button type="primary" round @click="getdata">读取数据</el-button>
           <el-button type="primary" round @click="deledata">清除所有数据</el-button>
           <el-button type="primary" round @click="CheckUpdate('one')">检查更新</el-button>
+        </div>
+        <div class="doc">
           <el-button type="primary" round @click="CheckUpdate('two')">检查更新（第二种方法）</el-button>
         </div>
       </div>
@@ -186,6 +188,17 @@ export default {
               this.colors = "#d81e06";
             }
           });
+          ipcApi.on("download-paused", (event, arg) => {
+            if (arg) {
+              this.progressStaus = "warning";
+              this.$alert("下载由于未知原因被中断！", "提示", {
+              confirmButtonText: "重试",
+              callback: action => {
+                ipcApi.send('download-restart')
+              }
+            });
+            }
+          });
           ipcApi.on("download-done", (event, age) => {
             this.filePath = age.filePath;
             this.progressStaus = "success";
@@ -262,7 +275,9 @@ main > div {
   font-size: 18px;
   margin-bottom: 10px;
 }
-
+.doc{
+  margin-bottom: 20px;
+}
 .doc p {
   color: black;
   margin-bottom: 10px;

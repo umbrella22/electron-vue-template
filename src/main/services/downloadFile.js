@@ -10,8 +10,14 @@ var Sysarch = null
 var downloadUrL = null
 // 识别操作系统位数
 os.arch().includes('64') ? Sysarch = 'win64' : Sysarch = 'win32'
-// 暂时忽略linux版本，因为我。。= =没有linux不过问题不大，很快就会有
-os.platform().includes('win') ? downloadUrL = baseUrl + `electron_${version}_${Sysarch}.exe?${new Date().getTime()}` : downloadUrL = baseUrl + `electron_${version}_mac.dmg?${new Date().getTime()}`
+// 识别操作系统
+if (os.platform().includes('win')) {
+  downloadUrL = baseUrl + `electron_${version}_${Sysarch}.exe?${new Date().getTime()}`
+} else if (os.platform().includes('linux')) {
+  downloadUrL = baseUrl + `electron_${version}_${Sysarch}.exe?${new Date().getTime()}`
+} else {
+  downloadUrL = baseUrl + `electron_${version}_mac.dmg?${new Date().getTime()}`
+}
 export default {
   download (mainWindow) {
     ipcMain.on('satrt-download', (event, msg) => {
@@ -29,9 +35,11 @@ export default {
             case 'progressing':
               mainWindow.webContents.send('download-progress', (item.getReceivedBytes() / item.getTotalBytes() * 100).toFixed(0))
               break
+            case 'interrupted ':
+              mainWindow.webContents.send('download-paused', true)
+              break
             default:
-              mainWindow.webContents.send('download-error', true)
-              dialog.showErrorBox('下载出错', '由于网络或其他未知原因导致客户端下载出错，请前往官网进行重新安装')
+
               break
           }
         })

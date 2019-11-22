@@ -16,6 +16,7 @@ nrm use taobao
 # ELECTRON只要下载了一次您自己没有清除缓存的话，就可以直接使用上次的安装包，这样通过cnpm安装完成之后，一定！要删除一次依赖包！一定哦！
 # 再使用npm安装就会使用缓存了，免去那个魔法的过程～～
 # 或者可以使用更加优秀的yarn。
+# 当然，yarn也需要配置淘宝镜像，需要将配置到系统的环境变量里
 npm install or yarn install
 
 # 启动之后，会在9080端口监听
@@ -41,6 +42,7 @@ npm config edit
 这是花裤衩大大原本的[地址](https://github.com/PanJiaChen/electron-vue-admin)
 
 # 更新日志
+- 2019年11月22日更新：得益于群里老哥的提醒，通过修改系统环境变量得到了通过yarn下载electron失败的问题，具体操作如下：用户环境变量中新增两个个变量，一个是变量名为`ELECTRON_MIRROR`，变量值为`https://npm.taobao.org/mirrors/electron/`，另一个是变量名为`registry`，变量值为`https://registry.npm.taobao.org/`，然后系统变量中同样也加上这两个值，完成之后，删除node_module文件夹。然后执行yarn install，如果还是提示未安装，那就去electron文件夹内执行一次yarn install，就好了。这样的话，不仅仅只是yarn更快了，electron的rebuild也会加速很多。所以推荐使用yarn。
 - 2019年11月19日更新：更新了不使用updater进行全量更新的方法，但是该方法不会校验安装包md5值，也就是说，包如果被拦截了。。可能就会出问题，这一点我正在想办法处理。
 - 2019年10月31日更新：升级electron版本至7，但是需要做一些修改，由于淘宝的问题，导致electron新的下载器出现故障，故我们需要对electron的下载器做一些更改，这非常容易，不用担心
 首先我们在淘宝代理设置下，安装完成依赖，此时是报错的，现在进入项目的node_modules文件夹内找到electron,点击进入，然后修改其中的package.json文件，修改dependencies对象中的依赖为：
