@@ -43,7 +43,7 @@ npm config edit
 
 # 更新日志
 - 2019年11月22日更新：得益于群里老哥的提醒，通过修改系统环境变量得到了通过yarn下载electron失败的问题，具体操作如下：用户环境变量中新增两个个变量，一个是变量名为`ELECTRON_MIRROR`，变量值为`https://npm.taobao.org/mirrors/electron/`，另一个是变量名为`registry`，变量值为`https://registry.npm.taobao.org/`，然后系统变量中同样也加上这两个值，完成之后，删除node_module文件夹。然后执行yarn install，如果还是提示未安装，那就去electron文件夹内执行一次yarn install，就好了。这样的话，不仅仅只是yarn更快了，electron的rebuild也会加速很多。所以推荐使用yarn。
-（优先尝试）使用npm config edit打开npm配置文件，添加上electron_mirror=https://cdn.npm.taobao.org/dist/electron/，然后重启窗口删除node_module文件夹，重新安装依赖即可。
+（优先尝试）使用npm config edit打开npm配置文件，添加上electron_mirror=https://cdn.npm.taobao.org/dist/electron/ ，然后重启窗口删除node_module文件夹，重新安装依赖即可。
 - 2019年11月19日更新：更新了不使用updater进行全量更新的方法，但是该方法不会校验安装包md5值，也就是说，包如果被拦截了。。可能就会出问题，这一点我正在想办法处理。
 - 2019年10月31日更新：升级electron版本至7，但是需要做一些修改，由于淘宝的问题，导致electron新的下载器出现故障，故我们需要对electron的下载器做一些更改，这非常容易，不用担心
 首先我们在淘宝代理设置下，安装完成依赖，此时是报错的，现在进入项目的node_modules文件夹内找到electron,点击进入，然后修改其中的package.json文件，修改dependencies对象中的依赖为：
