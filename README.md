@@ -5,6 +5,7 @@
 **My English level is not very good, resulting in a lot of Chinese comments in the project, I will slowly go into the English document in the following time, please forgive me**
 
 [中文文档地址](https://github.com/umbrella22/electron-vue-template/blob/master/README_CN.md)
+[国内访问地址](https://gitee.com/Zh-Sky/electron-vue-template)
 #### Build Setup
 
 ``` bash
