@@ -1,6 +1,6 @@
 <!--  -->
 <template>
-  <div class="window-title" v-if="!IsUseSysTitle">
+  <div class="window-title" v-if="!IsUseSysTitle&&isMac">
     <!-- 软件logo预留位置 -->
     <div style="-webkit-app-region: drag;" class="logo">
       <svg-icon icon-class="electron-logo"></svg-icon>
@@ -29,7 +29,8 @@ import ipcApi from "@/utils/ipcRenderer";
 export default {
   data: () => ({
     mix: false,
-    IsUseSysTitle: false
+    IsUseSysTitle: false,
+    isMac:process.platform !== 'darwin'
   }),
 
   components: {},
