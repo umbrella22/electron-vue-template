@@ -137,7 +137,7 @@
     "node-sass": "^4.13.0",
     "sass-loader": "^8.0.0",
     "split2": "^3.1.1",
-    "style-loader": "^1.1.1",
+    "style-loader": "^1.1.2",
     "svg-sprite-loader": "^4.1.6",
     "terser-webpack-plugin": "^2.3.1",
     "through2-filter": "^3.0.0",
