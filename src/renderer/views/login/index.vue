@@ -35,17 +35,12 @@
             placeholder="密码"
           ></el-input>
           <span class="show-pwd" @click="showPwd">
-            <svg-icon icon-class="eye" />
+            <svg-icon :icon-class="pwdType ==='password'?'eye':'eye-open'" />
           </span>
         </el-form-item>
-        <el-form-item>
-          <el-button
-            type="primary"
-            style="width:100%;"
-            :loading="loading"
-            @click.native.prevent="handleLogin"
-          >登录</el-button>
-        </el-form-item>
+        <div class="login-btn">
+          <button class="btn" @click="handleLogin">登录</button>
+        </div>
         <div class="tips">
           <span style="margin-right:20px;">用户名: admin</span>
           <span>密码：随便什么都行</span>
@@ -136,7 +131,8 @@ $light_gray: #eee;
   width: 100%;
   top: 0;
   left: 0;
-  background-image: url("https://cn.bing.com/th?id=OHR.ClavijoLandscape_ZH-CN1525245124_1920x1080.jpg&rf=LaDigue_1920x1080.jpg&pid=hp");
+  background-image: url("https://i.loli.net/2019/10/18/buDT4YS6zUMfHst.jpg");
+  background-position: center;
   /deep/ .el-input {
     display: inline-block;
     height: 47px;
@@ -172,6 +168,55 @@ $light_gray: #eee;
       width: 520px;
       padding: 35px 35px 15px 35px;
       margin: 120px auto;
+      align-items: center;
+      color: white;
+      background: rgba(0, 0, 0, 0.8);
+      border-radius: 10px;
+      box-shadow: 0 0.4px 0.6px rgba(0, 0, 0, 0.141),
+        0 1px 1.3px rgba(0, 0, 0, 0.202), 0 1.9px 2.5px rgba(0, 0, 0, 0.25),
+        0 3.4px 4.5px rgba(0, 0, 0, 0.298), 0 6.3px 8.4px rgba(0, 0, 0, 0.359),
+        0 15px 20px rgba(0, 0, 0, 0.5);
+      .login-btn {
+        .btn {
+          position: relative;
+          width: 100%;
+          padding: 6px 0;
+          margin: 10px 0 36px 0;
+          font-size: 1.2em;
+          color: white;
+          background: transparent;
+          border: 2px solid hsla(204, 70%, 53%, 1);
+          outline: none;
+          cursor: pointer;
+          overflow: hidden;
+          transition: 0.5s;
+
+          &::before {
+            position: absolute;
+            content: "";
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+              120deg,
+              transparent,
+              hsla(204, 70%, 53%, 0.5),
+              transparent
+            );
+            transform: translateX(-100%);
+            transition: 0.5s;
+          }
+
+          &:hover {
+            box-shadow: 0 0 20px 10px hsla(204, 70%, 53%, 0.5);
+          }
+
+          &:hover::before {
+            transform: translateX(100%);
+          }
+        }
+      }
     }
     .tips {
       font-size: 14px;
