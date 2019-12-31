@@ -55,13 +55,14 @@ export default {
   },
   data: () => ({
     time: "",
-    userImage: require("@/assets/user.png")
+    userImage: require("@/assets/user.png").default
   }),
   mounted() {
     this.set_time();
     this.timer = setInterval(() => {
       this.set_time();
     }, 60000);
+    console.log(this.userImage)
   },
   methods: {
     toggleSideBar() {
@@ -77,7 +78,7 @@ export default {
       });
     },
     set_time() {
-      this.time = format(new Date(), "YYYY/MM/DD HH:mm");
+      this.time = format(new Date(), "yyyy/MM/dd HH:mm");
     }
   },
   computed: {
