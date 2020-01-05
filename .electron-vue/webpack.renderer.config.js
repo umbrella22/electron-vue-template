@@ -11,6 +11,7 @@ const BabiliWebpackPlugin = require('babili-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const TerserPlugin = require('terser-webpack-plugin');
 const { VueLoaderPlugin } = require('vue-loader')
 
 function resolve(dir) {
@@ -144,11 +145,23 @@ let rendererConfig = {
       minify: {
         collapseWhitespace: true,
         removeAttributeQuotes: true,
-        removeComments: true
+        removeComments: true,
+        minifyJS: true,
+        minifyCSS: true
       },
-      nodeModules: process.env.NODE_ENV !== 'production'
-        ? resolve('node_modules')
-        : false
+      templateParameters(compilation, assets, options) {
+        return {
+          compilation: compilation,
+          webpack: compilation.getStats().toJson(),
+          webpackConfig: compilation.options,
+          htmlWebpackPlugin: {
+            files: assets,
+            options: options
+          },
+          process,
+        };
+      },
+      nodeModules: false
     }),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin()
@@ -201,6 +214,24 @@ if (process.env.NODE_ENV === 'production') {
       minimize: true
     })
   )
+  rendererConfig.optimization = {
+    minimizer: [
+      new TerserPlugin({
+        test: /\.js(\?.*)?$/i,
+        extractComments: false,
+        cache: false,
+        sourceMap: false,
+        terserOptions: {
+          warnings: false,
+          compress: {
+            warnings: false,
+            drop_console: true,
+            drop_debugger: true,
+            pure_funcs: ['console.log']
+          },
+        }
+      })]
+  }
 }
 
 module.exports = rendererConfig

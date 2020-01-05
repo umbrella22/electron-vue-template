@@ -7,6 +7,11 @@ const { dependencies } = require('../package.json')
 const webpack = require('webpack')
 
 const BabiliWebpackPlugin = require('babili-webpack-plugin')
+const { CleanWebpackPlugin } = require('clean-webpack-plugin')
+
+function resolve(dir) {
+  return path.join(__dirname, '..', dir)
+}
 
 let mainConfig = {
   entry: {
@@ -49,7 +54,10 @@ let mainConfig = {
     path: path.join(__dirname, '../dist/electron')
   },
   plugins: [
-    new webpack.NoEmitOnErrorsPlugin()
+    new webpack.NoEmitOnErrorsPlugin(),
+    new CleanWebpackPlugin({
+      cleanOnceBeforeBuildPatterns: resolve('dist/electron')
+    })
   ],
   resolve: {
     
