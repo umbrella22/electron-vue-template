@@ -70,6 +70,7 @@ function createMainWindow () {
         .catch(err => console.log('Unable to install `vue-devtools`: \n', err))
       loadWindow.destroy()
     })
+    mainWindow.webContents.openDevTools(true)
   } else {
     mainWindow.webContents.once('dom-ready', () => {
       mainWindow.show()
@@ -87,7 +88,7 @@ function loadindWindow () {
     width: 400,
     height: 600,
     frame: false,
-    backgroundColor: '#222428',
+    backgroundColor: '#222',
     transparent: true,
     webPreferences: { experimentalFeatures: true }
   })

@@ -91,6 +91,7 @@ export default {
     },
     // 获取数据库的数据
     getdata() {
+      console.log(ne)
       this.$db
         .finddata()
         .then(res => {
