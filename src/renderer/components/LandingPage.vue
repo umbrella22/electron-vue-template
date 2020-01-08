@@ -51,7 +51,6 @@
 
 <script>
 import SystemInformation from "./LandingPage/SystemInformation";
-import api from "../tools/dialog";
 import ipcApi from "../utils/ipcRenderer";
 export default {
   name: "landing-page",
@@ -62,7 +61,7 @@ export default {
       name: "yyy",
       age: "12"
     },
-    logo:require('@/assets/logo.png').default,
+    logo: require("@/assets/logo.png").default,
     textarray: [],
     percentage: 0,
     colors: [
@@ -91,7 +90,6 @@ export default {
     },
     // 获取数据库的数据
     getdata() {
-      console.log(ne)
       this.$db
         .finddata()
         .then(res => {
@@ -104,22 +102,35 @@ export default {
     // 清空数据库的数据
     deledata() {
       // dialog为electron实例，data则是显示需要的参数，fun是需要执行的函数，此选项不是为必选的
-      const dialog = this.$electron.remote.dialog;
       const data = {
         title: "清除数据",
         buttons: ["确定了！", "才不要，我手滑了"],
         noLink: true,
         message: "此操作会清空本地数据库中的所有数据，是否继续？"
       };
-      const fun = this.$db.deleall({ name: "yyy" });
-      api.MessageBox(dialog, data, fun).then(res => {
-        this.getdata();
-        this.$message({
-          showClose: true,
-          message: "成功删除" + res + "条",
-          type: "success"
-        });
+      ipcApi.send("open-messagebox", data);
+      ipcApi.on("confirm-message", (event, arg) => {
+        console.log(arg);
+        if (arg.response === 0) {
+          this.$db.deleall({ name: "yyy" }).then(res => {
+            console.log(res);
+            if (res !== 0) {
+              this.getdata();
+              this.$message({
+                message: "成功删除" + res + "条",
+                type: "success"
+              });
+            } else {
+              let errormsg = {
+                title: "错误",
+                message: "已经没有数据可以被删除！"
+              };
+              ipcApi.send("open-errorbox", errormsg);
+            }
+          });
+        }
       });
+      // api.MessageBox(dialog, data, fun).then(res => {});
       // const data = {
       //   title:'发生致命错误',
       //   message:'?'
@@ -194,11 +205,11 @@ export default {
             if (arg) {
               this.progressStaus = "warning";
               this.$alert("下载由于未知原因被中断！", "提示", {
-              confirmButtonText: "重试",
-              callback: action => {
-                ipcApi.send('download-restart')
-              }
-            });
+                confirmButtonText: "重试",
+                callback: action => {
+                  ipcApi.send("download-restart");
+                }
+              });
             }
           });
           ipcApi.on("download-done", (event, age) => {
@@ -220,6 +231,14 @@ export default {
     handleClose() {
       this.dialogVisible = false;
     }
+  },
+  destroyed() {
+    ipcApi.remove("confirm-message");
+    ipcApi.remove("download-done");
+    ipcApi.remove("download-paused");
+    ipcApi.remove("confirm-download");
+    ipcApi.remove("download-progress");
+    ipcApi.remove("download-error");
   }
 };
 </script>
@@ -277,7 +296,7 @@ main > div {
   font-size: 18px;
   margin-bottom: 10px;
 }
-.doc{
+.doc {
   margin-bottom: 20px;
 }
 .doc p {

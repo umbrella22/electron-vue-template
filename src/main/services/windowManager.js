@@ -1,4 +1,4 @@
-import { BrowserWindow, Menu, ipcMain } from 'electron'
+import { BrowserWindow, Menu } from 'electron'
 import menuconfig from '../config/menu'
 import config from '@config'
 import setIpc from './ipcMain'
@@ -58,7 +58,7 @@ function createMainWindow () {
   Menu.setApplicationMenu(menu)
   mainWindow.loadURL(winURL)
 
-  setIpc.Mainfunc(ipcMain, mainWindow, config.IsUseSysTitle)
+  setIpc.Mainfunc(mainWindow, config.IsUseSysTitle)
   upload.Update(mainWindow)
   DownloadUpdate.download(mainWindow)
 

@@ -1,13 +1,14 @@
+import { ipcMain, dialog } from 'electron'
 export default {
-  Mainfunc (ipc, mainWindow, IsUseSysTitle) {
-    ipc.on('IsUseSysTitle', (event) => {
+  Mainfunc (mainWindow, IsUseSysTitle) {
+    ipcMain.on('IsUseSysTitle', (event) => {
       const data = IsUseSysTitle
       event.reply('CisUseSysTitle', data)
     })
-    ipc.on('windows-mini', () => {
+    ipcMain.on('windows-mini', () => {
       mainWindow.minimize()
     })
-    ipc.on('window-max', (event) => {
+    ipcMain.on('window-max', (event) => {
       if (mainWindow.isMaximized()) {
         event.reply('window-confirm', false)
         mainWindow.restore()
@@ -16,8 +17,25 @@ export default {
         mainWindow.maximize()
       }
     })
-    ipc.on('window-close', () => {
+    ipcMain.on('window-close', () => {
       mainWindow.close()
+    })
+    ipcMain.on('open-messagebox', (event, arg) => {
+      dialog.showMessageBox(mainWindow, {
+        type: arg.type || 'info',
+        title: arg.title || '',
+        buttons: arg.buttons || [],
+        message: arg.message || '',
+        noLink: arg.noLink || true
+      }).then(res => {
+        event.reply('confirm-message', res)
+      })
+    })
+    ipcMain.on('open-errorbox', (event, arg) => {
+      dialog.showErrorBox(
+        arg.title,
+        arg.message
+      )
     })
   }
 }
