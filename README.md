@@ -42,6 +42,7 @@ npm config edit
 这是花裤衩大大原本的[地址](https://github.com/PanJiaChen/electron-vue-admin)
 
 # 更新日志
+- 2020年01月09日更新：例行更新依赖，在dev中加入了端口监听检测，如果9080端口被占用就会自动向后开启一个端口号并使用，同时在config/index.js的dev中加入了端口设置，可以快捷设置端口号而不用去更改webpack的配置了。
 - 2019年12月18日更新：我在build文件夹内添加了windows的打包依赖，在打包爆错的话，可以尝试使用/build/lib内的压缩包，记得看使用说明哦~
 - 2019年11月22日更新：得益于群里老哥的提醒，通过修改系统环境变量得到了通过yarn下载electron失败的问题，具体操作如下：用户环境变量中新增两个个变量，一个是变量名为`ELECTRON_MIRROR`，变量值为`https://npm.taobao.org/mirrors/electron/`，另一个是变量名为`registry`，变量值为`https://registry.npm.taobao.org/`，然后系统变量中同样也加上这两个值，完成之后，删除node_module文件夹。然后执行yarn install，如果还是提示未安装，那就去electron文件夹内执行一次yarn install，就好了。这样的话，不仅仅只是yarn更快了，electron的rebuild也会加速很多。所以推荐使用yarn。
 （优先尝试）使用npm config edit打开npm配置文件，添加上electron_mirror=https://cdn.npm.taobao.org/dist/electron/ ，然后重启窗口删除node_module文件夹，重新安装依赖即可。

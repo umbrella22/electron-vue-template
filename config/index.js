@@ -5,7 +5,8 @@ module.exports = {
   },
   dev: {
     env: require('./dev.env'),
-    removeElectronJunk: true
+    removeElectronJunk: true,
+    port: 9080
   },
   UseStartupChart: true,
   IsUseSysTitle: true

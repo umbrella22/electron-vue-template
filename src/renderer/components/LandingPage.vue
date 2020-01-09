@@ -101,7 +101,7 @@ export default {
     },
     // 清空数据库的数据
     deledata() {
-      // dialog为electron实例，data则是显示需要的参数，fun是需要执行的函数，此选项不是为必选的
+      // data则是显示需要的参数
       const data = {
         title: "清除数据",
         buttons: ["确定了！", "才不要，我手滑了"],
@@ -130,12 +130,6 @@ export default {
           });
         }
       });
-      // api.MessageBox(dialog, data, fun).then(res => {});
-      // const data = {
-      //   title:'发生致命错误',
-      //   message:'?'
-      // }
-      // api.ErrorMessageBox(dialog,data)
     },
     CheckUpdate(data) {
       switch (data) {
@@ -207,7 +201,7 @@ export default {
               this.$alert("下载由于未知原因被中断！", "提示", {
                 confirmButtonText: "重试",
                 callback: action => {
-                  ipcApi.send("download-restart");
+                  ipcApi.send("satrt-download");
                 }
               });
             }

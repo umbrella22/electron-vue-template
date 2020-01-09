@@ -9,6 +9,7 @@ const config = require('../config')
 const webpack = require('webpack')
 const WebpackDevServer = require('webpack-dev-server')
 const webpackHotMiddleware = require('webpack-hot-middleware')
+const Portfinder = require("portfinder")
 
 const mainConfig = require('./webpack.main.config')
 const rendererConfig = require('./webpack.renderer.config')
@@ -60,40 +61,50 @@ function removeJunk(chunk) {
 }
 
 function startRenderer() {
-  return new Promise((resolve) => {
+  return new Promise((resolve, reject) => {
     rendererConfig.mode = 'development'
-    const compiler = webpack(rendererConfig)
-    hotMiddleware = webpackHotMiddleware(compiler, {
-      log: false,
-      heartbeat: 2500
-    })
+    Portfinder.basePort = config.dev.port || 9080
+    Portfinder.getPort((err, port) => {
+      if (err) {
+        reject("PortError:" + err)
+      } else {
+        const compiler = webpack(rendererConfig)
+        hotMiddleware = webpackHotMiddleware(compiler, {
+          log: false,
+          heartbeat: 2500
+        })
 
-    compiler.hooks.compilation.tap('compilation', compilation => {
-      compilation.hooks.htmlWebpackPluginAfterEmit.tapAsync('html-webpack-plugin-after-emit', (data, cb) => {
-        hotMiddleware.publish({ action: 'reload' })
-        cb()
-      })
-    })
-
-    compiler.hooks.done.tap('done', stats => {
-      logStats('Renderer', stats)
-    })
-
-    const server = new WebpackDevServer(
-      compiler,
-      {
-        contentBase: path.join(__dirname, '../'),
-        quiet: true,
-        before(app, ctx) {
-          app.use(hotMiddleware)
-          ctx.middleware.waitUntilValid(() => {
-            resolve()
+        compiler.hooks.compilation.tap('compilation', compilation => {
+          compilation.hooks.htmlWebpackPluginAfterEmit.tapAsync('html-webpack-plugin-after-emit', (data, cb) => {
+            hotMiddleware.publish({ action: 'reload' })
+            cb()
           })
-        }
-      }
-    )
+        })
 
-    server.listen(9080)
+        compiler.hooks.done.tap('done', stats => {
+          logStats('Renderer', stats)
+        })
+
+        const server = new WebpackDevServer(
+          compiler,
+          {
+            contentBase: path.join(__dirname, '../'),
+            quiet: true,
+            before(app, ctx) {
+              app.use(hotMiddleware)
+              ctx.middleware.waitUntilValid(() => {
+                resolve()
+              })
+            }
+          }
+        )
+
+        process.env.PORT = port
+        server.listen(port)
+
+      }
+    })
+
   })
 }
 
@@ -197,16 +208,15 @@ function greeting() {
   console.log(chalk.blue('  getting ready...') + '\n')
 }
 
-function init() {
+async function init() {
   greeting()
-
-  Promise.all([startRenderer(), startMain()])
-    .then(() => {
-      startElectron()
-    })
-    .catch(err => {
-      console.error(err)
-    })
+  try {
+    await startRenderer()
+    await startMain()
+    await startElectron()
+  } catch (error) {
+    console.error(error)
+  }
 }
 
 init()
