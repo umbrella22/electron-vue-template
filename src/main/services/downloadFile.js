@@ -7,23 +7,22 @@ const version = require('../../../package.json').version
 // 您的下载地址
 const baseUrl = 'http://127.0.0.1:25565/'
 var Sysarch = null
-var downloadUrL = null
-// 识别操作系统位数
+var defaultDownloadUrL = null
+// 识别操作系统位数D
 os.arch().includes('64') ? Sysarch = 'win64' : Sysarch = 'win32'
 // 识别操作系统
 // linux自己修改后缀名哦，我没有linux就没有测试了
 if (os.platform().includes('win32')) {
-  downloadUrL = baseUrl + `electron_${version}_${Sysarch}.exe?${new Date().getTime()}`
+  defaultDownloadUrL = baseUrl + `electron_${version}_${Sysarch}.exe?${new Date().getTime()}`
 } else if (os.platform().includes('linux')) {
-  downloadUrL = baseUrl + `electron_${version}_${Sysarch}?${new Date().getTime()}`
+  defaultDownloadUrL = baseUrl + `electron_${version}_${Sysarch}?${new Date().getTime()}`
 } else {
-  downloadUrL = baseUrl + `electron_${version}_mac.dmg?${new Date().getTime()}`
+  defaultDownloadUrL = baseUrl + `electron_${version}_mac.dmg?${new Date().getTime()}`
 }
 export default {
   download (mainWindow) {
     ipcMain.on('satrt-download', (event, msg) => {
-      console.log(1111)
-      mainWindow.webContents.downloadURL(downloadUrL)
+      mainWindow.webContents.downloadURL(msg.downloadUrL || defaultDownloadUrL)
       event.reply('confirm-download', true)
       mainWindow.webContents.session.on('will-download', (event, item, webContents) => {
         //   将文件保存在系统的下载目录
