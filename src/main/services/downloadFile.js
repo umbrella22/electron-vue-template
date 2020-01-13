@@ -21,7 +21,7 @@ if (os.platform().includes('win32')) {
 }
 export default {
   download (mainWindow) {
-    ipcMain.on('satrt-download', (event, msg) => {
+    ipcMain.on('start-download', (event, msg) => {
       mainWindow.webContents.downloadURL(msg.downloadUrL || defaultDownloadUrL)
       event.reply('confirm-download', true)
       mainWindow.webContents.session.on('will-download', (event, item, webContents) => {

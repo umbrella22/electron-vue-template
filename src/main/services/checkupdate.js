@@ -1,8 +1,8 @@
 import { autoUpdater } from 'electron-updater'
 import { ipcMain } from 'electron'
 /**
- * -1 检查更新失败 0 正在检查更新 1 检测到新版本，准备下载 2 未检测到新版本 3 下载中 4 下载暂停 5 下载暂停恢复 6 下载完成 7 下载失败 8 取消下载
- * */
+ * -1 检查更新失败 0 正在检查更新 1 检测到新版本，准备下载 2 未检测到新版本 3 下载中 4 下载完成
+ **/
 function Message (mainWindow, type, data) {
   const senddata = {
     state: type,

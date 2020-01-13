@@ -179,7 +179,7 @@ export default {
           break;
         case "two":
           console.log(111);
-          ipcApi.send("satrt-download");
+          ipcApi.send("start-download");
           ipcApi.on("confirm-download", (event, arg) => {
             if (arg) {
               this.dialogVisible = true;
