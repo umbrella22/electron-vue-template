@@ -55,9 +55,9 @@ let mainConfig = {
   },
   plugins: [
     new webpack.NoEmitOnErrorsPlugin(),
-    // new CleanWebpackPlugin({
-    //   cleanOnceBeforeBuildPatterns: resolve('dist/electron')
-    // })
+    new CleanWebpackPlugin({
+      cleanOnceBeforeBuildPatterns: resolve('dist/electron')
+    })
   ],
   resolve: {
     alias: {
