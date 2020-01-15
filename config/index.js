@@ -6,6 +6,7 @@ module.exports = {
   dev: {
     env: require('./dev.env'),
     removeElectronJunk: true,
+    chineseLog: false,
     port: 9080
   },
   UseStartupChart: true,

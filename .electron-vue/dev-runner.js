@@ -21,7 +21,7 @@ let hotMiddleware
 function logStats(proc, data) {
   let log = ''
 
-  log += chalk.yellow.bold(`┏ ${proc} Process ${new Array((19 - proc.length) + 1).join('-')}`)
+  log += chalk.yellow.bold(`┏ ${proc} ${config.dev.chineseLog ? '编译过程' : 'Process'} ${new Array((19 - proc.length) + 1).join('-')}`)
   log += '\n\n'
 
   if (typeof data === 'object') {
@@ -114,7 +114,7 @@ function startMain() {
     const compiler = webpack(mainConfig)
 
     compiler.hooks.watchRun.tapAsync('watch-run', (compilation, done) => {
-      logStats('Main', chalk.white.bold('compiling...'))
+      logStats(`${config.dev.chineseLog ? '主进程' : 'Main'}`, chalk.white.bold(`${config.dev.chineseLog ? '正在处理资源文件...' : 'compiling...'}`))
       hotMiddleware.publish({ action: 'compiling' })
       done()
     })
@@ -125,7 +125,7 @@ function startMain() {
         return
       }
 
-      logStats('Main', stats)
+      logStats(`${config.dev.chineseLog ? '主进程' : 'Main'}`, stats)
 
       if (electronProcess && electronProcess.kill) {
         manualRestart = true
@@ -179,7 +179,7 @@ function electronLog(data, color) {
     })
     if (/[0-9A-z]+/.test(log)) {
       console.log(
-        chalk[color].bold('┏ Electron -------------------') +
+        chalk[color].bold(`┏ ${config.dev.chineseLog ? '主程序日志' : 'Electron'} -------------------`) +
         '\n\n' +
         log +
         chalk[color].bold('┗ ----------------------------') +
@@ -205,7 +205,7 @@ function greeting() {
       space: false
     })
   } else console.log(chalk.yellow.bold('\n  electron-vue'))
-  console.log(chalk.blue('  getting ready...') + '\n')
+  console.log(chalk.blue(`${config.dev.chineseLog ? '  准备启动...' : '  getting ready...'}`) + '\n')
 }
 
 async function init() {
