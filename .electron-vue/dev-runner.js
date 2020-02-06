@@ -3,8 +3,12 @@
 const chalk = require('chalk')
 const electron = require('electron')
 const path = require('path')
-const { say } = require('cfonts')
-const { spawn } = require('child_process')
+const {
+  say
+} = require('cfonts')
+const {
+  spawn
+} = require('child_process')
 const config = require('../config')
 const webpack = require('webpack')
 const WebpackDevServer = require('webpack-dev-server')
@@ -38,6 +42,7 @@ function logStats(proc, data) {
   log += '\n' + chalk.yellow.bold(`┗ ${new Array(28 + 1).join('-')}`) + '\n'
   console.log(log)
 }
+
 function removeJunk(chunk) {
   if (config.dev.removeElectronJunk) {
     // Example: 2018-08-10 22:48:42.866 Electron[90311:4883863] *** WARNING: Textured window <AtomNSWindow: 0x7fb75f68a770>
@@ -76,7 +81,9 @@ function startRenderer() {
 
         compiler.hooks.compilation.tap('compilation', compilation => {
           compilation.hooks.htmlWebpackPluginAfterEmit.tapAsync('html-webpack-plugin-after-emit', (data, cb) => {
-            hotMiddleware.publish({ action: 'reload' })
+            hotMiddleware.publish({
+              action: 'reload'
+            })
             cb()
           })
         })
@@ -86,8 +93,7 @@ function startRenderer() {
         })
 
         const server = new WebpackDevServer(
-          compiler,
-          {
+          compiler, {
             contentBase: path.join(__dirname, '../'),
             quiet: true,
             before(app, ctx) {
@@ -115,7 +121,9 @@ function startMain() {
 
     compiler.hooks.watchRun.tapAsync('watch-run', (compilation, done) => {
       logStats(`${config.dev.chineseLog ? '主进程' : 'Main'}`, chalk.white.bold(`${config.dev.chineseLog ? '正在处理资源文件...' : 'compiling...'}`))
-      hotMiddleware.publish({ action: 'compiling' })
+      hotMiddleware.publish({
+        action: 'compiling'
+      })
       done()
     })
 
@@ -210,6 +218,7 @@ function greeting() {
 
 async function init() {
   greeting()
+
   try {
     await startRenderer()
     await startMain()
@@ -217,6 +226,7 @@ async function init() {
   } catch (error) {
     console.error(error)
   }
+
 }
 
 init()
