@@ -42,7 +42,7 @@ npm config edit
 这是花裤衩大大原本的[地址](https://github.com/PanJiaChen/electron-vue-admin)
 
 # 更新日志
-- 2020年02月09日：添加[中文在线文档](https://umbrella22.github.io/electron-vue-template-doc/)
+- 2020年02月09日：添加[中文在线文档](https://umbrella22.github.io/electron-vue-template-doc/)，[国内访问地址](https://zh-sky.gitee.io/electron-vue-template-doc/)
 - 剔除win打包依赖，因为太大了，将它放到码云的额外仓库中，[地址](https://gitee.com/Zh-Sky/HardToDownloadLib)
 - 2020年02月06日更新：激进分支更新至8.0.0.
 - 2020年01月09日更新：例行更新依赖，在dev中加入了端口监听检测，如果9080端口被占用就会自动向后开启一个端口号并使用，同时在config/index.js的dev中加入了端口设置，可以快捷设置端口号而不用去更改webpack的配置了。
