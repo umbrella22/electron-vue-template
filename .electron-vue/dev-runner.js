@@ -3,12 +3,8 @@
 const chalk = require('chalk')
 const electron = require('electron')
 const path = require('path')
-const {
-  say
-} = require('cfonts')
-const {
-  spawn
-} = require('child_process')
+const { say } = require('cfonts')
+const { spawn } = require('child_process')
 const config = require('../config')
 const webpack = require('webpack')
 const WebpackDevServer = require('webpack-dev-server')
@@ -94,15 +90,15 @@ function startRenderer() {
 
         const server = new WebpackDevServer(
           compiler, {
-            contentBase: path.join(__dirname, '../'),
-            quiet: true,
-            before(app, ctx) {
-              app.use(hotMiddleware)
-              ctx.middleware.waitUntilValid(() => {
-                resolve()
-              })
-            }
+          contentBase: path.join(__dirname, '../'),
+          quiet: true,
+          before(app, ctx) {
+            app.use(hotMiddleware)
+            ctx.middleware.waitUntilValid(() => {
+              resolve()
+            })
           }
+        }
         )
 
         process.env.PORT = port
