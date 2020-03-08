@@ -26,6 +26,10 @@
         <div class="name">所运行的系统:</div>
         <div class="value">{{ platform }}</div>
       </div>
+      <div class="item">
+        <div class="name">所运行的系统:</div>
+        <div class="value">{{ arch }}位</div>
+      </div>
     </div>
   </div>
 </template>
@@ -39,6 +43,7 @@
         node: process.versions.node,
         path: this.$route.path,
         platform: require('os').platform(),
+        arch:require('os').arch(),
         vue: require('vue/package.json').version
       }
     },

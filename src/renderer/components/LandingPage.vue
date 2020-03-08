@@ -73,9 +73,11 @@ export default {
     ],
     dialogVisible: false,
     progressStaus: null,
-    filePath: ""
+    filePath: "",
   }),
-  created() {},
+  created() {
+    console.log(__lib)
+  },
   methods: {
     // 获取electron方法
     open() {

@@ -20,6 +20,7 @@
     "update:serve": "node server/index.js"
   },
   "build": {
+    "extraFiles": [],
     "publish": [
       {
         "provider": "generic",
@@ -71,9 +72,8 @@
   "dependencies": {
     "axios": "^0.19.2",
     "date-fns": "^2.10.0",
-    "electron-updater": "^4.2.2",
+    "electron-updater": "^4.2.4",
     "element-ui": "^2.13.0",
-    "ffi-napi": "^2.4.6",
     "fs-extra": "^8.1.0",
     "js-cookie": "^2.2.1",
     "nedb": "^1.8.0",
@@ -85,7 +85,7 @@
     "vuex-electron": "^1.0.3"
   },
   "devDependencies": {
-    "@babel/core": "^7.8.6",
+    "@babel/core": "^7.8.7",
     "@babel/plugin-proposal-class-properties": "^7.8.3",
     "@babel/plugin-proposal-decorators": "^7.8.3",
     "@babel/plugin-proposal-do-expressions": "^7.8.3",
@@ -103,10 +103,10 @@
     "@babel/plugin-syntax-dynamic-import": "^7.8.3",
     "@babel/plugin-syntax-import-meta": "^7.8.3",
     "@babel/plugin-transform-runtime": "^7.8.3",
-    "@babel/polyfill": "^7.8.3",
-    "@babel/preset-env": "^7.8.6",
+    "@babel/polyfill": "^7.8.7",
+    "@babel/preset-env": "^7.8.7",
     "@babel/register": "^7.8.6",
-    "@babel/runtime": "^7.8.4",
+    "@babel/runtime": "^7.8.7",
     "ajv": "^6.12.0",
     "babel-eslint": "^9.0.0",
     "babel-loader": "^8.0.6",
@@ -115,10 +115,10 @@
     "chalk": "^3.0.0",
     "clean-webpack-plugin": "^3.0.0",
     "copy-webpack-plugin": "^5.1.1",
-    "cross-env": "^7.0.1",
+    "cross-env": "^7.0.2",
     "css-loader": "^3.4.2",
     "del": "^5.1.0",
-    "electron": "^8.0.3",
+    "electron": "^8.1.0",
     "electron-builder": "^22.3.6",
     "electron-devtools-installer": "^2.2.4",
     "eslint": "^6.8.0",
@@ -132,6 +132,8 @@
     "eslint-plugin-standard": "^4.0.0",
     "express": "^4.17.1",
     "file-loader": "^5.1.0",
+    "happypack": "^5.0.1",
+    "hard-source-webpack-plugin": "^0.13.1",
     "html-webpack-plugin": "^3.2.0",
     "mini-css-extract-plugin": "0.9.0",
     "multispinner": "^0.2.1",

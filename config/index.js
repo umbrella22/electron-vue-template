@@ -10,5 +10,6 @@ module.exports = {
     port: 9080
   },
   UseStartupChart: true,
-  IsUseSysTitle: true
+  IsUseSysTitle: true,
+  DllFolder: ''
 }
