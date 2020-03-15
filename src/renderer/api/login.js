@@ -22,3 +22,10 @@ export function logout () {
     method: 'post'
   })
 }
+
+export function message () {
+  return request({
+    url: '/message',
+    method: 'get'
+  })
+}

@@ -1,4 +1,5 @@
 import { ipcMain, dialog } from 'electron'
+import Server from '../server/index'
 export default {
   Mainfunc (mainWindow, IsUseSysTitle) {
     ipcMain.on('IsUseSysTitle', (event) => {
@@ -36,6 +37,16 @@ export default {
         arg.title,
         arg.message
       )
+    })
+    ipcMain.on('statr-server', (event, arg) => {
+      Server.StatrServer().then(res => {
+        event.reply('confirm-start', res)
+      }).catch(err => {
+        dialog.showErrorBox(
+          '错误',
+          err
+        )
+      })
     })
   }
 }

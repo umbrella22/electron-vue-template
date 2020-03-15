@@ -26,6 +26,8 @@
         </div>
         <div class="doc">
           <el-button type="primary" round @click="CheckUpdate('two')">检查更新（第二种方法）</el-button>
+          <el-button type="primary" round @click="StartServer">启动内置服务端</el-button>
+          <el-button type="primary" round @click="getMessage">查看消息</el-button>
         </div>
       </div>
     </main>
@@ -52,6 +54,7 @@
 <script>
 import SystemInformation from "./LandingPage/SystemInformation";
 import ipcApi from "../utils/ipcRenderer";
+import { message } from "@/api/login";
 export default {
   name: "landing-page",
   components: { SystemInformation },
@@ -73,12 +76,29 @@ export default {
     ],
     dialogVisible: false,
     progressStaus: null,
-    filePath: "",
+    filePath: ""
   }),
   created() {
-    console.log(__lib)
+    console.log(__lib);
   },
   methods: {
+    getMessage() {
+      message().then(res => {
+        this.$alert(res.data, "提示", {
+          confirmButtonText: "确定"
+        });
+      });
+    },
+    StartServer() {
+      ipcApi.send("statr-server");
+      ipcApi.on("confirm-start", (event, arg) => {
+        console.log(arg);
+        this.$message({
+          type: "success",
+          message: arg
+        });
+      });
+    },
     // 获取electron方法
     open() {
       console.log(this.$electron);

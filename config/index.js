@@ -11,5 +11,6 @@ module.exports = {
   },
   UseStartupChart: true,
   IsUseSysTitle: true,
-  DllFolder: ''
+  DllFolder: '',
+  BuiltInServerPort: 25565
 }
