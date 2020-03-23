@@ -55,7 +55,7 @@ export default {
   },
   data: () => ({
     time: "",
-    userImage: require("@/assets/user.png").default
+    userImage: require("@/assets/user.png")
   }),
   mounted() {
     this.set_time();

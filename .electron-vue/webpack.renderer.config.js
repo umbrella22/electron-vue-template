@@ -108,6 +108,7 @@ let rendererConfig = {
         use: {
           loader: 'url-loader',
           query: {
+            esModule: false,
             limit: 10000,
             name: 'imgs/[name]--[folder].[ext]'
           }
@@ -117,6 +118,7 @@ let rendererConfig = {
         test: /\.(mp4|webm|ogg|mp3|wav|flac|aac)(\?.*)?$/,
         loader: 'url-loader',
         options: {
+          esModule: false,
           limit: 10000,
           name: 'media/[name]--[folder].[ext]'
         }
@@ -126,6 +128,7 @@ let rendererConfig = {
         use: {
           loader: 'url-loader',
           query: {
+            esModule: false,
             limit: 10000,
             name: 'fonts/[name]--[folder].[ext]'
           }

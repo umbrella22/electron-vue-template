@@ -64,7 +64,7 @@ export default {
       name: "yyy",
       age: "12"
     },
-    logo: require("@/assets/logo.png").default,
+    logo: require("@/assets/logo.png"),
     textarray: [],
     percentage: 0,
     colors: [
