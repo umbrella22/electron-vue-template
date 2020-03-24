@@ -7,7 +7,6 @@ const path = require('path')
 const { dependencies } = require('../package.json')
 const webpack = require('webpack')
 const MinifyPlugin = require("babel-minify-webpack-plugin");
-const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const HappyPack = require('happypack')
 const HappyThreadPool = HappyPack.ThreadPool({ size: os.cpus().length })
 
@@ -57,9 +56,6 @@ let mainConfig = {
   },
   plugins: [
     new webpack.NoEmitOnErrorsPlugin(),
-    new CleanWebpackPlugin({
-      cleanOnceBeforeBuildPatterns: resolve('dist/electron')
-    }),
     new HappyPack({
       id: "MainHappyBabel",
       loaders: [{
