@@ -41,6 +41,7 @@ export default {
 }
 
 .sidebar-logo-container {
+  box-shadow: 2px 0 6px rgba(0,21,41,.15);
   position: relative;
   width: 100%;
   height: 61px;
@@ -75,6 +76,7 @@ export default {
 .collapse {
   .sidebar-logo {
     margin-right: 0px !important;
+    margin-left: 0px !important;
   }
 }
 </style>

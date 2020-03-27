@@ -271,7 +271,6 @@ body {
 }
 
 #wrapper {
-  background-color: #d1d1d1ab;
   padding: 60px 80px;
 }
 
