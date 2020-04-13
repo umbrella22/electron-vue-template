@@ -1,0 +1,8 @@
+version: 6.1.1
+files:
+  - url: electron-vue-admin Setup 0.0.1.exe
+    sha512: 6higqp9mFJANIRdE59Cyl/3CgaWuHZU92EaRUfwTjXPi9b/OH/ndiLNhK8AgWB9JIz57xBwnmgXl+eT0xAjUGw==
+    size: 46775259
+path: electron-vue-admin Setup 0.0.1.exe
+sha512: 6higqp9mFJANIRdE59Cyl/3CgaWuHZU92EaRUfwTjXPi9b/OH/ndiLNhK8AgWB9JIz57xBwnmgXl+eT0xAjUGw==
+releaseDate: '2019-10-18T05:21:25.707Z'
