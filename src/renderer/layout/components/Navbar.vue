@@ -62,6 +62,7 @@ export default {
     this.timer = setInterval(() => {
       this.set_time();
     }, 60000);
+    console.log(this.userImage)
   },
   methods: {
     toggleSideBar() {
@@ -73,11 +74,11 @@ export default {
           message: "退出成功",
           type: "success"
         });
-        location.reload(); // 为了重新实例化vue-router对象 避免bug
+        this.$router.push('/login')
       });
     },
     set_time() {
-      this.time = format(new Date(), "YYYY/MM/DD HH:mm");
+      this.time = format(new Date(), "yyyy/MM/dd HH:mm");
     }
   },
   computed: {

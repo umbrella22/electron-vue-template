@@ -1,6 +1,9 @@
 <template>
-  <div v-if="!item.hidden&&item.children" class="menu-wrapper">
-    
+  <div
+    v-if="!item.hidden&&item.children"
+    class="menu-wrapper"
+    :class="collapse?``:`active-menu-wrapper`"
+  >
     <div v-if="item.onlyShowfirst">
       <router-link
         v-if="OneShowingChild(item.children[0]) && !onlyOneChild.children&&!item.alwaysShow"
@@ -88,6 +91,10 @@ export default {
     basePath: {
       type: String,
       default: ""
+    },
+    collapse: {
+      type: Boolean,
+      required: true
     }
   },
   data() {
@@ -111,8 +118,7 @@ export default {
       return false;
     },
     resolvePath(...paths) {
-      return this.basePath + "/" +paths[0]
-      // return path.resolve(this.basePath, ...paths);
+      return this.basePath + "/" + paths[0];
     },
     OneShowingChild(children) {
       this.onlyOneChild = children;
@@ -122,19 +128,11 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-@import "@/styles/color.scss";
 .menu-wrapper {
   /deep/ .el-menu-item,
   .el-submenu__title {
     height: 46px;
     line-height: 46px;
-  }
-  /deep/ a {
-    background-color: #ffc248;
-  }
-  /deep/ .el-menu-item.is-active {
-    margin-left: 8px;
-    background-color: $Theme-color !important;
   }
   /deep/ .el-menu-item {
     padding: 0 20px 0 12px;

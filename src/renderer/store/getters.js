@@ -1,3 +1,6 @@
+/**
+ * 在这里则是state.文件名.状态名
+ */
 const getters = {
   sidebar: state => state.app.sidebar,
   device: state => state.app.device,

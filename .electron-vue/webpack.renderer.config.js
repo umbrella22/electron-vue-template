@@ -2,17 +2,21 @@
 
 process.env.BABEL_ENV = 'renderer'
 
+const os = require('os')
 const path = require('path')
 const { dependencies } = require('../package.json')
 const webpack = require('webpack')
 const config = require('../config')
 
-const BabiliWebpackPlugin = require('babili-webpack-plugin')
+const MinifyPlugin = require("babel-minify-webpack-plugin");
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const TerserPlugin = require('terser-webpack-plugin');
+const HardSourceWebpackPlugin = require('hard-source-webpack-plugin');
 const { VueLoaderPlugin } = require('vue-loader')
+const HappyPack = require('happypack')
+const HappyThreadPool = HappyPack.ThreadPool({ size: os.cpus().length })
 
 function resolve(dir) {
   return path.join(__dirname, '..', dir)
@@ -24,7 +28,7 @@ function resolve(dir) {
  * that provide pure *.vue files that need compiling
  * https://simulatedgreg.gitbooks.io/electron-vue/content/en/webpack-configurations.html#white-listing-externals
  */
-let whiteListedModules = ['vue', 'element-ui']
+let whiteListedModules = ['vue', "element-ui"]
 
 let rendererConfig = {
   devtool: '#cheap-module-eval-source-map',
@@ -69,7 +73,7 @@ let rendererConfig = {
       },
       {
         test: /\.js$/,
-        use: 'babel-loader',
+        use: 'happypack/loader?id=HappyRendererBabel',
         exclude: /node_modules/
       },
       {
@@ -104,8 +108,8 @@ let rendererConfig = {
         use: {
           loader: 'url-loader',
           query: {
-            limit: 10000,
             esModule: false,
+            limit: 10000,
             name: 'imgs/[name]--[folder].[ext]'
           }
         },
@@ -114,8 +118,8 @@ let rendererConfig = {
         test: /\.(mp4|webm|ogg|mp3|wav|flac|aac)(\?.*)?$/,
         loader: 'url-loader',
         options: {
-          limit: 10000,
           esModule: false,
+          limit: 10000,
           name: 'media/[name]--[folder].[ext]'
         }
       },
@@ -124,8 +128,8 @@ let rendererConfig = {
         use: {
           loader: 'url-loader',
           query: {
-            limit: 10000,
             esModule: false,
+            limit: 10000,
             name: 'fonts/[name]--[folder].[ext]'
           }
         }
@@ -167,7 +171,18 @@ let rendererConfig = {
       nodeModules: false
     }),
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoEmitOnErrorsPlugin()
+    new webpack.NoEmitOnErrorsPlugin(),
+    new HardSourceWebpackPlugin(),
+    new HappyPack({
+      id: 'HappyRendererBabel',
+      loaders: [{
+        loader: 'babel-loader',
+        options: {
+          cacheDirectory: true
+        }
+      }],
+      threadPool: HappyThreadPool
+    }),
   ],
   output: {
     filename: '[name].js',
@@ -190,7 +205,8 @@ let rendererConfig = {
 if (process.env.NODE_ENV !== 'production') {
   rendererConfig.plugins.push(
     new webpack.DefinePlugin({
-      '__static': `"${path.join(__dirname, '../static').replace(/\\/g, '\\\\')}"`
+      '__static': `"${path.join(__dirname, '../static').replace(/\\/g, '\\\\')}"`,
+      '__lib': `"${path.join(__dirname, `../${config.DllFolder}`).replace(/\\/g, '\\\\')}"`
     })
   )
 }
@@ -202,7 +218,7 @@ if (process.env.NODE_ENV === 'production') {
   rendererConfig.devtool = ''
 
   rendererConfig.plugins.push(
-    new BabiliWebpackPlugin(),
+    new MinifyPlugin(),
     new CopyWebpackPlugin([
       {
         from: path.join(__dirname, '../static'),

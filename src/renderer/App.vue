@@ -1,15 +1,19 @@
 <template>
   <div id="app">
-    <router-view></router-view>
+    <c-header></c-header>
+    <transition name="fade" mode="out-in">
+      <router-view></router-view>
+    </transition>
   </div>
 </template>
 
 <script>
-  export default {
-    
-  }
+import CHeader from "./components/title";
+export default {
+  components: { CHeader }
+};
 </script>
 
 <style>
-  /* CSS */
+/* CSS */
 </style>

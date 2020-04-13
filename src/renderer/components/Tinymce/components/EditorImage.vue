@@ -15,10 +15,10 @@
         :show-file-list="true"
         :on-remove="handleRemove"
         :on-success="handleSuccess"
-        :before-upload="beforeUpload"
+        :on-error="handleError"
         :data="picPostData"
         class="editor-slide-upload"
-        action="https://up-z2.qiniup.com/"
+        action="https://jsonplaceholder.typicode.com/post/"
         list-type="picture-card"
         :limit="5"
       >
@@ -31,8 +31,7 @@
 </template>
 
 <script>
-// import { getToken } from 'api/qiniu'
-import { checkPic } from "@util/picUtil.js";
+
 
 export default {
   name: "EditorSlideUpload",
@@ -93,42 +92,8 @@ export default {
         }
       }
     },
-    beforeUpload(file) {
-      const _self = this;
-      const _URL = window.URL || window.webkitURL;
-      const fileName = file.uid;
-      this.listObj[fileName] = {};
-      return new Promise((resolve, reject) => {
-        let Sync = async () => {
-          try {
-            let picKey = await checkPic(file, this.fileList.length, 1);
-            if (picKey) {
-              let token = await this.getRequest(
-                "/qiniu/serveGetQiniuUpToken?key=" + picKey
-              );
-              console.log("picKey---", picKey, token);
-              this.picPostData = token;
-              const img = new Image();
-              img.src = _URL.createObjectURL(file);
-              img.onload = function() {
-                _self.listObj[fileName] = {
-                  hasSuccess: false,
-                  uid: file.uid,
-                  width: this.width,
-                  height: this.height
-                };
-              };
-              resolve(true);
-            } else {
-              reject(false);
-              this.listObj = {};
-            }
-          } catch (error) {
-            reject(false);
-          }
-        };
-        Sync();
-      });
+    handleError(err){
+      this.alert(err)
     }
   }
 };

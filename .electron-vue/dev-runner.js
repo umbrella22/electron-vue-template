@@ -9,6 +9,7 @@ const config = require('../config')
 const webpack = require('webpack')
 const WebpackDevServer = require('webpack-dev-server')
 const webpackHotMiddleware = require('webpack-hot-middleware')
+const Portfinder = require("portfinder")
 
 const mainConfig = require('./webpack.main.config')
 const rendererConfig = require('./webpack.renderer.config')
@@ -20,7 +21,7 @@ let hotMiddleware
 function logStats(proc, data) {
   let log = ''
 
-  log += chalk.yellow.bold(`┏ ${proc} Process ${new Array((19 - proc.length) + 1).join('-')}`)
+  log += chalk.yellow.bold(`┏ ${proc} ${config.dev.chineseLog ? '编译过程' : 'Process'} ${new Array((19 - proc.length) + 1).join('-')}`)
   log += '\n\n'
 
   if (typeof data === 'object') {
@@ -61,53 +62,64 @@ function removeJunk(chunk) {
 }
 
 function startRenderer() {
-  return new Promise((resolve) => {
-    rendererConfig.entry.renderer = [path.join(__dirname, 'dev-client')].concat(rendererConfig.entry.renderer)
+  return new Promise((resolve, reject) => {
     rendererConfig.mode = 'development'
-    const compiler = webpack(rendererConfig)
-    hotMiddleware = webpackHotMiddleware(compiler, {
-      log: false,
-      heartbeat: 2500
-    })
+    Portfinder.basePort = config.dev.port || 9080
+    Portfinder.getPort((err, port) => {
+      if (err) {
+        reject("PortError:" + err)
+      } else {
+        const compiler = webpack(rendererConfig)
+        hotMiddleware = webpackHotMiddleware(compiler, {
+          log: false,
+          heartbeat: 2500
+        })
 
-    compiler.hooks.compilation.tap('compilation', compilation => {
-      compilation.hooks.htmlWebpackPluginAfterEmit.tapAsync('html-webpack-plugin-after-emit', (data, cb) => {
-        hotMiddleware.publish({ action: 'reload' })
-        cb()
-      })
-    })
-
-    compiler.hooks.done.tap('done', stats => {
-      logStats('Renderer', stats)
-    })
-
-    const server = new WebpackDevServer(
-      compiler,
-      {
-        contentBase: path.join(__dirname, '../'),
-        quiet: true,
-        before(app, ctx) {
-          app.use(hotMiddleware)
-          ctx.middleware.waitUntilValid(() => {
-            resolve()
+        compiler.hooks.compilation.tap('compilation', compilation => {
+          compilation.hooks.htmlWebpackPluginAfterEmit.tapAsync('html-webpack-plugin-after-emit', (data, cb) => {
+            hotMiddleware.publish({
+              action: 'reload'
+            })
+            cb()
           })
-        }
-      }
-    )
+        })
 
-    server.listen(9080)
+        compiler.hooks.done.tap('done', stats => {
+          logStats('Renderer', stats)
+        })
+
+        const server = new WebpackDevServer(
+          compiler, {
+          contentBase: path.join(__dirname, '../'),
+          quiet: true,
+          before(app, ctx) {
+            app.use(hotMiddleware)
+            ctx.middleware.waitUntilValid(() => {
+              resolve()
+            })
+          }
+        }
+        )
+
+        process.env.PORT = port
+        server.listen(port)
+
+      }
+    })
+
   })
 }
 
 function startMain() {
   return new Promise((resolve) => {
-    mainConfig.entry.main = [path.join(__dirname, '../src/main/index.dev.js')].concat(mainConfig.entry.main)
     mainConfig.mode = 'development'
     const compiler = webpack(mainConfig)
 
     compiler.hooks.watchRun.tapAsync('watch-run', (compilation, done) => {
-      logStats('Main', chalk.white.bold('compiling...'))
-      hotMiddleware.publish({ action: 'compiling' })
+      logStats(`${config.dev.chineseLog ? '主进程' : 'Main'}`, chalk.white.bold(`${config.dev.chineseLog ? '正在处理资源文件...' : 'compiling...'}`))
+      hotMiddleware.publish({
+        action: 'compiling'
+      })
       done()
     })
 
@@ -117,7 +129,7 @@ function startMain() {
         return
       }
 
-      logStats('Main', stats)
+      logStats(`${config.dev.chineseLog ? '主进程' : 'Main'}`, stats)
 
       if (electronProcess && electronProcess.kill) {
         manualRestart = true
@@ -163,20 +175,23 @@ function startElectron() {
 }
 
 function electronLog(data, color) {
-  let log = ''
-  data = data.toString().split(/\r?\n/)
-  data.forEach(line => {
-    log += `  ${line}\n`
-  })
-  if (/[0-9A-z]+/.test(log)) {
-    console.log(
-      chalk[color].bold('┏ Electron -------------------') +
-      '\n\n' +
-      log +
-      chalk[color].bold('┗ ----------------------------') +
-      '\n'
-    )
+  if (data) {
+    let log = ''
+    data = data.toString().split(/\r?\n/)
+    data.forEach(line => {
+      log += `  ${line}\n`
+    })
+    if (/[0-9A-z]+/.test(log)) {
+      console.log(
+        chalk[color].bold(`┏ ${config.dev.chineseLog ? '主程序日志' : 'Electron'} -------------------`) +
+        '\n\n' +
+        log +
+        chalk[color].bold('┗ ----------------------------') +
+        '\n'
+      )
+    }
   }
+
 }
 
 function greeting() {
@@ -194,19 +209,20 @@ function greeting() {
       space: false
     })
   } else console.log(chalk.yellow.bold('\n  electron-vue'))
-  console.log(chalk.blue('  getting ready......') + '\n')
+  console.log(chalk.blue(`${config.dev.chineseLog ? '  准备启动...' : '  getting ready...'}`) + '\n')
 }
 
-function init() {
+async function init() {
   greeting()
 
-  Promise.all([startRenderer(), startMain()])
-    .then(() => {
-      startElectron()
-    })
-    .catch(err => {
-      console.error(err)
-    })
+  try {
+    await startRenderer()
+    await startMain()
+    await startElectron()
+  } catch (error) {
+    console.error(error)
+  }
+
 }
 
 init()

@@ -5,7 +5,6 @@ process.env.NODE_ENV = 'production'
 const { say } = require('cfonts')
 const chalk = require('chalk')
 const del = require('del')
-const { spawn } = require('child_process')
 const webpack = require('webpack')
 const Multispinner = require('multispinner')
 
@@ -24,8 +23,8 @@ else if (process.env.BUILD_TARGET === 'web') web()
 else build()
 
 function clean () {
-  del.sync(['build/*', '!build/icons','!build/lib','!build/lib/electron-build.*', '!build/icons/icon.*'])
-  console.log(`\n${doneLog}\n`)
+  del.sync(['dist/electron/*','build/*', '!build/icons','!build/lib','!build/lib/electron-build.*', '!build/icons/icon.*'])
+  console.log(`\n${doneLog}clear done`)
   process.exit()
 }
 
@@ -117,8 +116,8 @@ function greeting () {
   const cols = process.stdout.columns
   let text = ''
 
-  if (cols > 85) text = 'lets-build'
-  else if (cols > 60) text = 'lets-|build'
+  if (cols > 85) text = `let's-build`
+  else if (cols > 60) text = `let's-|build`
   else text = false
 
   if (text && !isCI) {
@@ -127,6 +126,6 @@ function greeting () {
       font: 'simple3d',
       space: false
     })
-  } else console.log(chalk.yellow.bold('\n  lets-build'))
+  } else console.log(chalk.yellow.bold(`\n  let's-build`))
   console.log()
 }

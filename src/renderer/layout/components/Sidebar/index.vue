@@ -4,13 +4,10 @@
       mode="vertical"
       :show-timeout="200"
       :default-active="$route.path"
-      background-color="#ffffff"
-      text-color="#666666"
       :collapse="isCollapse"
-      active-text-color="#ffffff"
     >
       <Logo :collapse="isCollapse" />
-      <sidebar-item v-for="route in routes" :key="route.name" :item="route" :base-path="route.path"></sidebar-item>
+      <sidebar-item v-for="route in routes" :key="route.name" :item="route" :base-path="route.path" :collapse="isCollapse"></sidebar-item>
     </el-menu>
   </scroll-bar>
 </template>

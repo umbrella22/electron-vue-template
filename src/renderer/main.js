@@ -9,9 +9,12 @@ import db from './api/operationalData'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import './permission'
-
+// 日志
+import './error'
 import './icons'
 import '@/styles/index.scss'
+
+if (!require('../../config').IsUseSysTitle) require('@/styles/custom-title.scss')
 
 if (!process.env.IS_WEB) Vue.use(require('vue-electron'))
 
@@ -21,9 +24,11 @@ Vue.prototype.$db = db
 
 Vue.config.productionTip = false
 /* eslint-disable no-new */
-new Vue({
+const vue = new Vue({
   components: { App },
   router,
   store,
   template: '<App/>'
 }).$mount('#app')
+
+export default vue
