@@ -9,7 +9,7 @@
       </div>
       <div class="bullshit">
         <div class="bullshit__oops">OOPS!</div>
-        <div class="bullshit__info">请检查您输入的网址是否正确，请点击以下按钮返回主页或者发送错误报告</div>
+        <div class="bullshit__info">您似乎进到了一个次元世界，请点击以下按钮返回主页或者发送错误报告</div>
         <a href="/" class="bullshit__return-home">返回首页</a>
       </div>
     </div>

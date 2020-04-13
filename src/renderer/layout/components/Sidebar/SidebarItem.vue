@@ -128,7 +128,6 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-@import "@/styles/color.scss";
 .menu-wrapper {
   /deep/ .el-menu-item,
   .el-submenu__title {
