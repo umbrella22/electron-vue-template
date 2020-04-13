@@ -105,7 +105,7 @@ let rendererConfig = {
           loader: 'url-loader',
           query: {
             limit: 10000,
-            // esModule: false,
+            esModule: false,
             name: 'imgs/[name]--[folder].[ext]'
           }
         },
@@ -115,6 +115,7 @@ let rendererConfig = {
         loader: 'url-loader',
         options: {
           limit: 10000,
+          esModule: false,
           name: 'media/[name]--[folder].[ext]'
         }
       },
@@ -124,6 +125,7 @@ let rendererConfig = {
           loader: 'url-loader',
           query: {
             limit: 10000,
+            esModule: false,
             name: 'fonts/[name]--[folder].[ext]'
           }
         }
