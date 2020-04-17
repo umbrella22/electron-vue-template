@@ -21,7 +21,7 @@ let hotMiddleware
 function logStats(proc, data) {
   let log = ''
 
-  log += chalk.yellow.bold(`┏ ${proc} Process ${new Array((19 - proc.length) + 1).join('-')}`)
+  log += chalk.yellow.bold(`┏ ${proc} ${config.dev.chineseLog ? '编译过程' : 'Process'} ${new Array((19 - proc.length) + 1).join('-')}`)
   log += '\n\n'
 
   if (typeof data === 'object') {
@@ -38,6 +38,7 @@ function logStats(proc, data) {
   log += '\n' + chalk.yellow.bold(`┗ ${new Array(28 + 1).join('-')}`) + '\n'
   console.log(log)
 }
+
 function removeJunk(chunk) {
   if (config.dev.removeElectronJunk) {
     // Example: 2018-08-10 22:48:42.866 Electron[90311:4883863] *** WARNING: Textured window <AtomNSWindow: 0x7fb75f68a770>
@@ -76,7 +77,9 @@ function startRenderer() {
 
         compiler.hooks.compilation.tap('compilation', compilation => {
           compilation.hooks.htmlWebpackPluginAfterEmit.tapAsync('html-webpack-plugin-after-emit', (data, cb) => {
-            hotMiddleware.publish({ action: 'reload' })
+            hotMiddleware.publish({
+              action: 'reload'
+            })
             cb()
           })
         })
@@ -86,17 +89,16 @@ function startRenderer() {
         })
 
         const server = new WebpackDevServer(
-          compiler,
-          {
-            contentBase: path.join(__dirname, '../'),
-            quiet: true,
-            before(app, ctx) {
-              app.use(hotMiddleware)
-              ctx.middleware.waitUntilValid(() => {
-                resolve()
-              })
-            }
+          compiler, {
+          contentBase: path.join(__dirname, '../'),
+          quiet: true,
+          before(app, ctx) {
+            app.use(hotMiddleware)
+            ctx.middleware.waitUntilValid(() => {
+              resolve()
+            })
           }
+        }
         )
 
         process.env.PORT = port
@@ -114,8 +116,10 @@ function startMain() {
     const compiler = webpack(mainConfig)
 
     compiler.hooks.watchRun.tapAsync('watch-run', (compilation, done) => {
-      logStats('Main', chalk.white.bold('compiling...'))
-      hotMiddleware.publish({ action: 'compiling' })
+      logStats(`${config.dev.chineseLog ? '主进程' : 'Main'}`, chalk.white.bold(`${config.dev.chineseLog ? '正在处理资源文件...' : 'compiling...'}`))
+      hotMiddleware.publish({
+        action: 'compiling'
+      })
       done()
     })
 
@@ -125,7 +129,7 @@ function startMain() {
         return
       }
 
-      logStats('Main', stats)
+      logStats(`${config.dev.chineseLog ? '主进程' : 'Main'}`, stats)
 
       if (electronProcess && electronProcess.kill) {
         manualRestart = true
@@ -179,7 +183,7 @@ function electronLog(data, color) {
     })
     if (/[0-9A-z]+/.test(log)) {
       console.log(
-        chalk[color].bold('┏ Electron -------------------') +
+        chalk[color].bold(`┏ ${config.dev.chineseLog ? '主程序日志' : 'Electron'} -------------------`) +
         '\n\n' +
         log +
         chalk[color].bold('┗ ----------------------------') +
@@ -205,11 +209,12 @@ function greeting() {
       space: false
     })
   } else console.log(chalk.yellow.bold('\n  electron-vue'))
-  console.log(chalk.blue('  getting ready...') + '\n')
+  console.log(chalk.blue(`${config.dev.chineseLog ? '  准备启动...' : '  getting ready...'}`) + '\n')
 }
 
 async function init() {
   greeting()
+
   try {
     await startRenderer()
     await startMain()
@@ -217,6 +222,7 @@ async function init() {
   } catch (error) {
     console.error(error)
   }
+
 }
 
 init()

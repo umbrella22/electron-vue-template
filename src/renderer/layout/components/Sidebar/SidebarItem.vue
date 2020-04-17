@@ -1,5 +1,9 @@
 <template>
-  <div v-if="!item.hidden&&item.children" class="menu-wrapper" :class="collapse?``:`active-menu-wrapper`">
+  <div
+    v-if="!item.hidden&&item.children"
+    class="menu-wrapper"
+    :class="collapse?``:`active-menu-wrapper`"
+  >
     <div v-if="item.onlyShowfirst">
       <router-link
         v-if="OneShowingChild(item.children[0]) && !onlyOneChild.children&&!item.alwaysShow"
@@ -124,29 +128,14 @@ export default {
 };
 </script>
 <style lang="scss" scoped>
-@import "@/styles/color.scss";
 .menu-wrapper {
   /deep/ .el-menu-item,
   .el-submenu__title {
     height: 46px;
     line-height: 46px;
   }
-  /deep/ a {
-    background-color: #ffc248;
-  }
-  /deep/ .el-menu-item:hover {
-    color: #ffffff !important;
-  }
-  /deep/ .el-menu-item.is-active {
-    background-color: $Theme-color !important;
-  }
   /deep/ .el-menu-item {
     padding: 0 20px 0 12px;
-  }
-}
-.active-menu-wrapper {
-  /deep/ .el-menu-item.is-active {
-    margin-left: 8px;
   }
 }
 </style>

@@ -21,7 +21,7 @@ const loadingURL = process.env.NODE_ENV === 'development' ? `http://localhost:${
 var loadWindow = null
 var mainWindow = null
 
-function createMainWindow() {
+function createMainWindow () {
   /**
    * Initial window options
    */
@@ -83,7 +83,7 @@ function createMainWindow() {
   })
 }
 
-function loadindWindow() {
+function loadindWindow () {
   loadWindow = new BrowserWindow({
     width: 400,
     height: 600,
@@ -100,13 +100,13 @@ function loadindWindow() {
   setTimeout(() => {
     createMainWindow()
   }, 2000)
-  
+
   loadWindow.on('closed', () => {
     loadWindow = null
   })
 }
 
-function initWindow() {
+function initWindow () {
   if (config.UseStartupChart) {
     return loadindWindow()
   } else {

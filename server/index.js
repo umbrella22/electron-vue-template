@@ -1,12 +1,12 @@
-var express = require('express')
+const express = require('express')
 const path = require('path')
-var app = express()
+const app = express()
 
 app.use(express.static(path.join(__dirname, './client')))
 
-var server = app.listen(25565, function () {
-  var host = server.address().address
-  var port = server.address().port
+const server = app.listen(25565, function () {
+  const host = server.address().address
+  const port = server.address().port
 
   console.log('服务启动', host, port)
 })

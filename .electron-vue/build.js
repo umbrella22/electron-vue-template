@@ -23,7 +23,7 @@ else if (process.env.BUILD_TARGET === 'web') web()
 else build()
 
 function clean () {
-  del.sync(['build/*', '!build/icons','!build/lib','!build/lib/electron-build.*', '!build/icons/icon.*'])
+  del.sync(['dist/electron/*','build/*', '!build/icons','!build/lib','!build/lib/electron-build.*', '!build/icons/icon.*'])
   console.log(`\n${doneLog}clear done`)
   process.exit()
 }

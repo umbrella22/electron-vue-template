@@ -1,5 +1,5 @@
 /* eslint-disable prefer-promise-reject-errors */
-import { login, logout, getInfo } from '@/api/login'
+// import { login, logout, getInfo } from '@/api/login'
 import { getToken, setToken, removeToken } from '@/utils/auth'
 
 const user = {
@@ -37,6 +37,7 @@ const user = {
         // }).catch(error => {
         //   reject(error)
         // })
+        setToken('admin')
         commit('SET_TOKEN', 'admin')
         resolve()
       })

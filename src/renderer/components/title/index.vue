@@ -8,7 +8,7 @@
     <!-- 菜单栏位置 -->
     <div></div>
     <!-- 中间标题位置 -->
-    <div style="-webkit-app-region: drag;" class="title">标题文字</div>
+    <div style="-webkit-app-region: drag;" class="title"></div>
     <div class="controls-container">
       <div class="windows-icon-bg" @click="Mini">
         <svg-icon icon-class="mini" class-name="icon-size"></svg-icon>
@@ -60,7 +60,7 @@ export default {
   width: 100%;
   height: 30px;
   line-height: 30px;
-  background-color: rgba(60, 60, 60, 0.6);
+  background-color: #ffffff;
   display: flex;
   -webkit-app-region: drag;
   position: fixed;
@@ -68,6 +68,9 @@ export default {
   z-index: 99999;
   .title {
     text-align: center;
+  }
+  .logo{
+    margin-left: 20px;
   }
   .controls-container {
     display: flex;
@@ -88,7 +91,7 @@ export default {
       color: rgba(129, 129, 129, 0.6);
       .icon-size {
         width: 12px;
-        height: 12px;
+        height: 15px;
       }
     }
     .windows-icon-bg:hover {

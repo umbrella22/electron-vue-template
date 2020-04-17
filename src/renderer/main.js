@@ -14,6 +14,8 @@ import './error'
 import './icons'
 import '@/styles/index.scss'
 
+if (!require('../../config').IsUseSysTitle) require('@/styles/custom-title.scss')
+
 if (!process.env.IS_WEB) Vue.use(require('vue-electron'))
 
 Vue.use(ElementUI)

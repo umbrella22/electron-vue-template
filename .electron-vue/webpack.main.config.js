@@ -2,12 +2,13 @@
 
 process.env.BABEL_ENV = 'main'
 
+const os = require('os')
 const path = require('path')
 const { dependencies } = require('../package.json')
 const webpack = require('webpack')
-
 const MinifyPlugin = require("babel-minify-webpack-plugin");
-const { CleanWebpackPlugin } = require('clean-webpack-plugin')
+const HappyPack = require('happypack')
+const HappyThreadPool = HappyPack.ThreadPool({ size: os.cpus().length })
 
 function resolve(dir) {
   return path.join(__dirname, '..', dir)
@@ -35,7 +36,7 @@ let mainConfig = {
       // },
       {
         test: /\.js$/,
-        use: 'babel-loader',
+        use: 'happypack/loader?id=MainHappyBabel',
         exclude: /node_modules/
       },
       {
@@ -55,9 +56,16 @@ let mainConfig = {
   },
   plugins: [
     new webpack.NoEmitOnErrorsPlugin(),
-    // new CleanWebpackPlugin({
-    //   cleanOnceBeforeBuildPatterns: resolve('dist/electron')
-    // })
+    new HappyPack({
+      id: "MainHappyBabel",
+      loaders: [{
+        loader: 'babel-loader',
+        options: {
+          cacheDirectory: true
+        }
+      }],
+      threadPool: HappyThreadPool
+    })
   ],
   resolve: {
     alias: {
