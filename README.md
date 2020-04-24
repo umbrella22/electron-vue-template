@@ -10,7 +10,7 @@
 <h3 align="center">Thanks for support.</h3>
 
 <p align="center">
-  <a href="https://www.jetbrains.com/" target="_blank">
+  <a href="https://www.jetbrains.com/?from=electron-vue-template" target="_blank">
     <img width="160px" src="https://wx1.sbimg.cn/2020/04/24/jetbrains.png">
   </a>
 </p>
