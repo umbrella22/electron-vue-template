@@ -12,9 +12,8 @@ function onAppReady () {
 app.isReady() ? onAppReady() : app.on('ready', onAppReady)
 
 app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') {
-    app.quit()
-  }
+  // 所有平台均为所有窗口关闭就退出软件
+  app.quit()
 })
 app.on('browser-window-created', () => {
   console.log('window-created')
