@@ -89,7 +89,9 @@ function loadindWindow () {
     height: 600,
     frame: false,
     backgroundColor: '#222',
+    skipTaskbar: true,
     transparent: true,
+    resizable: false,
     webPreferences: { experimentalFeatures: true }
   })
 
