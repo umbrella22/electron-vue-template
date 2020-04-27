@@ -90,6 +90,8 @@ function loadindWindow () {
     frame: false,
     backgroundColor: '#222',
     transparent: true,
+    skipTaskbar: true,
+    resizable: false,
     webPreferences: { experimentalFeatures: true }
   })
 
