@@ -28,6 +28,7 @@
           <el-button type="primary" round @click="CheckUpdate('two')">检查更新（第二种方法）</el-button>
           <el-button type="primary" round @click="StartServer">启动内置服务端</el-button>
           <el-button type="primary" round @click="getMessage">查看消息</el-button>
+          <el-button type="primary" round @click="openNewWin">打开新窗口</el-button>
         </div>
       </div>
     </main>
@@ -82,6 +83,12 @@ export default {
     console.log(__lib);
   },
   methods: {
+    openNewWin(){
+      let data = {
+        url:'/form/index'
+      }
+      ipcApi.send("open-win", data);
+    },
     getMessage() {
       message().then(res => {
         this.$alert(res.data, "提示", {

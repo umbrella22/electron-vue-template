@@ -1,5 +1,7 @@
-import { ipcMain, dialog } from 'electron'
+import { ipcMain, dialog, BrowserWindow } from 'electron'
 import Server from '../server/index'
+import { winURL } from '../config/StaticPath'
+
 export default {
   Mainfunc (mainWindow, IsUseSysTitle) {
     ipcMain.on('IsUseSysTitle', (event) => {
@@ -46,6 +48,41 @@ export default {
           '错误',
           err
         )
+      })
+    })
+    ipcMain.on('open-win', (event, arg) => {
+      const ChildWin = new BrowserWindow({
+        height: 595,
+        useContentSize: true,
+        width: 842,
+        autoHideMenuBar: true,
+        minWidth: 842,
+        show: false,
+        webPreferences: {
+          nodeIntegration: true,
+          webSecurity: false,
+          // 如果是开发模式可以使用devTools
+          devTools: process.env.NODE_ENV === 'development',
+          // 在macos中启用橡皮动画
+          scrollBounce: process.platform === 'darwin'
+        }
+      })
+      ChildWin.loadURL(winURL + `/#${arg.url}`)
+      ChildWin.webContents.once('dom-ready', () => {
+        ChildWin.show()
+        ChildWin.webContents.send('send-data', arg.sendData)
+        if (arg.IsPay) {
+          // 检查支付时候自动关闭小窗口
+          const testUrl = setInterval(() => {
+            const Url = ChildWin.webContents.getURL()
+            if (Url.includes(arg.PayUrl)) {
+              ChildWin.close()
+            }
+          }, 1200)
+          ChildWin.on('close', () => {
+            clearInterval(testUrl)
+          })
+        }
       })
     })
   }
