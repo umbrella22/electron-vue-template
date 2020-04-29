@@ -1,67 +1,33 @@
-/* eslint-disable prefer-promise-reject-errors */
-// import { login, logout, getInfo } from '@/api/login'
-import { getToken, setToken, removeToken } from '@/utils/auth'
-
 const user = {
   state: {
-    token: getToken(),
-    name: '',
-    avatar: '',
-    roles: []
+    token: JSON.parse(localStorage.getItem('token')),
+    name: JSON.parse(localStorage.getItem('name')),
+    roles: JSON.parse(localStorage.getItem('roles'))
   },
 
   mutations: {
     SET_TOKEN: (state, token) => {
+      localStorage.setItem('token', JSON.stringify(token))
       state.token = token
     },
     SET_NAME: (state, name) => {
+      localStorage.setItem('name', JSON.stringify(name))
       state.name = name
     },
-    SET_AVATAR: (state, avatar) => {
-      state.avatar = avatar
-    },
     SET_ROLES: (state, roles) => {
+      localStorage.setItem('roles', JSON.stringify(roles))
       state.roles = roles
     }
   },
 
   actions: {
     // 登录
-    Login ({ commit }, userInfo) {
+    Login ({ commit }, data) {
       return new Promise((resolve, reject) => {
-        // login(data).then(response => {
-        //   const data = response.data
-        //   setToken(data.token)
-        //   commit('SET_TOKEN', data.token)
-        //   resolve()
-        // }).catch(error => {
-        //   reject(error)
-        // })
-        setToken('admin')
+        console.log('这是传过来的登录信息', data)
         commit('SET_TOKEN', 'admin')
-        resolve()
-      })
-    },
-
-    // 获取用户信息
-    GetInfo ({ commit, state }) {
-      return new Promise((resolve, reject) => {
-        // getInfo(state.token).then(response => {
-        //   const data = response.data
-        //   if (data.roles && data.roles.length > 0) { // 验证返回的roles是否是一个非空数组
-        //     commit('SET_ROLES', data.roles)
-        //   } else {
-        //     reject('getInfo: roles must be a non-null array !')
-        //   }
-        //   commit('SET_NAME', data.name)
-        //   commit('SET_AVATAR', data.avatar)
-        //   resolve(response)
-        // }).catch(error => {
-        //   reject(error)
-        // })
         commit('SET_ROLES', ['admin'])
         commit('SET_NAME', 'Super Admin')
-        commit('SET_AVATAR', 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif')
         resolve()
       })
     },
@@ -69,21 +35,15 @@ const user = {
     // 登出
     LogOut ({ commit, state }) {
       return new Promise((resolve, reject) => {
-        // logout(state.token).then(() => {
         commit('SET_TOKEN', '')
         commit('SET_ROLES', [])
-        removeToken()
         resolve()
-        // }).catch(error => {
-        //   reject(error)
-        // })
       })
     },
 
     // 前端 登出
     FedLogOut ({ commit }) {
       return new Promise(resolve => {
-        removeToken()
         commit('SET_TOKEN', '')
         resolve()
       })

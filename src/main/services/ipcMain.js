@@ -63,11 +63,12 @@ export default {
           webSecurity: false,
           // 如果是开发模式可以使用devTools
           devTools: process.env.NODE_ENV === 'development',
+          // devTools: true,
           // 在macos中启用橡皮动画
           scrollBounce: process.platform === 'darwin'
         }
       })
-      ChildWin.loadURL(winURL + `/#${arg.url}`)
+      ChildWin.loadURL(winURL + `#${arg.url}`)
       ChildWin.webContents.once('dom-ready', () => {
         ChildWin.show()
         ChildWin.webContents.send('send-data', arg.sendData)
