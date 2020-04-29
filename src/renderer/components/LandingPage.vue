@@ -54,7 +54,6 @@
 
 <script>
 import SystemInformation from "./LandingPage/SystemInformation";
-import ipcApi from "../utils/ipcRenderer";
 import { message } from "@/api/login";
 export default {
   name: "landing-page",
@@ -87,7 +86,7 @@ export default {
       let data = {
         url:'/form/index'
       }
-      ipcApi.send("open-win", data);
+      this.$ipcApi.send("open-win", data);
     },
     getMessage() {
       message().then(res => {
@@ -97,8 +96,8 @@ export default {
       });
     },
     StartServer() {
-      ipcApi.send("statr-server");
-      ipcApi.on("confirm-start", (event, arg) => {
+      this.$ipcApi.send("statr-server");
+      this.$ipcApi.on("confirm-start", (event, arg) => {
         console.log(arg);
         this.$message({
           type: "success",
@@ -137,8 +136,8 @@ export default {
         noLink: true,
         message: "此操作会清空本地数据库中的所有数据，是否继续？"
       };
-      ipcApi.send("open-messagebox", data);
-      ipcApi.on("confirm-message", (event, arg) => {
+      this.$ipcApi.send("open-messagebox", data);
+      this.$ipcApi.on("confirm-message", (event, arg) => {
         console.log(arg);
         if (arg.response === 0) {
           this.$db.deleall({ name: "yyy" }).then(res => {
@@ -154,7 +153,7 @@ export default {
                 title: "错误",
                 message: "已经没有数据可以被删除！"
               };
-              ipcApi.send("open-errorbox", errormsg);
+              this.$ipcApi.send("open-errorbox", errormsg);
             }
           });
         }
@@ -164,9 +163,9 @@ export default {
       switch (data) {
         case "one":
           const dialog = this.$electron.remote.dialog;
-          ipcApi.send("check-update");
+          this.$ipcApi.send("check-update");
           console.log("启动检查");
-          ipcApi.on("UpdateMsg", (event, data) => {
+          this.$ipcApi.on("UpdateMsg", (event, data) => {
             console.log(data);
             switch (data.state) {
               case -1:
@@ -196,7 +195,7 @@ export default {
                 this.$alert("更新下载完成！", "提示", {
                   confirmButtonText: "确定",
                   callback: action => {
-                    ipcApi.send("confirm-update");
+                    this.$ipcApi.send("confirm-update");
                   }
                 });
                 break;
@@ -208,34 +207,34 @@ export default {
           break;
         case "two":
           console.log(111);
-          ipcApi.send("start-download");
-          ipcApi.on("confirm-download", (event, arg) => {
+          this.$ipcApi.send("start-download");
+          this.$ipcApi.on("confirm-download", (event, arg) => {
             if (arg) {
               this.dialogVisible = true;
             }
           });
-          ipcApi.on("download-progress", (event, arg) => {
+          this.$ipcApi.on("download-progress", (event, arg) => {
             this.percentage = Number(arg);
           });
-          ipcApi.on("download-error", (event, arg) => {
+          this.$ipcApi.on("download-error", (event, arg) => {
             if (arg) {
               this.progressStaus = "exception";
               this.percentage = 40;
               this.colors = "#d81e06";
             }
           });
-          ipcApi.on("download-paused", (event, arg) => {
+          this.$ipcApi.on("download-paused", (event, arg) => {
             if (arg) {
               this.progressStaus = "warning";
               this.$alert("下载由于未知原因被中断！", "提示", {
                 confirmButtonText: "重试",
                 callback: action => {
-                  ipcApi.send("satrt-download");
+                  this.$ipcApi.send("satrt-download");
                 }
               });
             }
           });
-          ipcApi.on("download-done", (event, age) => {
+          this.$ipcApi.on("download-done", (event, age) => {
             this.filePath = age.filePath;
             this.progressStaus = "success";
             this.$alert("更新下载完成！", "提示", {
@@ -256,12 +255,12 @@ export default {
     }
   },
   destroyed() {
-    ipcApi.remove("confirm-message");
-    ipcApi.remove("download-done");
-    ipcApi.remove("download-paused");
-    ipcApi.remove("confirm-download");
-    ipcApi.remove("download-progress");
-    ipcApi.remove("download-error");
+    this.$ipcApi.remove("confirm-message");
+    this.$ipcApi.remove("download-done");
+    this.$ipcApi.remove("download-paused");
+    this.$ipcApi.remove("confirm-download");
+    this.$ipcApi.remove("download-progress");
+    this.$ipcApi.remove("download-error");
   }
 };
 </script>

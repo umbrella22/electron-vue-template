@@ -1,6 +1,6 @@
 <!--  -->
 <template>
-  <div class="window-title" v-if="!IsUseSysTitle&&isMac">
+  <div class="window-title" v-if="!IsUseSysTitle&&isMac&&!IsWeb">
     <!-- 软件logo预留位置 -->
     <div style="-webkit-app-region: drag;" class="logo">
       <svg-icon icon-class="electron-logo"></svg-icon>
@@ -25,32 +25,35 @@
 </template>
 
 <script>
-import ipcApi from "@/utils/ipcRenderer";
 export default {
   data: () => ({
     mix: false,
     IsUseSysTitle: false,
-    isMac:process.platform !== 'darwin'
+    isMac: process.platform !== "darwin",
+    IsWeb: process.env.IS_WEB
   }),
 
   components: {},
   created() {
-    ipcApi.send("IsUseSysTitle");
-    ipcApi.on("CisUseSysTitle", (event, arg) => (this.IsUseSysTitle = arg));
+    this.$ipcApi.send("IsUseSysTitle");
+    this.$ipcApi.on(
+      "CisUseSysTitle",
+      (event, arg) => (this.IsUseSysTitle = arg)
+    );
   },
 
   mounted() {},
 
   methods: {
     Mini() {
-      ipcApi.send("windows-mini");
+      this.$ipcApi.send("windows-mini");
     },
     MixOrReduction() {
-      ipcApi.send("window-max");
-      ipcApi.on("window-confirm", (event, arg) => (this.mix = arg));
+      this.$ipcApi.send("window-max");
+      this.$ipcApi.on("window-confirm", (event, arg) => (this.mix = arg));
     },
     Close() {
-      ipcApi.send("window-close");
+      this.$ipcApi.send("window-close");
     }
   }
 };
@@ -69,7 +72,7 @@ export default {
   .title {
     text-align: center;
   }
-  .logo{
+  .logo {
     margin-left: 20px;
   }
   .controls-container {

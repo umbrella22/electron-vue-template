@@ -3,8 +3,6 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import store from './store'
-// 导入数据操作库
-import db from './api/operationalData'
 // 引用element
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
@@ -14,13 +12,17 @@ import './error'
 import './icons'
 import '@/styles/index.scss'
 
-if (!require('../../config').IsUseSysTitle) require('@/styles/custom-title.scss')
-
-if (!process.env.IS_WEB) Vue.use(require('vue-electron'))
+if (!process.env.IS_WEB) {
+  Vue.use(require('vue-electron'))
+  if (!require('../../config').IsUseSysTitle) {
+    require('@/styles/custom-title.scss')
+  }
+  // 当处于electron状态下才引用db
+  Vue.prototype.$db = require('./api/operationalData').default
+  Vue.prototype.$ipcApi = require('./utils/ipcRenderer').default
+}
 
 Vue.use(ElementUI)
-
-Vue.prototype.$db = db
 
 Vue.config.productionTip = false
 /* eslint-disable no-new */

@@ -9,6 +9,7 @@ const MinifyPlugin = require("babel-minify-webpack-plugin");
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const TerserPlugin = require('terser-webpack-plugin');
 const { VueLoaderPlugin } = require('vue-loader')
 
 function resolve(dir) {
@@ -87,6 +88,7 @@ let webConfig = {
         use: {
           loader: 'url-loader',
           query: {
+            esModule: false,
             limit: 10000,
             name: 'imgs/[name].[ext]'
           }
@@ -97,6 +99,7 @@ let webConfig = {
         use: {
           loader: 'url-loader',
           query: {
+            esModule: false,
             limit: 10000,
             name: 'fonts/[name].[ext]'
           }
@@ -159,6 +162,50 @@ if (process.env.NODE_ENV === 'production') {
       minimize: true
     })
   )
+  webConfig.optimization = {
+    splitChunks: {
+      chunks: "async",
+      cacheGroups: {
+        vendor: { // 将第三方模块提取出来
+          minSize: 30000,
+          minChunks: 1,
+          test: /node_modules/,
+          chunks: 'initial',
+          name: 'vendor',
+          priority: 1
+        },
+        commons: {
+          test: /[\\/]src[\\/]common[\\/]/,
+          name: 'commons',
+          minSize: 30000,
+          minChunks: 3,
+          chunks: 'initial',
+          priority: -1,
+          reuseExistingChunk: true // 这个配置允许我们使用已经存在的代码块
+        }
+      }
+    },
+    runtimeChunk: { name: 'runtime' },
+    minimizer: [
+      new TerserPlugin({
+        test: /\.js(\?.*)?$/i,
+        extractComments: false,
+        cache: false,
+        sourceMap: false,
+        terserOptions: {
+          warnings: false,
+          compress: {
+            warnings: false,
+            drop_console: true,
+            drop_debugger: true,
+            pure_funcs: ['console.log']
+          },
+          output: {
+            comments: false,
+        },
+        }
+      })]
+  }
 }
 
 module.exports = webConfig
