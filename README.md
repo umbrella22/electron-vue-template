@@ -42,6 +42,7 @@ npm config edit
 这是花裤衩大大原本的[地址](https://github.com/PanJiaChen/electron-vue-admin)
 
 # 更新日志
+- 2020年04月30日：添加内置服务端关闭方法，进一步简化登录流程；多窗口文档已就绪，服务端说明尚未补充。
 - 2020年04月29日：添加了路由多窗口示例，修复web打包，提升依赖；文档还未就绪
 - 2020年02月09日：添加[中文在线文档](https://umbrella22.github.io/electron-vue-template-doc/)，[国内访问地址](https://zh-sky.gitee.io/electron-vue-template-doc/)
 - 剔除win打包依赖，因为太大了，将它放到码云的额外仓库中，[地址](https://gitee.com/Zh-Sky/HardToDownloadLib)

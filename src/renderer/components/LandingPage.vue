@@ -17,7 +17,7 @@
 
       <div class="right-side">
         <div class="doc">
-          <div class="title alt">您可以点击的按钮</div>
+          <div class="title alt">您可以点击的按钮测试功能</div>
           <el-button type="primary" round @click="open()">控制台打印</el-button>
           <el-button type="primary" round @click="setdata">写入数据</el-button>
           <el-button type="primary" round @click="getdata">读取数据</el-button>
@@ -27,7 +27,10 @@
         <div class="doc">
           <el-button type="primary" round @click="CheckUpdate('two')">检查更新（第二种方法）</el-button>
           <el-button type="primary" round @click="StartServer">启动内置服务端</el-button>
+          <el-button type="primary" round @click="StopServer">关闭内置服务端</el-button>
           <el-button type="primary" round @click="getMessage">查看消息</el-button>
+        </div>
+        <div class="doc">
           <el-button type="primary" round @click="openNewWin">打开新窗口</el-button>
         </div>
       </div>
@@ -82,16 +85,25 @@ export default {
     console.log(__lib);
   },
   methods: {
-    openNewWin(){
+    openNewWin() {
       let data = {
-        url:'/form/index'
-      }
+        url: "/form/index"
+      };
       this.$ipcApi.send("open-win", data);
     },
     getMessage() {
       message().then(res => {
         this.$alert(res.data, "提示", {
           confirmButtonText: "确定"
+        });
+      });
+    },
+    StopServer() {
+      this.$ipcApi.send("stop-server");
+      this.$ipcApi.on("confirm-stop", (event, arg) => {
+        this.$message({
+          type: "success",
+          message: "已关闭"
         });
       });
     },
@@ -255,9 +267,12 @@ export default {
     }
   },
   destroyed() {
+    console.log("销毁了哦")
     this.$ipcApi.remove("confirm-message");
     this.$ipcApi.remove("download-done");
     this.$ipcApi.remove("download-paused");
+    this.$ipcApi.remove("confirm-stop");
+    this.$ipcApi.remove("confirm-start");
     this.$ipcApi.remove("confirm-download");
     this.$ipcApi.remove("download-progress");
     this.$ipcApi.remove("download-error");

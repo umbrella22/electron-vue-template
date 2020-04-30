@@ -50,6 +50,16 @@ export default {
         )
       })
     })
+    ipcMain.on('stop-server', (event, arg) => {
+      Server.StopServer().then(res => {
+        event.reply('confirm-stop', res)
+      }).catch(err => {
+        dialog.showErrorBox(
+          '错误',
+          err
+        )
+      })
+    })
     ipcMain.on('open-win', (event, arg) => {
       const ChildWin = new BrowserWindow({
         height: 595,
