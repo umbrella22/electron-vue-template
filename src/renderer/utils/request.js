@@ -24,6 +24,10 @@ serves.interceptors.response.use(res => {
     console.log('错误回调', err)
     Message.error('网络超时')
   }
+  if (err.message.includes('Network Error')) {
+    console.log('错误回调', err)
+    Message.error('服务端未启动，或网络连接错误')
+  }
   return Promise.reject(err)
 })
 
