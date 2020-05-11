@@ -66,6 +66,7 @@
       ]
     },
     "linux": {
+      "target": "deb",
       "icon": "build/icons"
     }
   },
