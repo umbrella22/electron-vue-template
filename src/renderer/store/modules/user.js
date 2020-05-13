@@ -1,8 +1,11 @@
 const user = {
   state: {
-    token: JSON.parse(localStorage.getItem('token')),
-    name: JSON.parse(localStorage.getItem('name')),
-    roles: JSON.parse(localStorage.getItem('roles'))
+    // token: JSON.parse(localStorage.getItem('token')),
+    // name: JSON.parse(localStorage.getItem('name')),
+    // roles: JSON.parse(localStorage.getItem('roles'))
+    token: 'admin',
+    name: 'Super Admin',
+    roles: ['admin']
   },
 
   mutations: {
@@ -22,7 +25,9 @@ const user = {
 
   actions: {
     // 登录
-    Login ({ commit }, data) {
+    Login ({
+      commit
+    }, data) {
       return new Promise((resolve, reject) => {
         console.log('这是传过来的登录信息', data)
         commit('SET_TOKEN', 'admin')
@@ -33,7 +38,10 @@ const user = {
     },
 
     // 登出
-    LogOut ({ commit, state }) {
+    LogOut ({
+      commit,
+      state
+    }) {
       return new Promise((resolve, reject) => {
         commit('SET_TOKEN', '')
         commit('SET_ROLES', [])
@@ -42,7 +50,9 @@ const user = {
     },
 
     // 前端 登出
-    FedLogOut ({ commit }) {
+    FedLogOut ({
+      commit
+    }) {
       return new Promise(resolve => {
         commit('SET_TOKEN', '')
         resolve()
