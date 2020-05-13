@@ -21,10 +21,12 @@
   },
   "build": {
     "extraFiles": [],
-    "publish": [{
-      "provider": "generic",
-      "url": "http://127.0.0.1"
-    }],
+    "publish": [
+      {
+        "provider": "generic",
+        "url": "http://127.0.0.1"
+      }
+    ],
     "productName": "electron-vue-admin",
     "appId": "org.simulatedgreg.electron-vue",
     "directories": {
@@ -34,7 +36,8 @@
       "dist/electron/**/*"
     ],
     "dmg": {
-      "contents": [{
+      "contents": [
+        {
           "x": 410,
           "y": 150,
           "type": "link",
@@ -52,13 +55,15 @@
     },
     "win": {
       "icon": "build/icons/icon.ico",
-      "target": [{
-        "target": "nsis",
-        "arch": [
-          "x64",
-          "ia32"
-        ]
-      }]
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64",
+            "ia32"
+          ]
+        }
+      ]
     },
     "linux": {
       "icon": "build/icons"
@@ -77,7 +82,7 @@
     "vue": "^2.6.11",
     "vue-electron": "^1.0.6",
     "vue-router": "^3.1.6",
-    "vuex": "^3.3.0",
+    "vuex": "^3.4.0",
     "vuex-electron": "^1.0.3"
   },
   "devDependencies": {
