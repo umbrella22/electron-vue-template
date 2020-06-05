@@ -2,9 +2,13 @@
 import router from './router'
 import store from './store'
 import { Message } from 'element-ui'
+import Performance from '@/tools/performance'
 
 const whiteList = ['/login'] // 不重定向白名单
+var end = null
+
 router.beforeEach((to, from, next) => {
+  end = Performance.startExecute(`${from.path} => ${to.path} 路由耗时`) /// 路由性能监控
   if (store.getters.token) {
     if (to.path === '/login') {
       next({ path: '/' })
@@ -29,6 +33,9 @@ router.beforeEach((to, from, next) => {
       next('/login')
     }
   }
+  setTimeout(() => {
+    end()
+  }, 0)
 })
 
-router.afterEach(() => {})
+router.afterEach(() => { })
