@@ -58,14 +58,14 @@ function createMainWindow () {
       electronDevtoolsInstaller(VUEJS_DEVTOOLS)
         .then((name) => console.log(`installed: ${name}`))
         .catch(err => console.log('Unable to install `vue-devtools`: \n', err))
-      loadWindow.destroy()
     })
+    if (config.UseStartupChart) loadWindow.destroy()
+
     mainWindow.webContents.openDevTools(true)
   } else {
     mainWindow.webContents.once('dom-ready', () => {
       mainWindow.show()
-      loadWindow.destroy()
-      // mainWindow.webContents.openDevTools(true)
+      if (config.UseStartupChart) loadWindow.destroy()
     })
   }
 

@@ -19,9 +19,6 @@
         <div class="doc">
           <div class="title alt">您可以点击的按钮测试功能</div>
           <el-button type="primary" round @click="open()">控制台打印</el-button>
-          <el-button type="primary" round @click="setdata">写入数据</el-button>
-          <el-button type="primary" round @click="getdata">读取数据</el-button>
-          <el-button type="primary" round @click="deledata">清除所有数据</el-button>
           <el-button type="primary" round @click="CheckUpdate('one')">检查更新</el-button>
         </div>
         <div class="doc">
@@ -120,56 +117,6 @@ export default {
     // 获取electron方法
     open() {
       console.log(this.$electron);
-    },
-    // 设置数据库的数据
-    setdata() {
-      this.$db
-        .adddata(this.newdata)
-        .then(res => this.getdata())
-        .catch(err => console.log(err));
-    },
-    // 获取数据库的数据
-    getdata() {
-      this.$db
-        .finddata()
-        .then(res => {
-          console.log(res);
-          this.textarray = res;
-          console.log(this.textarray);
-        })
-        .catch(err => console.log(err));
-    },
-    // 清空数据库的数据
-    deledata() {
-      // data则是显示需要的参数
-      const data = {
-        title: "清除数据",
-        buttons: ["确定了！", "才不要，我手滑了"],
-        noLink: true,
-        message: "此操作会清空本地数据库中的所有数据，是否继续？"
-      };
-      this.$ipcApi.send("open-messagebox", data);
-      this.$ipcApi.on("confirm-message", (event, arg) => {
-        console.log(arg);
-        if (arg.response === 0) {
-          this.$db.deleall({ name: "yyy" }).then(res => {
-            console.log(res);
-            if (res !== 0) {
-              this.getdata();
-              this.$message({
-                message: "成功删除" + res + "条",
-                type: "success"
-              });
-            } else {
-              let errormsg = {
-                title: "错误",
-                message: "已经没有数据可以被删除！"
-              };
-              this.$ipcApi.send("open-errorbox", errormsg);
-            }
-          });
-        }
-      });
     },
     CheckUpdate(data) {
       switch (data) {

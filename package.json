@@ -78,7 +78,6 @@
     "express": "^4.17.1",
     "fs-extra": "^9.0.1",
     "js-cookie": "^2.2.1",
-    "nedb": "^1.8.0",
     "nprogress": "^0.2.0",
     "vue": "^2.6.11",
     "vue-electron": "^1.0.6",
