@@ -35,11 +35,9 @@ export default {
 
   components: {},
   created() {
-    this.$ipcApi.send("IsUseSysTitle");
-    this.$ipcApi.on(
-      "CisUseSysTitle",
-      (event, arg) => (this.IsUseSysTitle = arg)
-    );
+    this.$ipcApi.send("IsUseSysTitle").then(res => {
+      this.IsUseSysTitle = res;
+    });
   },
 
   mounted() {},
@@ -49,8 +47,9 @@ export default {
       this.$ipcApi.send("windows-mini");
     },
     MixOrReduction() {
-      this.$ipcApi.send("window-max");
-      this.$ipcApi.on("window-confirm", (event, arg) => (this.mix = arg));
+      this.$ipcApi.send("window-max").then(res=>{
+        this.mix = res.status
+      })
     },
     Close() {
       this.$ipcApi.send("window-close");

@@ -133,7 +133,7 @@ $light_gray: #eee;
   left: 0;
   background-image: url("https://i.loli.net/2019/10/18/buDT4YS6zUMfHst.jpg");
   background-position: center;
-  /deep/ .el-input {
+  ::v-deep .el-input {
     display: inline-block;
     height: 47px;
     width: 85%;
@@ -151,7 +151,7 @@ $light_gray: #eee;
       }
     }
   }
-  /deep/ .el-form-item {
+  ::v-deep .el-form-item {
     border: 1px solid rgba(255, 255, 255, 0.1);
     background: rgba(0, 0, 0, 0.1);
     border-radius: 5px;

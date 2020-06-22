@@ -19,9 +19,6 @@
         <div class="doc">
           <div class="title alt">您可以点击的按钮测试功能</div>
           <el-button type="primary" round @click="open()">控制台打印</el-button>
-          <el-button type="primary" round @click="setdata">写入数据</el-button>
-          <el-button type="primary" round @click="getdata">读取数据</el-button>
-          <el-button type="primary" round @click="deledata">清除所有数据</el-button>
           <el-button type="primary" round @click="CheckUpdate('one')">检查更新</el-button>
         </div>
         <div class="doc">
@@ -99,8 +96,7 @@ export default {
       });
     },
     StopServer() {
-      this.$ipcApi.send("stop-server");
-      this.$ipcApi.on("confirm-stop", (event, arg) => {
+      this.$ipcApi.send("stop-server").then(res => {
         this.$message({
           type: "success",
           message: "已关闭"
@@ -108,83 +104,28 @@ export default {
       });
     },
     StartServer() {
-      this.$ipcApi.send("statr-server");
-      this.$ipcApi.on("confirm-start", (event, arg) => {
-        console.log(arg);
-        this.$message({
-          type: "success",
-          message: arg
-        });
-      });
-    },
-    // 获取electron方法
-    open() {
-      console.log(this.$electron);
-    },
-    // 设置数据库的数据
-    setdata() {
-      this.$db
-        .adddata(this.newdata)
-        .then(res => this.getdata())
-        .catch(err => console.log(err));
-    },
-    // 获取数据库的数据
-    getdata() {
-      this.$db
-        .finddata()
-        .then(res => {
-          console.log(res);
-          this.textarray = res;
-          console.log(this.textarray);
-        })
-        .catch(err => console.log(err));
-    },
-    // 清空数据库的数据
-    deledata() {
-      // data则是显示需要的参数
-      const data = {
-        title: "清除数据",
-        buttons: ["确定了！", "才不要，我手滑了"],
-        noLink: true,
-        message: "此操作会清空本地数据库中的所有数据，是否继续？"
-      };
-      this.$ipcApi.send("open-messagebox", data);
-      this.$ipcApi.on("confirm-message", (event, arg) => {
-        console.log(arg);
-        if (arg.response === 0) {
-          this.$db.deleall({ name: "yyy" }).then(res => {
-            console.log(res);
-            if (res !== 0) {
-              this.getdata();
-              this.$message({
-                message: "成功删除" + res + "条",
-                type: "success"
-              });
-            } else {
-              let errormsg = {
-                title: "错误",
-                message: "已经没有数据可以被删除！"
-              };
-              this.$ipcApi.send("open-errorbox", errormsg);
-            }
+      this.$ipcApi.send("statr-server").then(res => {
+        if (res) {
+          this.$message({
+            type: "success",
+            message: res
           });
         }
       });
     },
+    // 获取electron方法
+    open() {},
     CheckUpdate(data) {
       switch (data) {
         case "one":
-          const dialog = this.$electron.remote.dialog;
-          this.$ipcApi.send("check-update");
-          console.log("启动检查");
-          this.$ipcApi.on("UpdateMsg", (event, data) => {
-            console.log(data);
-            switch (data.state) {
+          this.$ipcApi.send("check-update").then(res => {
+            switch (res.state) {
               case -1:
                 const msgdata = {
-                  title: data.msg
+                  title: "发生错误",
+                  message: res.msg
                 };
-                api.MessageBox(dialog, msgdata);
+                this.$ipcApi.send("open-errorbox");
                 break;
               case 0:
                 this.$message("正在检查更新");
@@ -200,7 +141,7 @@ export default {
                 this.$message({ type: "success", message: "无新版本" });
                 break;
               case 3:
-                this.percentage = data.msg.percent.toFixed(1);
+                this.percentage = res.msg.percent.toFixed(1);
                 break;
               case 4:
                 this.progressStaus = "success";
@@ -216,14 +157,13 @@ export default {
                 break;
             }
           });
+          console.log("启动检查");
+          console.log(data);
+
           break;
         case "two":
-          console.log(111);
-          this.$ipcApi.send("start-download");
-          this.$ipcApi.on("confirm-download", (event, arg) => {
-            if (arg) {
-              this.dialogVisible = true;
-            }
+          this.$ipcApi.send("start-download").then(() => {
+            this.dialogVisible = true;
           });
           this.$ipcApi.on("download-progress", (event, arg) => {
             this.percentage = Number(arg);
@@ -252,7 +192,7 @@ export default {
             this.$alert("更新下载完成！", "提示", {
               confirmButtonText: "确定",
               callback: action => {
-                this.$electron.shell.openItem(this.filePath);
+                this.$electron.shell.openPath(this.filePath);
               }
             });
           });
@@ -267,7 +207,7 @@ export default {
     }
   },
   destroyed() {
-    console.log("销毁了哦")
+    console.log("销毁了哦");
     this.$ipcApi.remove("confirm-message");
     this.$ipcApi.remove("download-done");
     this.$ipcApi.remove("download-paused");

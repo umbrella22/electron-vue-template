@@ -4,63 +4,64 @@ import { winURL } from '../config/StaticPath'
 
 export default {
   Mainfunc (mainWindow, IsUseSysTitle) {
-    ipcMain.on('IsUseSysTitle', (event) => {
-      const data = IsUseSysTitle
-      event.reply('CisUseSysTitle', data)
+    ipcMain.handle('IsUseSysTitle', async () => {
+      return IsUseSysTitle
     })
-    ipcMain.on('windows-mini', () => {
+    ipcMain.handle('windows-mini', () => {
       mainWindow.minimize()
     })
-    ipcMain.on('window-max', (event) => {
+    ipcMain.handle('window-max', async () => {
       if (mainWindow.isMaximized()) {
-        event.reply('window-confirm', false)
         mainWindow.restore()
+        return { status: false }
       } else {
-        event.reply('window-confirm', true)
         mainWindow.maximize()
+        return { status: true }
       }
     })
-    ipcMain.on('window-close', () => {
+    ipcMain.handle('window-close', () => {
       mainWindow.close()
     })
-    ipcMain.on('open-messagebox', (event, arg) => {
-      dialog.showMessageBox(mainWindow, {
+    ipcMain.handle('open-messagebox', async (event, arg) => {
+      const res = await dialog.showMessageBox(mainWindow, {
         type: arg.type || 'info',
         title: arg.title || '',
         buttons: arg.buttons || [],
         message: arg.message || '',
         noLink: arg.noLink || true
-      }).then(res => {
-        event.reply('confirm-message', res)
       })
+      return res
     })
-    ipcMain.on('open-errorbox', (event, arg) => {
+    ipcMain.handle('open-errorbox', (event, arg) => {
       dialog.showErrorBox(
         arg.title,
         arg.message
       )
     })
-    ipcMain.on('statr-server', (event, arg) => {
-      Server.StatrServer().then(res => {
-        event.reply('confirm-start', res)
-      }).catch(err => {
+    ipcMain.handle('statr-server', async () => {
+      try {
+        const serveStatus = await Server.StatrServer()
+        console.log(serveStatus)
+        return serveStatus
+      } catch (error) {
         dialog.showErrorBox(
           '错误',
-          err
+          error
         )
-      })
+      }
     })
-    ipcMain.on('stop-server', (event, arg) => {
-      Server.StopServer().then(res => {
-        event.reply('confirm-stop', res)
-      }).catch(err => {
+    ipcMain.handle('stop-server', async (event, arg) => {
+      try {
+        const serveStatus = await Server.StopServer()
+        return serveStatus
+      } catch (error) {
         dialog.showErrorBox(
           '错误',
-          err
+          error
         )
-      })
+      }
     })
-    ipcMain.on('open-win', (event, arg) => {
+    ipcMain.handle('open-win', (event, arg) => {
       const ChildWin = new BrowserWindow({
         height: 595,
         useContentSize: true,

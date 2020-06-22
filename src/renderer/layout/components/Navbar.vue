@@ -128,7 +128,7 @@ export default {
       width: 30px;
       height: 30px;
       margin-right: 10px;
-      /deep/ img {
+      ::v-deep img {
         width: 100%;
         height: 100%;
         border-radius: 50%;
@@ -144,7 +144,7 @@ export default {
         padding-right: 20px;
         border-right: 1px solid #cccccc;
       }
-      .select-right /deep/ .el-dropdown > span {
+      .select-right ::v-deep .el-dropdown > span {
         font-size: 6px;
       }
       .select-right {
@@ -152,7 +152,7 @@ export default {
           color: #333333;
           font-weight: 400;
         }
-        /deep/ .el-dropdown-selfdefine {
+        ::v-deep .el-dropdown-selfdefine {
           display: flex;
           align-items: center;
         }

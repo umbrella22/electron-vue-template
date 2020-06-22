@@ -13,12 +13,10 @@ import './icons'
 import '@/styles/index.scss'
 
 if (!process.env.IS_WEB) {
-  Vue.use(require('vue-electron'))
   if (!require('../../config').IsUseSysTitle) {
     require('@/styles/custom-title.scss')
   }
   // 当处于electron状态下才引用db
-  Vue.prototype.$db = require('./api/operationalData').default
   Vue.prototype.$ipcApi = require('./utils/ipcRenderer').default
 }
 
