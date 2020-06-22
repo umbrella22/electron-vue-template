@@ -13,7 +13,6 @@ import './icons'
 import '@/styles/index.scss'
 
 if (!process.env.IS_WEB) {
-  Vue.use(require('vue-electron'))
   if (!require('../../config').IsUseSysTitle) {
     require('@/styles/custom-title.scss')
   }

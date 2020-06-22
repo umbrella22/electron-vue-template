@@ -100,7 +100,6 @@ export default {
     },
     // 获取electron方法
     open() {
-      console.log(this.$electron);
     },
     // 设置数据库的数据
     setdata() {

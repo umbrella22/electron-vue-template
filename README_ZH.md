@@ -31,7 +31,7 @@ npm test
 # 如若实在不行无法安装electron依赖，请使用
 npm config edit
 # 该命令会打开npm的配置文件，请在registry=https://registry.npm.taobao.org/这行代码后的下一行添加
-# electron_mirror=https://cdn.npm.taobao.org/dist/electron/  和  sass_binary_site=https://npm.taobao.org/mirrors/node-sass/
+# electron_mirror=https://cdn.npm.taobao.org/dist/electron/
 # 然后关闭该窗口，重启命令行，删除node_modules文件夹，并重新安装依赖即可
 
 ```
@@ -50,6 +50,7 @@ npm config edit
 这是花裤衩大大原本的[地址](https://github.com/PanJiaChen/electron-vue-admin)
 
 # 更新日志
+- 2020年06月22日：替换node-sass为dart-sass再也不用因为下载sass而苦恼，稳定分支升级electron版本为8，激进分支为9，其中激进分支剔除了nedb，大幅度修改了ipc，文档尚未更新。
 - 2020年04月29日：修复web打包失败，提升依赖；文档待完善
 - 2020年02月09日：添加[中文在线文档](https://umbrella22.github.io/electron-vue-template-doc/)，[国内访问地址](https://zh-sky.gitee.io/electron-vue-template-doc/)
 - 剔除win打包依赖，因为太大了，将它放到码云的额外仓库中，[地址](https://gitee.com/Zh-Sky/HardToDownloadLib)

@@ -129,12 +129,12 @@ export default {
 </script>
 <style lang="scss" scoped>
 .menu-wrapper {
-  /deep/ .el-menu-item,
+  ::v-deep .el-menu-item,
   .el-submenu__title {
     height: 46px;
     line-height: 46px;
   }
-  /deep/ .el-menu-item {
+  ::v-deep .el-menu-item {
     padding: 0 20px 0 12px;
   }
 }
