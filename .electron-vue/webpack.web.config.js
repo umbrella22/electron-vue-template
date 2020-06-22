@@ -11,6 +11,8 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const TerserPlugin = require('terser-webpack-plugin');
 const { VueLoaderPlugin } = require('vue-loader')
+const HappyPack = require('happypack')
+const HappyThreadPool = HappyPack.ThreadPool({ size: os.cpus().length })
 
 function resolve(dir) {
   return path.join(__dirname, '..', dir)
@@ -56,7 +58,7 @@ let webConfig = {
       },
       {
         test: /\.js$/,
-        use: 'babel-loader',
+        use: 'happypack/loader?id=HappyRendererBabel',
         include: [resolve('src/renderer')],
         exclude: /node_modules/
       },
@@ -65,11 +67,16 @@ let webConfig = {
         use: {
           loader: 'vue-loader',
           options: {
-            extractCSS: true,
-            loaders: {
-              sass: 'vue-style-loader!css-loader!sass-loader?indentedSyntax=1',
-              scss: 'vue-style-loader!css-loader!sass-loader',
-              less: 'vue-style-loader!css-loader!less-loader'
+            loader: 'vue-loader',
+            options: {
+              cacheDirectory: 'node_modules/.cache/vue-loader',
+              cacheIdentifier: '7270960a',
+              extractCSS: process.env.NODE_ENV === 'production',
+              loaders: {
+                sass: 'vue-style-loader!css-loader!sass-loader?indentedSyntax=1',
+                scss: 'vue-style-loader!css-loader!sass-loader',
+                less: 'vue-style-loader!css-loader!less-loader'
+              }
             }
           }
         }
@@ -124,7 +131,17 @@ let webConfig = {
       'process.env.IS_WEB': 'true'
     }),
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoEmitOnErrorsPlugin()
+    new webpack.NoEmitOnErrorsPlugin(),
+    new HappyPack({
+      id: 'HappyRendererBabel',
+      loaders: [{
+        loader: 'babel-loader',
+        options: {
+          cacheDirectory: true
+        }
+      }],
+      threadPool: HappyThreadPool
+    }),
   ],
   output: {
     filename: '[name].js',
@@ -195,6 +212,14 @@ if (process.env.NODE_ENV === 'production') {
         terserOptions: {
           warnings: false,
           compress: {
+            hoist_funs: false,
+            hoist_props: false,
+            hoist_vars: false,
+            inline: false,
+            loops: false,
+            dead_code: true,
+            booleans: true,
+            if_return: true,
             warnings: false,
             drop_console: true,
             drop_debugger: true,
