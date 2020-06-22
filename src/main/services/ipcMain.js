@@ -4,13 +4,13 @@ import { winURL } from '../config/StaticPath'
 
 export default {
   Mainfunc (mainWindow, IsUseSysTitle) {
-    ipcMain.handle('IsUseSysTitle', () => {
+    ipcMain.handle('IsUseSysTitle', async () => {
       return IsUseSysTitle
     })
     ipcMain.handle('windows-mini', () => {
       mainWindow.minimize()
     })
-    ipcMain.handle('window-max', () => {
+    ipcMain.handle('window-max', async () => {
       if (mainWindow.isMaximized()) {
         mainWindow.restore()
         return { status: false }
@@ -41,6 +41,7 @@ export default {
     ipcMain.handle('statr-server', async () => {
       try {
         const serveStatus = await Server.StatrServer()
+        console.log(serveStatus)
         return serveStatus
       } catch (error) {
         dialog.showErrorBox(
@@ -60,7 +61,7 @@ export default {
         )
       }
     })
-    ipcMain.on('open-win', (event, arg) => {
+    ipcMain.handle('open-win', (event, arg) => {
       const ChildWin = new BrowserWindow({
         height: 595,
         useContentSize: true,

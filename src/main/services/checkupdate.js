@@ -54,13 +54,13 @@ export default {
       Message(mainWindow, 4)
     })
     // 执行自动更新检查
-    ipcMain.on('check-update', () => {
+    ipcMain.handle('check-update', () => {
       autoUpdater.checkForUpdates().catch(err => {
         console.log('网络连接问题', err)
       })
     })
     // 渲染进程执行更新操作
-    ipcMain.on('confirm-update', () => {
+    ipcMain.handle('confirm-update', () => {
       autoUpdater.quitAndInstall()
     })
   }

@@ -21,9 +21,8 @@ if (os.platform().includes('win32')) {
 }
 export default {
   download (mainWindow) {
-    ipcMain.on('start-download', (event, msg) => {
+    ipcMain.handle('start-download', (event, msg) => {
       mainWindow.webContents.downloadURL(msg.downloadUrL || defaultDownloadUrL)
-      event.reply('confirm-download', true)
       mainWindow.webContents.session.on('will-download', (event, item, webContents) => {
         //   将文件保存在系统的下载目录
         const filePath = path.join(app.getPath('downloads'), item.getFilename())

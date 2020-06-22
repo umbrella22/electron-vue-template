@@ -96,8 +96,7 @@ export default {
       });
     },
     StopServer() {
-      this.$ipcApi.send("stop-server");
-      this.$ipcApi.on("confirm-stop", (event, arg) => {
+      this.$ipcApi.send("stop-server").then(res => {
         this.$message({
           type: "success",
           message: "已关闭"
@@ -105,33 +104,28 @@ export default {
       });
     },
     StartServer() {
-      this.$ipcApi.send("statr-server");
-      this.$ipcApi.on("confirm-start", (event, arg) => {
-        console.log(arg);
-        this.$message({
-          type: "success",
-          message: arg
-        });
+      this.$ipcApi.send("statr-server").then(res => {
+        if (res) {
+          this.$message({
+            type: "success",
+            message: res
+          });
+        }
       });
     },
     // 获取electron方法
-    open() {
-      console.log(this.$electron);
-    },
+    open() {},
     CheckUpdate(data) {
       switch (data) {
         case "one":
-          const dialog = this.$electron.remote.dialog;
-          this.$ipcApi.send("check-update");
-          console.log("启动检查");
-          this.$ipcApi.on("UpdateMsg", (event, data) => {
-            console.log(data);
-            switch (data.state) {
+          this.$ipcApi.send("check-update").then(res => {
+            switch (res.state) {
               case -1:
                 const msgdata = {
-                  title: data.msg
+                  title: "发生错误",
+                  message: res.msg
                 };
-                api.MessageBox(dialog, msgdata);
+                this.$ipcApi.send("open-errorbox");
                 break;
               case 0:
                 this.$message("正在检查更新");
@@ -147,7 +141,7 @@ export default {
                 this.$message({ type: "success", message: "无新版本" });
                 break;
               case 3:
-                this.percentage = data.msg.percent.toFixed(1);
+                this.percentage = res.msg.percent.toFixed(1);
                 break;
               case 4:
                 this.progressStaus = "success";
@@ -163,14 +157,13 @@ export default {
                 break;
             }
           });
+          console.log("启动检查");
+          console.log(data);
+
           break;
         case "two":
-          console.log(111);
-          this.$ipcApi.send("start-download");
-          this.$ipcApi.on("confirm-download", (event, arg) => {
-            if (arg) {
-              this.dialogVisible = true;
-            }
+          this.$ipcApi.send("start-download").then(() => {
+            this.dialogVisible = true;
           });
           this.$ipcApi.on("download-progress", (event, arg) => {
             this.percentage = Number(arg);
@@ -199,7 +192,7 @@ export default {
             this.$alert("更新下载完成！", "提示", {
               confirmButtonText: "确定",
               callback: action => {
-                this.$electron.shell.openItem(this.filePath);
+                this.$electron.shell.openPath(this.filePath);
               }
             });
           });
@@ -214,7 +207,7 @@ export default {
     }
   },
   destroyed() {
-    console.log("销毁了哦")
+    console.log("销毁了哦");
     this.$ipcApi.remove("confirm-message");
     this.$ipcApi.remove("download-done");
     this.$ipcApi.remove("download-paused");
