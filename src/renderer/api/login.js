@@ -1,5 +1,5 @@
 // 仅示例
-// import request from '@/utils/request'
+import request from '@/utils/request'
 
 // export function login (data) {
 //   return request({
@@ -16,3 +16,9 @@
 //     params: { token }
 //   })
 // }
+export function message () {
+  return request({
+    url: '/message',
+    method: 'get'
+  })
+}

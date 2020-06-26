@@ -13,5 +13,8 @@ export default {
         resolve(args)
       })
     })
+  },
+  remove (data) {
+    ipcRenderer.removeAllListeners(data)
   }
 }

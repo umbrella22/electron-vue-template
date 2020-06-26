@@ -2,6 +2,7 @@
 
 process.env.BABEL_ENV = 'web'
 
+const os = require('os')
 const path = require('path')
 const webpack = require('webpack')
 
