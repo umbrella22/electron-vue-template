@@ -1,8 +1,5 @@
 const user = {
   state: {
-    // token: JSON.parse(localStorage.getItem('token')),
-    // name: JSON.parse(localStorage.getItem('name')),
-    // roles: JSON.parse(localStorage.getItem('roles'))
     token: 'admin',
     name: 'Super Admin',
     roles: ['admin']

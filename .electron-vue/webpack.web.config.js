@@ -13,7 +13,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const TerserPlugin = require('terser-webpack-plugin');
 const { VueLoaderPlugin } = require('vue-loader')
 const HappyPack = require('happypack')
-const HappyThreadPool = HappyPack.ThreadPool({ size: os.cpus().length })
+const HappyThreadPool = HappyPack.ThreadPool({ size: os.cpus().length > 4 ? 4 : os.cpus().length })
 
 function resolve(dir) {
   return path.join(__dirname, '..', dir)
