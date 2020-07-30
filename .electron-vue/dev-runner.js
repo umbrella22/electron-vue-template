@@ -75,12 +75,9 @@ function startRenderer() {
           heartbeat: 2500
         })
 
-        compiler.hooks.compilation.tap('compilation', compilation => {
-          compilation.hooks.htmlWebpackPluginAfterEmit.tapAsync('html-webpack-plugin-after-emit', (data, cb) => {
-            hotMiddleware.publish({
-              action: 'reload'
-            })
-            cb()
+        compiler.hooks.afterEmit.tap('afterEmit', () => {
+          hotMiddleware.publish({
+            action: 'reload'
           })
         })
 
