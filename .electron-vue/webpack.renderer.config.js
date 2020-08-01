@@ -52,19 +52,44 @@ let rendererConfig = {
       // },
       {
         test: /\.scss$/,
-        use: ['vue-style-loader', 'css-loader', 'sass-loader']
+        use: ['vue-style-loader',
+          {
+            loader: 'css-loader',
+            options: {
+              esModule: false
+            }
+          },
+          'sass-loader']
       },
       {
         test: /\.sass$/,
-        use: ['vue-style-loader', 'css-loader', 'sass-loader?indentedSyntax']
+        use: ['vue-style-loader',
+          {
+            loader: 'css-loader',
+            options: {
+              esModule: false
+            }
+          }, 'sass-loader?indentedSyntax']
       },
       {
         test: /\.less$/,
-        use: ['vue-style-loader', 'css-loader', 'less-loader']
+        use: ['vue-style-loader',
+          {
+            loader: 'css-loader',
+            options: {
+              esModule: false
+            }
+          }, 'less-loader']
       },
       {
         test: /\.css$/,
-        use: ['vue-style-loader', 'css-loader']
+        use: ['vue-style-loader',
+          {
+            loader: 'css-loader',
+            options: {
+              esModule: false
+            }
+          }]
       },
       {
         test: /\.html$/,
@@ -86,12 +111,6 @@ let rendererConfig = {
           options: {
             cacheDirectory: 'node_modules/.cache/vue-loader',
             cacheIdentifier: '7270960a',
-            extractCSS: process.env.NODE_ENV === 'production',
-            loaders: {
-              sass: 'vue-style-loader!css-loader!sass-loader?indentedSyntax=1',
-              scss: 'vue-style-loader!css-loader!sass-loader',
-              less: 'vue-style-loader!css-loader!less-loader'
-            }
           }
         }
       },
