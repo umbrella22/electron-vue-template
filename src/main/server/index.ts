@@ -1,15 +1,15 @@
 /* eslint-disable prefer-promise-reject-errors */
 import app from './server'
-import http from 'http'
-import config from '@config'
+import { createServer } from 'http'
+import config from '@config/index'
 const port = config.BuiltInServerPort
 var server = null
 app.set('port', port)
 
 export default {
-  StatrServer () {
+  StatrServer() {
     return new Promise((resolve, reject) => {
-      server = http.createServer(app)
+      server = createServer(app)
       server.listen(port)
       server.on('error', (error) => {
         switch (error.code) {
@@ -28,9 +28,8 @@ export default {
       })
     })
   },
-  StopServer () {
+  StopServer() {
     return new Promise((resolve, reject) => {
-      console.log(server)
       if (server) {
         server.close()
         server.on('close', () => {

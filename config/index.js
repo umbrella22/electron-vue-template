@@ -9,7 +9,7 @@ module.exports = {
     chineseLog: false,
     port: 9080
   },
-  UseStartupChart: false,
+  UseStartupChart: true,
   IsUseSysTitle: true,
   DllFolder: '',
   BuiltInServerPort: 25565

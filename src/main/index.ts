@@ -5,7 +5,7 @@ import initWindow from './services/windowManager'
 import DisableButton from './config/DisableButton'
 
 function onAppReady () {
-  initWindow()
+  new initWindow().initWindow()
   DisableButton.Disablef12()
 }
 

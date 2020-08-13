@@ -1,9 +1,9 @@
 import { ipcMain, dialog, BrowserWindow } from 'electron'
-import Server from '../server/index'
+import Server from '../server'
 import { winURL } from '../config/StaticPath'
 
 export default {
-  Mainfunc (mainWindow, IsUseSysTitle) {
+  Mainfunc(mainWindow: BrowserWindow, IsUseSysTitle: Boolean) {
     ipcMain.handle('IsUseSysTitle', async () => {
       return IsUseSysTitle
     })
