@@ -10,6 +10,8 @@ function onAppReady () {
 }
 
 app.isReady() ? onAppReady() : app.on('ready', onAppReady)
+// 由于9.x版本问题，需要加入该配置关闭跨域问题
+app.commandLine.appendSwitch('disable-features', 'OutOfBlinkCors');
 
 app.on('window-all-closed', () => {
   // 所有平台均为所有窗口关闭就退出软件
