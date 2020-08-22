@@ -72,7 +72,7 @@
     }
   },
   "dependencies": {
-    "axios": "^0.19.2",
+    "axios": "^0.20.0",
     "date-fns": "^2.15.0",
     "electron-updater": "^4.3.1",
     "element-ui": "^2.13.2",
@@ -80,12 +80,12 @@
     "fs-extra": "^9.0.1",
     "js-cookie": "^2.2.1",
     "nprogress": "^0.2.0",
-    "vue": "^2.6.11",
+    "vue": "^2.6.12",
     "vue-router": "^3.4.3",
     "vuex": "^3.5.1"
   },
   "devDependencies": {
-    "@babel/core": "^7.11.1",
+    "@babel/core": "^7.11.4",
     "@babel/plugin-proposal-class-properties": "^7.10.4",
     "@babel/plugin-proposal-decorators": "^7.10.5",
     "@babel/plugin-proposal-do-expressions": "^7.10.4",
@@ -120,7 +120,7 @@
     "cross-env": "^7.0.2",
     "css-loader": "^4.2.1",
     "del": "^5.1.0",
-    "electron": "^9.2.0",
+    "electron": "^9.2.1",
     "electron-builder": "^22.8.0",
     "electron-devtools-installer": "^3.1.1",
     "eslint": "^6.8.0",
@@ -141,22 +141,22 @@
     "portfinder": "^1.0.28",
     "sass": "^1.26.10",
     "sass-loader": "^9.0.3",
-    "split2": "^3.2.1",
+    "split2": "^3.2.2",
     "style-loader": "^1.2.1",
     "svg-sprite-loader": "^5.0.0",
     "terser-webpack-plugin": "^4.1.0",
     "through2-filter": "^3.0.0",
     "ts-loader": "^8.0.2",
-    "typescript": "^3.9.7",
+    "typescript": "^4.0.2",
     "url-loader": "^4.1.0",
     "vue-html-loader": "^1.2.4",
     "vue-loader": "^15.9.3",
     "vue-style-loader": "^4.1.2",
-    "vue-template-compiler": "^2.6.11",
+    "vue-template-compiler": "^2.6.12",
     "webpack": "^4.44.1",
     "webpack-cli": "^3.3.12",
     "webpack-dev-server": "^3.11.0",
     "webpack-hot-middleware": "^2.25.0",
-    "webpack-merge": "^5.1.1"
+    "webpack-merge": "^5.1.2"
   }
 }
