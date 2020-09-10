@@ -3,10 +3,16 @@
 import { app } from 'electron'
 import initWindow from './services/windowManager'
 import DisableButton from './config/DisableButton'
+import electronDevtoolsInstaller, { VUEJS_DEVTOOLS } from 'electron-devtools-installer'
 
-function onAppReady () {
+function onAppReady() {
   new initWindow().initWindow()
   DisableButton.Disablef12()
+  if (process.env.NODE_ENV === 'development') {
+    electronDevtoolsInstaller(VUEJS_DEVTOOLS)
+      .then((name) => console.log(`已安装: ${name}`))
+      .catch(err => console.log('无法安装 `vue-devtools`: \n 可能发生得错误：网络连接问题 \n', err))
+  }
 }
 
 app.isReady() ? onAppReady() : app.on('ready', onAppReady)

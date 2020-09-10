@@ -60,21 +60,14 @@ class MainInit {
     new Update(this.mainWindow)
     // 启用协议，这里暂时只用于自定义头部的时候使用
     setIpc.Mainfunc(this.mainWindow, config.IsUseSysTitle)
-    // 安装devtools
+    // dom-ready之后显示界面
+    this.mainWindow.webContents.once('dom-ready', () => {
+      this.mainWindow.show()
+      if (config.UseStartupChart) this.loadWindow.destroy()
+    })
+    // 开发模式下自动开启devtools
     if (process.env.NODE_ENV === 'development') {
-      this.mainWindow.webContents.once('dom-ready', () => {
-        this.mainWindow.show()
-        electronDevtoolsInstaller(VUEJS_DEVTOOLS)
-          .then((name) => console.log(`已安装: ${name}`))
-          .catch(err => console.log('无法安装 `vue-devtools`: \n 可能发生得错误：网络连接问题 \n', err))
-        if (config.UseStartupChart) this.loadWindow.destroy()
-        this.mainWindow.webContents.openDevTools({ mode: 'undocked', activate: true })
-      })
-    } else {
-      this.mainWindow.webContents.once('dom-ready', () => {
-        this.mainWindow.show()
-        if (config.UseStartupChart) this.loadWindow.destroy()
-      })
+      this.mainWindow.webContents.openDevTools({ mode: 'undocked', activate: true })
     }
     // 当确定渲染进程卡死时
     this.mainWindow.webContents.on('crashed', () => {
