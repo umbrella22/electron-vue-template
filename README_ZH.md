@@ -1,6 +1,6 @@
 # Electron-Vue-template
 
-> 这是一个基于electron的vue最基本的模板，其中前端技术栈则用到vue全家桶，axios作为http请求，而本地数据库则是nedb。现在合并了花裤衩的vue-admin中的东西,由于我司需求方面,所以侧栏的渲染比较新奇,侧栏样式是在` src/renderer/layout/components/sidebar `文件夹中,大家可以根据需求进行个性化更改,鄙人后续会将这个和花裤衩大大的同步.
+> 这是一个基于electron的vue最基本的模板，其中前端技术栈则用到vue全家桶，axios作为http请求，而本地数据库则是nedb。现在合并了花裤衩的vue-admin中的东西侧栏样式是在` src/renderer/layout/components/sidebar `文件夹中,大家可以根据需求进行个性化更改,鄙人后续会将这个和花裤衩大大的同步.
 
 - 因为花裤衩大大的ELECTRON版本已经一年没有更新了,而且ELECTRON,vue,elementui,都已经迭代太多,刚好我司有这方面的需求,我就在vue-electron脚手架生成的项目基础上,将花裤衩大大的项目核心组件提取出来合并到这个项目中，在我简单的封装了axios和db．以及electron常用的信息弹窗，错误弹窗，稍后的日子中我会慢慢完善这个文档，暂时如果有人需要使用这个项目，还请多多包含，因为文档不够完善，只能用过直接看代码，在路由页面我有注释．
 
@@ -31,18 +31,10 @@ npm test
 # 如若实在不行无法安装electron依赖，请使用
 npm config edit
 # 该命令会打开npm的配置文件，请在registry=https://registry.npm.taobao.org/这行代码后的下一行添加
-# electron_mirror=https://cdn.npm.taobao.org/dist/electron/
+# electron_mirror=https://cdn.npm.taobao.org/dist/electron/  和  sass_binary_site=https://npm.taobao.org/mirrors/node-sass/
 # 然后关闭该窗口，重启命令行，删除node_modules文件夹，并重新安装依赖即可
 
 ```
-
-<h3 align="center">感谢jetbrains提供ide支持</h3>
-
-<p align="center">
-  <a href="https://www.jetbrains.com/?from=electron-vue-template" target="_blank">
-    <img width="160px" src="https://wx1.sbimg.cn/2020/04/24/jetbrains.png">
-  </a>
-</p>
 
 ---
 
@@ -50,8 +42,9 @@ npm config edit
 这是花裤衩大大原本的[地址](https://github.com/PanJiaChen/electron-vue-admin)
 
 # 更新日志
-- 2020年06月22日：替换node-sass为dart-sass再也不用因为下载sass而苦恼，稳定分支升级electron版本为8，激进分支为9，其中激进分支剔除了nedb，大幅度修改了ipc，文档尚未更新。
-- 2020年04月29日：修复web打包失败，提升依赖；文档待完善
+- 2020年09月10日：例行更新依赖，感谢 @BelinChung 贡献代码，修正bug。
+- 2020年04月30日：添加内置服务端关闭方法，进一步简化登录流程；多窗口文档已就绪，服务端说明尚未补充。
+- 2020年04月29日：添加了路由多窗口示例，修复web打包，提升依赖；文档还未就绪
 - 2020年02月09日：添加[中文在线文档](https://umbrella22.github.io/electron-vue-template-doc/)，[国内访问地址](https://zh-sky.gitee.io/electron-vue-template-doc/)
 - 剔除win打包依赖，因为太大了，将它放到码云的额外仓库中，[地址](https://gitee.com/Zh-Sky/HardToDownloadLib)
 - 2020年02月06日更新：激进分支更新至8.0.0.
