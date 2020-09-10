@@ -5,7 +5,6 @@ import DownloadUpdate from './downloadFile'
 import Update from './checkupdate';
 import { app, BrowserWindow, Menu, dialog } from 'electron'
 import { winURL, loadingURL } from '../config/StaticPath'
-import electronDevtoolsInstaller, { VUEJS_DEVTOOLS } from 'electron-devtools-installer'
 
 class MainInit {
 
