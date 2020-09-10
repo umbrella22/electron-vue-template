@@ -61,18 +61,12 @@ function createMainWindow () {
   upload.Update(mainWindow)
   DownloadUpdate.download(mainWindow)
 
-  if (process.env.NODE_ENV === 'development') {
-    mainWindow.webContents.once('dom-ready', () => {
-      mainWindow.show()
-      loadWindow.destroy()
-    })
-    mainWindow.webContents.openDevTools(true)
-  } else {
-    mainWindow.webContents.once('dom-ready', () => {
-      mainWindow.show()
-      loadWindow.destroy()
-    })
-  }
+  mainWindow.webContents.once('dom-ready', () => {
+    mainWindow.show()
+  })
+  if (config.UseStartupChart) loadWindow.destroy()
+
+  if (process.env.NODE_ENV === 'development') mainWindow.webContents.openDevTools(true)
 
   mainWindow.on('closed', () => {
     mainWindow = null
