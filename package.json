@@ -85,7 +85,7 @@
     "vuex": "^3.5.1"
   },
   "devDependencies": {
-    "@babel/core": "^7.11.5",
+    "@babel/core": "^7.11.6",
     "@babel/plugin-proposal-class-properties": "^7.10.4",
     "@babel/plugin-proposal-decorators": "^7.10.5",
     "@babel/plugin-proposal-do-expressions": "^7.10.4",
@@ -108,7 +108,7 @@
     "@babel/register": "^7.11.5",
     "@babel/runtime": "^7.11.2",
     "@types/fs-extra": "^9.0.1",
-    "@types/node": "^14.6.2",
+    "@types/node": "^14.6.4",
     "ajv": "^6.12.4",
     "babel-eslint": "^9.0.0",
     "babel-loader": "^8.1.0",
@@ -118,7 +118,7 @@
     "chalk": "^4.0.0",
     "copy-webpack-plugin": "^6.1.0",
     "cross-env": "^7.0.2",
-    "css-loader": "^4.2.2",
+    "css-loader": "^4.3.0",
     "del": "^5.1.0",
     "electron": "^10.1.1",
     "electron-builder": "^22.8.0",
@@ -127,7 +127,7 @@
     "eslint-config-standard": "^14.1.1",
     "eslint-friendly-formatter": "^4.0.1",
     "eslint-loader": "^3.0.4",
-    "eslint-plugin-html": "^6.0.3",
+    "eslint-plugin-html": "^6.1.0",
     "eslint-plugin-import": "^2.22.0",
     "eslint-plugin-node": "^9.2.0",
     "eslint-plugin-promise": "^4.2.1",
@@ -135,12 +135,12 @@
     "file-loader": "^6.1.0",
     "happypack": "^5.0.1",
     "html-webpack-plugin": "^4.4.1",
-    "mini-css-extract-plugin": "0.11.0",
+    "mini-css-extract-plugin": "0.11.1",
     "multispinner": "^0.2.1",
     "node-loader": "^1.0.1",
     "portfinder": "^1.0.28",
     "sass": "^1.26.10",
-    "sass-loader": "^10.0.1",
+    "sass-loader": "^10.0.2",
     "split2": "^3.2.2",
     "style-loader": "^1.2.1",
     "svg-sprite-loader": "^5.0.0",
@@ -157,6 +157,6 @@
     "webpack-cli": "^3.3.12",
     "webpack-dev-server": "^3.11.0",
     "webpack-hot-middleware": "^2.25.0",
-    "webpack-merge": "^5.1.3"
+    "webpack-merge": "^5.1.4"
   }
 }
