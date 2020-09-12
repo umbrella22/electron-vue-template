@@ -11,7 +11,6 @@ const Multispinner = require('multispinner')
 
 const mainConfig = require('./webpack.main.config')
 const rendererConfig = require('./webpack.renderer.config')
-const webConfig = require('./webpack.web.config')
 
 const doneLog = chalk.bgGreen.white(' DONE ') + ' '
 const errorLog = chalk.bgRed.white(' ERROR ') + ' '
@@ -99,8 +98,8 @@ function pack (config) {
 
 function web () {
   del.sync(['dist/web/*', '!.gitkeep'])
-  webConfig.mode = 'production'
-  webpack(webConfig, (err, stats) => {
+  rendererConfig.mode = 'production'
+  webpack(rendererConfig, (err, stats) => {
     if (err || stats.hasErrors()) console.log(err)
 
     console.log(stats.toString({

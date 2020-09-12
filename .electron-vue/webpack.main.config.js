@@ -8,10 +8,6 @@ const webpack = require('webpack')
 const MinifyPlugin = require("babel-minify-webpack-plugin");
 const config = require('../config')
 
-// const os = require('os')
-// const HappyPack = require('happypack')
-// const HappyThreadPool = HappyPack.ThreadPool({ size: os.cpus().length > 4 ? 4 : os.cpus().length })
-
 function resolve(dir) {
   return path.join(__dirname, '..', dir)
 }
@@ -43,7 +39,7 @@ let mainConfig = {
       // },
       {
         test: /\.ts$/,
-        use: [{
+        use: ['thread-loader',{
           loader: 'babel-loader',
           options: {
             cacheDirectory: true
@@ -68,16 +64,6 @@ let mainConfig = {
   },
   plugins: [
     new webpack.NoEmitOnErrorsPlugin(),
-    // new HappyPack({
-    //   id: "MainHappyBabel",
-    //   loaders: [{
-    //     loader: 'babel-loader',
-    //     options: {
-    //       cacheDirectory: true
-    //     }
-    //   }],
-    //   threadPool: HappyThreadPool
-    // })
   ],
   resolve: {
     alias: {
