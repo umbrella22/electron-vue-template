@@ -2,11 +2,11 @@
 
 process.env.BABEL_ENV = 'renderer'
 
-const os = require('os')
 const path = require('path')
 const { dependencies } = require('../package.json')
 const webpack = require('webpack')
 const config = require('../config')
+const IsWeb = process.env.ENV_TARGET === 'web'
 
 const MinifyPlugin = require("babel-minify-webpack-plugin");
 const CopyWebpackPlugin = require('copy-webpack-plugin')
@@ -14,9 +14,6 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const TerserPlugin = require('terser-webpack-plugin');
 const { VueLoaderPlugin } = require('vue-loader')
-const HappyPack = require('happypack')
-const HappyThreadPool = HappyPack.ThreadPool({ size: os.cpus().length > 4 ? 4 : os.cpus().length })
-
 function resolve(dir) {
   return path.join(__dirname, '..', dir)
 }
@@ -27,7 +24,7 @@ function resolve(dir) {
  * that provide pure *.vue files that need compiling
  * https://simulatedgreg.gitbooks.io/electron-vue/content/en/webpack-configurations.html#white-listing-externals
  */
-let whiteListedModules = ['vue', "element-ui"]
+let whiteListedModules = IsWeb ? [] : ['vue', "element-ui"]
 
 let rendererConfig = {
   devtool: '#cheap-module-eval-source-map',
@@ -97,7 +94,12 @@ let rendererConfig = {
       },
       {
         test: /\.js$/,
-        use: 'happypack/loader?id=HappyRendererBabel',
+        use: ['thread-loader', {
+          loader: 'babel-loader',
+          options: {
+            cacheDirectory: true
+          }
+        }],
         exclude: /node_modules/
       },
       {
@@ -164,7 +166,8 @@ let rendererConfig = {
     new VueLoaderPlugin(),
     new MiniCssExtractPlugin({ filename: 'styles.css' }),
     new webpack.DefinePlugin({
-      'process.env': process.env.NODE_ENV === 'production' ? config.build.env : config.dev.env
+      'process.env': process.env.NODE_ENV === 'production' ? config.build.env : config.dev.env,
+      'process.env.IS_WEB': IsWeb
     }),
     new HtmlWebpackPlugin({
       filename: 'index.html',
@@ -192,21 +195,11 @@ let rendererConfig = {
     }),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
-    new HappyPack({
-      id: 'HappyRendererBabel',
-      loaders: [{
-        loader: 'babel-loader',
-        options: {
-          cacheDirectory: true
-        }
-      }],
-      threadPool: HappyThreadPool
-    }),
   ],
   output: {
     filename: '[name].js',
-    libraryTarget: 'commonjs2',
-    path: path.join(__dirname, '../dist/electron')
+    libraryTarget: IsWeb ? 'var' : 'commonjs2',
+    path: IsWeb ? path.join(__dirname, '../dist/web') : path.join(__dirname, '../dist/electron')
   },
   resolve: {
     alias: {
@@ -221,7 +214,7 @@ let rendererConfig = {
 /**
  * Adjust rendererConfig for development settings
  */
-if (process.env.NODE_ENV !== 'production') {
+if (process.env.NODE_ENV !== 'production' && !IsWeb) {
   rendererConfig.plugins.push(
     new webpack.DefinePlugin({
       '__static': `"${path.join(__dirname, '../static').replace(/\\/g, '\\\\')}"`,
@@ -281,6 +274,31 @@ if (process.env.NODE_ENV === 'production') {
           },
         }
       })]
+  }
+  if (IsWeb) {
+    rendererConfig.optimization.splitChunks = {
+      chunks: "async",
+      cacheGroups: {
+        vendor: { // 将第三方模块提取出来
+          minSize: 30000,
+          minChunks: 1,
+          test: /node_modules/,
+          chunks: 'initial',
+          name: 'vendor',
+          priority: 1
+        },
+        commons: {
+          test: /[\\/]src[\\/]common[\\/]/,
+          name: 'commons',
+          minSize: 30000,
+          minChunks: 3,
+          chunks: 'initial',
+          priority: -1,
+          reuseExistingChunk: true // 这个配置允许我们使用已经存在的代码块
+        }
+      }
+    }
+    rendererConfig.optimization.runtimeChunk = { name: 'runtime' }
   }
 }
 
