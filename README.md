@@ -11,9 +11,11 @@
 
 <p align="center">
   <a href="https://www.jetbrains.com/?from=electron-vue-template" target="_blank">
-    <img width="160px" src="https://wx1.sbimg.cn/2020/04/24/jetbrains.png">
+    <img width="160px" src="https://github.com/umbrella22/MCsever/blob/master/jetbrains.png">
   </a>
 </p>
+
+
 
 #### Build Setup
 
