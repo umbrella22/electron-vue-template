@@ -2,7 +2,7 @@
 
 > This is a project based on electron-vue, using the elementUI, vuex, vue-router, axios technology stack. This project is divided into two branches. The master maintains the original project structure and features for dependency updates, and the SynchronizedUpdates branch. It keeps the original file structure and the code part is completely customized by me personally; it includes: a complete background management interface, nedb database package, and two complete update download methods. If you feel redundant, you can delete it yourself.
 
-[中文文档地址](https://github.com/umbrella22/electron-vue-template/blob/master/README_CN.md)
+[中文文档地址](https://github.com/umbrella22/electron-vue-template/blob/master/README_ZH.md)
 [中文在线文档](https://umbrella22.github.io/electron-vue-template-doc/)
 [国内访问地址](https://gitee.com/Zh-Sky/electron-vue-template)
 [国内文档访问地址](https://zh-sky.gitee.io/electron-vue-template-doc/)
