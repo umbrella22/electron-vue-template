@@ -79,6 +79,28 @@ export default {
   }),
   created() {
     console.log(__lib);
+    // 异步进程通信监听
+    this.$ipcApi.on("confirm-message", (event, arg) => {
+      console.log(arg);
+      if (arg.response === 0) {
+        this.$db.deleall({name: "yyy"}).then(res => {
+          console.log(res);
+          if (res !== 0) {
+            this.getdata();
+            this.$message({
+              message: "成功删除" + res + "条",
+              type: "success"
+            });
+          } else {
+            let errormsg = {
+              title: "错误",
+              message: "已经没有数据可以被删除！"
+            };
+            this.$ipcApi.send("open-errorbox", errormsg);
+          }
+        });
+      }
+    });
   },
   methods: {
     getMessage() {
@@ -129,27 +151,6 @@ export default {
         message: "此操作会清空本地数据库中的所有数据，是否继续？"
       };
       this.$ipcApi.send("open-messagebox", data);
-      this.$ipcApi.on("confirm-message", (event, arg) => {
-        console.log(arg);
-        if (arg.response === 0) {
-          this.$db.deleall({ name: "yyy" }).then(res => {
-            console.log(res);
-            if (res !== 0) {
-              this.getdata();
-              this.$message({
-                message: "成功删除" + res + "条",
-                type: "success"
-              });
-            } else {
-              let errormsg = {
-                title: "错误",
-                message: "已经没有数据可以被删除！"
-              };
-              this.$ipcApi.send("open-errorbox", errormsg);
-            }
-          });
-        }
-      });
     },
     CheckUpdate(data) {
       switch (data) {
