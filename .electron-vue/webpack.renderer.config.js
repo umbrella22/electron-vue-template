@@ -8,7 +8,6 @@ const webpack = require('webpack')
 const config = require('../config')
 const IsWeb = process.env.ENV_TARGET === 'web'
 
-const MinifyPlugin = require("babel-minify-webpack-plugin");
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
@@ -230,7 +229,6 @@ if (process.env.NODE_ENV === 'production') {
   rendererConfig.devtool = ''
 
   rendererConfig.plugins.push(
-    new MinifyPlugin(),
     new CopyWebpackPlugin({
       patterns: [
         {
