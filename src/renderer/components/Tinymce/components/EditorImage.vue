@@ -93,7 +93,13 @@ export default {
       }
     },
     handleError(err){
-      this.alert(err)
+      console.log(err)
+       this.$alert(err, '发生错误', {
+          confirmButtonText: '确定',
+          callback: action => {
+            
+          }
+        });
     }
   }
 };
