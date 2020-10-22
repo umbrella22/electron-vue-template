@@ -1,12 +1,13 @@
 <template>
   <div class="upload-container">
     <el-button
-      :style="{background:color,borderColor:color}"
+      :style="{ background: color, borderColor: color }"
       icon="el-icon-upload"
       size="mini"
       type="primary"
-      @click=" dialogVisible=true"
-    >上传图片</el-button>
+      @click="dialogVisible = true"
+      >上传图片</el-button
+    >
     <el-dialog :visible.sync="dialogVisible">
       <el-upload
         ref="upload"
@@ -31,32 +32,30 @@
 </template>
 
 <script>
-
-
 export default {
   name: "EditorSlideUpload",
   props: {
     color: {
       type: String,
-      default: "#1890ff"
-    }
+      default: "#1890ff",
+    },
   },
   data() {
     return {
       dialogVisible: false,
       listObj: {},
       fileList: [],
-      picPostData: {}
+      picPostData: {},
     };
   },
   methods: {
     checkAllSuccess() {
       return Object.keys(this.listObj).every(
-        item => this.listObj[item].hasSuccess
+        (item) => this.listObj[item].hasSuccess
       );
     },
     handleSubmit() {
-      const arr = Object.keys(this.listObj).map(v => this.listObj[v]);
+      const arr = Object.keys(this.listObj).map((v) => this.listObj[v]);
       console.log(arr);
       if (!this.checkAllSuccess()) {
         this.$message(
@@ -92,10 +91,14 @@ export default {
         }
       }
     },
-    handleError(err){
-      this.alert(err)
-    }
-  }
+    handleError(err) {
+      console.log(err);
+      this.$alert(err, "发生错误", {
+        confirmButtonText: "确定",
+        callback: (action) => {},
+      });
+    },
+  },
 };
 </script>
 
