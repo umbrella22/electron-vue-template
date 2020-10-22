@@ -91,14 +91,16 @@ export default {
         }
       }
     },
-    handleError(err) {
-      console.log(err);
-      this.$alert(err, "发生错误", {
-        confirmButtonText: "确定",
-        callback: (action) => {},
-      });
-    },
-  },
+    handleError(err){
+      console.log(err)
+       this.$alert(err, '发生错误', {
+          confirmButtonText: '确定',
+          callback: action => {
+            
+          }
+        });
+    }
+  }
 };
 </script>
 
