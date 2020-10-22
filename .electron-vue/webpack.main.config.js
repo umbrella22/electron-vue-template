@@ -38,7 +38,7 @@ let mainConfig = {
       // },
       {
         test: /\.ts$/,
-        use: ['thread-loader',{
+        use: [{
           loader: 'babel-loader',
           options: {
             cacheDirectory: true
