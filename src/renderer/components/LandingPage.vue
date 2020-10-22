@@ -6,12 +6,12 @@
         <span class="title">欢迎进入本框架</span>
         <system-information></system-information>
         <div v-if="textarray.length === 0">
-          <span>{{text}}</span>
+          <span>{{ text }}</span>
         </div>
-        <div v-for="(itme,index) in textarray" :key="index" v-else>
-          <span>{{itme._id}}</span>
-          <span>{{itme.name}}</span>
-          <span>{{itme.age}}</span>
+        <div v-for="(itme, index) in textarray" :key="index" v-else>
+          <span>{{ itme._id }}</span>
+          <span>{{ itme.name }}</span>
+          <span>{{ itme.age }}</span>
         </div>
       </div>
 
@@ -21,13 +21,23 @@
           <el-button type="primary" round @click="open()">控制台打印</el-button>
           <el-button type="primary" round @click="setdata">写入数据</el-button>
           <el-button type="primary" round @click="getdata">读取数据</el-button>
-          <el-button type="primary" round @click="deledata">清除所有数据</el-button>
-          <el-button type="primary" round @click="CheckUpdate('one')">检查更新</el-button>
+          <el-button type="primary" round @click="deledata"
+            >清除所有数据</el-button
+          >
+          <el-button type="primary" round @click="CheckUpdate('one')"
+            >检查更新</el-button
+          >
         </div>
         <div class="doc">
-          <el-button type="primary" round @click="CheckUpdate('two')">检查更新（第二种方法）</el-button>
-          <el-button type="primary" round @click="StartServer">启动内置服务端</el-button>
-          <el-button type="primary" round @click="getMessage">查看消息</el-button>
+          <el-button type="primary" round @click="CheckUpdate('two')"
+            >检查更新（第二种方法）</el-button
+          >
+          <el-button type="primary" round @click="StartServer"
+            >启动内置服务端</el-button
+          >
+          <el-button type="primary" round @click="getMessage"
+            >查看消息</el-button
+          >
         </div>
       </div>
     </main>
@@ -61,7 +71,7 @@ export default {
     text: "等待数据读取",
     newdata: {
       name: "yyy",
-      age: "12"
+      age: "12",
     },
     logo: require("@/assets/logo.png"),
     textarray: [],
@@ -71,11 +81,11 @@ export default {
       { color: "#e6a23c", percentage: 40 },
       { color: "#6f7ad3", percentage: 60 },
       { color: "#1989fa", percentage: 80 },
-      { color: "#5cb87a", percentage: 100 }
+      { color: "#5cb87a", percentage: 100 },
     ],
     dialogVisible: false,
     progressStaus: null,
-    filePath: ""
+    filePath: "",
   }),
   created() {
     console.log(__lib);
@@ -83,30 +93,66 @@ export default {
     this.$ipcApi.on("confirm-message", (event, arg) => {
       console.log(arg);
       if (arg.response === 0) {
-        this.$db.deleall({name: "yyy"}).then(res => {
+        this.$db.deleall({ name: "yyy" }).then((res) => {
           console.log(res);
           if (res !== 0) {
             this.getdata();
             this.$message({
               message: "成功删除" + res + "条",
-              type: "success"
+              type: "success",
             });
           } else {
             let errormsg = {
               title: "错误",
-              message: "已经没有数据可以被删除！"
+              message: "已经没有数据可以被删除！",
             };
             this.$ipcApi.send("open-errorbox", errormsg);
           }
         });
       }
     });
+    this.$ipcApi.on("confirm-download", (event, arg) => {
+      if (arg) {
+        this.dialogVisible = true;
+      }
+    });
+    this.$ipcApi.on("download-progress", (event, arg) => {
+      this.percentage = Number(arg);
+    });
+    this.$ipcApi.on("download-error", (event, arg) => {
+      if (arg) {
+        this.progressStaus = "exception";
+        this.percentage = 40;
+        this.colors = "#d81e06";
+      }
+    });
+    this.$ipcApi.on("download-paused", (event, arg) => {
+      if (arg) {
+        this.progressStaus = "warning";
+        this.$alert("下载由于未知原因被中断！", "提示", {
+          confirmButtonText: "重试",
+          callback: (action) => {
+            this.$ipcApi.send("satrt-download");
+          },
+        });
+      }
+    });
+    this.$ipcApi.on("download-done", (event, age) => {
+      this.filePath = age.filePath;
+      this.progressStaus = "success";
+      this.$alert("更新下载完成！", "提示", {
+        confirmButtonText: "确定",
+        callback: (action) => {
+          this.$electron.shell.openItem(this.filePath);
+        },
+      });
+    });
   },
   methods: {
     getMessage() {
-      message().then(res => {
+      message().then((res) => {
         this.$alert(res.data, "提示", {
-          confirmButtonText: "确定"
+          confirmButtonText: "确定",
         });
       });
     },
@@ -116,30 +162,29 @@ export default {
         console.log(arg);
         this.$message({
           type: "success",
-          message: arg
+          message: arg,
         });
       });
     },
     // 获取electron方法
-    open() {
-    },
+    open() {},
     // 设置数据库的数据
     setdata() {
       this.$db
         .adddata(this.newdata)
-        .then(res => this.getdata())
-        .catch(err => console.log(err));
+        .then((res) => this.getdata())
+        .catch((err) => console.log(err));
     },
     // 获取数据库的数据
     getdata() {
       this.$db
         .finddata()
-        .then(res => {
+        .then((res) => {
           console.log(res);
           this.textarray = res;
           console.log(this.textarray);
         })
-        .catch(err => console.log(err));
+        .catch((err) => console.log(err));
     },
     // 清空数据库的数据
     deledata() {
@@ -148,7 +193,7 @@ export default {
         title: "清除数据",
         buttons: ["确定了！", "才不要，我手滑了"],
         noLink: true,
-        message: "此操作会清空本地数据库中的所有数据，是否继续？"
+        message: "此操作会清空本地数据库中的所有数据，是否继续？",
       };
       this.$ipcApi.send("open-messagebox", data);
     },
@@ -163,7 +208,7 @@ export default {
             switch (data.state) {
               case -1:
                 const msgdata = {
-                  title: data.msg
+                  title: data.msg,
                 };
                 api.MessageBox(dialog, msgdata);
                 break;
@@ -173,7 +218,7 @@ export default {
               case 1:
                 this.$message({
                   type: "success",
-                  message: "已检查到新版本，开始下载"
+                  message: "已检查到新版本，开始下载",
                 });
                 this.dialogVisible = true;
                 break;
@@ -187,9 +232,9 @@ export default {
                 this.progressStaus = "success";
                 this.$alert("更新下载完成！", "提示", {
                   confirmButtonText: "确定",
-                  callback: action => {
+                  callback: (action) => {
                     this.$ipcApi.send("confirm-update");
-                  }
+                  },
                 });
                 break;
 
@@ -201,42 +246,7 @@ export default {
         case "two":
           console.log(111);
           this.$ipcApi.send("start-download");
-          this.$ipcApi.on("confirm-download", (event, arg) => {
-            if (arg) {
-              this.dialogVisible = true;
-            }
-          });
-          this.$ipcApi.on("download-progress", (event, arg) => {
-            this.percentage = Number(arg);
-          });
-          this.$ipcApi.on("download-error", (event, arg) => {
-            if (arg) {
-              this.progressStaus = "exception";
-              this.percentage = 40;
-              this.colors = "#d81e06";
-            }
-          });
-          this.$ipcApi.on("download-paused", (event, arg) => {
-            if (arg) {
-              this.progressStaus = "warning";
-              this.$alert("下载由于未知原因被中断！", "提示", {
-                confirmButtonText: "重试",
-                callback: action => {
-                  this.$ipcApi.send("satrt-download");
-                }
-              });
-            }
-          });
-          this.$ipcApi.on("download-done", (event, age) => {
-            this.filePath = age.filePath;
-            this.progressStaus = "success";
-            this.$alert("更新下载完成！", "提示", {
-              confirmButtonText: "确定",
-              callback: action => {
-                this.$electron.shell.openItem(this.filePath);
-              }
-            });
-          });
+
           break;
 
         default:
@@ -245,7 +255,7 @@ export default {
     },
     handleClose() {
       this.dialogVisible = false;
-    }
+    },
   },
   destroyed() {
     this.$ipcApi.remove("confirm-message");
@@ -254,7 +264,7 @@ export default {
     this.$ipcApi.remove("confirm-download");
     this.$ipcApi.remove("download-progress");
     this.$ipcApi.remove("download-error");
-  }
+  },
 };
 </script>
 
