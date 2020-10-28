@@ -67,6 +67,7 @@
 <script>
 import SystemInformation from "./LandingPage/SystemInformation";
 import { message } from "@/api/login";
+import { ipcRenderer } from "electron";
 export default {
   name: "landing-page",
   components: { SystemInformation },
@@ -92,17 +93,18 @@ export default {
   }),
   created() {
     console.log(__lib);
-    this.$ipcApi.on("download-progress", (event, arg) => {
+    // 下载文件的监听
+    ipcRenderer.on("download-progress", (event, arg) => {
       this.percentage = Number(arg);
     });
-    this.$ipcApi.on("download-error", (event, arg) => {
+    ipcRenderer.on("download-error", (event, arg) => {
       if (arg) {
         this.progressStaus = "exception";
         this.percentage = 40;
         this.colors = "#d81e06";
       }
     });
-    this.$ipcApi.on("download-paused", (event, arg) => {
+    ipcRenderer.on("download-paused", (event, arg) => {
       if (arg) {
         this.progressStaus = "warning";
         this.$alert("下载由于未知原因被中断！", "提示", {
@@ -113,7 +115,7 @@ export default {
         });
       }
     });
-    this.$ipcApi.on("download-done", (event, age) => {
+    ipcRenderer.on("download-done", (event, age) => {
       this.filePath = age.filePath;
       this.progressStaus = "success";
       this.$alert("更新下载完成！", "提示", {
@@ -122,6 +124,47 @@ export default {
           this.$electron.shell.openPath(this.filePath);
         },
       });
+    });
+    // electron-updater的更新监听
+    ipcRenderer.on("UpdateMsg", (event, age) => {
+      switch (age.state) {
+        case -1:
+          const msgdata = {
+            title: "发生错误",
+            message: age.msg,
+          };
+          this.dialogVisible = false;
+          this.$ipcApi.send("open-errorbox", msgdata);
+          break;
+        case 0:
+          this.$message("正在检查更新");
+          break;
+        case 1:
+          this.$message({
+            type: "success",
+            message: "已检查到新版本，开始下载",
+          });
+          this.dialogVisible = true;
+          break;
+        case 2:
+          this.$message({ type: "success", message: "无新版本" });
+          break;
+        case 3:
+          this.percentage = age.msg.percent.toFixed(1);
+          break;
+        case 4:
+          this.progressStaus = "success";
+          this.$alert("更新下载完成！", "提示", {
+            confirmButtonText: "确定",
+            callback: (action) => {
+              this.$ipcApi.send("confirm-update");
+            },
+          });
+          break;
+
+        default:
+          break;
+      }
     });
   },
   methods: {
@@ -161,48 +204,8 @@ export default {
     CheckUpdate(data) {
       switch (data) {
         case "one":
-          this.$ipcApi.send("check-update").then((res) => {
-            switch (res.state) {
-              case -1:
-                const msgdata = {
-                  title: "发生错误",
-                  message: res.msg,
-                };
-                this.$ipcApi.send("open-errorbox");
-                break;
-              case 0:
-                this.$message("正在检查更新");
-                break;
-              case 1:
-                this.$message({
-                  type: "success",
-                  message: "已检查到新版本，开始下载",
-                });
-                this.dialogVisible = true;
-                break;
-              case 2:
-                this.$message({ type: "success", message: "无新版本" });
-                break;
-              case 3:
-                this.percentage = res.msg.percent.toFixed(1);
-                break;
-              case 4:
-                this.progressStaus = "success";
-                this.$alert("更新下载完成！", "提示", {
-                  confirmButtonText: "确定",
-                  callback: (action) => {
-                    this.$ipcApi.send("confirm-update");
-                  },
-                });
-                break;
-
-              default:
-                break;
-            }
-          });
+          this.$ipcApi.send("check-update");
           console.log("启动检查");
-          console.log(data);
-
           break;
         case "two":
           this.$ipcApi.send("start-download").then(() => {

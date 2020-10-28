@@ -33,6 +33,9 @@ class Update {
       console.log('更新出现错误', err.message)
       if (err.message.includes('sha512 checksum mismatch')) {
         this.Message(this.mainWindow, -1, 'sha512校验失败')
+      } else {
+        this.Message(this.mainWindow, -1, '错误信息请看主进程控制台')
+
       }
     })
   }

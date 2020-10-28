@@ -25,7 +25,7 @@
     "publish": [
       {
         "provider": "generic",
-        "url": "http://127.0.0.1"
+        "url": "http://127.0.0.1:25565/"
       }
     ],
     "productName": "electron-vue-admin",
