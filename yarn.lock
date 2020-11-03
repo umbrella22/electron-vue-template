@@ -1196,10 +1196,10 @@
   resolved "https://registry.npm.taobao.org/@types/node/download/@types/node-12.12.48.tgz?cache=0&sync_timestamp=1594068001359&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Fnode%2Fdownload%2F%40types%2Fnode-12.12.48.tgz#4135f064eeed9fcfb4756deea5ba2caa11603391"
   integrity sha1-QTXwZO7tn8+0dW3upbosqhFgM5E=
 
-"@types/node@^14.14.5":
-  version "14.14.5"
-  resolved "https://registry.npm.taobao.org/@types/node/download/@types/node-14.14.5.tgz?cache=0&sync_timestamp=1603753296174&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Fnode%2Fdownload%2F%40types%2Fnode-14.14.5.tgz#e92d3b8f76583efa26c1a63a21c9d3c1143daa29"
-  integrity sha1-6S07j3ZYPvomwaY6IcnTwRQ9qik=
+"@types/node@^14.14.6":
+  version "14.14.6"
+  resolved "https://registry.npm.taobao.org/@types/node/download/@types/node-14.14.6.tgz?cache=0&sync_timestamp=1603910973093&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Fnode%2Fdownload%2F%40types%2Fnode-14.14.6.tgz#146d3da57b3c636cc0d1769396ce1cfa8991147f"
+  integrity sha1-FG09pXs8Y2zA0XaTls4c+omRFH8=
 
 "@types/semver@^7.3.1":
   version "7.3.3"
@@ -3387,10 +3387,10 @@ electron@^10.1.5:
     "@types/node" "^12.0.12"
     extract-zip "^1.0.3"
 
-element-ui@^2.13.2:
-  version "2.13.2"
-  resolved "https://registry.npm.taobao.org/element-ui/download/element-ui-2.13.2.tgz?cache=0&sync_timestamp=1589795164194&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Felement-ui%2Fdownload%2Felement-ui-2.13.2.tgz#582bf47aaaaaafe23ea1958fae217a687ad06447"
-  integrity sha1-WCv0eqqqr+I+oZWPriF6aHrQZEc=
+element-ui@^2.14.0:
+  version "2.14.0"
+  resolved "https://registry.npm.taobao.org/element-ui/download/element-ui-2.14.0.tgz?cache=0&sync_timestamp=1603958155882&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Felement-ui%2Fdownload%2Felement-ui-2.14.0.tgz#dcff2718fb485542ea5b5a1f5c0daf1113477b24"
+  integrity sha1-3P8nGPtIVULqW1ofXA2vERNHeyQ=
   dependencies:
     async-validator "~1.8.1"
     babel-helper-vue-jsx-merge-props "^2.0.0"
@@ -4031,10 +4031,10 @@ file-entry-cache@^5.0.1:
   dependencies:
     flat-cache "^2.0.1"
 
-file-loader@^6.1.1:
-  version "6.1.1"
-  resolved "https://registry.npm.taobao.org/file-loader/download/file-loader-6.1.1.tgz#a6f29dfb3f5933a1c350b2dbaa20ac5be0539baa"
-  integrity sha1-pvKd+z9ZM6HDULLbqiCsW+BTm6o=
+file-loader@^6.2.0:
+  version "6.2.0"
+  resolved "https://registry.npm.taobao.org/file-loader/download/file-loader-6.2.0.tgz?cache=0&sync_timestamp=1603816843418&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Ffile-loader%2Fdownload%2Ffile-loader-6.2.0.tgz#baef7cf8e1840df325e4390b4484879480eebe4d"
+  integrity sha1-uu98+OGEDfMl5DkLRISHlIDuvk0=
   dependencies:
     loader-utils "^2.0.0"
     schema-utils "^3.0.0"
@@ -5469,10 +5469,10 @@ loader-runner@^2.4.0:
   resolved "https://registry.npm.taobao.org/loader-runner/download/loader-runner-2.4.0.tgz?cache=0&sync_timestamp=1593786203786&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Floader-runner%2Fdownload%2Floader-runner-2.4.0.tgz#ed47066bfe534d7e84c4c7b9998c2a75607d9357"
   integrity sha1-7UcGa/5TTX6ExMe5mYwqdWB9k1c=
 
-loader-runner@^4.0.0:
-  version "4.0.0"
-  resolved "https://registry.npm.taobao.org/loader-runner/download/loader-runner-4.0.0.tgz?cache=0&sync_timestamp=1593786221739&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Floader-runner%2Fdownload%2Floader-runner-4.0.0.tgz#02abcfd9fe6ff7a5aeb3547464746c4dc6ba333d"
-  integrity sha1-AqvP2f5v96Wus1R0ZHRsTca6Mz0=
+loader-runner@^4.1.0:
+  version "4.1.0"
+  resolved "https://registry.npm.taobao.org/loader-runner/download/loader-runner-4.1.0.tgz?cache=0&sync_timestamp=1601450715716&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Floader-runner%2Fdownload%2Floader-runner-4.1.0.tgz#f70bc0c29edbabdf2043e7ee73ccc3fe1c96b42d"
+  integrity sha1-9wvAwp7bq98gQ+fuc8zD/hyWtC0=
 
 loader-utils@^0.2.16:
   version "0.2.17"
@@ -5936,10 +5936,10 @@ mimic-response@^1.0.0, mimic-response@^1.0.1:
   resolved "https://registry.npm.taobao.org/mimic-response/download/mimic-response-1.0.1.tgz#4923538878eef42063cb8a3e3b0798781487ab1b"
   integrity sha1-SSNTiHju9CBjy4o+OweYeBSHqxs=
 
-mini-css-extract-plugin@1.2.0:
-  version "1.2.0"
-  resolved "https://registry.npm.taobao.org/mini-css-extract-plugin/download/mini-css-extract-plugin-1.2.0.tgz?cache=0&sync_timestamp=1603479684426&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fmini-css-extract-plugin%2Fdownload%2Fmini-css-extract-plugin-1.2.0.tgz#f1bdfa7bb6f6a238bc327f813f204283ea33ee36"
-  integrity sha1-8b36e7b2oji8Mn+BPyBCg+oz7jY=
+mini-css-extract-plugin@1.2.1:
+  version "1.2.1"
+  resolved "https://registry.npm.taobao.org/mini-css-extract-plugin/download/mini-css-extract-plugin-1.2.1.tgz?cache=0&sync_timestamp=1603807566472&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fmini-css-extract-plugin%2Fdownload%2Fmini-css-extract-plugin-1.2.1.tgz#30ea7dee632b3002b0c77aeed447790408cb247e"
+  integrity sha1-MOp97mMrMAKwx3ru1Ed5BAjLJH4=
   dependencies:
     loader-utils "^2.0.0"
     schema-utils "^3.0.0"
@@ -7503,10 +7503,10 @@ sanitize-filename@^1.6.2, sanitize-filename@^1.6.3:
   dependencies:
     truncate-utf8-bytes "^1.0.0"
 
-sass-loader@^10.0.4:
-  version "10.0.4"
-  resolved "https://registry.npm.taobao.org/sass-loader/download/sass-loader-10.0.4.tgz?cache=0&sync_timestamp=1603396486653&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fsass-loader%2Fdownload%2Fsass-loader-10.0.4.tgz#ec7181096947d078d60a1d76d527f47c19b151d8"
-  integrity sha1-7HGBCWlH0HjWCh121Sf0fBmxUdg=
+sass-loader@^10.0.5:
+  version "10.0.5"
+  resolved "https://registry.npm.taobao.org/sass-loader/download/sass-loader-10.0.5.tgz#f53505b5ddbedf43797470ceb34066ded82bb769"
+  integrity sha1-9TUFtd2+30N5dHDOs0Bm3tgrt2k=
   dependencies:
     klona "^2.0.4"
     loader-utils "^2.0.0"
@@ -7514,10 +7514,10 @@ sass-loader@^10.0.4:
     schema-utils "^3.0.0"
     semver "^7.3.2"
 
-sass@^1.27.0:
-  version "1.27.0"
-  resolved "https://registry.npm.taobao.org/sass/download/sass-1.27.0.tgz?cache=0&sync_timestamp=1602118003254&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fsass%2Fdownload%2Fsass-1.27.0.tgz#0657ff674206b95ec20dc638a93e179c78f6ada2"
-  integrity sha1-Blf/Z0IGuV7CDcY4qT4XnHj2raI=
+sass@^1.28.0:
+  version "1.28.0"
+  resolved "https://registry.npm.taobao.org/sass/download/sass-1.28.0.tgz#546f1308ff74cc4ec2ad735fd35dc18bc3f51f72"
+  integrity sha1-VG8TCP90zE7CrXNf013Bi8P1H3I=
   dependencies:
     chokidar ">=2.0.0 <4.0.0"
 
@@ -8309,12 +8309,12 @@ text-table@^0.2.0:
   resolved "https://registry.npm.taobao.org/text-table/download/text-table-0.2.0.tgz#7f5ee823ae805207c00af2df4a84ec3fcfa570b4"
   integrity sha1-f17oI66AUgfACvLfSoTsP8+lcLQ=
 
-thread-loader@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.npm.taobao.org/thread-loader/download/thread-loader-3.0.0.tgz#375170ff73a965d894b8a1e0fd551ab3ee7a39e6"
-  integrity sha1-N1Fw/3OpZdiUuKHg/VUas+56OeY=
+thread-loader@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.npm.taobao.org/thread-loader/download/thread-loader-3.0.1.tgz?cache=0&sync_timestamp=1603809339530&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fthread-loader%2Fdownload%2Fthread-loader-3.0.1.tgz#059752d5c3e223ec58fad5868fe6405e8375d480"
+  integrity sha1-BZdS1cPiI+xY+tWGj+ZAXoN11IA=
   dependencies:
-    loader-runner "^4.0.0"
+    loader-runner "^4.1.0"
     loader-utils "^2.0.0"
     neo-async "^2.6.2"
 
@@ -8820,10 +8820,10 @@ vue-html-loader@^1.2.4:
     loader-utils "^1.0.2"
     object-assign "^4.1.0"
 
-vue-loader@^15.9.4:
-  version "15.9.4"
-  resolved "https://registry.npm.taobao.org/vue-loader/download/vue-loader-15.9.4.tgz?cache=0&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fvue-loader%2Fdownload%2Fvue-loader-15.9.4.tgz#c2ecef8a1a0802ac76c6d686641b5dde522ae267"
-  integrity sha1-wuzvihoIAqx2xtaGZBtd3lIq4mc=
+vue-loader@^15.9.5:
+  version "15.9.5"
+  resolved "https://registry.npm.taobao.org/vue-loader/download/vue-loader-15.9.5.tgz?cache=0&sync_timestamp=1604397812964&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fvue-loader%2Fdownload%2Fvue-loader-15.9.5.tgz#7a960dc420a3439deaacdda038fdcdbf7c432706"
+  integrity sha1-epYNxCCjQ53qrN2gOP3Nv3xDJwY=
   dependencies:
     "@vue/component-compiler-utils" "^3.1.0"
     hash-sum "^1.0.2"
@@ -8977,10 +8977,10 @@ webpack-log@^2.0.0:
     ansi-colors "^3.0.0"
     uuid "^3.3.2"
 
-webpack-merge@^5.2.0:
-  version "5.2.0"
-  resolved "https://registry.npm.taobao.org/webpack-merge/download/webpack-merge-5.2.0.tgz?cache=0&sync_timestamp=1602063120051&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fwebpack-merge%2Fdownload%2Fwebpack-merge-5.2.0.tgz#31cbcc954f8f89cd4b06ca8d97a38549f7f3f0c9"
-  integrity sha1-McvMlU+Pic1LBsqNl6OFSffz8Mk=
+webpack-merge@^5.3.0:
+  version "5.3.0"
+  resolved "https://registry.npm.taobao.org/webpack-merge/download/webpack-merge-5.3.0.tgz#a80df44d35fabace680bf430a19fda9ec49ed8eb"
+  integrity sha1-qA30TTX6us5oC/QwoZ/ansSe2Os=
   dependencies:
     clone-deep "^4.0.1"
     wildcard "^2.0.0"
