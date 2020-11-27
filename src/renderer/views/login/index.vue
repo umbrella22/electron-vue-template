@@ -39,7 +39,7 @@
           </span>
         </el-form-item>
         <div class="login-btn">
-          <button class="btn" @click="handleLogin">登录</button>
+          <button type="button" class="btn" @click="handleLogin">登录</button>
         </div>
         <div class="tips">
           <span style="margin-right:20px;">用户名: admin</span>
