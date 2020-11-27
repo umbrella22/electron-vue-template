@@ -1,7 +1,7 @@
 import { app, ipcMain, BrowserWindow, dialog } from 'electron'
 import { join } from 'path'
 import { arch, platform } from 'os'
-import { exists, remove } from 'fs-extra'
+import { stat, remove } from 'fs-extra'
 import { version } from '../../../package.json'
 
 
@@ -33,9 +33,9 @@ class Main {
   start() {
     ipcMain.on('satrt-download', (event, msg) => {
       // 更新时检查有无同名文件，若有就删除，若无就开始下载
-      exists(this.HistoryFilePath, async (e) => {
+      stat(this.HistoryFilePath, async (err, stats) => {
         try {
-          if (e) {
+          if (stats) {
             await remove(this.HistoryFilePath)
           }
           this.mainWindow.webContents.downloadURL(this.downloadUrl)
