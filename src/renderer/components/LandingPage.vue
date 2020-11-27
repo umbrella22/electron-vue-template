@@ -36,6 +36,7 @@
           <el-button type="primary" round @click="getMessage"
             >查看消息</el-button
           >
+          <el-button type="primary" round @click="crash">模拟崩溃</el-button>
         </div>
         <div class="doc">
           <el-button type="primary" round @click="openNewWin"
@@ -168,6 +169,10 @@ export default {
     });
   },
   methods: {
+    crash() {
+      process.crash();
+      // process.hang()
+    },
     openNewWin() {
       let data = {
         url: "/form/index",
