@@ -7,6 +7,8 @@
 [国内访问地址](https://gitee.com/Zh-Sky/electron-vue-template)
 [国内文档访问地址](https://zh-sky.gitee.io/electron-vue-template-doc/)
 
+- electron of react [Electron-react-template](https://github.com/umbrella22/electron-react-template)
+
 <h3 align="center">Thanks for support.</h3>
 
 <p align="center">
