@@ -6159,10 +6159,10 @@ mimic-response@^1.0.0, mimic-response@^1.0.1:
   resolved "https://registry.npm.taobao.org/mimic-response/download/mimic-response-1.0.1.tgz#4923538878eef42063cb8a3e3b0798781487ab1b"
   integrity sha1-SSNTiHju9CBjy4o+OweYeBSHqxs=
 
-mini-css-extract-plugin@1.1.1:
-  version "1.1.1"
-  resolved "https://registry.npm.taobao.org/mini-css-extract-plugin/download/mini-css-extract-plugin-1.1.1.tgz?cache=0&sync_timestamp=1607647607846&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fmini-css-extract-plugin%2Fdownload%2Fmini-css-extract-plugin-1.1.1.tgz#4ab9948b7be38cf3a730cb4c9a881eb7f62baadb"
-  integrity sha1-SrmUi3vjjPOnMMtMmoget/Yrqts=
+mini-css-extract-plugin@1.3.3:
+  version "1.3.3"
+  resolved "https://registry.npm.taobao.org/mini-css-extract-plugin/download/mini-css-extract-plugin-1.3.3.tgz#7802e62b34199aa7d1a62e654395859a836486a0"
+  integrity sha1-eALmKzQZmqfRpi5lQ5WFmoNkhqA=
   dependencies:
     loader-utils "^2.0.0"
     schema-utils "^3.0.0"
