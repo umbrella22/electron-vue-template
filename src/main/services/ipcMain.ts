@@ -3,7 +3,7 @@ import Server from '../server'
 import { winURL } from '../config/StaticPath'
 
 export default {
-  Mainfunc(mainWindow: BrowserWindow, IsUseSysTitle: Boolean) {
+  Mainfunc (mainWindow: BrowserWindow, IsUseSysTitle: Boolean) {
     ipcMain.handle('IsUseSysTitle', async () => {
       return IsUseSysTitle
     })

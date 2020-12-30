@@ -1,12 +1,12 @@
 'use strict'
 
 import { app } from 'electron'
-import initWindow from './services/windowManager'
+import InitWindow from './services/windowManager'
 import DisableButton from './config/DisableButton'
 import electronDevtoolsInstaller, { VUEJS_DEVTOOLS } from 'electron-devtools-installer'
 
-function onAppReady() {
-  new initWindow().initWindow()
+function onAppReady () {
+  new InitWindow().initWindow()
   DisableButton.Disablef12()
   if (process.env.NODE_ENV === 'development') {
     electronDevtoolsInstaller(VUEJS_DEVTOOLS)
@@ -17,7 +17,7 @@ function onAppReady() {
 
 app.isReady() ? onAppReady() : app.on('ready', onAppReady)
 // 由于9.x版本问题，需要加入该配置关闭跨域问题
-app.commandLine.appendSwitch('disable-features', 'OutOfBlinkCors');
+app.commandLine.appendSwitch('disable-features', 'OutOfBlinkCors')
 
 app.on('window-all-closed', () => {
   // 所有平台均为所有窗口关闭就退出软件
