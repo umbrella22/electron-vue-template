@@ -38,6 +38,7 @@ class MainInit {
       frame: config.IsUseSysTitle,
       titleBarStyle: 'hidden',
       webPreferences: {
+        contextIsolation:false,
         nodeIntegration: true,
         webSecurity: false,
         // 如果是开发模式可以使用devTools
