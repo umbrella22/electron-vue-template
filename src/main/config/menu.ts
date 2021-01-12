@@ -19,13 +19,12 @@ const menu = [
     label: '帮助',
     submenu: [{
       label: '关于',
-      role: 'about',
       click: function () {
         info()
       }
     }]
   }]
-function info() {
+function info () {
   dialog.showMessageBox({
     title: '关于',
     type: 'info',
