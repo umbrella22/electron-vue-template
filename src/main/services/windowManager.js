@@ -73,7 +73,7 @@ function createMainWindow () {
   })
 }
 
-function loadindWindow () {
+function loadingWindow () {
   loadWindow = new BrowserWindow({
     width: 400,
     height: 600,
@@ -100,7 +100,7 @@ function loadindWindow () {
 
 function initWindow () {
   if (config.UseStartupChart) {
-    return loadindWindow()
+    return loadingWindow()
   } else {
     return createMainWindow()
   }
