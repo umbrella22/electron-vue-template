@@ -1,6 +1,6 @@
 <!--  -->
 <template>
-  <div class="window-title" v-if="!IsUseSysTitle&&isMac&&!IsWeb">
+  <div class="window-title" v-if="!IsUseSysTitle&&isNotMac&&!IsWeb">
     <!-- 软件logo预留位置 -->
     <div style="-webkit-app-region: drag;" class="logo">
       <svg-icon icon-class="electron-logo"></svg-icon>
@@ -29,7 +29,7 @@ export default {
   data: () => ({
     mix: false,
     IsUseSysTitle: false,
-    isMac: process.platform !== "darwin",
+    isNotMac: process.platform !== "darwin",
     IsWeb: process.env.IS_WEB
   }),
 
