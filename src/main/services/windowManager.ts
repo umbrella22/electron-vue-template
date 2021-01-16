@@ -177,7 +177,7 @@ class MainInit {
     })
   }
   // 加载窗口函数
-  loadindWindow(loadingURL: string) {
+  loadingWindow(loadingURL: string) {
     this.loadWindow = new BrowserWindow({
       width: 400,
       height: 600,
@@ -199,7 +199,7 @@ class MainInit {
   // 初始化窗口函数
   initWindow() {
     if (config.UseStartupChart) {
-      return this.loadindWindow(this.shartURL)
+      return this.loadingWindow(this.shartURL)
     } else {
       return this.createMainWindow()
     }
