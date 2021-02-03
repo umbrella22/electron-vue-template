@@ -3,12 +3,13 @@ import app from './server'
 import http from 'http'
 import config from '@config'
 const port = config.BuiltInServerPort
+var server = null
 app.set('port', port)
 
 export default {
   StatrServer () {
     return new Promise((resolve, reject) => {
-      const server = http.createServer(app)
+      server = http.createServer(app)
       server.listen(port)
       server.on('error', (error) => {
         switch (error.code) {
@@ -25,6 +26,20 @@ export default {
       server.on('listening', () => {
         resolve('服务端运行中')
       })
+    })
+  },
+  StopServer () {
+    return new Promise((resolve, reject) => {
+      console.log(server)
+      if (server) {
+        server.close()
+        server.on('close', () => {
+          server = null
+          resolve(1)
+        })
+      } else {
+        reject('服务端尚未开启')
+      }
     })
   }
 }

@@ -12,6 +12,7 @@ const dynamicLoadScript = (src, callback) => {
 
   if (!existingScript) {
     const script = document.createElement('script')
+    console.log(src)
     script.src = src // src url for the third-party library being loaded.
     script.id = src
     document.body.appendChild(script)

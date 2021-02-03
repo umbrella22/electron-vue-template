@@ -17,7 +17,6 @@ if (!process.env.IS_WEB) {
     require('@/styles/custom-title.scss')
   }
   // 当处于electron状态下才引用db
-  Vue.prototype.$db = require('./api/operationalData').default
   Vue.prototype.$ipcApi = require('./utils/ipcRenderer').default
 }
 

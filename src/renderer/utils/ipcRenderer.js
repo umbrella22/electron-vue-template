@@ -1,13 +1,13 @@
-import $electron from 'electron'
-
+import { ipcRenderer } from 'electron'
 export default {
-  send (data, arg, cb) {
-    $electron.ipcRenderer.send(data, arg, (event, arg) => cb(event, arg))
-  },
-  on (data, arg, cb) {
-    $electron.ipcRenderer.on(data, arg, (event, arg) => cb(event, arg))
+  send (name, data = {}) {
+    return new Promise((resolve, reject) => {
+      ipcRenderer.invoke(name, data).then(res => {
+        resolve(res)
+      })
+    })
   },
   remove (data) {
-    $electron.ipcRenderer.removeAllListeners(data)
+    ipcRenderer.removeAllListeners(data)
   }
 }

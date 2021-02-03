@@ -2,13 +2,10 @@
 
 process.env.BABEL_ENV = 'main'
 
-const os = require('os')
 const path = require('path')
 const { dependencies } = require('../package.json')
 const webpack = require('webpack')
-const MinifyPlugin = require("babel-minify-webpack-plugin");
-const HappyPack = require('happypack')
-const HappyThreadPool = HappyPack.ThreadPool({ size: os.cpus().length })
+const config = require('../config')
 
 function resolve(dir) {
   return path.join(__dirname, '..', dir)
@@ -36,8 +33,14 @@ let mainConfig = {
       // },
       {
         test: /\.js$/,
-        use: 'happypack/loader?id=MainHappyBabel',
+        use: ['thread-loader', {
+          loader: 'babel-loader',
+          options: {
+            cacheDirectory: true
+          }
+        }],
         exclude: /node_modules/
+
       },
       {
         test: /\.node$/,
@@ -54,19 +57,7 @@ let mainConfig = {
     libraryTarget: 'commonjs2',
     path: path.join(__dirname, '../dist/electron')
   },
-  plugins: [
-    new webpack.NoEmitOnErrorsPlugin(),
-    new HappyPack({
-      id: "MainHappyBabel",
-      loaders: [{
-        loader: 'babel-loader',
-        options: {
-          cacheDirectory: true
-        }
-      }],
-      threadPool: HappyThreadPool
-    })
-  ],
+  plugins: [],
   resolve: {
     alias: {
       '@config': resolve('config'),
@@ -82,7 +73,8 @@ let mainConfig = {
 if (process.env.NODE_ENV !== 'production') {
   mainConfig.plugins.push(
     new webpack.DefinePlugin({
-      '__static': `"${path.join(__dirname, '../static').replace(/\\/g, '\\\\')}"`
+      '__static': `"${path.join(__dirname, '../static').replace(/\\/g, '\\\\')}"`,
+      '__lib': `"${path.join(__dirname, `../${config.DllFolder}`).replace(/\\/g, '\\\\')}"`
     })
   )
 }
@@ -92,7 +84,6 @@ if (process.env.NODE_ENV !== 'production') {
  */
 if (process.env.NODE_ENV === 'production') {
   mainConfig.plugins.push(
-    new MinifyPlugin(),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': '"production"'
     })

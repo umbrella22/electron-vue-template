@@ -15,7 +15,11 @@
     <!-- Set `__static` path to static files in production -->
     <% if (!process.browser) { %>
       <script>
-        if (process.env.NODE_ENV !== 'development') window.__static = require('path').join(__dirname, '/static').replace(/\\/g, '\\\\')
+        if (process.env.NODE_ENV !== 'development') {
+          window.__static = require('path').join(__dirname, '/static').replace(/\\/g, '\\\\')
+        }else{
+          window.__static = `http://localhost:${process.env.PORT}/static`
+        }
         if (process.env.NODE_ENV !== 'development') window.__lib = require('path').join(__dirname,'..','..','..','..',`${require('../config/index.js').DllFolder}`).replace(/\\/g, '\\\\')
       </script>
     <% } %>

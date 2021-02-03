@@ -22,6 +22,8 @@ export default {
       console.log(err.message)
       if (err.message.includes('sha512 checksum mismatch')) {
         Message(mainWindow, -1, 'sha512校验失败')
+      } else {
+        Message(mainWindow, -1, '请检查主进程报错信息')
       }
     })
 
@@ -54,13 +56,13 @@ export default {
       Message(mainWindow, 4)
     })
     // 执行自动更新检查
-    ipcMain.on('check-update', () => {
+    ipcMain.handle('check-update', () => {
       autoUpdater.checkForUpdates().catch(err => {
         console.log('网络连接问题', err)
       })
     })
     // 渲染进程执行更新操作
-    ipcMain.on('confirm-update', () => {
+    ipcMain.handle('confirm-update', () => {
       autoUpdater.quitAndInstall()
     })
   }

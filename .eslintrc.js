@@ -10,7 +10,8 @@ module.exports = {
   },
   extends: 'standard',
   globals: {
-    __static: true
+    __static: true,
+    __lib: true
   },
   plugins: [
     'html'
