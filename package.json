@@ -19,7 +19,7 @@
     "pack:renderer": "cross-env NODE_ENV=production webpack --progress --colors --config .electron-vue/webpack.renderer.config.js",
     "update:serve": "node server/index.js",
     "dep:upgrade": "yarn upgrade-interactive --latest",
-    "postinstall": "install-app-deps"
+    "postinstall": "electron-builder install-app-deps"
   },
   "build": {
     "extraFiles": [],
@@ -66,7 +66,7 @@
   },
   "dependencies": {
     "axios": "^0.21.1",
-    "date-fns": "^2.16.1",
+    "date-fns": "^2.17.0",
     "electron-updater": "^4.3.5",
     "element-ui": "^2.15.0",
     "express": "^4.17.1",
@@ -94,12 +94,12 @@
     "@babel/plugin-proposal-throw-expressions": "^7.12.13",
     "@babel/plugin-syntax-dynamic-import": "^7.8.3",
     "@babel/plugin-syntax-import-meta": "^7.10.4",
-    "@babel/plugin-transform-runtime": "^7.12.13",
+    "@babel/plugin-transform-runtime": "^7.12.15",
     "@babel/preset-env": "^7.12.13",
     "@babel/register": "^7.12.13",
     "@babel/runtime": "^7.12.13",
     "@types/fs-extra": "^9.0.6",
-    "@types/node": "^14.14.22",
+    "@types/node": "^14.14.25",
     "ajv": "^7.0.4",
     "babel-eslint": "^10.1.0",
     "babel-loader": "^8.2.2",
@@ -111,7 +111,7 @@
     "cross-env": "^7.0.3",
     "css-loader": "^5.0.1",
     "del": "^6.0.0",
-    "electron": "9.4.0",
+    "electron": "11.2.3",
     "electron-builder": "^22.9.1",
     "electron-devtools-installer": "^3.1.1",
     "eslint": "^7.19.0",
