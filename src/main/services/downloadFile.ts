@@ -2,7 +2,7 @@ import { app, ipcMain, BrowserWindow, dialog } from 'electron'
 import { join } from 'path'
 import { arch, platform } from 'os'
 import { stat, remove } from 'fs-extra'
-import { version } from '../../../package.json'
+import packageInfo from '../../../package.json'
 
 
 /**
@@ -19,7 +19,7 @@ class Main {
 
   public mainWindow: BrowserWindow = null
   public downloadUrl: string = ""
-  public version: string = version
+  public version: string = packageInfo.version
   public baseUrl: string = ''
   public Sysarch: string = arch().includes('64') ? 'win64' : 'win32'
   public HistoryFilePath = join(app.getPath('downloads'), platform().includes('win32') ? `electron_${this.version}_${this.Sysarch}.exe` : `electron_${this.version}_mac.dmg`)

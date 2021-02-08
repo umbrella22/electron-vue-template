@@ -71,6 +71,7 @@ function startRenderer() {
       if (err) {
         reject("PortError:" + err)
       } else {
+        WebpackDevServer.addDevServerEntrypoints(rendererConfig, {});
         const compiler = webpack(rendererConfig)
         hotMiddleware = webpackHotMiddleware(compiler, {
           log: false,
@@ -91,6 +92,10 @@ function startRenderer() {
           compiler, {
           contentBase: path.join(__dirname, '../'),
           quiet: true,
+          stats: {
+            colors: true,
+
+          },
           before(app, ctx) {
             app.use(hotMiddleware)
             ctx.middleware.waitUntilValid(() => {

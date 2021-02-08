@@ -1,7 +1,5 @@
 'use strict'
-
 process.env.NODE_ENV = 'production'
-
 const { say } = require('cfonts')
 const chalk = require('chalk')
 const del = require('del')
@@ -21,16 +19,16 @@ if (process.env.BUILD_TARGET === 'clean') clean()
 else if (process.env.BUILD_TARGET === 'web') web()
 else build()
 
-function clean () {
-  del.sync(['dist/electron/*','build/*', '!build/icons','!build/lib','!build/lib/electron-build.*', '!build/icons/icon.*'])
+function clean() {
+  del.sync(['dist/electron/*', 'build/*', '!build/icons', '!build/lib', '!build/lib/electron-build.*', '!build/icons/icon.*'])
   console.log(`\n${doneLog}clear done`)
   process.exit()
 }
 
-function build () {
+function build() {
   greeting()
 
-  del.sync(['dist/electron/*', '!.gitkeep'])
+  del.sync(['dist/electron/*', 'build/*', '!build/icons', '!build/lib', '!build/lib/electron-build.*', '!build/icons/icon.*'])
 
   const tasks = ['main', 'renderer']
   const m = new Multispinner(tasks, {
@@ -68,7 +66,7 @@ function build () {
   })
 }
 
-function pack (config) {
+function pack(config) {
   return new Promise((resolve, reject) => {
     config.mode = 'production'
     webpack(config, (err, stats) => {
@@ -80,10 +78,10 @@ function pack (config) {
           chunks: false,
           colors: true
         })
-        .split(/\r?\n/)
-        .forEach(line => {
-          err += `    ${line}\n`
-        })
+          .split(/\r?\n/)
+          .forEach(line => {
+            err += `    ${line}\n`
+          })
 
         reject(err)
       } else {
@@ -96,7 +94,7 @@ function pack (config) {
   })
 }
 
-function web () {
+function web() {
   del.sync(['dist/web/*', '!.gitkeep'])
   rendererConfig.mode = 'production'
   webpack(rendererConfig, (err, stats) => {
@@ -111,7 +109,7 @@ function web () {
   })
 }
 
-function greeting () {
+function greeting() {
   const cols = process.stdout.columns
   let text = ''
 

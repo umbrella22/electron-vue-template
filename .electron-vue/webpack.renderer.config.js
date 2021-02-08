@@ -6,13 +6,16 @@ const path = require('path')
 const { dependencies } = require('../package.json')
 const webpack = require('webpack')
 const config = require('../config')
+const { styleLoaders } = require('./utils')
 const IsWeb = process.env.ENV_TARGET === 'web'
 
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const TerserPlugin = require('terser-webpack-plugin');
+// const ESLintPlugin = require('eslint-webpack-plugin');
 const { VueLoaderPlugin } = require('vue-loader')
+
 function resolve(dir) {
   return path.join(__dirname, '..', dir)
 }
@@ -26,7 +29,7 @@ function resolve(dir) {
 let whiteListedModules = IsWeb ? [] : ['vue', "element-ui"]
 
 let rendererConfig = {
-  devtool: '#cheap-module-eval-source-map',
+  devtool: 'eval-source-map',
   entry: {
     renderer: resolve('src/renderer/main.js')
   },
@@ -35,57 +38,9 @@ let rendererConfig = {
   ],
   module: {
     rules: [
-      // {
-      //   test: /\.(js|vue)$/,
-      //   enforce: 'pre',
-      //   exclude: /node_modules/,
-      //   use: {
-      //     loader: 'eslint-loader',
-      //     options: {
-      //       formatter: require('eslint-friendly-formatter')
-      //     }
-      //   }
-      // },
       {
-        test: /\.scss$/,
-        use: ['vue-style-loader',
-          {
-            loader: 'css-loader',
-            options: {
-              esModule: false
-            }
-          },
-          'sass-loader']
-      },
-      {
-        test: /\.sass$/,
-        use: ['vue-style-loader',
-          {
-            loader: 'css-loader',
-            options: {
-              esModule: false
-            }
-          }, 'sass-loader?indentedSyntax']
-      },
-      {
-        test: /\.less$/,
-        use: ['vue-style-loader',
-          {
-            loader: 'css-loader',
-            options: {
-              esModule: false
-            }
-          }, 'less-loader']
-      },
-      {
-        test: /\.css$/,
-        use: ['vue-style-loader',
-          {
-            loader: 'css-loader',
-            options: {
-              esModule: false
-            }
-          }]
+        test: /\.vue$/,
+        loader: "vue-loader"
       },
       {
         test: /\.html$/,
@@ -102,20 +57,6 @@ let rendererConfig = {
         exclude: /node_modules/
       },
       {
-        test: /\.node$/,
-        use: 'node-loader'
-      },
-      {
-        test: /\.vue$/,
-        use: {
-          loader: 'vue-loader',
-          options: {
-            cacheDirectory: 'node_modules/.cache/vue-loader',
-            cacheIdentifier: '7270960a',
-          }
-        }
-      },
-      {
         test: /\.svg$/,
         loader: 'svg-sprite-loader',
         include: [resolve('src/renderer/icons')],
@@ -124,35 +65,24 @@ let rendererConfig = {
         }
       },
       {
-        test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
-        exclude: [resolve('src/renderer/icons')],
-        use: {
-          loader: 'url-loader',
-          query: {
-            esModule: false,
-            limit: 10000,
-            name: 'imgs/[name]--[folder].[ext]'
-          }
-        },
+        test: /\.(png|jpe?g|gif)(\?.*)?$/,
+        type: "asset/resource",
+        generator: {
+          filename: 'imgs/[name]--[hash].[ext]'
+        }
       },
       {
         test: /\.(mp4|webm|ogg|mp3|wav|flac|aac)(\?.*)?$/,
-        loader: 'url-loader',
-        options: {
-          esModule: false,
-          limit: 10000,
-          name: 'media/[name]--[folder].[ext]'
+        type: "asset/resource",
+        generator: {
+          filename: 'media/[name]--[hash].[ext]'
         }
       },
       {
         test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
-        use: {
-          loader: 'url-loader',
-          query: {
-            esModule: false,
-            limit: 10000,
-            name: 'fonts/[name]--[folder].[ext]'
-          }
+        type: "asset/resource",
+        generator: {
+          filename: 'fonts/[name]--[hash].[ext]'
         }
       }
     ]
@@ -209,6 +139,8 @@ let rendererConfig = {
   },
   target: 'electron-renderer'
 }
+// 将css相关得loader抽取出来
+rendererConfig.module.rules = rendererConfig.module.rules.concat(styleLoaders({ sourceMap: config.dev.cssSourceMap }))
 
 /**
  * Adjust rendererConfig for development settings
@@ -226,8 +158,6 @@ if (process.env.NODE_ENV !== 'production' && !IsWeb) {
  * Adjust rendererConfig for production settings
  */
 if (process.env.NODE_ENV === 'production') {
-  rendererConfig.devtool = ''
-
   rendererConfig.plugins.push(
     new CopyWebpackPlugin({
       patterns: [
@@ -252,8 +182,6 @@ if (process.env.NODE_ENV === 'production') {
       new TerserPlugin({
         test: /\.js(\?.*)?$/i,
         extractComments: false,
-        cache: true,
-        sourceMap: false,
         terserOptions: {
           warnings: false,
           compress: {
@@ -270,7 +198,7 @@ if (process.env.NODE_ENV === 'production') {
             drop_debugger: true,
             pure_funcs: ['console.log']
           },
-        }
+        },
       })]
   }
   if (IsWeb) {
@@ -298,6 +226,9 @@ if (process.env.NODE_ENV === 'production') {
     }
     rendererConfig.optimization.runtimeChunk = { name: 'runtime' }
   }
+} else {
+  // eslint
+  // rendererConfig.plugins.push(new ESLintPlugin(config.dev.ESLintoptions))
 }
 
 module.exports = rendererConfig

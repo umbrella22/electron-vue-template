@@ -14,5 +14,5 @@ yarn-error.log*
 *.ntvs*
 *.njsproj
 *.sln
-electron-vue-template-ts.7z
 server/client/electron-vue-admin Setup 0.0.1.exe
+/build/builder-effective-config.yaml
