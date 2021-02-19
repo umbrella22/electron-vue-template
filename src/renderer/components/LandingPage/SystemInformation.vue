@@ -2,33 +2,9 @@
   <div>
     <div class="title">关于系统</div>
     <div class="items">
-      <div class="item">
-        <div class="name">当前所在页面:</div>
-        <div class="value">{{ path }}</div>
-      </div>
-      <div class="item">
-        <div class="name">当前页面名称:</div>
-        <div class="value">{{ name }}</div>
-      </div>
-      <div class="item">
-        <div class="name">Vue.js版本:</div>
-        <div class="value">{{ vue }}</div>
-      </div>
-      <div class="item">
-        <div class="name">Electron版本:</div>
-        <div class="value">{{ electron }}</div>
-      </div>
-      <div class="item">
-        <div class="name">Node版本:</div>
-        <div class="value">{{ node }}</div>
-      </div>
-      <div class="item">
-        <div class="name">所运行的系统:</div>
-        <div class="value">{{ platform }}</div>
-      </div>
-      <div class="item">
-        <div class="name">所运行的系统:</div>
-        <div class="value">{{ arch }}位</div>
+      <div class="item" v-for="(item, index) in tips" :key="index">
+        <div class="name" v-text="item.name" />
+        <div class="value" v-text="item.value" />
       </div>
     </div>
   </div>
@@ -37,14 +13,19 @@
 <script>
 export default {
   data() {
+    const os = require("os")
+
     return {
-      electron: process.versions.electron || "浏览器环境",
-      name: this.$route.name,
-      node: process.versions.node || "浏览器环境",
-      path: this.$route.path,
-      platform: require("os").platform(),
-      arch: require("os").arch(),
-      vue: require("vue/package.json").version
+      tips: [
+        { name: '当前页面路径：', value: this.$route.path },
+        { name: '当前页面名称：', value: this.$route.name },
+        { name: 'Vue版本：', value: require('vue/package.json').version },
+        { name: 'Electron版本：', value: process.versions.electron || '浏览器环境' },
+        { name: 'Node版本：', value: process.versions.node || '浏览器环境' },
+        { name: '系统平台：', value: os.platform() },
+        { name: '系统版本：', value: os.release() },
+        { name: '系统文件：', value: os.arch() + '位' }
+      ]
     };
   },
   mounted() {
