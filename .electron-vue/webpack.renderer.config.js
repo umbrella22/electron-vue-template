@@ -1,12 +1,11 @@
 'use strict'
-
-process.env.BABEL_ENV = 'renderer'
+const IsWeb = process.env.BUILD_TARGET === 'web'
+process.env.BABEL_ENV = IsWeb ? 'web' : 'renderer'
 
 const path = require('path')
 const { dependencies } = require('../package.json')
 const webpack = require('webpack')
 const config = require('../config')
-const IsWeb = process.env.ENV_TARGET === 'web'
 
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
@@ -24,28 +23,14 @@ function resolve(dir) {
  * https://simulatedgreg.gitbooks.io/electron-vue/content/en/webpack-configurations.html#white-listing-externals
  */
 let whiteListedModules = IsWeb ? [] : ['vue', "element-ui"]
+IsWeb ? process.browser = true : process.browser = false
 
 let rendererConfig = {
   devtool: '#cheap-module-eval-source-map',
-  entry: {
-    renderer: resolve('src/renderer/main.js')
-  },
-  externals: [
-    ...Object.keys(dependencies || {}).filter(d => !whiteListedModules.includes(d))
-  ],
+  entry: IsWeb ? { web: path.join(__dirname, '../src/renderer/main.js') } : { renderer: resolve('src/renderer/main.js') },
+  externals: IsWeb ? [] : [...Object.keys(dependencies || {}).filter(d => !whiteListedModules.includes(d))],
   module: {
     rules: [
-      // {
-      //   test: /\.(js|vue)$/,
-      //   enforce: 'pre',
-      //   exclude: /node_modules/,
-      //   use: {
-      //     loader: 'eslint-loader',
-      //     options: {
-      //       formatter: require('eslint-friendly-formatter')
-      //     }
-      //   }
-      // },
       {
         test: /\.scss$/,
         use: ['vue-style-loader',
@@ -206,8 +191,10 @@ let rendererConfig = {
     },
     extensions: ['.js', '.vue', '.json', '.css', '.node']
   },
-  target: 'electron-renderer'
+  target: IsWeb ? 'web' : 'electron-renderer'
 }
+// 根据环境调整入口位置
+
 
 /**
  * Adjust rendererConfig for development settings
