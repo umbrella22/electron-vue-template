@@ -1,13 +1,13 @@
 'use strict'
 
-process.env.BABEL_ENV = 'renderer'
+const IsWeb = process.env.BUILD_TARGET === 'web'
+process.env.BABEL_ENV = IsWeb ? 'web' : 'renderer'
 
 const path = require('path')
 const { dependencies } = require('../package.json')
 const webpack = require('webpack')
 const config = require('../config')
 const { styleLoaders } = require('./utils')
-const IsWeb = process.env.ENV_TARGET === 'web'
 
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
@@ -30,12 +30,8 @@ let whiteListedModules = IsWeb ? [] : ['vue', "element-ui"]
 
 let rendererConfig = {
   devtool: 'eval-source-map',
-  entry: {
-    renderer: resolve('src/renderer/main.js')
-  },
-  externals: [
-    ...Object.keys(dependencies || {}).filter(d => !whiteListedModules.includes(d))
-  ],
+  entry: IsWeb ? { web: path.join(__dirname, '../src/renderer/main.js') } : { renderer: resolve('src/renderer/main.js') },
+  // externals: IsWeb ? [] : [...Object.keys(dependencies || {}).filter(d => !whiteListedModules.includes(d))],
   module: {
     rules: [
       {
@@ -127,7 +123,6 @@ let rendererConfig = {
   ],
   output: {
     filename: '[name].js',
-    libraryTarget: IsWeb ? 'var' : 'commonjs2',
     path: IsWeb ? path.join(__dirname, '../dist/web') : path.join(__dirname, '../dist/electron')
   },
   resolve: {
@@ -137,10 +132,11 @@ let rendererConfig = {
     },
     extensions: ['.js', '.vue', '.json', '.css', '.node']
   },
-  target: 'electron-renderer'
+  target: IsWeb ? 'web' : 'electron-renderer'
 }
 // 将css相关得loader抽取出来
 rendererConfig.module.rules = rendererConfig.module.rules.concat(styleLoaders({ sourceMap: config.dev.cssSourceMap }))
+
 
 /**
  * Adjust rendererConfig for development settings
