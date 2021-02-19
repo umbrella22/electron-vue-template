@@ -11,26 +11,28 @@
 </template>
 
 <script>
+import { platform, release, arch } from "os";
 export default {
   data() {
-    const os = require("os")
-
     return {
       tips: [
-        { name: '当前页面路径：', value: this.$route.path },
-        { name: '当前页面名称：', value: this.$route.name },
-        { name: 'Vue版本：', value: require('vue/package.json').version },
-        { name: 'Electron版本：', value: process.versions.electron || '浏览器环境' },
-        { name: 'Node版本：', value: process.versions.node || '浏览器环境' },
-        { name: '系统平台：', value: os.platform() },
-        { name: '系统版本：', value: os.release() },
-        { name: '系统文件：', value: os.arch() + '位' }
-      ]
+        { name: "当前页面路径：", value: this.$route.path },
+        { name: "当前页面名称：", value: this.$route.name },
+        { name: "Vue版本：", value: require("vue/package.json").version },
+        {
+          name: "Electron版本：",
+          value: process.versions.electron || "浏览器环境",
+        },
+        { name: "Node版本：", value: process.versions.node || "浏览器环境" },
+        { name: "系统平台：", value: platform() },
+        { name: "系统版本：", value: release() },
+        { name: "系统位数：", value: arch() + "位" },
+      ],
     };
   },
   mounted() {
     console.log(this.$route);
-  }
+  },
 };
 </script>
 
