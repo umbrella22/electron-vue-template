@@ -11,6 +11,12 @@
 
 - electron of react [Electron-react-template](https://github.com/umbrella22/electron-react-template)
 
+<p align="center">
+  <a href="https://github.com/umbrella22/electron-vue-template">
+    <img src="https://github.com/umbrella22/electron-vue-template/actions/workflows/build-test.yml/badge.svg">
+  </a>
+</p>
+
 <h3 align="center">Thanks for support.</h3>
 
 <p align="center">
