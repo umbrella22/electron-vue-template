@@ -71,6 +71,7 @@ export default {
         show: false,
         webPreferences: {
           nodeIntegration: true,
+          contextIsolation: false,
           webSecurity: false,
           // 如果是开发模式可以使用devTools
           devTools: process.env.NODE_ENV === 'development',
@@ -82,6 +83,9 @@ export default {
       ChildWin.loadURL(winURL + `#${arg.url}`)
       ChildWin.webContents.once('dom-ready', () => {
         ChildWin.show()
+        if (process.env.NODE_ENV === 'development') {
+          ChildWin.webContents.openDevTools({ mode: 'undocked', activate: true })
+        }
         ChildWin.webContents.send('send-data', arg.sendData)
         if (arg.IsPay) {
           // 检查支付时候自动关闭小窗口
