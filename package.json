@@ -71,7 +71,6 @@
     "element-ui": "^2.15.0",
     "express": "^4.17.1",
     "fs-extra": "^9.1.0",
-    "js-cookie": "^2.2.1",
     "nprogress": "^0.2.0",
     "vue": "^2.6.12",
     "vue-router": "^3.5.1",
