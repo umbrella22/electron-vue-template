@@ -7,13 +7,6 @@ export default {
       })
     })
   },
-  on (name) {
-    return new Promise((resolve, reject) => {
-      ipcRenderer.on(name, (event, args) => {
-        resolve(args)
-      })
-    })
-  },
   remove (data) {
     ipcRenderer.removeAllListeners(data)
   }
