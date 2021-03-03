@@ -47,7 +47,7 @@ npm run dev 或 yarn de
 这是花裤衩大大原本的[地址](https://github.com/PanJiaChen/electron-vue-admin)
 
 # 更新日志
-
+- 2021 年 3 月 3 日：更新electron版本到12（noLayOut分支）
 - 2021 年 2 月 26 日：添加 vite 版本，但并不合并到当前库中，请[前往对应库查看](https://gitee.com/Zh-Sky/electron-vite-template)
 - 2021 年 2 月 8 日：noLayOut 分支更新 webpack 版本到 5，并分别对所属依赖进行更新，在稍后的日子里，noLayOut 分支将跟进 vue3，感兴趣的小伙伴可以切换分支
 - 2020 年 10 月 12 日：例行更新基础依赖，感谢 @jiumengs 贡献代码，修正删除数据库文件时，会发生多次监听。
