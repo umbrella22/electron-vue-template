@@ -20,7 +20,7 @@
         }else{
           window.__static = `http://localhost:${process.env.PORT}/static`
         }
-        if (process.env.NODE_ENV !== 'development') window.__lib = require('path').join(__dirname,'..','..','..','..',`${require('../config/index.js').DllFolder}`).replace(/\\/g, '\\\\')
+        if (process.env.NODE_ENV !== 'development') window.__lib = require('path').join(__dirname,'..','..','..','..','..',`${process.env.libPath}`).replace(/\\/g, '\\\\')
       </script>
     <% } %>
 
