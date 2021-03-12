@@ -4,6 +4,9 @@ import { winURL } from '../config/StaticPath'
 
 export default {
   Mainfunc (mainWindow, IsUseSysTitle) {
+    ipcMain.handle('IsUseSysTitle', async () => {
+      return IsUseSysTitle
+    })
     ipcMain.handle('windows-mini', (event, args) => {
       BrowserWindow.fromWebContents(event.sender)?.minimize()
     })
