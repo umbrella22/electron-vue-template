@@ -7,6 +7,8 @@ var __lib: string
 if (process.env.NODE_ENV !== 'development') {
   __static = join(__dirname, '/static').replace(/\\/g, '\\\\')
   __lib = join(__dirname, '..', '..', '..', '..', `${DllFolder}`).replace(/\\/g, '\\\\')
+} else {
+  __lib = process.env.libPath
 }
 
 export const winURL = process.env.NODE_ENV === 'development' ? `http://localhost:${process.env.PORT}` : `file://${__dirname}/index.html`
