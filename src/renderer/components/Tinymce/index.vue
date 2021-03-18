@@ -25,7 +25,9 @@ import plugins from "./plugins";
 import toolbar from "./toolbar";
 import load from "./dynamicLoadScript";
 
-const tinymceFile = `${__static}/tinymce/tinymce.min.js`;
+const tinymceFile = `${
+  process.browser ? "static" : __static
+}/tinymce/tinymce.min.js`;
 
 export default {
   name: "Tinymce",
@@ -141,7 +143,7 @@ export default {
         powerpaste_word_import: "clean",
         code_dialog_height: 450,
         code_dialog_width: 1000,
-        custom_undo_redo_levels:50,
+        custom_undo_redo_levels: 50,
         advlist_bullet_styles: "square",
         advlist_number_styles: "default",
         imagetools_cors_hosts: ["www.tinymce.com", "codepen.io"],

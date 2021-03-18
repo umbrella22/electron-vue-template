@@ -1,6 +1,7 @@
 'use strict'
 const IsWeb = process.env.BUILD_TARGET === 'web'
 process.env.BABEL_ENV = IsWeb ? 'web' : 'renderer'
+IsWeb ? process.browser = true : process.browser = false
 
 const path = require('path')
 const { dependencies } = require('../package.json')
@@ -12,6 +13,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const TerserPlugin = require('terser-webpack-plugin');
 const { VueLoaderPlugin } = require('vue-loader')
+
 function resolve(dir) {
   return path.join(__dirname, '..', dir)
 }
@@ -23,7 +25,6 @@ function resolve(dir) {
  * https://simulatedgreg.gitbooks.io/electron-vue/content/en/webpack-configurations.html#white-listing-externals
  */
 let whiteListedModules = IsWeb ? [] : ['vue', "element-ui"]
-IsWeb ? process.browser = true : process.browser = false
 
 let rendererConfig = {
   devtool: '#cheap-module-eval-source-map',
@@ -214,17 +215,28 @@ if (process.env.NODE_ENV === 'production') {
   rendererConfig.devtool = ''
 
   rendererConfig.plugins.push(
-    new CopyWebpackPlugin({
-      patterns: [
-        {
-          from: path.join(__dirname, '../static'),
-          to: path.join(__dirname, '../dist/electron/static'),
-          globOptions: {
-            ignore: ['.*']
+    IsWeb ?
+      new CopyWebpackPlugin({
+        patterns: [
+          {
+            from: path.join(__dirname, '../static'),
+            to: path.join(__dirname, '../dist/web/static'),
+            globOptions: {
+              ignore: ['.*']
+            }
           }
-        }
-      ]
-    }),
+        ]
+      }) : new CopyWebpackPlugin({
+        patterns: [
+          {
+            from: path.join(__dirname, '../static'),
+            to: path.join(__dirname, '../dist/electron/static'),
+            globOptions: {
+              ignore: ['.*']
+            }
+          }
+        ]
+      }),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': '"production"',
       'process.env.libPath': `"${config.DllFolder}"`
