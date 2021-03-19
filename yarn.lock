@@ -1341,10 +1341,10 @@
   resolved "https://registry.npm.taobao.org/@types/node/download/@types/node-14.0.18.tgz?cache=0&sync_timestamp=1594068001359&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Fnode%2Fdownload%2F%40types%2Fnode-14.0.18.tgz#5111b2285659442f9f95697386a2b42b875bd7e9"
   integrity sha1-URGyKFZZRC+flWlzhqK0K4db1+k=
 
-"@types/node@^14.14.34":
-  version "14.14.34"
-  resolved "https://registry.npm.taobao.org/@types/node/download/@types/node-14.14.34.tgz#07935194fc049069a1c56c0c274265abeddf88da"
-  integrity sha1-B5NRlPwEkGmhxWwMJ0Jlq+3fiNo=
+"@types/node@^14.14.35":
+  version "14.14.35"
+  resolved "https://registry.npm.taobao.org/@types/node/download/@types/node-14.14.35.tgz#42c953a4e2b18ab931f72477e7012172f4ffa313"
+  integrity sha1-QslTpOKxirkx9yR35wEhcvT/oxM=
 
 "@types/node@^14.6.2":
   version "14.14.31"
@@ -2814,10 +2814,10 @@ crypto-random-string@^2.0.0:
   resolved "https://registry.npm.taobao.org/crypto-random-string/download/crypto-random-string-2.0.0.tgz?cache=0&sync_timestamp=1583560482221&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fcrypto-random-string%2Fdownload%2Fcrypto-random-string-2.0.0.tgz#ef2a7a966ec11083388369baa02ebead229b30d5"
   integrity sha1-7yp6lm7BEIM4g2m6oC6+rSKbMNU=
 
-css-loader@^5.1.2:
-  version "5.1.2"
-  resolved "https://registry.npm.taobao.org/css-loader/download/css-loader-5.1.2.tgz#b93dba498ec948b543b49d4fab5017205d4f5c3e"
-  integrity sha1-uT26SY7JSLVDtJ1Pq1AXIF1PXD4=
+css-loader@^5.1.3:
+  version "5.1.3"
+  resolved "https://registry.npm.taobao.org/css-loader/download/css-loader-5.1.3.tgz#87f6fc96816b20debe3cf682f85c7e56a963d0d1"
+  integrity sha1-h/b8loFrIN6+PPaC+Fx+Vqlj0NE=
   dependencies:
     camelcase "^6.2.0"
     cssesc "^3.0.0"
@@ -7745,10 +7745,10 @@ svg-baker@^1.5.0, svg-baker@^1.7.0:
     query-string "^4.3.2"
     traverse "^0.6.6"
 
-svg-sprite-loader@^6.0.0:
-  version "6.0.0"
-  resolved "https://registry.npm.taobao.org/svg-sprite-loader/download/svg-sprite-loader-6.0.0.tgz#8fdc539f7af5f212329bbc33dd4717a2e8a7f435"
-  integrity sha1-j9xTn3r18hIym7wz3UcXouin9DU=
+svg-sprite-loader@^6.0.2:
+  version "6.0.2"
+  resolved "https://registry.npm.taobao.org/svg-sprite-loader/download/svg-sprite-loader-6.0.2.tgz#5be30c61749280e8ea0325b8f6c626c3db710880"
+  integrity sha1-W+MMYXSSgOjqAyW49sYmw9txCIA=
   dependencies:
     bluebird "^3.5.0"
     deepmerge "1.3.2"
@@ -8457,10 +8457,10 @@ webpack-sources@^2.1.1:
     source-list-map "^2.0.1"
     source-map "^0.6.1"
 
-webpack@^5.25.1:
-  version "5.25.1"
-  resolved "https://registry.npm.taobao.org/webpack/download/webpack-5.25.1.tgz#d3564440ed2569253fa45864405a313916bef6f6"
-  integrity sha1-01ZEQO0laSU/pFhkQFoxORa+9vY=
+webpack@^5.26.3:
+  version "5.26.3"
+  resolved "https://registry.npm.taobao.org/webpack/download/webpack-5.26.3.tgz#bafd439abac08fbb82657ec855d038743b725ab8"
+  integrity sha1-uv1DmrrAj7uCZX7IVdA4dDtyWrg=
   dependencies:
     "@types/eslint-scope" "^3.7.0"
     "@types/estree" "^0.0.46"
