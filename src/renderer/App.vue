@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div>
     <c-header></c-header>
     <transition name="fade" mode="out-in">
       <router-view></router-view>
@@ -10,7 +10,7 @@
 <script>
 import CHeader from "./components/title";
 export default {
-  components: { CHeader }
+  components: { CHeader },
 };
 </script>
 
