@@ -27,7 +27,12 @@ let mainConfig = {
           options: {
             cacheDirectory: true
           }
-        }, 'ts-loader'],
+        }, {
+          loader: 'ts-loader',
+          options: {
+            transpileOnly: true
+          }
+        }],
 
       },
       {
