@@ -11,7 +11,7 @@ const config = require('../config')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const TerserPlugin = require('terser-webpack-plugin');
+const { ESBuildMinifyPlugin } = require('esbuild-loader')
 const { VueLoaderPlugin } = require('vue-loader')
 
 function resolve(dir) {
@@ -79,13 +79,7 @@ let rendererConfig = {
       },
       {
         test: /\.js$/,
-        use: ['thread-loader', {
-          loader: 'babel-loader',
-          options: {
-            cacheDirectory: true
-          }
-        }],
-        exclude: /node_modules/
+        loader: 'esbuild-loader',
       },
       {
         test: /\.node$/,
@@ -247,55 +241,34 @@ if (process.env.NODE_ENV === 'production') {
   )
   rendererConfig.optimization = {
     minimizer: [
-      new TerserPlugin({
-        test: /\.js(\?.*)?$/i,
-        extractComments: false,
-        cache: true,
-        sourceMap: false,
-        terserOptions: {
-          warnings: false,
-          compress: {
-            hoist_funs: false,
-            hoist_props: false,
-            hoist_vars: false,
-            inline: false,
-            loops: false,
-            dead_code: true,
-            booleans: true,
-            if_return: true,
-            warnings: false,
-            drop_console: true,
-            drop_debugger: true,
-            pure_funcs: ['console.log']
-          },
-        }
-      })]
+      new ESBuildMinifyPlugin({
+        target: 'es2015'
+      })
+    ]
   }
-  if (IsWeb) {
-    rendererConfig.optimization.splitChunks = {
-      chunks: "async",
-      cacheGroups: {
-        vendor: { // 将第三方模块提取出来
-          minSize: 30000,
-          minChunks: 1,
-          test: /node_modules/,
-          chunks: 'initial',
-          name: 'vendor',
-          priority: 1
-        },
-        commons: {
-          test: /[\\/]src[\\/]common[\\/]/,
-          name: 'commons',
-          minSize: 30000,
-          minChunks: 3,
-          chunks: 'initial',
-          priority: -1,
-          reuseExistingChunk: true // 这个配置允许我们使用已经存在的代码块
-        }
+  rendererConfig.optimization.splitChunks = {
+    chunks: "async",
+    cacheGroups: {
+      vendor: { // 将第三方模块提取出来
+        minSize: 30000,
+        minChunks: 1,
+        test: /node_modules/,
+        chunks: 'initial',
+        name: 'vendor',
+        priority: 1
+      },
+      commons: {
+        test: /[\\/]src[\\/]common[\\/]/,
+        name: 'commons',
+        minSize: 30000,
+        minChunks: 3,
+        chunks: 'initial',
+        priority: -1,
+        reuseExistingChunk: true // 这个配置允许我们使用已经存在的代码块
       }
     }
-    rendererConfig.optimization.runtimeChunk = { name: 'runtime' }
   }
+  rendererConfig.optimization.runtimeChunk = { name: 'runtime' }
 }
 
 module.exports = rendererConfig

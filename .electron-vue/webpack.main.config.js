@@ -5,6 +5,7 @@ process.env.BABEL_ENV = 'main'
 const path = require('path')
 const { dependencies } = require('../package.json')
 const webpack = require('webpack')
+const { ESBuildMinifyPlugin } = require('esbuild-loader')
 const config = require('../config')
 
 function resolve(dir) {
@@ -33,14 +34,7 @@ let mainConfig = {
       // },
       {
         test: /\.js$/,
-        use: ['thread-loader', {
-          loader: 'babel-loader',
-          options: {
-            cacheDirectory: true
-          }
-        }],
-        exclude: /node_modules/
-
+        loader: 'esbuild-loader',
       },
       {
         test: /\.node$/,
@@ -86,8 +80,15 @@ if (process.env.NODE_ENV === 'production') {
   mainConfig.plugins.push(
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': '"production"'
-    })
+    }),
   )
+  mainConfig.optimization = {
+    minimizer: [
+      new ESBuildMinifyPlugin({
+        target: 'es2015'
+      })
+    ]
+  }
 }
 
 module.exports = mainConfig
