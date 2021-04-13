@@ -7,6 +7,7 @@ const path = require('path')
 const { dependencies } = require('../package.json')
 const webpack = require('webpack')
 const config = require('../config')
+const { styleLoaders } = require('./utils')
 
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
@@ -32,47 +33,6 @@ let rendererConfig = {
   externals: IsWeb ? [] : [...Object.keys(dependencies || {}).filter(d => !whiteListedModules.includes(d))],
   module: {
     rules: [
-      {
-        test: /\.scss$/,
-        use: ['vue-style-loader',
-          {
-            loader: 'css-loader',
-            options: {
-              esModule: false
-            }
-          },
-          'sass-loader']
-      },
-      {
-        test: /\.sass$/,
-        use: ['vue-style-loader',
-          {
-            loader: 'css-loader',
-            options: {
-              esModule: false
-            }
-          }, 'sass-loader?indentedSyntax']
-      },
-      {
-        test: /\.less$/,
-        use: ['vue-style-loader',
-          {
-            loader: 'css-loader',
-            options: {
-              esModule: false
-            }
-          }, 'less-loader']
-      },
-      {
-        test: /\.css$/,
-        use: ['vue-style-loader',
-          {
-            loader: 'css-loader',
-            options: {
-              esModule: false
-            }
-          }]
-      },
       {
         test: /\.html$/,
         use: 'vue-html-loader'
@@ -143,7 +103,7 @@ let rendererConfig = {
   },
   plugins: [
     new VueLoaderPlugin(),
-    new MiniCssExtractPlugin({ filename: 'styles.css' }),
+    new MiniCssExtractPlugin(),
     new webpack.DefinePlugin({
       'process.env': process.env.NODE_ENV === 'production' ? config.build.env : config.dev.env,
       'process.env.IS_WEB': IsWeb
@@ -188,8 +148,8 @@ let rendererConfig = {
   },
   target: IsWeb ? 'web' : 'electron-renderer'
 }
-// 根据环境调整入口位置
-
+// 将css相关得loader抽取出来
+rendererConfig.module.rules = rendererConfig.module.rules.concat(styleLoaders({ sourceMap: process.env.NODE_ENV !== 'production' ? config.dev.cssSourceMap : false, extract: IsWeb, minifyCss: process.env.NODE_ENV === 'production' }))
 
 /**
  * Adjust rendererConfig for development settings
@@ -242,7 +202,11 @@ if (process.env.NODE_ENV === 'production') {
   rendererConfig.optimization = {
     minimizer: [
       new ESBuildMinifyPlugin({
-        target: 'es2015'
+        sourcemap: false,
+        minifyWhitespace: true,
+        minifyIdentifiers: true,
+        minifySyntax: true,
+        css: true
       })
     ]
   }
