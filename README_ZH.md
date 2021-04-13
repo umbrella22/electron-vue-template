@@ -4,6 +4,9 @@
 
 - 因为花裤衩大大的 ELECTRON 版本已经一年没有更新了,而且 ELECTRON,vue,elementui,都已经迭代太多,刚好我司有这方面的需求,我就在 vue-electron 脚手架生成的项目基础上,将花裤衩大大的项目核心组件提取出来合并到这个项目中，在我简单的封装了 axios 和 db．以及 electron 常用的信息弹窗，错误弹窗，具体文档地址：[中文在线文档](https://umbrella22.github.io/electron-vue-template-doc/)，[国内访问地址](https://zh-sky.gitee.io/electron-vue-template-doc/)。
 
+> **请注意，在2021年4月13日的更新之后，将使用esbuild替换babel，如对babel有强需求的小伙伴请勿更新。**
+
+
 - vite 版本 [electron-vite-template](https://github.com/umbrella22/electron-vite-template)
 
 - [electron-vite-template（码云）](https://gitee.com/Zh-Sky/electron-vite-template)
@@ -17,7 +20,7 @@
   </a>
 </div>
 
-请确保您的node环境是大于或等于10
+> **请确保您的node环境是大于或等于10**
 
 #### 如何安装
 
@@ -49,6 +52,7 @@ npm run dev 或 yarn de
 这是花裤衩大大原本的[地址](https://github.com/PanJiaChen/electron-vue-admin)
 
 # 更新日志
+- 2021 年 4 月 13 日：**master剔除了babel转使用esbuild对js和css进行压缩操作。**
 - 2021 年 3 月 3 日：更新electron版本到12（noLayOut分支）
 - 2021 年 2 月 26 日：添加 vite 版本，但并不合并到当前库中，请[前往对应库查看](https://gitee.com/Zh-Sky/electron-vite-template)
 - 2021 年 2 月 8 日：noLayOut 分支更新 webpack 版本到 5，并分别对所属依赖进行更新，在稍后的日子里，noLayOut 分支将跟进 vue3，感兴趣的小伙伴可以切换分支
