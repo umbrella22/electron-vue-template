@@ -42,6 +42,7 @@ npm config edit
 这是花裤衩大大原本的[地址](https://github.com/PanJiaChen/electron-vue-admin)
 
 # 更新日志
+- 2021年04月13日：例行更新依赖，并跟进webpack5，使用esbuild-loader对渲染进程的css和js进行处理，加快编译速度。
 - 2020年10月12日：例行更新基础依赖，准备跟进webpack5，去除已经废弃的插件
 - 2020年09月12日：更新依赖，去除.electron-vue中的冗余代码，将已经转入维护模式happypack修改为thread-loader。
 - 2020年09月10日：例行更新依赖，感谢 @BelinChung 贡献代码，修正bug。
