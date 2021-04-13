@@ -3,6 +3,13 @@ const MiniCssPlugin = require('mini-css-extract-plugin');
 
 exports.cssLoaders = function (options) {
     options = options || {}
+    const esbuildCss = {
+        loader: 'esbuild-loader',
+        options: {
+            loader: 'css',
+            minify: options.minifyCss
+        }
+    }
 
     const cssLoader = {
         loader: 'css-loader',
@@ -14,7 +21,7 @@ exports.cssLoaders = function (options) {
 
     // 这里就是生成loader和其对应的配置
     function generateLoaders(loader, loaderOptions) {
-        const loaders = [cssLoader]
+        const loaders = [cssLoader, esbuildCss]
 
         if (loader) {
             loaders.push({

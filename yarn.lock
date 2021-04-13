@@ -1410,10 +1410,10 @@
   resolved "https://registry.npm.taobao.org/@types/estree/download/@types/estree-0.0.46.tgz?cache=0&sync_timestamp=1610401767028&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Festree%2Fdownload%2F%40types%2Festree-0.0.46.tgz#0fb6bfbbeabd7a30880504993369c4bf1deab1fe"
   integrity sha1-D7a/u+q9ejCIBQSZM2nEvx3qsf4=
 
-"@types/fs-extra@^9.0.10":
-  version "9.0.10"
-  resolved "https://registry.npm.taobao.org/@types/fs-extra/download/@types/fs-extra-9.0.10.tgz#8023a72e3d06cf54929ea47ec7634e47f33f4046"
-  integrity sha1-gCOnLj0Gz1SSnqR+x2NOR/M/QEY=
+"@types/fs-extra@^9.0.11":
+  version "9.0.11"
+  resolved "https://registry.npm.taobao.org/@types/fs-extra/download/@types/fs-extra-9.0.11.tgz#8cc99e103499eab9f347dbc6ca4e99fb8d2c2b87"
+  integrity sha1-jMmeEDSZ6rnzR9vGyk6Z+40sK4c=
   dependencies:
     "@types/node" "*"
 
@@ -1757,10 +1757,10 @@ ajv@^7.0.2:
     require-from-string "^2.0.2"
     uri-js "^4.2.2"
 
-ajv@^8.0.5:
-  version "8.0.5"
-  resolved "https://registry.npm.taobao.org/ajv/download/ajv-8.0.5.tgz#f07d6fdeffcdbb80485570ce3f1bc845fcc812b9"
-  integrity sha1-8H1v3v/Nu4BIVXDOPxvIRfzIErk=
+ajv@^8.1.0:
+  version "8.1.0"
+  resolved "https://registry.npm.taobao.org/ajv/download/ajv-8.1.0.tgz?cache=0&sync_timestamp=1618159990556&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fajv%2Fdownload%2Fajv-8.1.0.tgz#45d5d3d36c7cdd808930cc3e603cf6200dbeb736"
+  integrity sha1-RdXT02x83YCJMMw+YDz2IA2+tzY=
   dependencies:
     fast-deep-equal "^3.1.1"
     json-schema-traverse "^1.0.0"
@@ -2948,10 +2948,10 @@ crypto-random-string@^2.0.0:
   resolved "https://registry.npm.taobao.org/crypto-random-string/download/crypto-random-string-2.0.0.tgz?cache=0&sync_timestamp=1583560482221&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fcrypto-random-string%2Fdownload%2Fcrypto-random-string-2.0.0.tgz#ef2a7a966ec11083388369baa02ebead229b30d5"
   integrity sha1-7yp6lm7BEIM4g2m6oC6+rSKbMNU=
 
-css-loader@^5.2.0:
-  version "5.2.0"
-  resolved "https://registry.npm.taobao.org/css-loader/download/css-loader-5.2.0.tgz#a9ecda190500863673ce4434033710404efbff00"
-  integrity sha1-qezaGQUAhjZzzkQ0AzcQQE77/wA=
+css-loader@^5.2.1:
+  version "5.2.1"
+  resolved "https://registry.npm.taobao.org/css-loader/download/css-loader-5.2.1.tgz?cache=0&sync_timestamp=1617981346144&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fcss-loader%2Fdownload%2Fcss-loader-5.2.1.tgz#15fbd5b6ac4c1b170a098f804c5abd0722f2aa73"
+  integrity sha1-FfvVtqxMGxcKCY+ATFq9ByLyqnM=
   dependencies:
     camelcase "^6.2.0"
     cssesc "^3.0.0"
@@ -2986,10 +2986,10 @@ cssesc@^3.0.0:
   resolved "https://registry.npm.taobao.org/cssesc/download/cssesc-3.0.0.tgz#37741919903b868565e1c09ea747445cd18983ee"
   integrity sha1-N3QZGZA7hoVl4cCep0dEXNGJg+4=
 
-date-fns@^2.20.0:
-  version "2.20.0"
-  resolved "https://registry.npm.taobao.org/date-fns/download/date-fns-2.20.0.tgz#df00ba9177fbea22d88010b5844ecc91e9e03ceb"
-  integrity sha1-3wC6kXf76iLYgBC1hE7MkengPOs=
+date-fns@^2.20.2:
+  version "2.20.2"
+  resolved "https://registry.npm.taobao.org/date-fns/download/date-fns-2.20.2.tgz?cache=0&sync_timestamp=1618233393770&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fdate-fns%2Fdownload%2Fdate-fns-2.20.2.tgz#7f05d1275e1e43c3bdde5998201920098e19c6a1"
+  integrity sha1-fwXRJ14eQ8O93lmYIBkgCY4ZxqE=
 
 de-indent@^1.0.2:
   version "1.0.2"
@@ -3620,6 +3620,23 @@ es6-templates@^0.2.2:
     recast "~0.11.12"
     through "~2.3.6"
 
+esbuild-loader@^2.11.0:
+  version "2.11.0"
+  resolved "https://registry.npm.taobao.org/esbuild-loader/download/esbuild-loader-2.11.0.tgz?cache=0&sync_timestamp=1616892568276&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fesbuild-loader%2Fdownload%2Fesbuild-loader-2.11.0.tgz#65efc9c8ab14f2da06b9d165396f9520b4aeac96"
+  integrity sha1-Ze/JyKsU8toGudFlOW+VILSurJY=
+  dependencies:
+    esbuild "^0.10.2"
+    joycon "^3.0.1"
+    json5 "^2.2.0"
+    loader-utils "^2.0.0"
+    type-fest "^1.0.1"
+    webpack-sources "^2.2.0"
+
+esbuild@^0.10.2:
+  version "0.10.2"
+  resolved "https://registry.npm.taobao.org/esbuild/download/esbuild-0.10.2.tgz#caa65a8f3096d547d89159918039df6c5c6c90be"
+  integrity sha1-yqZajzCW1UfYkVmRgDnfbFxskL4=
+
 escalade@^3.1.1:
   version "3.1.1"
   resolved "https://registry.npm.taobao.org/escalade/download/escalade-3.1.1.tgz?cache=0&sync_timestamp=1602567224085&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fescalade%2Fdownload%2Fescalade-3.1.1.tgz#d8cfdc7000965c5a0174b4a82eaa5c0552742e40"
@@ -3765,10 +3782,10 @@ eslint-webpack-plugin@^2.5.3:
     micromatch "^4.0.2"
     schema-utils "^3.0.0"
 
-eslint@^7.23.0:
-  version "7.23.0"
-  resolved "https://registry.npm.taobao.org/eslint/download/eslint-7.23.0.tgz#8d029d252f6e8cf45894b4bee08f5493f8e94325"
-  integrity sha1-jQKdJS9ujPRYlLS+4I9Uk/jpQyU=
+eslint@^7.24.0:
+  version "7.24.0"
+  resolved "https://registry.npm.taobao.org/eslint/download/eslint-7.24.0.tgz?cache=0&sync_timestamp=1618006442639&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Feslint%2Fdownload%2Feslint-7.24.0.tgz#2e44fa62d93892bfdb100521f17345ba54b8513a"
+  integrity sha1-LkT6Ytk4kr/bEAUh8XNFulS4UTo=
   dependencies:
     "@babel/code-frame" "7.12.11"
     "@eslint/eslintrc" "^0.4.0"
@@ -5206,6 +5223,11 @@ jest-worker@^26.6.2:
     merge-stream "^2.0.0"
     supports-color "^7.0.0"
 
+joycon@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.npm.taobao.org/joycon/download/joycon-3.0.1.tgz#9074c9b08ccf37a6726ff74a18485f85efcaddaf"
+  integrity sha1-kHTJsIzPN6Zyb/dKGEhfhe/K3a8=
+
 js-base64@^2.1.9:
   version "2.6.2"
   resolved "https://registry.npm.taobao.org/js-base64/download/js-base64-2.6.2.tgz?cache=0&sync_timestamp=1593072098529&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fjs-base64%2Fdownload%2Fjs-base64-2.6.2.tgz#cf9301bc5cc756892a9a6c8d7138322e5944fb0d"
@@ -5287,6 +5309,13 @@ json5@^2.1.2:
   version "2.1.3"
   resolved "https://registry.npm.taobao.org/json5/download/json5-2.1.3.tgz?cache=0&sync_timestamp=1586045700847&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fjson5%2Fdownload%2Fjson5-2.1.3.tgz#c9b0f7fa9233bfe5807fe66fcf3a5617ed597d43"
   integrity sha1-ybD3+pIzv+WAf+ZvzzpWF+1ZfUM=
+  dependencies:
+    minimist "^1.2.5"
+
+json5@^2.2.0:
+  version "2.2.0"
+  resolved "https://registry.npm.taobao.org/json5/download/json5-2.2.0.tgz#2dfefe720c6ba525d9ebd909950f0515316c89a3"
+  integrity sha1-Lf7+cgxrpSXZ69kJlQ8FFTFsiaM=
   dependencies:
     minimist "^1.2.5"
 
@@ -5405,11 +5434,6 @@ load-json-file@^2.0.0:
     parse-json "^2.2.0"
     pify "^2.0.0"
     strip-bom "^3.0.0"
-
-loader-runner@^4.1.0:
-  version "4.1.0"
-  resolved "https://registry.npm.taobao.org/loader-runner/download/loader-runner-4.1.0.tgz?cache=0&sync_timestamp=1601450715716&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Floader-runner%2Fdownload%2Floader-runner-4.1.0.tgz#f70bc0c29edbabdf2043e7ee73ccc3fe1c96b42d"
-  integrity sha1-9wvAwp7bq98gQ+fuc8zD/hyWtC0=
 
 loader-runner@^4.2.0:
   version "4.2.0"
@@ -7870,10 +7894,10 @@ svg-baker@^1.5.0, svg-baker@^1.7.0:
     query-string "^4.3.2"
     traverse "^0.6.6"
 
-svg-sprite-loader@^6.0.2:
-  version "6.0.2"
-  resolved "https://registry.npm.taobao.org/svg-sprite-loader/download/svg-sprite-loader-6.0.2.tgz#5be30c61749280e8ea0325b8f6c626c3db710880"
-  integrity sha1-W+MMYXSSgOjqAyW49sYmw9txCIA=
+svg-sprite-loader@^6.0.5:
+  version "6.0.5"
+  resolved "https://registry.npm.taobao.org/svg-sprite-loader/download/svg-sprite-loader-6.0.5.tgz?cache=0&sync_timestamp=1618050529984&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fsvg-sprite-loader%2Fdownload%2Fsvg-sprite-loader-6.0.5.tgz#40ec900c13b9444fb84d15b131be4107267d05e5"
+  integrity sha1-QOyQDBO5RE+4TRWxMb5BByZ9BeU=
   dependencies:
     bluebird "^3.5.0"
     deepmerge "1.3.2"
@@ -7959,15 +7983,6 @@ textextensions@^5.11.0:
   version "5.12.0"
   resolved "https://registry.npm.taobao.org/textextensions/download/textextensions-5.12.0.tgz#b908120b5c1bd4bb9eba41423d75b176011ab68a"
   integrity sha1-uQgSC1wb1LueukFCPXWxdgEatoo=
-
-thread-loader@^3.0.1:
-  version "3.0.1"
-  resolved "https://registry.npm.taobao.org/thread-loader/download/thread-loader-3.0.1.tgz?cache=0&sync_timestamp=1603809339530&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fthread-loader%2Fdownload%2Fthread-loader-3.0.1.tgz#059752d5c3e223ec58fad5868fe6405e8375d480"
-  integrity sha1-BZdS1cPiI+xY+tWGj+ZAXoN11IA=
-  dependencies:
-    loader-runner "^4.1.0"
-    loader-utils "^2.0.0"
-    neo-async "^2.6.2"
 
 throttle-debounce@^1.0.1:
   version "1.1.0"
@@ -8103,6 +8118,11 @@ type-fest@^0.8.1:
   version "0.8.1"
   resolved "https://registry.npm.taobao.org/type-fest/download/type-fest-0.8.1.tgz?cache=0&sync_timestamp=1593290964201&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Ftype-fest%2Fdownload%2Ftype-fest-0.8.1.tgz#09e249ebde851d3b1e48d27c105444667f17b83d"
   integrity sha1-CeJJ696FHTseSNJ8EFREZn8XuD0=
+
+type-fest@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.npm.taobao.org/type-fest/download/type-fest-1.0.1.tgz?cache=0&sync_timestamp=1616514381586&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Ftype-fest%2Fdownload%2Ftype-fest-1.0.1.tgz#2494455e65c59170ec98bdda05b7d7184f5b74ad"
+  integrity sha1-JJRFXmXFkXDsmL3aBbfXGE9bdK0=
 
 type-is@~1.6.17, type-is@~1.6.18:
   version "1.6.18"
@@ -8574,7 +8594,7 @@ webpack-sources@^1.1.0:
     source-list-map "^2.0.0"
     source-map "~0.6.1"
 
-webpack-sources@^2.1.1:
+webpack-sources@^2.1.1, webpack-sources@^2.2.0:
   version "2.2.0"
   resolved "https://registry.npm.taobao.org/webpack-sources/download/webpack-sources-2.2.0.tgz#058926f39e3d443193b6c31547229806ffd02bac"
   integrity sha1-BYkm8549RDGTtsMVRyKYBv/QK6w=
@@ -8582,10 +8602,10 @@ webpack-sources@^2.1.1:
     source-list-map "^2.0.1"
     source-map "^0.6.1"
 
-webpack@^5.31.0:
-  version "5.31.0"
-  resolved "https://registry.npm.taobao.org/webpack/download/webpack-5.31.0.tgz#fab61d0be896feca4af87bdad5c18815c0d63455"
-  integrity sha1-+rYdC+iW/spK+Hva1cGIFcDWNFU=
+webpack@^5.32.0:
+  version "5.32.0"
+  resolved "https://registry.npm.taobao.org/webpack/download/webpack-5.32.0.tgz#f013932d778dad81bd51292d0ea00865056dc22c"
+  integrity sha1-8BOTLXeNrYG9USktDqAIZQVtwiw=
   dependencies:
     "@types/eslint-scope" "^3.7.0"
     "@types/estree" "^0.0.46"

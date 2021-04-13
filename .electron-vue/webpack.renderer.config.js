@@ -12,6 +12,7 @@ const { styleLoaders } = require('./utils')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const { ESBuildMinifyPlugin } = require('esbuild-loader')
 const TerserPlugin = require('terser-webpack-plugin');
 // const ESLintPlugin = require('eslint-webpack-plugin');
 const { VueLoaderPlugin } = require('vue-loader')
@@ -29,7 +30,6 @@ function resolve(dir) {
 let whiteListedModules = IsWeb ? [] : ['vue', "element-ui"]
 
 let rendererConfig = {
-  devtool: 'eval-source-map',
   entry: IsWeb ? { web: path.join(__dirname, '../src/renderer/main.js') } : { renderer: resolve('src/renderer/main.js') },
   // externals: IsWeb ? [] : [...Object.keys(dependencies || {}).filter(d => !whiteListedModules.includes(d))],
   module: {
@@ -44,13 +44,10 @@ let rendererConfig = {
       },
       {
         test: /\.js$/,
-        use: ['thread-loader', {
-          loader: 'babel-loader',
-          options: {
-            cacheDirectory: true
-          }
-        }],
-        exclude: /node_modules/
+        loader: 'esbuild-loader',
+        options: {
+          loader: 'jsx',
+        }
       },
       {
         test: /\.svg$/,
@@ -89,7 +86,7 @@ let rendererConfig = {
   },
   plugins: [
     new VueLoaderPlugin(),
-    new MiniCssExtractPlugin({ filename: 'styles.css' }),
+    new MiniCssExtractPlugin(),
     new webpack.DefinePlugin({
       'process.env': process.env.NODE_ENV === 'production' ? config.build.env : config.dev.env,
       'process.env.IS_WEB': IsWeb
@@ -135,7 +132,7 @@ let rendererConfig = {
   target: IsWeb ? 'web' : 'electron-renderer'
 }
 // 将css相关得loader抽取出来
-rendererConfig.module.rules = rendererConfig.module.rules.concat(styleLoaders({ sourceMap: config.dev.cssSourceMap }))
+rendererConfig.module.rules = rendererConfig.module.rules.concat(styleLoaders({ sourceMap: process.env.NODE_ENV !== 'production' ? config.dev.cssSourceMap : false, extract: IsWeb, minifyCss: process.env.NODE_ENV === 'production' }))
 
 
 /**
@@ -153,6 +150,7 @@ if (process.env.NODE_ENV !== 'production' && !IsWeb) {
  * Adjust rendererConfig for production settings
  */
 if (process.env.NODE_ENV === 'production') {
+
   rendererConfig.plugins.push(
     new CopyWebpackPlugin({
       patterns: [
@@ -175,54 +173,40 @@ if (process.env.NODE_ENV === 'production') {
   )
   rendererConfig.optimization = {
     minimizer: [
-      new TerserPlugin({
-        test: /\.js(\?.*)?$/i,
-        extractComments: false,
-        terserOptions: {
-          warnings: false,
-          compress: {
-            hoist_funs: false,
-            hoist_props: false,
-            hoist_vars: false,
-            inline: false,
-            loops: false,
-            dead_code: true,
-            booleans: true,
-            if_return: true,
-            warnings: false,
-            drop_console: true,
-            drop_debugger: true,
-            pure_funcs: ['console.log']
-          },
-        },
-      })]
+      new ESBuildMinifyPlugin({
+        sourcemap: false,
+        minifyWhitespace: true,
+        minifyIdentifiers: true,
+        minifySyntax: true,
+        css: true
+      })
+    ]
   }
-  if (IsWeb) {
-    rendererConfig.optimization.splitChunks = {
-      chunks: "async",
-      cacheGroups: {
-        vendor: { // 将第三方模块提取出来
-          minSize: 30000,
-          minChunks: 1,
-          test: /node_modules/,
-          chunks: 'initial',
-          name: 'vendor',
-          priority: 1
-        },
-        commons: {
-          test: /[\\/]src[\\/]common[\\/]/,
-          name: 'commons',
-          minSize: 30000,
-          minChunks: 3,
-          chunks: 'initial',
-          priority: -1,
-          reuseExistingChunk: true // 这个配置允许我们使用已经存在的代码块
-        }
+  rendererConfig.optimization.splitChunks = {
+    chunks: "async",
+    cacheGroups: {
+      vendor: { // 将第三方模块提取出来
+        minSize: 30000,
+        minChunks: 1,
+        test: /node_modules/,
+        chunks: 'initial',
+        name: 'vendor',
+        priority: 1
+      },
+      commons: {
+        test: /[\\/]src[\\/]common[\\/]/,
+        name: 'commons',
+        minSize: 30000,
+        minChunks: 3,
+        chunks: 'initial',
+        priority: -1,
+        reuseExistingChunk: true // 这个配置允许我们使用已经存在的代码块
       }
     }
-    rendererConfig.optimization.runtimeChunk = { name: 'runtime' }
   }
+  rendererConfig.optimization.runtimeChunk = { name: 'runtime' }
 } else {
+  rendererConfig.devtool = 'eval-source-map'
   // eslint
   // rendererConfig.plugins.push(new ESLintPlugin(config.dev.ESLintoptions))
 }
