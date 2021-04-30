@@ -508,10 +508,10 @@ ajv@^7.0.2:
     require-from-string "^2.0.2"
     uri-js "^4.2.2"
 
-ajv@^8.1.0:
-  version "8.1.0"
-  resolved "https://registry.npm.taobao.org/ajv/download/ajv-8.1.0.tgz?cache=0&sync_timestamp=1618159990556&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fajv%2Fdownload%2Fajv-8.1.0.tgz#45d5d3d36c7cdd808930cc3e603cf6200dbeb736"
-  integrity sha1-RdXT02x83YCJMMw+YDz2IA2+tzY=
+ajv@^8.2.0:
+  version "8.2.0"
+  resolved "https://registry.nlark.com/ajv/download/ajv-8.2.0.tgz#c89d3380a784ce81b2085f48811c4c101df4c602"
+  integrity sha1-yJ0zgKeEzoGyCF9IgRxMEB30xgI=
   dependencies:
     fast-deep-equal "^3.1.1"
     json-schema-traverse "^1.0.0"
@@ -1334,6 +1334,14 @@ chalk@^4.0.0, chalk@^4.1.0:
     ansi-styles "^4.1.0"
     supports-color "^7.1.0"
 
+chalk@^4.1.1:
+  version "4.1.1"
+  resolved "https://registry.nlark.com/chalk/download/chalk-4.1.1.tgz#c80b3fab28bf6371e6863325eee67e618b77e6ad"
+  integrity sha1-yAs/qyi/Y3HmhjMl7uZ+YYt35q0=
+  dependencies:
+    ansi-styles "^4.1.0"
+    supports-color "^7.1.0"
+
 change-case@3.0.x:
   version "3.0.2"
   resolved "https://registry.npm.taobao.org/change-case/download/change-case-3.0.2.tgz?cache=0&sync_timestamp=1589807993529&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fchange-case%2Fdownload%2Fchange-case-3.0.2.tgz#fd48746cce02f03f0a672577d1d3a8dc2eceb037"
@@ -1777,10 +1785,10 @@ core-js@^2.4.0:
   resolved "https://registry.npm.taobao.org/core-js/download/core-js-2.6.11.tgz?cache=0&sync_timestamp=1589682726446&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fcore-js%2Fdownload%2Fcore-js-2.6.11.tgz#38831469f9922bded8ee21c9dc46985e0399308c"
   integrity sha1-OIMUafmSK97Y7iHJ3EaYXgOZMIw=
 
-core-js@^3.10.2:
-  version "3.10.2"
-  resolved "https://registry.nlark.com/core-js/download/core-js-3.10.2.tgz?cache=0&sync_timestamp=1618851836695&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fcore-js%2Fdownload%2Fcore-js-3.10.2.tgz#17cb038ce084522a717d873b63f2b3ee532e2cd5"
-  integrity sha1-F8sDjOCEUipxfYc7Y/Kz7lMuLNU=
+core-js@^3.11.1:
+  version "3.11.1"
+  resolved "https://registry.nlark.com/core-js/download/core-js-3.11.1.tgz#f920392bf8ed63a0ec8e4e729857bfa3d121c525"
+  integrity sha1-+SA5K/jtY6Dsjk5ymFe/o9EhxSU=
 
 core-js@^3.6.5:
   version "3.8.3"
@@ -2771,10 +2779,10 @@ eslint-visitor-keys@^2.0.0:
   resolved "https://registry.npm.taobao.org/eslint-visitor-keys/download/eslint-visitor-keys-2.0.0.tgz?cache=0&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Feslint-visitor-keys%2Fdownload%2Feslint-visitor-keys-2.0.0.tgz#21fdc8fbcd9c795cc0321f0563702095751511a8"
   integrity sha1-If3I+82ceVzAMh8FY3AglXUVEag=
 
-eslint@^7.24.0:
-  version "7.24.0"
-  resolved "https://registry.npm.taobao.org/eslint/download/eslint-7.24.0.tgz?cache=0&sync_timestamp=1618006442639&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Feslint%2Fdownload%2Feslint-7.24.0.tgz#2e44fa62d93892bfdb100521f17345ba54b8513a"
-  integrity sha1-LkT6Ytk4kr/bEAUh8XNFulS4UTo=
+eslint@^7.25.0:
+  version "7.25.0"
+  resolved "https://registry.nlark.com/eslint/download/eslint-7.25.0.tgz#1309e4404d94e676e3e831b3a3ad2b050031eb67"
+  integrity sha1-EwnkQE2U5nbj6DGzo60rBQAx62c=
   dependencies:
     "@babel/code-frame" "7.12.11"
     "@eslint/eslintrc" "^0.4.0"
@@ -4951,10 +4959,10 @@ mimic-response@^1.0.0, mimic-response@^1.0.1:
   resolved "https://registry.npm.taobao.org/mimic-response/download/mimic-response-1.0.1.tgz#4923538878eef42063cb8a3e3b0798781487ab1b"
   integrity sha1-SSNTiHju9CBjy4o+OweYeBSHqxs=
 
-mini-css-extract-plugin@1.5.0:
-  version "1.5.0"
-  resolved "https://registry.npm.taobao.org/mini-css-extract-plugin/download/mini-css-extract-plugin-1.5.0.tgz?cache=0&sync_timestamp=1618672508868&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fmini-css-extract-plugin%2Fdownload%2Fmini-css-extract-plugin-1.5.0.tgz#69bee3b273d2d4ee8649a2eb409514b7df744a27"
-  integrity sha1-ab7jsnPS1O6GSaLrQJUUt990Sic=
+mini-css-extract-plugin@1.5.1:
+  version "1.5.1"
+  resolved "https://registry.nlark.com/mini-css-extract-plugin/download/mini-css-extract-plugin-1.5.1.tgz#c0ac557c48a7de47de3df0768fe037c9cf961f69"
+  integrity sha1-wKxVfEin3kfePfB2j+A3yc+WH2k=
   dependencies:
     loader-utils "^2.0.0"
     schema-utils "^3.0.0"
@@ -6434,10 +6442,10 @@ sass-loader@^10.1.1:
     schema-utils "^3.0.0"
     semver "^7.3.2"
 
-sass@^1.32.11:
-  version "1.32.11"
-  resolved "https://registry.nlark.com/sass/download/sass-1.32.11.tgz?cache=0&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fsass%2Fdownload%2Fsass-1.32.11.tgz#b236b3ea55c76602c2ef2bd0445f0db581baa218"
-  integrity sha1-sjaz6lXHZgLC7yvQRF8NtYG6ohg=
+sass@^1.32.12:
+  version "1.32.12"
+  resolved "https://registry.nlark.com/sass/download/sass-1.32.12.tgz#a2a47ad0f1c168222db5206444a30c12457abb9f"
+  integrity sha1-oqR60PHBaCIttSBkRKMMEkV6u58=
   dependencies:
     chokidar ">=3.0.0 <4.0.0"
 
