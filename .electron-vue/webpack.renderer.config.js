@@ -81,7 +81,8 @@ let rendererConfig = {
     new VueLoaderPlugin(),
     new MiniCssExtractPlugin(),
     new webpack.DefinePlugin({
-      'process.env': process.env.NODE_ENV === 'production' ? config.build.env : config.dev.env,
+      'process.env.TERGET_ENV': JSON.stringify(config[process.env.TERGET_ENV]),
+      'process.env': process.env.NODE_ENV === 'production' ? JSON.stringify(config.build.env) : JSON.stringify(config.dev.env),
       'process.env.IS_WEB': IsWeb
     }),
     new HtmlWebpackPlugin({
@@ -134,7 +135,7 @@ IsWeb ? rendererConfig.module.rules.concat({ test: /\.ts$/, use: [{ loader: 'bab
 if (process.env.NODE_ENV !== 'production' && !IsWeb) {
   rendererConfig.plugins.push(
     new webpack.DefinePlugin({
-      '__lib': `"${path.join(__dirname, `../${config.DllFolder}`).replace(/\\/g, '\\\\')}"`
+      __lib: `"${path.join(__dirname, `../${config.DllFolder}`).replace(/\\/g, '\\\\')}"`
     })
   )
 }
@@ -158,7 +159,6 @@ if (process.env.NODE_ENV === 'production') {
     }),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': '"production"',
-      'process.env.libPath': `"${config.DllFolder}"`
     }),
     new webpack.LoaderOptionsPlugin({
       minimize: true

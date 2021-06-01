@@ -44,6 +44,9 @@ let mainConfig = {
   },
   plugins: [
     new webpack.NoEmitOnErrorsPlugin(),
+    new webpack.DefinePlugin({
+      'process.env.TERGET_ENV': JSON.stringify(config[process.env.TERGET_ENV]),
+    })
   ],
   resolve: {
     alias: {

@@ -8,11 +8,13 @@ module.exports = {
     removeElectronJunk: true,
     chineseLog: false,
     port: 9080,
-    ESLintoptions:{
+    ESLintoptions: {
       formatter: require('eslint-friendly-formatter')
     },
     cssSourceMap: true
   },
+  development: require('./dev.env'),
+  production: require('./prod.env'),
   UseStartupChart: true,
   IsUseSysTitle: true,
   DllFolder: '',
