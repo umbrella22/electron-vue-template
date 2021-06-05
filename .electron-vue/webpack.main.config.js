@@ -51,7 +51,11 @@ let mainConfig = {
     libraryTarget: 'commonjs2',
     path: path.join(__dirname, '../dist/electron')
   },
-  plugins: [],
+  plugins: [
+    new webpack.DefinePlugin({
+      'process.env.TERGET_ENV': JSON.stringify(config[process.env.TERGET_ENV]),
+    })
+  ],
   resolve: {
     alias: {
       '@config': resolve('config'),

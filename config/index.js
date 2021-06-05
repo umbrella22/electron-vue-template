@@ -9,6 +9,8 @@ module.exports = {
     chineseLog: false,
     port: 9080
   },
+  development: require('./dev.env'),
+  production: require('./prod.env'),
   UseStartupChart: true,
   IsUseSysTitle: true,
   DllFolder: '',

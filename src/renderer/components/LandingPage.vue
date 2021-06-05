@@ -92,7 +92,10 @@ export default {
     filePath: "",
   }),
   created() {
+    console.log("环境打印示例")
     console.log(__lib);
+    console.log(process.env.TERGET_ENV)
+    console.log(process.env)
     ipcRenderer.on("download-progress", (event, arg) => {
       this.percentage = Number(arg);
     });
