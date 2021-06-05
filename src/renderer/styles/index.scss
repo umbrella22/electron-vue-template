@@ -13,6 +13,10 @@ body {
   padding: 0;
 }
 
+svg {
+  display: inline-block !important;
+}
+
 html {
   box-sizing: border-box;
 

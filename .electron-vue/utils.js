@@ -18,10 +18,16 @@ exports.cssLoaders = function (options) {
             esModule: false
         }
     }
+    const postcssLoader = {
+        loader: 'postcss-loader',
+        options: {
+            sourceMap: options.sourceMap
+        }
+    }
 
     // 这里就是生成loader和其对应的配置
     function generateLoaders(loader, loaderOptions) {
-        const loaders = [cssLoader, esbuildCss]
+        const loaders = [cssLoader, postcssLoader, esbuildCss]
 
         if (loader) {
             loaders.push({
