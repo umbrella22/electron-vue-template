@@ -1,5 +1,5 @@
 <template>
-  <el-menu class="navbar-header-fixed" mode="horizontal">
+  <el-menu :class="'navbar-header-fixed' + (isMac ? ' dragTitle' : '')" mode="horizontal">
     <div class="top-right">
       <div class="hb-bd">
         <hamburger
@@ -55,7 +55,8 @@ export default {
   },
   data: () => ({
     time: "",
-    userImage: require("@/assets/user.png")
+    userImage: require("@/assets/user.png"),
+    isMac: process.platform === "darwin"
   }),
   mounted() {
     this.set_time();
@@ -159,6 +160,10 @@ export default {
       }
     }
   }
+}
+
+.dragTitle {
+  -webkit-app-region: drag;
 }
 </style>
 
