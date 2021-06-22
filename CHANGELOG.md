@@ -1,6 +1,10 @@
 # 更新日志
 
-## 2021 年 9 月 1 日
+## 2021 年 6 月 22 日
+
+- 尝试修复 mac 环境下窗口无法拖动问题
+
+## 2021 年 9 月 1 日 （9月？）
 
 - 双分支添加 TERGET_ENV 标识，用于区分区分当前工作环境，如 test or alpha，beta，gamma；通过在`node .electron-vue/build.js`前添加`cross-env TERGET_ENV=test`，即可启用，相应的您应当在`config文件夹以及其index.js`文件中按照`development`对象写好相同的代码方可在主/渲染进程中使用`process.env.TERGET_ENV`来取得您的设置项。
 
@@ -57,8 +61,8 @@
 ## 2019 年 11 月 22 日
 
 - 得益于群里老哥的提醒，通过修改系统环境变量得到了通过 yarn 下载 electron 失败的问题，具体操作如下：
- - 用户环境变量中新增两个个变量，一个是变量名为`ELECTRON_MIRROR`，变量值为`https://npm.taobao.org/mirrors/electron/`，另一个是变量名为`registry`，变量值为`https://registry.npm.taobao.org/`，然后系统变量中同样也加上这两个值，完成之后，删除 node_module 文件夹。然后执行 yarn install，如果还是提示未安装，那就去 electron 文件夹内执行一次 yarn install，就好了。这样的话，不仅仅只是 yarn 更快了，electron 的 rebuild 也会加速很多。所以推荐使用 yarn。
- - （优先尝试）使用 npm config edit 打开 npm 配置文件，添加上 electron_mirror=https://cdn.npm.taobao.org/dist/electron/ ，然后重启窗口删除 node_module 文件夹，重新安装依赖即可。
+  - 用户环境变量中新增两个个变量，一个是变量名为`ELECTRON_MIRROR`，变量值为`https://npm.taobao.org/mirrors/electron/`，另一个是变量名为`registry`，变量值为`https://registry.npm.taobao.org/`，然后系统变量中同样也加上这两个值，完成之后，删除 node_module 文件夹。然后执行 yarn install，如果还是提示未安装，那就去 electron 文件夹内执行一次 yarn install，就好了。这样的话，不仅仅只是 yarn 更快了，electron 的 rebuild 也会加速很多。所以推荐使用 yarn。
+  - （优先尝试）使用 npm config edit 打开 npm 配置文件，添加上 electron_mirror=https://cdn.npm.taobao.org/dist/electron/ ，然后重启窗口删除 node_module 文件夹，重新安装依赖即可。
 
 ## 2019 年 11 月 19 日
 
@@ -67,7 +71,7 @@
 ## 2019 年 10 月 31 日
 
 - 升级 electron 版本至 7，但是需要做一些修改，由于淘宝的问题，导致 electron 新的下载器出现故障，故我们需要对 electron 的下载器做一些更改，这非常容易，不用担心：
- - 首先我们在淘宝代理设置下，安装完成依赖，此时是报错的，现在进入项目的 node_modules 文件夹内找到 electron,点击进入，然后修改其中的 package.json 文件，修改 dependencies 对象中的依赖为：
+  - 首先我们在淘宝代理设置下，安装完成依赖，此时是报错的，现在进入项目的 node_modules 文件夹内找到 electron,点击进入，然后修改其中的 package.json 文件，修改 dependencies 对象中的依赖为：
 
 ```json
   "dependencies": {
@@ -77,7 +81,7 @@
   },
 ```
 
- - 然后我们需要再修改 install.js 中的代码（实际就是 6 中的 install 代码）
+  - 然后我们需要再修改 install.js 中的代码（实际就是 6 中的 install 代码）
 
 ```js
 #!/usr/bin/env node
@@ -161,7 +165,7 @@ function getPlatformPath() {
 }
 ```
 
- - 然后执行 npm i 即可完成安装，至于打包的话，您可能需要去淘宝镜像手动下载并且放好位置，才能完成打包操作，不然依旧还是报下载错误的信息。
+  - 然后执行 npm i 即可完成安装，至于打包的话，您可能需要去淘宝镜像手动下载并且放好位置，才能完成打包操作，不然依旧还是报下载错误的信息。
 
 ## 2019 年 10 月 18 日
 
