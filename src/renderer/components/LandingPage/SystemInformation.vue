@@ -16,6 +16,7 @@ export default {
   data() {
     return {
       tips: [
+        { name: this.$i18n.t("home"), value: this.$i18n.t("name") },
         { name: "当前页面路径：", value: this.$route.path },
         { name: "当前页面名称：", value: this.$route.name },
         { name: "Vue版本：", value: require("vue/package.json").version },
