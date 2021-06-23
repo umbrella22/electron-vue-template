@@ -41,7 +41,7 @@ npm config edit
 # ELECTRON_BUILDER_BINARIES_MIRROR=http://npm.taobao.org/mirrors/electron-builder-binaries/
 # 然后关闭该窗口，重启命令行，删除node_modules文件夹，并重新安装依赖即可
 # 本地开发 启动项目
-npm run dev 或 yarn de
+npm run dev 或 yarn dev
 
 ```
 
