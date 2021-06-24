@@ -45,6 +45,15 @@
             >{{ $t('buttons.changeLanguage') }}</el-button
           >
         </div>
+        <div class="doc">
+          <el-pagination
+            :current-page="1"
+            :page-sizes="[100, 200, 300, 400]"
+            :page-size="100"
+            layout="total, sizes, prev, pager, next, jumper"
+            :total="400">
+          </el-pagination>
+        </div>
       </div>
     </main>
     <el-dialog
@@ -91,7 +100,7 @@ export default {
     ],
     dialogVisible: false,
     progressStaus: null,
-    filePath: "",
+    filePath: ""
   }),
   created() {
     console.log("环境打印示例")
@@ -227,7 +236,7 @@ export default {
       this.dialogVisible = false;
     },
     changeLanguage() {
-      let lang = this.$i18n.locale === 'zh_CN' ? 'en' : 'zh_CN'
+      let lang = this.$i18n.locale === 'zh-CN' ? 'en' : 'zh-CN'
       this.$i18n.locale = lang
     }
   },

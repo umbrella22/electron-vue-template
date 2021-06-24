@@ -1,5 +1,11 @@
 # 更新日志
 
+## 2021 年 06 月 24 日
+
+- `i18n` 新增对 `element-ui` 的支持
+
+> 为保证 `element-ui` 正确国际化，请确保 `src/renderer/i18n/languages` 文件夹下的语言包名与 `element-ui` 的语言包名一致
+
 ## 2021 年 06 月 23 日
 
 - 新增 [`i18n`](https://kazupon.github.io/vue-i18n/zh/) 支持
