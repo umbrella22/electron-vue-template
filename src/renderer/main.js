@@ -25,6 +25,8 @@ if (!process.env.IS_WEB) {
   Vue.prototype.$ipcApi = require('./utils/ipcRenderer').default
 }
 
+
+
 // 创建 i18n
 Vue.use(VueI18n) // 新版本必须要这个，不知道为什么
 const i18n = new VueI18n({
@@ -32,7 +34,7 @@ const i18n = new VueI18n({
   messages: languages, // 设置语言包
 });
 
-Vue.use(ElementUI, {
+Vue.use(ElementUI,{
   i18n: (key, value) => i18n.t(key, value)
 })
 
