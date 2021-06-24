@@ -8017,6 +8017,11 @@ vue-html-loader@^1.2.4:
     loader-utils "^1.0.2"
     object-assign "^4.1.0"
 
+vue-i18n@^8.24.5:
+  version "8.24.5"
+  resolved "https://registry.nlark.com/vue-i18n/download/vue-i18n-8.24.5.tgz?cache=0&sync_timestamp=1624118256957&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fvue-i18n%2Fdownload%2Fvue-i18n-8.24.5.tgz#7127a666d5be2199be69be39e439a419a90ff931"
+  integrity sha1-cSemZtW+IZm+ab455DmkGakP+TE=
+
 vue-loader@^15.9.7:
   version "15.9.7"
   resolved "https://registry.nlark.com/vue-loader/download/vue-loader-15.9.7.tgz#15b05775c3e0c38407679393c2ce6df673b01044"

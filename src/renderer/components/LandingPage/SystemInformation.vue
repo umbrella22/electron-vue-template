@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="title">关于系统</div>
+    <div class="title">{{ $t("about.system") }}</div>
     <div class="items">
       <div class="item" v-for="(item, index) in tips" :key="index">
         <div class="name" v-text="item.name" />
@@ -15,24 +15,30 @@ import { platform, release, arch } from "os";
 export default {
   data() {
     return {
-      tips: [
-        { name: "当前页面路径：", value: this.$route.path },
-        { name: "当前页面名称：", value: this.$route.name },
-        { name: "Vue版本：", value: require("vue/package.json").version },
+
+    };
+  },
+  computed: {
+    tips() {
+      return [
+        { name: this.$i18n.t("about.language"), value: this.$i18n.t("about.languageValue") },
+        { name: this.$i18n.t("about.currentPagePath"), value: this.$route.path },
+        { name: this.$i18n.t("about.currentPageName"), value: this.$route.name },
+        { name: this.$i18n.t("about.vueVersion"), value: require("vue/package.json").version },
         {
-          name: "Electron版本：",
+          name: this.$i18n.t("about.electronVersion"),
           value: process.versions.electron || "浏览器环境",
         },
-        { name: "Node版本：", value: process.versions.node || "浏览器环境" },
-        { name: "系统平台：", value: platform() },
-        { name: "系统版本：", value: release() },
-        { name: "系统位数：", value: arch() + "位" },
-      ],
-    };
+        { name: this.$i18n.t("about.nodeVersion"), value: process.versions.node || "浏览器环境" },
+        { name: this.$i18n.t("about.systemPlatform"), value: platform() },
+        { name: this.$i18n.t("about.systemVersion"), value: release() },
+        { name: this.$i18n.t("about.systemArch"), value: arch() + "位" },
+      ]
+    }
   },
   mounted() {
     console.log(this.$route);
-  },
+  }
 };
 </script>
 

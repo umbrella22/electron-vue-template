@@ -3,7 +3,7 @@
     <img id="logo" :src="logo" alt="electron-vue" />
     <main>
       <div class="left-side">
-        <span class="title">欢迎进入本框架</span>
+        <span class="title">{{ $t("welcome") }}</span>
         <system-information></system-information>
         <div v-if="textarray.length === 0">
           <span>{{ text }}</span>
@@ -17,29 +17,32 @@
 
       <div class="right-side">
         <div class="doc">
-          <div class="title alt">您可以点击的按钮测试功能</div>
-          <el-button type="primary" round @click="open()">控制台打印</el-button>
+          <div class="title alt">{{ $t("buttonTips") }}</div>
+          <el-button type="primary" round @click="open()">{{ $t("buttons.console") }}</el-button>
           <el-button type="primary" round @click="CheckUpdate('one')"
-            >检查更新</el-button
+            >{{ $t("buttons.checkUpdate") }}</el-button
           >
         </div>
         <div class="doc">
           <el-button type="primary" round @click="CheckUpdate('two')"
-            >检查更新（第二种方法）</el-button
+            >{{ $t("buttons.checkUpdate2") }}</el-button
           >
           <el-button type="primary" round @click="StartServer"
-            >启动内置服务端</el-button
+            >{{ $t("buttons.startServer") }}</el-button
           >
           <el-button type="primary" round @click="StopServer"
-            >关闭内置服务端</el-button
+            >{{ $t("buttons.stopServer") }}</el-button
           >
           <el-button type="primary" round @click="getMessage"
-            >查看消息</el-button
+            >{{ $t("buttons.viewMessage") }}</el-button
           >
         </div>
         <div class="doc">
           <el-button type="primary" round @click="openNewWin"
-            >打开新窗口</el-button
+            >{{ $t("buttons.openNewWindow") }}</el-button
+          >
+          <el-button type="primary" round @click="changeLanguage"
+            >{{ $t('buttons.changeLanguage') }}</el-button
           >
         </div>
       </div>
@@ -72,7 +75,6 @@ export default {
   name: "landing-page",
   components: { SystemInformation },
   data: () => ({
-    text: "等待数据读取",
     newdata: {
       name: "yyy",
       age: "12",
@@ -224,6 +226,10 @@ export default {
     handleClose() {
       this.dialogVisible = false;
     },
+    changeLanguage() {
+      let lang = this.$i18n.locale === 'zh_CN' ? 'en' : 'zh_CN'
+      this.$i18n.locale = lang
+    }
   },
   destroyed() {
     console.log("销毁了哦");
@@ -236,6 +242,11 @@ export default {
     this.$ipcApi.remove("download-progress");
     this.$ipcApi.remove("download-error");
   },
+  computed: {
+    text() {
+      return this.$i18n.t("waitDataLoading")
+    }
+  }
 };
 </script>
 
