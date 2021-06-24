@@ -8,7 +8,6 @@ export default function loadLanguage() {
         .map((key) => ({ key, name: key.match(/([a-z_-]+)\.js$/i)[1] }))
         .reduce(
             (languages, {key, name}) => {
-                console.log(key,name)
                 let lang;
                 try {
                     lang = Object.assign(context(key).lang, context2(key).default);
