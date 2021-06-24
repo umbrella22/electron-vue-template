@@ -1,5 +1,6 @@
 export default function loadLanguage() {
     const context = require.context("./languages", false, /([a-z_]+)\.js$/i)
+    // 引入 element-ui 语言包
     const context2 = require.context("element-ui/lib/locale/lang", false, /([a-z_]+)\.js$/i)
 
     const languages = context
@@ -22,5 +23,5 @@ export default function loadLanguage() {
             {}
         )
 
-    return {context, languages}
+    return languages
 }

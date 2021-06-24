@@ -15,7 +15,7 @@ import '@/styles/index.scss'
 // 引入 i18n 语言包
 import VueI18n from 'vue-i18n'
 import loadLanguage from "./i18n"
-const { languages } = loadLanguage()
+const languages = loadLanguage()
 
 if (!process.env.IS_WEB) {
   if (!require('../../config').IsUseSysTitle) {
