@@ -1,5 +1,4 @@
-import zhLocale from 'element-ui/lib/locale/lang/zh-CN'
-const softlang = {
+export const lang = {
     welcome: "欢迎进入本框架",
     buttonTips: "您可以点击的按钮测试功能",
     waitDataLoading: "等待数据读取",
@@ -27,5 +26,3 @@ const softlang = {
         changeLanguage: "切换语言"
     }
 }
-console.log(Object.assign(softlang, zhLocale))
-export const lang = Object.assign(softlang, zhLocale)
