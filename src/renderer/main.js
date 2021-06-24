@@ -11,6 +11,7 @@ import './permission'
 import './error'
 import './icons'
 import '@/styles/index.scss'
+import '@/styles/dark-mode.scss'
 
 // 引入 i18n 语言包
 import VueI18n from 'vue-i18n'
