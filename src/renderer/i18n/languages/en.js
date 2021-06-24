@@ -1,4 +1,5 @@
-export const lang = {
+import enLocale from 'element-ui/lib/locale/lang/en'
+const softlang = {
     welcome: "Welcome use the framework",
     buttonTips: "You can click buttons to experience",
     waitDataLoading: "Wait data loading",
@@ -13,7 +14,7 @@ export const lang = {
         nodeVersion: "Node version:",
         systemPlatform: "system platform:",
         systemVersion: "system version:",
-        systemArch: "system arch:" 
+        systemArch: "system arch:"
     },
     buttons: {
         console: "Console",
@@ -26,3 +27,4 @@ export const lang = {
         changeLanguage: "Change language"
     }
 }
+export const lang = Object.assign(softlang, enLocale)
