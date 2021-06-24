@@ -3,14 +3,23 @@ export default function loadLanguage() {
 
     const languages = context
         .keys()
-        .map((key) => ({ key, name: key.match(/([a-z_]+)\.js$/i)[1] }))
+        .map((key) => ({ key, name: key.match(/([a-z_-]+)\.js$/i)[1] }))
         .reduce(
-            (languages, {key, name}) => ({
-                ...languages,
-                [name]: context(key).lang
-            }),
+            (languages, {key, name}) => {
+                let lang;
+                try {
+                    // 引入 element-ui 语言包
+                    lang = Object.assign(context(key).lang, require(`element-ui/lib/locale/lang/${name}`).default);
+                } catch(err) {
+                    lang = context(key).lang
+                }
+                return {
+                    ...languages,
+                    [name]: lang
+                }
+            },
             {}
         )
 
-    return {context, languages}
+    return languages
 }
