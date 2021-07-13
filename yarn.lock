@@ -1791,10 +1791,10 @@ atob@^2.1.2:
   resolved "https://registry.nlark.com/atob/download/atob-2.1.2.tgz#6d9517eb9e030d2436666651e86bd9f6f13533c9"
   integrity sha1-bZUX654DDSQ2ZmZR6GvZ9vE1M8k=
 
-autoprefixer@^10.3.0:
-  version "10.3.0"
-  resolved "https://registry.nlark.com/autoprefixer/download/autoprefixer-10.3.0.tgz#c60803dce9268f7fe0a5e5c1fe48a74356d7b864"
-  integrity sha1-xggD3Okmj3/gpeXB/kinQ1bXuGQ=
+autoprefixer@^10.3.1:
+  version "10.3.1"
+  resolved "https://registry.nlark.com/autoprefixer/download/autoprefixer-10.3.1.tgz#954214821d3aa06692406c6a0a9e9d401eafbed2"
+  integrity sha1-lUIUgh06oGaSQGxqCp6dQB6vvtI=
   dependencies:
     browserslist "^4.16.6"
     caniuse-lite "^1.0.30001243"
@@ -7507,10 +7507,10 @@ strip-json-comments@~2.0.1:
   resolved "https://registry.npm.taobao.org/strip-json-comments/download/strip-json-comments-2.0.1.tgz#3c531942e908c2697c0ec344858c286c7ca0a60a"
   integrity sha1-PFMZQukIwml8DsNEhYwobHygpgo=
 
-style-loader@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.nlark.com/style-loader/download/style-loader-3.0.0.tgz#2eafcd0dbe70b07438e0256a9714ea94dd63cbe0"
-  integrity sha1-Lq/NDb5wsHQ44CVqlxTqlN1jy+A=
+style-loader@^3.1.0:
+  version "3.1.0"
+  resolved "https://registry.nlark.com/style-loader/download/style-loader-3.1.0.tgz#e52a22ca2fd1f54c03f2c3e69b10182e68120908"
+  integrity sha1-5Soiyi/R9UwD8sPmmxAYLmgSCQg=
 
 sumchecker@^3.0.1:
   version "3.0.1"
