@@ -11,6 +11,8 @@
 
 - electron of react [Electron-react-template](https://github.com/umbrella22/electron-react-template)
 
+### To run a project, you need to have **node version 14** or higher and **use yarn as your dependency management tool**
+
 <p align="center">
   <a href="https://github.com/umbrella22/electron-vue-template">
     <img src="https://github.com/umbrella22/electron-vue-template/actions/workflows/build-test.yml/badge.svg">
@@ -44,6 +46,28 @@ npm test
 
 
 ```
+---
+# Function list
+
+- Auto update
+- Incremental update
+- Loading animation before startup
+- i18n
+- Incremental update (wait for test)
+
+# Built-in
+
+- [vue-router](https://router.vuejs.org)
+- [vuex](https://vuex.vuejs.org)
+- [electron](http://www.electronjs.org/docs)
+- electron-updater
+- typescript
+- [element-plus](https://element.eleme.cn/#/en-US)
+
+# Note
+
+- [gitee](https://gitee.com/Zh-Sky/electron-vue-template) is only for domestic users to pull code，from github to synchronize，please visit github for PR
+- **Welcome to Issues and PR**
 
 ---
 
