@@ -9,7 +9,16 @@
 [vite版本](https://github.com/umbrella22/electron-vite-template)
 [vite版本（码云）](https://gitee.com/Zh-Sky/electron-vite-template)
 
+[![Open in Visual Studio Code](https://open.vscode.dev/badges/open-in-vscode.svg)](https://open.vscode.dev/umbrella22/electron-vue-template)
+![GitHub Repo stars](https://img.shields.io/github/stars/umbrella22/electron-vue-template)
+[![vue](https://img.shields.io/badge/vue-2.6.14-brightgreen.svg)](https://github.com/vuejs/vue)
+[![element-ui](https://img.shields.io/badge/element--ui-2.15.2-brightgreen.svg)](https://github.com/ElemeFE/element)
+[![electron](https://img.shields.io/badge/electron-11.3.0-brightgreen.svg)](https://github.com/ElemeFE/element)
+[![license](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/umbrella22/electron-vue-template/blob/master/LICENSE)
+
 - electron of react [Electron-react-template](https://github.com/umbrella22/electron-react-template)
+
+### To run a project, you need to have **node version 14** or higher and **use yarn as your dependency management tool**
 
 <p align="center">
   <a href="https://github.com/umbrella22/electron-vue-template">
@@ -44,6 +53,28 @@ npm test
 
 
 ```
+---
+# Function list
+
+- Auto update
+- Incremental update
+- Loading animation before startup
+- i18n
+- Incremental update (wait for test)
+
+# Built-in
+
+- [vue-router](https://router.vuejs.org)
+- [vuex](https://vuex.vuejs.org)
+- [electron](http://www.electronjs.org/docs)
+- electron-updater
+- typescript
+- [element-plus](https://element.eleme.cn/#/en-US)
+
+# Note
+
+- [gitee](https://gitee.com/Zh-Sky/electron-vue-template) is only for domestic users to pull code，from github to synchronize，please visit github for PR
+- **Welcome to Issues and PR**
 
 ---
 

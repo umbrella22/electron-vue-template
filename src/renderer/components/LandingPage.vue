@@ -79,7 +79,7 @@
 <script>
 import SystemInformation from "./LandingPage/SystemInformation";
 import { message } from "@/api/login";
-import { ipcRenderer } from "electron";
+import { ipcRenderer,shell } from "electron";
 export default {
   name: "landing-page",
   components: { SystemInformation },
@@ -131,10 +131,11 @@ export default {
     ipcRenderer.on("download-done", (event, age) => {
       this.filePath = age.filePath;
       this.progressStaus = "success";
+      console.log("下载完成啦")
       this.$alert("更新下载完成！", "提示", {
         confirmButtonText: "确定",
         callback: (action) => {
-          this.$electron.shell.openPath(this.filePath);
+          shell.openPath(this.filePath);
         },
       });
     });
