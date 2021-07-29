@@ -233,15 +233,15 @@
   resolved "https://registry.npm.taobao.org/@types/node/download/@types/node-14.10.1.tgz?cache=0&sync_timestamp=1599843027918&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Fnode%2Fdownload%2F%40types%2Fnode-14.10.1.tgz#cc323bad8e8a533d4822f45ce4e5326f36e42177"
   integrity sha1-zDI7rY6KUz1IIvRc5OUybzbkIXc=
 
-"@types/node@^12.0.12":
-  version "12.19.15"
-  resolved "https://registry.npm.taobao.org/@types/node/download/@types/node-12.19.15.tgz#0de7e978fb43db62da369db18ea088a63673c182"
-  integrity sha1-DefpePtD22LaNp2xjqCIpjZzwYI=
-
 "@types/node@^14.14.41":
   version "14.14.41"
   resolved "https://registry.npm.taobao.org/@types/node/download/@types/node-14.14.41.tgz?cache=0&sync_timestamp=1618543947232&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40types%2Fnode%2Fdownload%2F%40types%2Fnode-14.14.41.tgz#d0b939d94c1d7bd53d04824af45f1139b8c45615"
   integrity sha1-0Lk52Uwde9U9BIJK9F8RObjEVhU=
+
+"@types/node@^14.6.2":
+  version "14.17.6"
+  resolved "https://registry.nlark.com/@types/node/download/@types/node-14.17.6.tgz?cache=0&sync_timestamp=1627500912080&other_urls=https%3A%2F%2Fregistry.nlark.com%2F%40types%2Fnode%2Fdownload%2F%40types%2Fnode-14.17.6.tgz#cc61c8361c89e70c468cda464d1fa3dd7e5ebd62"
+  integrity sha1-zGHINhyJ5wxGjNpGTR+j3X5evWI=
 
 "@types/parse-json@^4.0.0":
   version "4.0.0"
@@ -2535,13 +2535,13 @@ electron-updater@^4.3.9:
     lodash.isequal "^4.5.0"
     semver "^7.3.5"
 
-electron@11.3.0:
-  version "11.3.0"
-  resolved "https://registry.npm.taobao.org/electron/download/electron-11.3.0.tgz#87e8528fd23ae53b0eeb3a738f1fe0a3ad27c2db"
-  integrity sha1-h+hSj9I65TsO6zpzjx/go60nwts=
+electron@12.0.13:
+  version "12.0.13"
+  resolved "https://registry.nlark.com/electron/download/electron-12.0.13.tgz#f1c7f3d8b25078d7622ed900cc8f2aa4731a5e0a"
+  integrity sha1-8cfz2LJQeNdiLtkAzI8qpHMaXgo=
   dependencies:
     "@electron/get" "^1.0.1"
-    "@types/node" "^12.0.12"
+    "@types/node" "^14.6.2"
     extract-zip "^1.0.3"
 
 element-ui@^2.15.3:
