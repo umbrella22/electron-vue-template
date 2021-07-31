@@ -5,7 +5,6 @@ process.env.BABEL_ENV = 'main'
 const path = require('path')
 const { dependencies } = require('../package.json')
 const webpack = require('webpack')
-const { ESBuildMinifyPlugin } = require('esbuild-loader')
 const config = require('../config')
 
 function resolve(dir) {
@@ -21,20 +20,9 @@ let mainConfig = {
   ],
   module: {
     rules: [
-      // {
-      //   test: /\.(js)$/,
-      //   enforce: 'pre',
-      //   exclude: /node_modules/,
-      //   use: {
-      //     loader: 'eslint-loader',
-      //     options: {
-      //       formatter: require('eslint-friendly-formatter')
-      //     }
-      //   }
-      // },
       {
         test: /\.js$/,
-        loader: 'esbuild-loader',
+        loader: 'esbuild-loader'
       },
       {
         test: /\.node$/,
@@ -60,9 +48,12 @@ let mainConfig = {
     alias: {
       '@config': resolve('config'),
     },
-    extensions: ['.tsx', '.ts', '.js', '.json', '.node']
+    extensions: ['.js', '.json', '.node']
   },
-  target: 'electron-main'
+  target: 'electron-main',
+  optimization: {
+    noEmitOnErrors: false
+  }
 }
 
 /**
@@ -84,15 +75,8 @@ if (process.env.NODE_ENV === 'production') {
   mainConfig.plugins.push(
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': '"production"'
-    }),
+    })
   )
-  mainConfig.optimization = {
-    minimizer: [
-      new ESBuildMinifyPlugin({
-        target: 'es2015'
-      })
-    ]
-  }
 }
 
 module.exports = mainConfig

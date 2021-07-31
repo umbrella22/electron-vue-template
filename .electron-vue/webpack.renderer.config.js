@@ -1,7 +1,7 @@
 'use strict'
+
 const IsWeb = process.env.BUILD_TARGET === 'web'
 process.env.BABEL_ENV = IsWeb ? 'web' : 'renderer'
-IsWeb ? process.browser = true : process.browser = false
 
 const path = require('path')
 const { dependencies } = require('../package.json')
@@ -13,6 +13,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const { ESBuildMinifyPlugin } = require('esbuild-loader')
+// const ESLintPlugin = require('eslint-webpack-plugin');
 const { VueLoaderPlugin } = require('vue-loader')
 
 function resolve(dir) {
@@ -28,32 +29,17 @@ function resolve(dir) {
 let whiteListedModules = IsWeb ? [] : ['vue', "element-ui"]
 
 let rendererConfig = {
-  devtool: '#cheap-module-eval-source-map',
   entry: IsWeb ? { web: path.join(__dirname, '../src/renderer/main.js') } : { renderer: resolve('src/renderer/main.js') },
-  externals: IsWeb ? [] : [...Object.keys(dependencies || {}).filter(d => !whiteListedModules.includes(d))],
+  // externals: IsWeb ? [] : [...Object.keys(dependencies || {}).filter(d => !whiteListedModules.includes(d))],
   module: {
     rules: [
       {
+        test: /\.vue$/,
+        loader: "vue-loader"
+      },
+      {
         test: /\.html$/,
         use: 'vue-html-loader'
-      },
-      {
-        test: /\.js$/,
-        loader: 'esbuild-loader',
-      },
-      {
-        test: /\.node$/,
-        use: 'node-loader'
-      },
-      {
-        test: /\.vue$/,
-        use: {
-          loader: 'vue-loader',
-          options: {
-            cacheDirectory: 'node_modules/.cache/vue-loader',
-            cacheIdentifier: '7270960a',
-          }
-        }
       },
       {
         test: /\.svg$/,
@@ -64,35 +50,24 @@ let rendererConfig = {
         }
       },
       {
-        test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
-        exclude: [resolve('src/renderer/icons')],
-        use: {
-          loader: 'url-loader',
-          query: {
-            esModule: false,
-            limit: 10000,
-            name: 'imgs/[name]--[folder].[ext]'
-          }
-        },
+        test: /\.(png|jpe?g|gif)(\?.*)?$/,
+        type: "asset/resource",
+        generator: {
+          filename: 'imgs/[name]--[hash].[ext]'
+        }
       },
       {
         test: /\.(mp4|webm|ogg|mp3|wav|flac|aac)(\?.*)?$/,
-        loader: 'url-loader',
-        options: {
-          esModule: false,
-          limit: 10000,
-          name: 'media/[name]--[folder].[ext]'
+        type: "asset/resource",
+        generator: {
+          filename: 'media/[name]--[hash].[ext]'
         }
       },
       {
         test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
-        use: {
-          loader: 'url-loader',
-          query: {
-            esModule: false,
-            limit: 10000,
-            name: 'fonts/[name]--[folder].[ext]'
-          }
+        type: "asset/resource",
+        generator: {
+          filename: 'fonts/[name]--[hash].[ext]'
         }
       }
     ]
@@ -137,7 +112,6 @@ let rendererConfig = {
   ],
   output: {
     filename: '[name].js',
-    libraryTarget: IsWeb ? 'var' : 'commonjs2',
     path: IsWeb ? path.join(__dirname, '../dist/web') : path.join(__dirname, '../dist/electron')
   },
   resolve: {
@@ -151,6 +125,7 @@ let rendererConfig = {
 }
 // 将css相关得loader抽取出来
 rendererConfig.module.rules = rendererConfig.module.rules.concat(styleLoaders({ sourceMap: process.env.NODE_ENV !== 'production' ? config.dev.cssSourceMap : false, extract: IsWeb, minifyCss: process.env.NODE_ENV === 'production' }))
+IsWeb ? rendererConfig.module.rules.concat({ test: /\.ts$/, use: [{ loader: 'babel-loader', options: { cacheDirectory: true } }] }) : rendererConfig.module.rules.concat({ loader: 'esbuild-loader', options: { loader: 'jsx', } })
 
 /**
  * Adjust rendererConfig for development settings
@@ -158,7 +133,7 @@ rendererConfig.module.rules = rendererConfig.module.rules.concat(styleLoaders({ 
 if (process.env.NODE_ENV !== 'production' && !IsWeb) {
   rendererConfig.plugins.push(
     new webpack.DefinePlugin({
-      '__lib': `"${path.join(__dirname, `../${config.DllFolder}`).replace(/\\/g, '\\\\')}"`
+      __lib: `"${path.join(__dirname, `../${config.DllFolder}`).replace(/\\/g, '\\\\')}"`
     })
   )
 }
@@ -167,34 +142,21 @@ if (process.env.NODE_ENV !== 'production' && !IsWeb) {
  * Adjust rendererConfig for production settings
  */
 if (process.env.NODE_ENV === 'production') {
-  rendererConfig.devtool = ''
 
   rendererConfig.plugins.push(
-    IsWeb ?
-      new CopyWebpackPlugin({
-        patterns: [
-          {
-            from: path.join(__dirname, '../static'),
-            to: path.join(__dirname, '../dist/web/static'),
-            globOptions: {
-              ignore: ['.*']
-            }
+    new CopyWebpackPlugin({
+      patterns: [
+        {
+          from: path.join(__dirname, '../static'),
+          to: path.join(__dirname, '../dist/electron/static'),
+          globOptions: {
+            ignore: ['.*']
           }
-        ]
-      }) : new CopyWebpackPlugin({
-        patterns: [
-          {
-            from: path.join(__dirname, '../static'),
-            to: path.join(__dirname, '../dist/electron/static'),
-            globOptions: {
-              ignore: ['.*']
-            }
-          }
-        ]
-      }),
+        }
+      ]
+    }),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': '"production"',
-      'process.env.libPath': `"${config.DllFolder}"`
     }),
     new webpack.LoaderOptionsPlugin({
       minimize: true
@@ -234,6 +196,10 @@ if (process.env.NODE_ENV === 'production') {
     }
   }
   rendererConfig.optimization.runtimeChunk = { name: 'runtime' }
+} else {
+  rendererConfig.devtool = 'eval-source-map'
+  // eslint
+  // rendererConfig.plugins.push(new ESLintPlugin(config.dev.ESLintoptions))
 }
 
 module.exports = rendererConfig

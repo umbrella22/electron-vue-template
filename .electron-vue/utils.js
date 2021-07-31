@@ -18,6 +18,7 @@ exports.cssLoaders = function (options) {
             esModule: false
         }
     }
+
     const postcssLoader = {
         loader: 'postcss-loader',
         options: {
@@ -39,7 +40,7 @@ exports.cssLoaders = function (options) {
         }
 
         // 当配置信息中开启此项时，启用css分离压缩
-        // 这一项在web生产环境时，是默认开启的
+        // 这一项在生产环境时，是默认开启的
         if (options.extract) {
             return [MiniCssPlugin.loader].concat(loaders)
         } else {
