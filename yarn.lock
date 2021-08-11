@@ -2800,10 +2800,10 @@ core-js@^2.4.0, core-js@^2.6.5:
   resolved "https://registry.nlark.com/core-js/download/core-js-2.6.12.tgz?cache=0&sync_timestamp=1624386755249&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fcore-js%2Fdownload%2Fcore-js-2.6.12.tgz#d9333dfa7b065e347cc5682219d6f690859cc2ec"
   integrity sha1-2TM9+nsGXjR8xWgiGdb2kIWcwuw=
 
-core-js@^3.16.0:
-  version "3.16.0"
-  resolved "https://registry.nlark.com/core-js/download/core-js-3.16.0.tgz#1d46fb33720bc1fa7f90d20431f36a5540858986"
-  integrity sha1-HUb7M3ILwfp/kNIEMfNqVUCFiYY=
+core-js@^3.16.1:
+  version "3.16.1"
+  resolved "https://registry.nlark.com/core-js/download/core-js-3.16.1.tgz#f4485ce5c9f3c6a7cb18fa80488e08d362097249"
+  integrity sha1-9Ehc5cnzxqfLGPqASI4I02IJckk=
 
 core-js@^3.6.5:
   version "3.15.1"
@@ -3330,10 +3330,10 @@ electron-updater@^4.3.9:
     lodash.isequal "^4.5.0"
     semver "^7.3.5"
 
-electron@^13.1.8:
-  version "13.1.8"
-  resolved "https://registry.nlark.com/electron/download/electron-13.1.8.tgz?cache=0&sync_timestamp=1628190099586&other_urls=https%3A%2F%2Fregistry.nlark.com%2Felectron%2Fdownload%2Felectron-13.1.8.tgz#a6def6eca7cafc7b068a8f71a069e521ba803182"
-  integrity sha1-pt727KfK/HsGio9xoGnlIbqAMYI=
+electron@^13.1.9:
+  version "13.1.9"
+  resolved "https://registry.nlark.com/electron/download/electron-13.1.9.tgz#668e2632b81e9fa21edfd32876282d3e2ff7fd76"
+  integrity sha1-Zo4mMrgen6Ie39ModigtPi/3/XY=
   dependencies:
     "@electron/get" "^1.0.1"
     "@types/node" "^14.6.2"
@@ -3476,23 +3476,23 @@ es6-templates@^0.2.2:
     recast "~0.11.12"
     through "~2.3.6"
 
-esbuild-loader@^2.14.0:
-  version "2.14.0"
-  resolved "https://registry.nlark.com/esbuild-loader/download/esbuild-loader-2.14.0.tgz?cache=0&sync_timestamp=1628129013921&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fesbuild-loader%2Fdownload%2Fesbuild-loader-2.14.0.tgz#537d6f204371a59f485f809cba9e4bfda989c162"
-  integrity sha1-U31vIENxpZ9IX4Ccup5L/amJwWI=
+esbuild-loader@^2.15.0:
+  version "2.15.0"
+  resolved "https://registry.nlark.com/esbuild-loader/download/esbuild-loader-2.15.0.tgz#4ac059f20dc08965c9dfee20463c0ea9aa84363a"
+  integrity sha1-SsBZ8g3AiWXJ3+4gRjwOqaqENjo=
   dependencies:
-    esbuild "^0.12.17"
+    esbuild "^0.12.19"
     joycon "^3.0.1"
     json5 "^2.2.0"
     loader-utils "^2.0.0"
     tapable "^2.2.0"
-    type-fest "^1.0.1"
+    type-fest "^1.4.0"
     webpack-sources "^2.2.0"
 
-esbuild@^0.12.17:
-  version "0.12.18"
-  resolved "https://registry.nlark.com/esbuild/download/esbuild-0.12.18.tgz?cache=0&sync_timestamp=1628141400426&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fesbuild%2Fdownload%2Fesbuild-0.12.18.tgz#e5db16372188c2b4d395f7f55fdade27f6a119fa"
-  integrity sha1-5dsWNyGIwrTTlff1X9reJ/ahGfo=
+esbuild@^0.12.19:
+  version "0.12.19"
+  resolved "https://registry.nlark.com/esbuild/download/esbuild-0.12.19.tgz?cache=0&sync_timestamp=1628371854065&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fesbuild%2Fdownload%2Fesbuild-0.12.19.tgz#ab849766705a5093df5acd8ec2f6ba2159a38a6c"
+  integrity sha1-q4SXZnBaUJPfWs2Owva6IVmjimw=
 
 escalade@^3.1.1:
   version "3.1.1"
@@ -3536,18 +3536,18 @@ eslint-friendly-formatter@^4.0.1:
     strip-ansi "^4.0.0"
     text-table "^0.2.0"
 
-eslint-import-resolver-node@^0.3.4:
-  version "0.3.4"
-  resolved "https://registry.npm.taobao.org/eslint-import-resolver-node/download/eslint-import-resolver-node-0.3.4.tgz#85ffa81942c25012d8231096ddf679c03042c717"
-  integrity sha1-hf+oGULCUBLYIxCW3fZ5wDBCxxc=
+eslint-import-resolver-node@^0.3.5:
+  version "0.3.5"
+  resolved "https://registry.nlark.com/eslint-import-resolver-node/download/eslint-import-resolver-node-0.3.5.tgz#939bbb0f74e179e757ca87f7a4a890dabed18ac4"
+  integrity sha1-k5u7D3TheedXyof3pKiQ2r7RisQ=
   dependencies:
-    debug "^2.6.9"
-    resolve "^1.13.1"
+    debug "^3.2.7"
+    resolve "^1.20.0"
 
-eslint-module-utils@^2.6.1:
-  version "2.6.1"
-  resolved "https://registry.nlark.com/eslint-module-utils/download/eslint-module-utils-2.6.1.tgz?cache=0&sync_timestamp=1620972183296&other_urls=https%3A%2F%2Fregistry.nlark.com%2Feslint-module-utils%2Fdownload%2Feslint-module-utils-2.6.1.tgz#b51be1e473dd0de1c5ea638e22429c2490ea8233"
-  integrity sha1-tRvh5HPdDeHF6mOOIkKcJJDqgjM=
+eslint-module-utils@^2.6.2:
+  version "2.6.2"
+  resolved "https://registry.nlark.com/eslint-module-utils/download/eslint-module-utils-2.6.2.tgz?cache=0&sync_timestamp=1628456039535&other_urls=https%3A%2F%2Fregistry.nlark.com%2Feslint-module-utils%2Fdownload%2Feslint-module-utils-2.6.2.tgz#94e5540dd15fe1522e8ffa3ec8db3b7fa7e7a534"
+  integrity sha1-lOVUDdFf4VIuj/o+yNs7f6fnpTQ=
   dependencies:
     debug "^3.2.7"
     pkg-dir "^2.0.0"
@@ -3567,17 +3567,17 @@ eslint-plugin-html@^6.1.2:
   dependencies:
     htmlparser2 "^6.0.1"
 
-eslint-plugin-import@^2.23.4:
-  version "2.23.4"
-  resolved "https://registry.nlark.com/eslint-plugin-import/download/eslint-plugin-import-2.23.4.tgz#8dceb1ed6b73e46e50ec9a5bb2411b645e7d3d97"
-  integrity sha1-jc6x7Wtz5G5Q7JpbskEbZF59PZc=
+eslint-plugin-import@^2.24.0:
+  version "2.24.0"
+  resolved "https://registry.nlark.com/eslint-plugin-import/download/eslint-plugin-import-2.24.0.tgz#697ffd263e24da5e84e03b282f5fb62251777177"
+  integrity sha1-aX/9Jj4k2l6E4DsoL1+2IlF3cXc=
   dependencies:
     array-includes "^3.1.3"
     array.prototype.flat "^1.2.4"
     debug "^2.6.9"
     doctrine "^2.1.0"
-    eslint-import-resolver-node "^0.3.4"
-    eslint-module-utils "^2.6.1"
+    eslint-import-resolver-node "^0.3.5"
+    eslint-module-utils "^2.6.2"
     find-up "^2.0.0"
     has "^1.0.3"
     is-core-module "^2.4.0"
@@ -7002,7 +7002,7 @@ resolve-url@^0.2.1:
   resolved "https://registry.nlark.com/resolve-url/download/resolve-url-0.2.1.tgz#2c637fe77c893afd2a663fe21aa9080068e2052a"
   integrity sha1-LGN/53yJOv0qZj/iGqkIAGjiBSo=
 
-resolve@^1.10.0, resolve@^1.10.1, resolve@^1.13.1, resolve@^1.14.2, resolve@^1.20.0, resolve@^1.9.0:
+resolve@^1.10.0, resolve@^1.10.1, resolve@^1.14.2, resolve@^1.20.0, resolve@^1.9.0:
   version "1.20.0"
   resolved "https://registry.nlark.com/resolve/download/resolve-1.20.0.tgz#629a013fb3f70755d6f0b7935cc1c2c5378b1975"
   integrity sha1-YpoBP7P3B1XW8LeTXMHCxTeLGXU=
@@ -8000,10 +8000,10 @@ type-fest@^0.20.2:
   resolved "https://registry.nlark.com/type-fest/download/type-fest-0.20.2.tgz#1bf207f4b28f91583666cb5fbd327887301cd5f4"
   integrity sha1-G/IH9LKPkVg2ZstfvTJ4hzAc1fQ=
 
-type-fest@^1.0.1:
-  version "1.2.1"
-  resolved "https://registry.nlark.com/type-fest/download/type-fest-1.2.1.tgz#232990aa513f3f5223abf54363975dfe3a121a2e"
-  integrity sha1-IymQqlE/P1Ijq/VDY5dd/joSGi4=
+type-fest@^1.4.0:
+  version "1.4.0"
+  resolved "https://registry.nlark.com/type-fest/download/type-fest-1.4.0.tgz?cache=0&sync_timestamp=1628211380097&other_urls=https%3A%2F%2Fregistry.nlark.com%2Ftype-fest%2Fdownload%2Ftype-fest-1.4.0.tgz#e9fb813fe3bf1744ec359d55d1affefa76f14be1"
+  integrity sha1-6fuBP+O/F0TsNZ1V0a/++nbxS+E=
 
 type-is@~1.6.17, type-is@~1.6.18:
   version "1.6.18"
@@ -8454,10 +8454,10 @@ webpack-sources@^3.2.0:
   resolved "https://registry.nlark.com/webpack-sources/download/webpack-sources-3.2.0.tgz?cache=0&sync_timestamp=1627898333297&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fwebpack-sources%2Fdownload%2Fwebpack-sources-3.2.0.tgz#b16973bcf844ebcdb3afde32eda1c04d0b90f89d"
   integrity sha1-sWlzvPhE682zr94y7aHATQuQ+J0=
 
-webpack@^5.48.0:
-  version "5.48.0"
-  resolved "https://registry.nlark.com/webpack/download/webpack-5.48.0.tgz#06180fef9767a6fd066889559a4c4d49bee19b83"
-  integrity sha1-BhgP75dnpv0GaIlVmkxNSb7hm4M=
+webpack@^5.50.0:
+  version "5.50.0"
+  resolved "https://registry.nlark.com/webpack/download/webpack-5.50.0.tgz#5562d75902a749eb4d75131f5627eac3a3192527"
+  integrity sha1-VWLXWQKnSetNdRMfVifqw6MZJSc=
   dependencies:
     "@types/eslint-scope" "^3.7.0"
     "@types/estree" "^0.0.50"
