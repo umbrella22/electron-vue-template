@@ -77,7 +77,9 @@ export default {
           devTools: process.env.NODE_ENV === 'development',
           // devTools: true,
           // 在macos中启用橡皮动画
-          scrollBounce: process.platform === 'darwin'
+          scrollBounce: process.platform === 'darwin',
+          // 临时修复打开新窗口报错
+          contextIsolation: false
         }
       })
       ChildWin.loadURL(winURL + `#${arg.url}`)
