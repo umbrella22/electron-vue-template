@@ -1,7 +1,5 @@
 'use strict'
-
 process.env.NODE_ENV = 'production'
-
 const { say } = require('cfonts')
 const chalk = require('chalk')
 const del = require('del')
@@ -22,7 +20,7 @@ else if (process.env.BUILD_TARGET === 'web') web()
 else build()
 
 function clean() {
-  del.sync(['dist/electron/*', 'dist/web/*', 'build/*', '!build/icons', '!build/lib', '!build/lib/electron-build.*', '!build/icons/icon.*'])
+  del.sync(['dist/electron/*', 'build/*', '!build/icons', '!build/lib', '!build/lib/electron-build.*', '!build/icons/icon.*'])
   console.log(`\n${doneLog}clear done`)
   process.exit()
 }
@@ -30,7 +28,7 @@ function clean() {
 function build() {
   greeting()
 
-  del.sync(['dist/electron/*', '!.gitkeep'])
+  del.sync(['dist/electron/*', 'build/*', '!build/icons', '!build/lib', '!build/lib/electron-build.*', '!build/icons/icon.*'])
 
   const tasks = ['main', 'renderer']
   const m = new Multispinner(tasks, {
