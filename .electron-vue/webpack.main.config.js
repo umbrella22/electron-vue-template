@@ -51,9 +51,6 @@ let mainConfig = {
     extensions: ['.js', '.json', '.node']
   },
   target: 'electron-main',
-  optimization: {
-    noEmitOnErrors: false
-  }
 }
 
 /**
