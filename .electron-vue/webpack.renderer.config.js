@@ -35,7 +35,18 @@ let rendererConfig = {
     rules: [
       {
         test: /\.vue$/,
-        loader: "vue-loader"
+        loader: "vue-loader",
+        options: {
+          babelParserPlugins: [
+            'jsx',
+            'classProperties',
+            'decorators-legacy'
+          ]
+        }
+      },
+      {
+        test: /\.m?jsx?$/,
+        loader: 'babel-loader',
       },
       {
         test: /\.html$/,

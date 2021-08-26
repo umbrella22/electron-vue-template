@@ -199,7 +199,7 @@
   dependencies:
     "@babel/types" "^7.15.0"
 
-"@babel/helper-module-imports@^7.12.13", "@babel/helper-module-imports@^7.14.5":
+"@babel/helper-module-imports@^7.0.0", "@babel/helper-module-imports@^7.12.13", "@babel/helper-module-imports@^7.14.5":
   version "7.14.5"
   resolved "https://registry.nlark.com/@babel/helper-module-imports/download/@babel/helper-module-imports-7.14.5.tgz?cache=0&sync_timestamp=1623280362184&other_urls=https%3A%2F%2Fregistry.nlark.com%2F%40babel%2Fhelper-module-imports%2Fdownload%2F%40babel%2Fhelper-module-imports-7.14.5.tgz#6d1a44df6a38c957aa7c312da076429f11b422f3"
   integrity sha1-bRpE32o4yVeqfDEtoHZCnxG0IvM=
@@ -655,6 +655,13 @@
   integrity sha1-AcohtmjNghjJ5kDLbdiMVBKyyWo=
   dependencies:
     "@babel/helper-plugin-utils" "^7.8.0"
+
+"@babel/plugin-syntax-jsx@^7.2.0":
+  version "7.14.5"
+  resolved "https://registry.nlark.com/@babel/plugin-syntax-jsx/download/@babel/plugin-syntax-jsx-7.14.5.tgz#000e2e25d8673cce49300517a3eda44c263e4201"
+  integrity sha1-AA4uJdhnPM5JMAUXo+2kTCY+QgE=
+  dependencies:
+    "@babel/helper-plugin-utils" "^7.14.5"
 
 "@babel/plugin-syntax-logical-assignment-operators@^7.10.4":
   version "7.10.4"
@@ -1411,6 +1418,86 @@
   integrity sha1-JqrZjdLCo45CEIbqmtQrnlFkKXc=
   dependencies:
     "@types/yargs-parser" "*"
+
+"@vue/babel-helper-vue-jsx-merge-props@^1.2.1":
+  version "1.2.1"
+  resolved "https://registry.npm.taobao.org/@vue/babel-helper-vue-jsx-merge-props/download/@vue/babel-helper-vue-jsx-merge-props-1.2.1.tgz?cache=0&sync_timestamp=1602851122331&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40vue%2Fbabel-helper-vue-jsx-merge-props%2Fdownload%2F%40vue%2Fbabel-helper-vue-jsx-merge-props-1.2.1.tgz#31624a7a505fb14da1d58023725a4c5f270e6a81"
+  integrity sha1-MWJKelBfsU2h1YAjclpMXycOaoE=
+
+"@vue/babel-plugin-transform-vue-jsx@^1.2.1":
+  version "1.2.1"
+  resolved "https://registry.npm.taobao.org/@vue/babel-plugin-transform-vue-jsx/download/@vue/babel-plugin-transform-vue-jsx-1.2.1.tgz?cache=0&sync_timestamp=1602851121024&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40vue%2Fbabel-plugin-transform-vue-jsx%2Fdownload%2F%40vue%2Fbabel-plugin-transform-vue-jsx-1.2.1.tgz#646046c652c2f0242727f34519d917b064041ed7"
+  integrity sha1-ZGBGxlLC8CQnJ/NFGdkXsGQEHtc=
+  dependencies:
+    "@babel/helper-module-imports" "^7.0.0"
+    "@babel/plugin-syntax-jsx" "^7.2.0"
+    "@vue/babel-helper-vue-jsx-merge-props" "^1.2.1"
+    html-tags "^2.0.0"
+    lodash.kebabcase "^4.1.1"
+    svg-tags "^1.0.0"
+
+"@vue/babel-preset-jsx@^1.2.4":
+  version "1.2.4"
+  resolved "https://registry.npm.taobao.org/@vue/babel-preset-jsx/download/@vue/babel-preset-jsx-1.2.4.tgz#92fea79db6f13b01e80d3a0099e2924bdcbe4e87"
+  integrity sha1-kv6nnbbxOwHoDToAmeKSS9y+Toc=
+  dependencies:
+    "@vue/babel-helper-vue-jsx-merge-props" "^1.2.1"
+    "@vue/babel-plugin-transform-vue-jsx" "^1.2.1"
+    "@vue/babel-sugar-composition-api-inject-h" "^1.2.1"
+    "@vue/babel-sugar-composition-api-render-instance" "^1.2.4"
+    "@vue/babel-sugar-functional-vue" "^1.2.2"
+    "@vue/babel-sugar-inject-h" "^1.2.2"
+    "@vue/babel-sugar-v-model" "^1.2.3"
+    "@vue/babel-sugar-v-on" "^1.2.3"
+
+"@vue/babel-sugar-composition-api-inject-h@^1.2.1":
+  version "1.2.1"
+  resolved "https://registry.nlark.com/@vue/babel-sugar-composition-api-inject-h/download/@vue/babel-sugar-composition-api-inject-h-1.2.1.tgz#05d6e0c432710e37582b2be9a6049b689b6f03eb"
+  integrity sha1-BdbgxDJxDjdYKyvppgSbaJtvA+s=
+  dependencies:
+    "@babel/plugin-syntax-jsx" "^7.2.0"
+
+"@vue/babel-sugar-composition-api-render-instance@^1.2.4":
+  version "1.2.4"
+  resolved "https://registry.npm.taobao.org/@vue/babel-sugar-composition-api-render-instance/download/@vue/babel-sugar-composition-api-render-instance-1.2.4.tgz#e4cbc6997c344fac271785ad7a29325c51d68d19"
+  integrity sha1-5MvGmXw0T6wnF4WteikyXFHWjRk=
+  dependencies:
+    "@babel/plugin-syntax-jsx" "^7.2.0"
+
+"@vue/babel-sugar-functional-vue@^1.2.2":
+  version "1.2.2"
+  resolved "https://registry.nlark.com/@vue/babel-sugar-functional-vue/download/@vue/babel-sugar-functional-vue-1.2.2.tgz#267a9ac8d787c96edbf03ce3f392c49da9bd2658"
+  integrity sha1-JnqayNeHyW7b8Dzj85LEnam9Jlg=
+  dependencies:
+    "@babel/plugin-syntax-jsx" "^7.2.0"
+
+"@vue/babel-sugar-inject-h@^1.2.2":
+  version "1.2.2"
+  resolved "https://registry.nlark.com/@vue/babel-sugar-inject-h/download/@vue/babel-sugar-inject-h-1.2.2.tgz#d738d3c893367ec8491dcbb669b000919293e3aa"
+  integrity sha1-1zjTyJM2fshJHcu2abAAkZKT46o=
+  dependencies:
+    "@babel/plugin-syntax-jsx" "^7.2.0"
+
+"@vue/babel-sugar-v-model@^1.2.3":
+  version "1.2.3"
+  resolved "https://registry.nlark.com/@vue/babel-sugar-v-model/download/@vue/babel-sugar-v-model-1.2.3.tgz#fa1f29ba51ebf0aa1a6c35fa66d539bc459a18f2"
+  integrity sha1-+h8pulHr8KoabDX6ZtU5vEWaGPI=
+  dependencies:
+    "@babel/plugin-syntax-jsx" "^7.2.0"
+    "@vue/babel-helper-vue-jsx-merge-props" "^1.2.1"
+    "@vue/babel-plugin-transform-vue-jsx" "^1.2.1"
+    camelcase "^5.0.0"
+    html-tags "^2.0.0"
+    svg-tags "^1.0.0"
+
+"@vue/babel-sugar-v-on@^1.2.3":
+  version "1.2.3"
+  resolved "https://registry.nlark.com/@vue/babel-sugar-v-on/download/@vue/babel-sugar-v-on-1.2.3.tgz#342367178586a69f392f04bfba32021d02913ada"
+  integrity sha1-NCNnF4WGpp85LwS/ujICHQKROto=
+  dependencies:
+    "@babel/plugin-syntax-jsx" "^7.2.0"
+    "@vue/babel-plugin-transform-vue-jsx" "^1.2.1"
+    camelcase "^5.0.0"
 
 "@vue/component-compiler-utils@^3.1.0":
   version "3.2.0"
@@ -4752,6 +4839,11 @@ html-minifier@^2.1.5:
     relateurl "0.2.x"
     uglify-js "2.6.x"
 
+html-tags@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.npm.taobao.org/html-tags/download/html-tags-2.0.0.tgz#10b30a386085f43cede353cc8fa7cb0deeea668b"
+  integrity sha1-ELMKOGCF9Dzt41PMj6fLDe7qZos=
+
 html-webpack-plugin@^5.3.2:
   version "5.3.2"
   resolved "https://registry.nlark.com/html-webpack-plugin/download/html-webpack-plugin-5.3.2.tgz#7b04bf80b1f6fe84a6d3f66c8b79d64739321b08"
@@ -5819,6 +5911,11 @@ lodash.istypedarray@^3.0.0:
   version "3.0.6"
   resolved "https://registry.npm.taobao.org/lodash.istypedarray/download/lodash.istypedarray-3.0.6.tgz#c9a477498607501d8e8494d283b87c39281cef62"
   integrity sha1-yaR3SYYHUB2OhJTSg7h8OSgc72I=
+
+lodash.kebabcase@^4.1.1:
+  version "4.1.1"
+  resolved "https://registry.nlark.com/lodash.kebabcase/download/lodash.kebabcase-4.1.1.tgz#8489b1cb0d29ff88195cceca448ff6d6cc295c36"
+  integrity sha1-hImxyw0p/4gZXM7KRI/21swpXDY=
 
 lodash.keys@^3.0.0:
   version "3.1.2"
@@ -8209,6 +8306,11 @@ svg-sprite-loader@^6.0.9:
     svg-baker "^1.5.0"
     svg-baker-runtime "^1.4.7"
     url-slug "2.0.0"
+
+svg-tags@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.nlark.com/svg-tags/download/svg-tags-1.0.0.tgz#58f71cee3bd519b59d4b2a843b6c7de64ac04764"
+  integrity sha1-WPcc7jvVGbWdSyqEO2x95krAR2Q=
 
 swap-case@^1.1.0:
   version "1.1.2"

@@ -103,6 +103,8 @@
     "@babel/runtime": "^7.15.3",
     "@types/fs-extra": "^9.0.12",
     "@types/node": "^14.14.41",
+    "@vue/babel-helper-vue-jsx-merge-props": "^1.2.1",
+    "@vue/babel-preset-jsx": "^1.2.4",
     "autoprefixer": "^10.3.2",
     "babel-loader": "^8.2.2",
     "cache-loader": "^4.1.0",
