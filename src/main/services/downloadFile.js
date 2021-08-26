@@ -22,7 +22,7 @@ if (os.platform().includes('win32')) {
 export default {
   download(mainWindow) {
     ipcMain.handle('start-download', (event, msg) => {
-      mainWindow.webContents.downloadURL(msg.downloadUrL || defaultDownloadUrL)
+      mainWindow.webContents.downloadURL(msg?.downloadUrL || defaultDownloadUrL)
     })
     mainWindow.webContents.session.on('will-download', (event, item, webContents) => {
       //   将文件保存在系统的下载目录
