@@ -1,6 +1,6 @@
 <!--  -->
 <template>
-  <div class="window-title" v-if="!IsUseSysTitle&&isNotMac&&!IsWeb">
+  <div class="window-title" v-if="!IsUseSysTitle && isNotMac && !IsWeb">
     <!-- 软件logo预留位置 -->
     <div style="-webkit-app-region: drag;" class="logo">
       <svg-icon icon-class="electron-logo"></svg-icon>
@@ -14,7 +14,11 @@
         <svg-icon icon-class="mini" class-name="icon-size"></svg-icon>
       </div>
       <div class="windows-icon-bg" @click="MixOrReduction">
-        <svg-icon v-if="mix" icon-class="reduction" class-name="icon-size"></svg-icon>
+        <svg-icon
+          v-if="mix"
+          icon-class="reduction"
+          class-name="icon-size"
+        ></svg-icon>
         <svg-icon v-else icon-class="mix" class-name="icon-size"></svg-icon>
       </div>
       <div class="windows-icon-bg close-icon" @click="Close">
@@ -25,17 +29,18 @@
 </template>
 
 <script>
+import { ipcRenderer } from "electron";
 export default {
   data: () => ({
     mix: false,
     IsUseSysTitle: false,
     isNotMac: process.platform !== "darwin",
-    IsWeb: process.env.IS_WEB
+    IsWeb: process.env.IS_WEB,
   }),
 
   components: {},
   created() {
-    this.$ipcApi.send("IsUseSysTitle").then(res => {
+    ipcRenderer.invoke("IsUseSysTitle").then((res) => {
       this.IsUseSysTitle = res;
     });
   },
@@ -44,20 +49,20 @@ export default {
 
   methods: {
     Mini() {
-      this.$ipcApi.send("windows-mini");
+      ipcRenderer.invoke("windows-mini");
     },
     MixOrReduction() {
-      this.$ipcApi.send("window-max").then(res=>{
-        this.mix = res.status
-      })
+      ipcRenderer.invoke("window-max").then((res) => {
+        this.mix = res.status;
+      });
     },
     Close() {
-      this.$ipcApi.send("window-close");
-    }
-  }
+      ipcRenderer.invoke("window-close");
+    },
+  },
 };
 </script>
-<style rel='stylesheet/scss' lang='scss' scoped>
+<style rel="stylesheet/scss" lang="scss" scoped>
 .window-title {
   width: 100%;
   height: 30px;

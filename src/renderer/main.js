@@ -16,8 +16,6 @@ if (!process.env.IS_WEB) {
   if (!require('../../config').IsUseSysTitle) {
     require('@/styles/custom-title.scss')
   }
-  // 当处于electron状态下才引用db
-  Vue.prototype.$ipcApi = require('./utils/ipcRenderer').default
 }
 
 Vue.use(ElementUI)
