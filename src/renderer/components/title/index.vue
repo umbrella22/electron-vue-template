@@ -25,6 +25,7 @@
 </template>
 
 <script>
+import { ipcRenderer } from "electron";
 export default {
   data: () => ({
     mix: false,
@@ -35,7 +36,7 @@ export default {
 
   components: {},
   created() {
-    this.$ipcApi.send("IsUseSysTitle").then(res => {
+    ipcRenderer.invoke("IsUseSysTitle").then(res => {
       this.IsUseSysTitle = res;
     });
   },
@@ -44,15 +45,15 @@ export default {
 
   methods: {
     Mini() {
-      this.$ipcApi.send("windows-mini");
+      ipcRenderer.invoke("windows-mini");
     },
     MixOrReduction() {
-      this.$ipcApi.send("window-max").then(res=>{
+      ipcRenderer.invoke("window-max").then(res=>{
         this.mix = res.status
       })
     },
     Close() {
-      this.$ipcApi.send("window-close");
+      ipcRenderer.invoke("window-close");
     }
   }
 };

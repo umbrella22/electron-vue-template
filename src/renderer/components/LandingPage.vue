@@ -123,7 +123,7 @@ export default {
         this.$alert("下载由于未知原因被中断！", "提示", {
           confirmButtonText: "重试",
           callback: (action) => {
-            this.$ipcApi.send("satrt-download");
+            ipcRenderer.invoke("satrt-download");
           },
         });
       }
@@ -147,7 +147,7 @@ export default {
             message: age.msg,
           };
           this.dialogVisible = false;
-          this.$ipcApi.send("open-errorbox", msgdata);
+          ipcRenderer.invoke("open-errorbox", msgdata);
           break;
         case 0:
           this.$message("正在检查更新");
@@ -170,7 +170,7 @@ export default {
           this.$alert("更新下载完成！", "提示", {
             confirmButtonText: "确定",
             callback: (action) => {
-              this.$ipcApi.send("confirm-update");
+              ipcRenderer.invoke("confirm-update");
             },
           });
           break;
@@ -185,7 +185,7 @@ export default {
       let data = {
         url: "/form/index",
       };
-      this.$ipcApi.send("open-win", data);
+      ipcRenderer.invoke("open-win", data);
     },
     getMessage() {
       message().then((res) => {
@@ -195,7 +195,7 @@ export default {
       });
     },
     StopServer() {
-      this.$ipcApi.send("stop-server").then((res) => {
+      ipcRenderer.invoke("stop-server").then((res) => {
         this.$message({
           type: "success",
           message: "已关闭",
@@ -203,7 +203,7 @@ export default {
       });
     },
     StartServer() {
-      this.$ipcApi.send("statr-server").then((res) => {
+      ipcRenderer.invoke("statr-server").then((res) => {
         if (res) {
           this.$message({
             type: "success",
@@ -217,13 +217,13 @@ export default {
     CheckUpdate(data) {
       switch (data) {
         case "one":
-          this.$ipcApi.send("check-update").then((res) => {
+          ipcRenderer.invoke("check-update").then((res) => {
             console.log("启动检查");
           });
 
           break;
         case "two":
-          this.$ipcApi.send("start-download").then(() => {
+          ipcRenderer.invoke("start-download").then(() => {
             this.dialogVisible = true;
           });
 
@@ -243,14 +243,14 @@ export default {
   },
   destroyed() {
     console.log("销毁了哦");
-    this.$ipcApi.remove("confirm-message");
-    this.$ipcApi.remove("download-done");
-    this.$ipcApi.remove("download-paused");
-    this.$ipcApi.remove("confirm-stop");
-    this.$ipcApi.remove("confirm-start");
-    this.$ipcApi.remove("confirm-download");
-    this.$ipcApi.remove("download-progress");
-    this.$ipcApi.remove("download-error");
+    ipcRenderer.removeAllListeners("confirm-message");
+    ipcRenderer.removeAllListeners("download-done");
+    ipcRenderer.removeAllListeners("download-paused");
+    ipcRenderer.removeAllListeners("confirm-stop");
+    ipcRenderer.removeAllListeners("confirm-start");
+    ipcRenderer.removeAllListeners("confirm-download");
+    ipcRenderer.removeAllListeners("download-progress");
+    ipcRenderer.removeAllListeners("download-error");
   },
   computed: {
     text() {
