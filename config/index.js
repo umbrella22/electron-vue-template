@@ -16,7 +16,7 @@ module.exports = {
   development: require('./dev.env'),
   production: require('./prod.env'),
   UseStartupChart: true,
-  IsUseSysTitle: false,
+  IsUseSysTitle: true,
   DllFolder: '',
   BuiltInServerPort: 25565
 }
