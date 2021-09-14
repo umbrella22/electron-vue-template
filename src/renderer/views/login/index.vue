@@ -35,7 +35,9 @@
             placeholder="密码"
           ></el-input>
           <span class="show-pwd" @click="showPwd">
-            <svg-icon :icon-class="pwdType ==='password'?'eye':'eye-open'" />
+            <svg-icon
+              :icon-class="pwdType === 'password' ? 'eye' : 'eye-open'"
+            />
           </span>
         </el-form-item>
         <div class="login-btn">
@@ -73,16 +75,18 @@ export default {
     return {
       loginForm: {
         username: "admin",
-        password: "admin"
+        password: "admin",
       },
       loginRules: {
         username: [
-          { required: true, trigger: "blur", validator: validateUsername }
+          { required: true, trigger: "blur", validator: validateUsername },
         ],
-        password: [{ required: true, trigger: "blur", validator: validatePass }]
+        password: [
+          { required: true, trigger: "blur", validator: validatePass },
+        ],
       },
       loading: false,
-      pwdType: "password"
+      pwdType: "password",
     };
   },
   methods: {
@@ -95,7 +99,7 @@ export default {
     },
     handleLogin() {
       console.log(11111);
-      this.$refs.loginForm.validate(valid => {
+      this.$refs.loginForm.validate((valid) => {
         console.log(valid);
         if (valid) {
           this.loading = true;
@@ -113,8 +117,8 @@ export default {
           return false;
         }
       });
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -159,8 +163,6 @@ $light_gray: #eee;
   }
   .login-from-box {
     position: relative;
-    backdrop-filter: saturate(180%) blur(20px);
-
     .login-form {
       position: absolute;
       left: 0;
@@ -170,6 +172,7 @@ $light_gray: #eee;
       margin: 120px auto;
       align-items: center;
       color: white;
+      backdrop-filter: saturate(180%) blur(20px);
       background: rgba(0, 0, 0, 0.8);
       border-radius: 10px;
       box-shadow: 0 0.4px 0.6px rgba(0, 0, 0, 0.141),
