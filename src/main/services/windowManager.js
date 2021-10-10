@@ -9,7 +9,7 @@ import { winURL, loadingURL } from '../config/StaticPath'
 var loadWindow = null
 var mainWindow = null
 
-function createMainWindow () {
+function createMainWindow() {
   /**
    * Initial window options
    */
@@ -53,9 +53,9 @@ function createMainWindow () {
   DownloadUpdate.download(mainWindow)
 
   mainWindow.webContents.once('dom-ready', () => {
+    if (config.UseStartupChart) loadWindow.destroy()
     mainWindow.show()
   })
-  if (config.UseStartupChart) loadWindow.destroy()
 
   if (process.env.NODE_ENV === 'development') mainWindow.webContents.openDevTools(true)
 
@@ -64,7 +64,7 @@ function createMainWindow () {
   })
 }
 
-function loadingWindow () {
+function loadingWindow() {
   loadWindow = new BrowserWindow({
     width: 400,
     height: 600,
@@ -89,7 +89,7 @@ function loadingWindow () {
   })
 }
 
-function initWindow () {
+function initWindow() {
   if (config.UseStartupChart) {
     return loadingWindow()
   } else {
