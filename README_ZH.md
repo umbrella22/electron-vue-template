@@ -51,7 +51,8 @@ npm config edit
 ```
 
 ---
-
+## 启动逻辑图
+<img src="启动逻辑图.jpg">
 
 
 # [更新日志](CHANGELOG.md)
