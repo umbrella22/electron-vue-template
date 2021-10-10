@@ -20,7 +20,7 @@ function createMainWindow() {
     minWidth: 1366,
     show: false,
     frame: config.IsUseSysTitle,
-    titleBarStyle: 'hidden',
+    titleBarStyle: platform().includes('win32') ? 'default' : 'hidden',
     webPreferences: {
       contextIsolation: false,
       nodeIntegration: true,
