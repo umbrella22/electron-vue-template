@@ -1,4 +1,5 @@
 import { BrowserWindow, Menu } from 'electron'
+import { platform } from "os"
 import menuconfig from '../config/menu'
 import config from '@config'
 import setIpc from './ipcMain'
