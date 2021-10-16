@@ -12,7 +12,7 @@ export default {
     })
     ipcMain.handle('window-max', async (event, args) => {
       if (BrowserWindow.fromWebContents(event.sender)?.isMaximized()) {
-        BrowserWindow.fromWebContents(event.sender)?.restore()
+        BrowserWindow.fromWebContents(event.sender)?.unmaximize()
         return { status: false }
       } else {
         BrowserWindow.fromWebContents(event.sender)?.maximize()
