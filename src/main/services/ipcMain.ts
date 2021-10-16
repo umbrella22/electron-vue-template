@@ -1,10 +1,10 @@
-import { ipcMain, dialog, BrowserWindow } from 'electron'
+import { ipcMain, dialog, BrowserWindow, IpcMainInvokeEvent } from 'electron'
 import Server from '../server'
 import { winURL } from '../config/StaticPath'
 
 export default {
   Mainfunc(mainWindow: BrowserWindow, IsUseSysTitle: boolean) {
-    ipcMain.handle('IsUseSysTitle', async (event, args) => {
+    ipcMain.handle('IsUseSysTitle', async (event: IpcMainInvokeEvent, args:unknown) => {
       return IsUseSysTitle
     })
     ipcMain.handle('windows-mini', (event, args) => {
@@ -12,7 +12,7 @@ export default {
     })
     ipcMain.handle('window-max', async (event, args) => {
       if (BrowserWindow.fromWebContents(event.sender)?.isMaximized()) {
-        BrowserWindow.fromWebContents(event.sender)?.restore()
+        BrowserWindow.fromWebContents(event.sender)?.unmaximize()
         return { status: false }
       } else {
         BrowserWindow.fromWebContents(event.sender)?.maximize()
