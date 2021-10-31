@@ -1,5 +1,5 @@
 /* eslint-disable no-case-declarations */
-import { app, ipcMain, dialog } from 'electron'
+import { app, dialog } from 'electron'
 import path from 'path'
 import os from 'os'
 // 版本以package.json为基准。
@@ -20,10 +20,8 @@ if (os.platform().includes('win32')) {
   defaultDownloadUrL = baseUrl + `electron_${version}_mac.dmg?${new Date().getTime()}`
 }
 export default {
-  download(mainWindow) {
-    ipcMain.handle('start-download', (event, msg) => {
-      mainWindow.webContents.downloadURL(msg?.downloadUrL || defaultDownloadUrL)
-    })
+  download(mainWindow, downloadUrL) {
+    mainWindow.webContents.downloadURL(downloadUrL || defaultDownloadUrL)
     mainWindow.webContents.session.on('will-download', (event, item, webContents) => {
       //   将文件保存在系统的下载目录
       const filePath = path.join(app.getPath('downloads'), item.getFilename())
@@ -54,7 +52,7 @@ export default {
             break
           case 'interrupted':
             mainWindow.webContents.send('download-error', true)
-            dialog.showErrorBox('下载出错', '由于网络或其他未知原因导致客户端下载出错，请前往官网进行重新安装')
+            dialog.showErrorBox('下载出错', '由于网络或其他未知原因导致下载出错.')
             break
           default:
             break

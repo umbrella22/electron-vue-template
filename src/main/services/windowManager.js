@@ -4,11 +4,11 @@ import menuconfig from '../config/menu'
 import config from '@config'
 import setIpc from './ipcMain'
 import upload from './checkupdate'
-import DownloadUpdate from './downloadFile'
 import { winURL, loadingURL } from '../config/StaticPath'
 
 var loadWindow = null
 var mainWindow = null
+setIpc.Mainfunc(config.IsUseSysTitle)
 
 function createMainWindow() {
   /**
@@ -49,9 +49,7 @@ function createMainWindow() {
   Menu.setApplicationMenu(menu)
   mainWindow.loadURL(winURL)
 
-  setIpc.Mainfunc(mainWindow, config.IsUseSysTitle)
   upload.Update(mainWindow)
-  DownloadUpdate.download(mainWindow)
 
   mainWindow.webContents.once('dom-ready', () => {
     if (config.UseStartupChart) loadWindow.destroy()
