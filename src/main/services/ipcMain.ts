@@ -1,10 +1,11 @@
 import { ipcMain, dialog, BrowserWindow, IpcMainInvokeEvent } from 'electron'
 import Server from '../server'
 import { winURL } from '../config/StaticPath'
+import DownloadFile from './downloadFile'
 
 export default {
-  Mainfunc(mainWindow: BrowserWindow, IsUseSysTitle: boolean) {
-    ipcMain.handle('IsUseSysTitle', async (event: IpcMainInvokeEvent, args:unknown) => {
+  Mainfunc(IsUseSysTitle: boolean) {
+    ipcMain.handle('IsUseSysTitle', async (event: IpcMainInvokeEvent, args: unknown) => {
       return IsUseSysTitle
     })
     ipcMain.handle('windows-mini', (event, args) => {
@@ -22,8 +23,11 @@ export default {
     ipcMain.handle('window-close', (event, args) => {
       BrowserWindow.fromWebContents(event.sender)?.close()
     })
+    ipcMain.handle('start-download', (event, msg) => {
+      new DownloadFile(BrowserWindow.fromWebContents(event.sender), msg.downloadUrl).start()
+    })
     ipcMain.handle('open-messagebox', async (event, arg) => {
-      const res = await dialog.showMessageBox(mainWindow, {
+      const res = await dialog.showMessageBox(BrowserWindow.fromWebContents(event.sender), {
         type: arg.type || 'info',
         title: arg.title || '',
         buttons: arg.buttons || [],
