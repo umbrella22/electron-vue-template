@@ -58,8 +58,6 @@ class MainInit {
     this.mainWindow.loadURL(this.winURL)
     // electron-update注册
     new Update(this.mainWindow)
-    // 启用协议，这里暂时只用于自定义头部的时候使用
-    setIpc.Mainfunc(this.mainWindow, config.IsUseSysTitle)
     // dom-ready之后显示界面
     this.mainWindow.webContents.once('dom-ready', () => {
       this.mainWindow.show()
