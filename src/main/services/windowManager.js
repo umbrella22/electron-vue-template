@@ -1,4 +1,4 @@
-import { BrowserWindow, Menu } from 'electron'
+import { BrowserWindow, Menu, app } from 'electron'
 import { platform } from "os"
 import menuconfig from '../config/menu'
 import config from '@config'
@@ -60,6 +60,7 @@ function createMainWindow() {
 
   mainWindow.on('closed', () => {
     mainWindow = null
+    app.quit();
   })
 }
 

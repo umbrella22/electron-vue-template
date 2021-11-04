@@ -23,6 +23,7 @@ export const lang = {
         stopServer: "Stop server",
         viewMessage: "view message",
         openNewWindow: "Open new window",
+        openDocument: "Open document",
         changeLanguage: "Change language"
     }
 }
