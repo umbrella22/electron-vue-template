@@ -23,6 +23,7 @@ export const lang = {
         stopServer: "关闭内置服务端",
         viewMessage: "查看消息",
         openNewWindow: "打开新窗口",
+        openDocument: "打开文档",
         changeLanguage: "切换语言"
     }
 }

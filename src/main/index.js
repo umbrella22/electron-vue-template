@@ -14,7 +14,11 @@ function onAppReady () {
       .catch(err => console.log('Unable to install `vue-devtools`: \n', err))
   }
 }
-
+//禁止程序多开，此处需要单例锁的同学打开注释即可
+// const gotTheLock = app.requestSingleInstanceLock()
+// if(!gotTheLock){
+//   app.quit()
+// }
 app.isReady() ? onAppReady() : app.on('ready', onAppReady)
 // 解决9.x跨域异常问题
 app.commandLine.appendSwitch('disable-features', 'OutOfBlinkCors')

@@ -41,6 +41,9 @@
           <el-button type="primary" round @click="openNewWin"
             >{{ $t("buttons.openNewWindow") }}</el-button
           >
+          <el-button type="primary" round @click="openDocument"
+            >{{ $t("buttons.openDocument") }}</el-button
+          >
           <el-button type="primary" round @click="changeLanguage"
             >{{ $t('buttons.changeLanguage') }}</el-button
           >
@@ -184,6 +187,16 @@ export default {
     openNewWin() {
       let data = {
         url: "/form/index",
+      };
+      ipcRenderer.invoke("open-win", data);
+    },
+    openDocument() {
+      let data = {
+        url: "/brower/index",
+        webview:true,
+        resizable:true,
+        width:600,
+        height:700
       };
       ipcRenderer.invoke("open-win", data);
     },
