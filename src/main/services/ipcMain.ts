@@ -2,9 +2,11 @@ import { ipcMain, dialog, BrowserWindow, IpcMainInvokeEvent } from 'electron'
 import Server from '../server'
 import { winURL } from '../config/StaticPath'
 import DownloadFile from './downloadFile'
+import Update from './checkupdate';
 
 export default {
   Mainfunc(IsUseSysTitle: boolean) {
+    const updater = new Update();
     ipcMain.handle('IsUseSysTitle', async (event: IpcMainInvokeEvent, args: unknown) => {
       return IsUseSysTitle
     })
@@ -25,6 +27,12 @@ export default {
     })
     ipcMain.handle('start-download', (event, msg) => {
       new DownloadFile(BrowserWindow.fromWebContents(event.sender), msg.downloadUrl).start()
+    })
+    ipcMain.handle('check-update', (event, args) => {
+      updater.checkUpdate(BrowserWindow.fromWebContents(event.sender))
+    })
+    ipcMain.handle('confirm-update', () => {
+      updater.quitInstall()
     })
     ipcMain.handle('open-messagebox', async (event, arg) => {
       const res = await dialog.showMessageBox(BrowserWindow.fromWebContents(event.sender), {
