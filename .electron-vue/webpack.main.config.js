@@ -42,6 +42,7 @@ let mainConfig = {
   plugins: [
     new webpack.DefinePlugin({
       'process.env.TERGET_ENV': JSON.stringify(config[process.env.TERGET_ENV]),
+      'process.env': process.env.NODE_ENV === 'production' ? JSON.stringify(config.build.env) : JSON.stringify(config.dev.env),
     })
   ],
   resolve: {
