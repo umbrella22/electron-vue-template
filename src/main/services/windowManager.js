@@ -52,11 +52,10 @@ function createMainWindow() {
   upload.Update(mainWindow)
 
   mainWindow.webContents.once('dom-ready', () => {
-    if (config.UseStartupChart) loadWindow.destroy()
     mainWindow.show()
+    if (process.env.NODE_ENV === 'development') mainWindow.webContents.openDevTools(true)
+    if (config.UseStartupChart) loadWindow.destroy()
   })
-
-  if (process.env.NODE_ENV === 'development') mainWindow.webContents.openDevTools(true)
 
   mainWindow.on('closed', () => {
     mainWindow = null
