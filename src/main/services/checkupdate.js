@@ -6,18 +6,8 @@ class Update {
   mainWindow
   constructor() {
     autoUpdater.setFeedURL('http://127.0.0.1:25565/')
-  }
-  // 负责向渲染进程发送信息
-  Message(mainWindow, type, data) {
-    const senddata = {
-      state: type,
-      msg: data || ''
-    }
-    mainWindow.webContents.send('UpdateMsg', senddata)
-  }
-
-  // 当更新发生错误的时候触发。
-  error() {
+    
+    // 当更新发生错误的时候触发。
     autoUpdater.on('error', (err) => {
       console.log('更新出现错误', err.message)
       if (err.message.includes('sha512 checksum mismatch')) {
@@ -27,46 +17,47 @@ class Update {
 
       }
     })
-  }
-  // 当开始检查更新的时候触发
 
-  start() {
+    // 当开始检查更新的时候触发
     autoUpdater.on('checking-for-update', (event, arg) => {
       console.log('开始检查更新')
       this.Message(this.mainWindow, 0)
     })
-  }
 
-  // 发现可更新数据时
-  hasData() {
+    // 发现可更新数据时
     autoUpdater.on('update-available', (event, arg) => {
       console.log('有更新')
       this.Message(this.mainWindow, 1)
     })
-  }
 
-  // 没有可更新数据时
-  noData() {
+    // 没有可更新数据时
     autoUpdater.on('update-not-available', (event, arg) => {
       console.log('没有更新')
       this.Message(this.mainWindow, 2)
     })
-  }
 
-  // 下载监听
-  listen() {
+    // 下载监听
     autoUpdater.on('download-progress', (progressObj) => {
       this.Message(this.mainWindow, 3, progressObj)
     })
-  }
 
-  // 下载完成
-  done() {
+    // 下载完成
     autoUpdater.on('update-downloaded', () => {
-      console.log('下载完成')
+      console.log('done')
       this.Message(this.mainWindow, 4)
     })
   }
+  // 负责向渲染进程发送信息
+  Message(mainWindow, type, data) {
+    console.log('发送消息')
+    const senddata = {
+      state: type,
+      msg: data || ''
+    }
+    mainWindow.webContents.send('UpdateMsg', senddata)
+  }
+
+
 
   // 执行自动更新检查
   checkUpdate(mainWindow) {

@@ -18,35 +18,37 @@
       <div class="right-side">
         <div class="doc">
           <div class="title alt">{{ $t("buttonTips") }}</div>
-          <el-button type="primary" round @click="open()">{{ $t("buttons.console") }}</el-button>
-          <el-button type="primary" round @click="CheckUpdate('one')"
-            >{{ $t("buttons.checkUpdate") }}</el-button
-          >
+          <el-button type="primary" round @click="open()">{{
+            $t("buttons.console")
+          }}</el-button>
+          <el-button type="primary" round @click="CheckUpdate('one')">{{
+            $t("buttons.checkUpdate")
+          }}</el-button>
         </div>
         <div class="doc">
-          <el-button type="primary" round @click="CheckUpdate('two')"
-            >{{ $t("buttons.checkUpdate2") }}</el-button
-          >
-          <el-button type="primary" round @click="StartServer"
-            >{{ $t("buttons.startServer") }}</el-button
-          >
-          <el-button type="primary" round @click="StopServer"
-            >{{ $t("buttons.stopServer") }}</el-button
-          >
-          <el-button type="primary" round @click="getMessage"
-            >{{ $t("buttons.viewMessage") }}</el-button
-          >
+          <el-button type="primary" round @click="CheckUpdate('two')">{{
+            $t("buttons.checkUpdate2")
+          }}</el-button>
+          <el-button type="primary" round @click="StartServer">{{
+            $t("buttons.startServer")
+          }}</el-button>
+          <el-button type="primary" round @click="StopServer">{{
+            $t("buttons.stopServer")
+          }}</el-button>
+          <el-button type="primary" round @click="getMessage">{{
+            $t("buttons.viewMessage")
+          }}</el-button>
         </div>
         <div class="doc">
-          <el-button type="primary" round @click="openNewWin"
-            >{{ $t("buttons.openNewWindow") }}</el-button
-          >
-          <el-button type="primary" round @click="openDocument"
-            >{{ $t("buttons.openDocument") }}</el-button
-          >
-          <el-button type="primary" round @click="changeLanguage"
-            >{{ $t('buttons.changeLanguage') }}</el-button
-          >
+          <el-button type="primary" round @click="openNewWin">{{
+            $t("buttons.openNewWindow")
+          }}</el-button>
+          <el-button type="primary" round @click="openDocument">{{
+            $t("buttons.openDocument")
+          }}</el-button>
+          <el-button type="primary" round @click="changeLanguage">{{
+            $t("buttons.changeLanguage")
+          }}</el-button>
         </div>
         <div class="doc">
           <el-pagination
@@ -54,7 +56,8 @@
             :page-sizes="[100, 200, 300, 400]"
             :page-size="100"
             layout="total, sizes, prev, pager, next, jumper"
-            :total="400">
+            :total="400"
+          >
           </el-pagination>
         </div>
       </div>
@@ -82,7 +85,7 @@
 <script>
 import SystemInformation from "./LandingPage/SystemInformation";
 import { message } from "@/api/login";
-import { ipcRenderer,shell } from "electron";
+import { ipcRenderer, shell } from "electron";
 export default {
   name: "landing-page",
   components: { SystemInformation },
@@ -103,13 +106,13 @@ export default {
     ],
     dialogVisible: false,
     progressStaus: null,
-    filePath: ""
+    filePath: "",
   }),
   created() {
-    console.log("环境打印示例")
+    console.log("环境打印示例");
     console.log(__lib);
-    console.log(process.env.TERGET_ENV)
-    console.log(process.env)
+    console.log(process.env.TERGET_ENV);
+    console.log(process.env);
     ipcRenderer.on("download-progress", (event, arg) => {
       this.percentage = Number(arg);
     });
@@ -134,7 +137,7 @@ export default {
     ipcRenderer.on("download-done", (event, age) => {
       this.filePath = age.filePath;
       this.progressStaus = "success";
-      console.log("下载完成啦")
+      console.log("下载完成啦");
       this.$alert("更新下载完成！", "提示", {
         confirmButtonText: "确定",
         callback: (action) => {
@@ -143,6 +146,7 @@ export default {
       });
     });
     ipcRenderer.on("UpdateMsg", (event, age) => {
+      console.log("UpdateMsg", age);
       switch (age.state) {
         case -1:
           const msgdata = {
@@ -193,10 +197,10 @@ export default {
     openDocument() {
       let data = {
         url: "/brower/index",
-        webview:true,
-        resizable:true,
-        width:600,
-        height:700
+        webview: true,
+        resizable: true,
+        width: 600,
+        height: 700,
       };
       ipcRenderer.invoke("open-win", data);
     },
@@ -250,9 +254,9 @@ export default {
       this.dialogVisible = false;
     },
     changeLanguage() {
-      let lang = this.$i18n.locale === 'zh-CN' ? 'en' : 'zh-CN'
-      this.$i18n.locale = lang
-    }
+      let lang = this.$i18n.locale === "zh-CN" ? "en" : "zh-CN";
+      this.$i18n.locale = lang;
+    },
   },
   destroyed() {
     console.log("销毁了哦");
@@ -267,9 +271,9 @@ export default {
   },
   computed: {
     text() {
-      return this.$i18n.t("waitDataLoading")
-    }
-  }
+      return this.$i18n.t("waitDataLoading");
+    },
+  },
 };
 </script>
 
