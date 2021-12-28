@@ -9,7 +9,6 @@ class Update {
   }
   // 负责向渲染进程发送信息
   Message(mainWindow, type, data) {
-    console.log(mainWindow)
     const senddata = {
       state: type,
       msg: data || ''

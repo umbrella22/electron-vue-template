@@ -28,8 +28,8 @@ export default {
     ipcMain.handle('start-download', (event, msg) => {
       downloadFile.download(BrowserWindow.fromWebContents(event.sender), msg.downloadUrL)
     })
-    ipcMain.handle('check-update', () => {
-      updater.checkUpdate()
+    ipcMain.handle('check-update', (event, args) => {
+      updater.checkUpdate(BrowserWindow.fromWebContents(event.sender))
     })
     ipcMain.handle('confirm-update', () => {
       updater.quitInstall()
