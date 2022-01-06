@@ -4,7 +4,6 @@ const IsWeb = process.env.BUILD_TARGET === 'web'
 process.env.BABEL_ENV = IsWeb ? 'web' : 'renderer'
 
 const path = require('path')
-const { dependencies } = require('../package.json')
 const webpack = require('webpack')
 const config = require('../config')
 const { styleLoaders } = require('./utils')
@@ -19,18 +18,10 @@ const { VueLoaderPlugin } = require('vue-loader')
 function resolve(dir) {
   return path.join(__dirname, '..', dir)
 }
-/**
- * List of node_modules to include in webpack bundle
- *
- * Required for specific packages like Vue UI libraries
- * that provide pure *.vue files that need compiling
- * https://simulatedgreg.gitbooks.io/electron-vue/content/en/webpack-configurations.html#white-listing-externals
- */
-let whiteListedModules = IsWeb ? [] : ['vue', "element-ui"]
 
 let rendererConfig = {
   entry: IsWeb ? { web: path.join(__dirname, '../src/renderer/main.js') } : { renderer: resolve('src/renderer/main.js') },
-  // externals: IsWeb ? [] : [...Object.keys(dependencies || {}).filter(d => !whiteListedModules.includes(d))],
+  infrastructureLogging: { level: 'warn' },
   module: {
     rules: [
       {
@@ -108,7 +99,6 @@ let rendererConfig = {
       },
       nodeModules: false
     }),
-    new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
   ],
   output: {
