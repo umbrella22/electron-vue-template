@@ -116,7 +116,7 @@ let rendererConfig = {
 }
 // 将css相关得loader抽取出来
 rendererConfig.module.rules = rendererConfig.module.rules.concat(styleLoaders({ sourceMap: process.env.NODE_ENV !== 'production' ? config.dev.cssSourceMap : false, extract: IsWeb, minifyCss: process.env.NODE_ENV === 'production' }))
-IsWeb ? rendererConfig.module.rules.concat({ test: /\.ts$/, use: [{ loader: 'babel-loader', options: { cacheDirectory: true } }] }) : rendererConfig.module.rules.concat({ loader: 'esbuild-loader', options: { loader: 'jsx', } })
+IsWeb ? rendererConfig.module.rules.push({ test: /\.ts$/, use: [{ loader: 'babel-loader', options: { cacheDirectory: true } }] }) : rendererConfig.module.rules.push({ loader: 'esbuild-loader', options: { loader: 'jsx', } })
 
 /**
  * Adjust rendererConfig for development settings
