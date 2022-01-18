@@ -11,7 +11,6 @@ const { styleLoaders } = require('./utils')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const { ESBuildMinifyPlugin } = require('esbuild-loader')
 // const ESLintPlugin = require('eslint-webpack-plugin');
 const { VueLoaderPlugin } = require('vue-loader')
 
@@ -116,7 +115,7 @@ let rendererConfig = {
 }
 // 将css相关得loader抽取出来
 rendererConfig.module.rules = rendererConfig.module.rules.concat(styleLoaders({ sourceMap: process.env.NODE_ENV !== 'production' ? config.dev.cssSourceMap : false, extract: IsWeb, minifyCss: process.env.NODE_ENV === 'production' }))
-IsWeb ? rendererConfig.module.rules.push({ test: /\.ts$/, use: [{ loader: 'babel-loader', options: { cacheDirectory: true } }] }) : rendererConfig.module.rules.push({ test: /\.[jt]s$/, loader: 'esbuild-loader', options: { loader: 'ts', } })
+IsWeb ? rendererConfig.module.rules.push({ test: /\.ts$/, use: [{ loader: 'babel-loader', options: { cacheDirectory: true } }] }) : rendererConfig.module.rules.push({ test: /\.m?[jt]s$/, loader: 'swc-loader' })
 
 /**
  * Adjust rendererConfig for development settings
@@ -154,35 +153,26 @@ if (process.env.NODE_ENV === 'production') {
     })
   )
   rendererConfig.optimization = {
-    minimizer: [
-      new ESBuildMinifyPlugin({
-        sourcemap: false,
-        minifyWhitespace: true,
-        minifyIdentifiers: true,
-        minifySyntax: true,
-        css: true
-      })
-    ]
-  }
-  rendererConfig.optimization.splitChunks = {
-    chunks: "async",
-    cacheGroups: {
-      vendor: { // 将第三方模块提取出来
-        minSize: 30000,
-        minChunks: 1,
-        test: /node_modules/,
-        chunks: 'initial',
-        name: 'vendor',
-        priority: 1
-      },
-      commons: {
-        test: /[\\/]src[\\/]common[\\/]/,
-        name: 'commons',
-        minSize: 30000,
-        minChunks: 3,
-        chunks: 'initial',
-        priority: -1,
-        reuseExistingChunk: true // 这个配置允许我们使用已经存在的代码块
+    splitChunks: {
+      chunks: "async",
+      cacheGroups: {
+        vendor: { // 将第三方模块提取出来
+          minSize: 30000,
+          minChunks: 1,
+          test: /node_modules/,
+          chunks: 'initial',
+          name: 'vendor',
+          priority: 1
+        },
+        commons: {
+          test: /[\\/]src[\\/]common[\\/]/,
+          name: 'commons',
+          minSize: 30000,
+          minChunks: 3,
+          chunks: 'initial',
+          priority: -1,
+          reuseExistingChunk: true // 这个配置允许我们使用已经存在的代码块
+        }
       }
     }
   }

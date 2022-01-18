@@ -21,11 +21,8 @@ let mainConfig = {
   module: {
     rules: [
       {
-        test: /\.ts$/,
-        loader: 'esbuild-loader',
-        options: {
-          loader: 'ts'
-        }
+        test: /\.m?[jt]s$/,
+        loader: 'swc-loader',
       },
       {
         test: /\.node$/,
