@@ -10,7 +10,6 @@ const { spawn } = require('child_process')
 const config = require('../config')
 const webpack = require('webpack')
 const WebpackDevServer = require('webpack-dev-server')
-const webpackHotMiddleware = require('webpack-hot-middleware')
 const Portfinder = require("portfinder")
 
 const mainConfig = require('./webpack.main.config')
@@ -18,7 +17,6 @@ const rendererConfig = require('./webpack.renderer.config')
 
 let electronProcess = null
 let manualRestart = false
-let hotMiddleware
 
 function logStats(proc, data) {
   let log = ''
@@ -72,16 +70,6 @@ function startRenderer() {
         reject("PortError:" + err)
       } else {
         const compiler = webpack(rendererConfig)
-        hotMiddleware = webpackHotMiddleware(compiler, {
-          log: false,
-          heartbeat: 2500
-        })
-
-        compiler.hooks.afterEmit.tap('afterEmit', () => {
-          hotMiddleware.publish({
-            action: 'reload'
-          })
-        })
 
         compiler.hooks.done.tap('done', stats => {
           logStats('Renderer', stats)
@@ -110,9 +98,6 @@ function startMain() {
 
     compiler.hooks.watchRun.tapAsync('watch-run', (compilation, done) => {
       logStats(`${config.dev.chineseLog ? '主进程' : 'Main'}`, chalk.white.bold(`${config.dev.chineseLog ? '正在处理资源文件...' : 'compiling...'}`))
-      hotMiddleware.publish({
-        action: 'compiling'
-      })
       done()
     })
 

@@ -2065,7 +2065,7 @@ ansi-escapes@^1.0.0:
   resolved "https://registry.nlark.com/ansi-escapes/download/ansi-escapes-1.4.0.tgz?cache=0&sync_timestamp=1618847144938&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fansi-escapes%2Fdownload%2Fansi-escapes-1.4.0.tgz"
   integrity sha1-06ioOzGapneTZisT52HHkRQiMG4=
 
-ansi-html-community@0.0.8, ansi-html-community@^0.0.8:
+ansi-html-community@^0.0.8:
   version "0.0.8"
   resolved "https://registry.nlark.com/ansi-html-community/download/ansi-html-community-0.0.8.tgz?cache=0&sync_timestamp=1631016068950&other_urls=https%3A%2F%2Fregistry.nlark.com%2Fansi-html-community%2Fdownload%2Fansi-html-community-0.0.8.tgz"
   integrity sha1-afvE1sy+OD+XNpNK40w/gpDxv0E=
@@ -5002,7 +5002,7 @@ hpack.js@^2.1.6:
     readable-stream "^2.0.1"
     wbuf "^1.1.0"
 
-html-entities@^2.1.0, html-entities@^2.3.2:
+html-entities@^2.3.2:
   version "2.3.2"
   resolved "https://registry.nlark.com/html-entities/download/html-entities-2.3.2.tgz"
   integrity sha1-dgtARoXLHXlOT0t0QzLjsA3P5Ig=
@@ -7174,11 +7174,6 @@ query-string@^4.3.2:
     object-assign "^4.1.0"
     strict-uri-encode "^1.0.0"
 
-querystring@^0.2.0:
-  version "0.2.1"
-  resolved "https://registry.npm.taobao.org/querystring/download/querystring-0.2.1.tgz?cache=0&sync_timestamp=1613399913000&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fquerystring%2Fdownload%2Fquerystring-0.2.1.tgz"
-  integrity sha1-QNd2FbsJ0WkCqFw+OKqLXtdhwt0=
-
 queue-microtask@^1.2.2:
   version "1.2.3"
   resolved "https://registry.nlark.com/queue-microtask/download/queue-microtask-1.2.3.tgz"
@@ -8822,16 +8817,6 @@ webpack-dev-server@^4.7.3:
     strip-ansi "^7.0.0"
     webpack-dev-middleware "^5.3.0"
     ws "^8.1.0"
-
-webpack-hot-middleware@^2.25.1:
-  version "2.25.1"
-  resolved "https://registry.nlark.com/webpack-hot-middleware/download/webpack-hot-middleware-2.25.1.tgz"
-  integrity sha1-WB9Z7fB4F0P0ykwgD9MskmbGz3w=
-  dependencies:
-    ansi-html-community "0.0.8"
-    html-entities "^2.1.0"
-    querystring "^0.2.0"
-    strip-ansi "^6.0.0"
 
 webpack-merge@^5.7.3, webpack-merge@^5.8.0:
   version "5.8.0"
