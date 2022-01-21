@@ -76,7 +76,13 @@ function startRenderer() {
         })
 
         const server = new WebpackDevServer(
-          { port },
+          {
+            port,
+            static: {
+              directory: path.join(__dirname, '..', 'static'),
+              publicPath: '/static/',
+            }
+          },
           compiler
         )
 
