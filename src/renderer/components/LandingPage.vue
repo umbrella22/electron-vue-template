@@ -191,6 +191,7 @@ export default {
     openNewWin() {
       let data = {
         url: "/form/index",
+        resizable:true,
       };
       ipcRenderer.invoke("open-win", data);
     },
