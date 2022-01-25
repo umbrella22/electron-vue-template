@@ -40,16 +40,13 @@
 
 ``` bash
 # install dependencies
-npm install or yarn install
+yarn or yarn install
 
 # serve with hot reload at localhost:9080
-npm run dev or yarn dev
+yarn dev
 
 # build electron application for production
-npm run build or yarn build
-
-# run unit & end-to-end tests
-npm test
+yarn build
 
 
 ```

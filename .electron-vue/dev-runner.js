@@ -10,7 +10,6 @@ const { spawn } = require('child_process')
 const config = require('../config')
 const webpack = require('webpack')
 const WebpackDevServer = require('webpack-dev-server')
-const webpackHotMiddleware = require('webpack-hot-middleware')
 const Portfinder = require("portfinder")
 
 const mainConfig = require('./webpack.main.config')
@@ -18,7 +17,6 @@ const rendererConfig = require('./webpack.renderer.config')
 
 let electronProcess = null
 let manualRestart = false
-let hotMiddleware
 
 function logStats(proc, data) {
   let log = ''
@@ -71,42 +69,27 @@ function startRenderer() {
       if (err) {
         reject("PortError:" + err)
       } else {
-        WebpackDevServer.addDevServerEntrypoints(rendererConfig, {});
         const compiler = webpack(rendererConfig)
-        hotMiddleware = webpackHotMiddleware(compiler, {
-          log: false,
-          heartbeat: 2500
-        })
-
-        compiler.hooks.afterEmit.tap('afterEmit', () => {
-          hotMiddleware.publish({
-            action: 'reload'
-          })
-        })
 
         compiler.hooks.done.tap('done', stats => {
           logStats('Renderer', stats)
         })
 
         const server = new WebpackDevServer(
-          compiler, {
-          contentBase: path.join(__dirname, '../'),
-          quiet: true,
-          stats: {
-            colors: true,
-
+          {
+            port,
+            static: {
+              directory: path.join(__dirname, '..', 'static'),
+              publicPath: '/static/',
+            }
           },
-          before(app, ctx) {
-            app.use(hotMiddleware)
-            ctx.middleware.waitUntilValid(() => {
-              resolve()
-            })
-          }
-        }
+          compiler
         )
 
         process.env.PORT = port
-        server.listen(port)
+        server.start().then(() => {
+          resolve()
+        })
 
       }
     })
@@ -121,9 +104,6 @@ function startMain() {
 
     compiler.hooks.watchRun.tapAsync('watch-run', (compilation, done) => {
       logStats(`${config.dev.chineseLog ? '主进程' : 'Main'}`, chalk.white.bold(`${config.dev.chineseLog ? '正在处理资源文件...' : 'compiling...'}`))
-      hotMiddleware.publish({
-        action: 'compiling'
-      })
       done()
     })
 
@@ -185,15 +165,13 @@ function electronLog(data, color) {
     data.forEach(line => {
       log += `  ${line}\n`
     })
-    if (/[0-9A-z]+/.test(log)) {
-      console.log(
-        chalk[color].bold(`┏ ${config.dev.chineseLog ? '主程序日志' : 'Electron'} -------------------`) +
-        '\n\n' +
-        log +
-        chalk[color].bold('┗ ----------------------------') +
-        '\n'
-      )
-    }
+    console.log(
+      chalk[color].bold(`┏ ${config.dev.chineseLog ? '主程序日志' : 'Electron'} -------------------`) +
+      '\n\n' +
+      log +
+      chalk[color].bold('┗ ----------------------------') +
+      '\n'
+    )
   }
 
 }

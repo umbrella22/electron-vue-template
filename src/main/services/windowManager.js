@@ -3,7 +3,6 @@ import { platform } from "os"
 import menuconfig from '../config/menu'
 import config from '@config'
 import setIpc from './ipcMain'
-import upload from './checkupdate'
 import { winURL, loadingURL } from '../config/StaticPath'
 
 var loadWindow = null
@@ -49,7 +48,6 @@ function createMainWindow() {
   Menu.setApplicationMenu(menu)
   mainWindow.loadURL(winURL)
 
-  upload.Update(mainWindow)
 
   mainWindow.webContents.once('dom-ready', () => {
     mainWindow.show()
