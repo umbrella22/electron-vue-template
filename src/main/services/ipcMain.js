@@ -149,6 +149,16 @@ export default {
           }
         })
       }
+      childWin.on('maximize',()=>{
+        if(cidJson.id != null){
+          BrowserWindow.fromId(cidJson.id).webContents.send("w-max",true)
+        }
+      })
+      childWin.on('unmaximize',()=>{
+        if(cidJson.id != null){
+          BrowserWindow.fromId(cidJson.id).webContents.send("w-max",false)
+        }
+      })
     })
   }
 }

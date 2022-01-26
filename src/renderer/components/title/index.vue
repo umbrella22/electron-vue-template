@@ -41,7 +41,11 @@ export default {
     });
   },
 
-  mounted() {},
+  mounted() {
+      ipcRenderer.on("w-max",(event,state)=>{
+        this.mix = state
+      })
+  },
 
   methods: {
     Mini() {
@@ -55,6 +59,9 @@ export default {
     Close() {
       ipcRenderer.invoke("window-close");
     }
+  },
+  destroyed() {
+    ipcRenderer.removeAllListeners("w-max");
   }
 };
 </script>

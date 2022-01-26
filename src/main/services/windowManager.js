@@ -50,12 +50,16 @@ function createMainWindow() {
 
 
   mainWindow.webContents.once('dom-ready', () => {
-    if (config.UseStartupChart) loadWindow.destroy()
     mainWindow.show()
+    if (process.env.NODE_ENV === 'development') mainWindow.webContents.openDevTools(true)
+    if (config.UseStartupChart) loadWindow.destroy()
   })
-
-  if (process.env.NODE_ENV === 'development') mainWindow.webContents.openDevTools(true)
-
+  mainWindow.on('maximize',()=>{
+      mainWindow.webContents.send("w-max",true)
+  })
+  mainWindow.on('unmaximize',()=>{
+      mainWindow.webContents.send("w-max",false)
+  })
   mainWindow.on('closed', () => {
     mainWindow = null
     app.quit();
