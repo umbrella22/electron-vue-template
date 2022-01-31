@@ -5,6 +5,7 @@ process.env.BABEL_ENV = 'main'
 const path = require('path')
 const { dependencies } = require('../package.json')
 const webpack = require('webpack')
+const TerserPlugin = require('terser-webpack-plugin')
 const config = require('../config')
 
 function resolve(dir) {
@@ -69,6 +70,21 @@ if (process.env.NODE_ENV !== 'production') {
  * Adjust mainConfig for production settings
  */
 if (process.env.NODE_ENV === 'production') {
+  mainConfig.optimization = {
+    minimize: true,
+    minimizer: [
+      new TerserPlugin({
+        terserOptions: {
+          compress: {
+            drop_console: true,
+            drop_debugger: true,
+            pure_funcs: ["console.log", "console.warn"]
+          }
+        }
+
+      })
+    ]
+  }
   mainConfig.plugins.push(
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': '"production"'

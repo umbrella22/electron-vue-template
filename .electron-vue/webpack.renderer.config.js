@@ -12,7 +12,7 @@ const { styleLoaders } = require('./utils')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const { ESBuildMinifyPlugin } = require('esbuild-loader')
+const TerserPlugin = require('terser-webpack-plugin')
 // const ESLintPlugin = require('eslint-webpack-plugin');
 const { VueLoaderPlugin } = require('vue-loader')
 
@@ -172,13 +172,17 @@ if (process.env.NODE_ENV === 'production') {
     })
   )
   rendererConfig.optimization = {
+    minimize: true,
     minimizer: [
-      new ESBuildMinifyPlugin({
-        sourcemap: false,
-        minifyWhitespace: true,
-        minifyIdentifiers: true,
-        minifySyntax: true,
-        css: true
+      new TerserPlugin({
+        terserOptions: {
+          compress: {
+            drop_console: true,
+            drop_debugger: true,
+            pure_funcs: ["console.log", "console.warn"]
+          }
+        }
+
       })
     ]
   }
