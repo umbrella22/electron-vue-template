@@ -25,7 +25,11 @@
 
 ```bash
 npm config edit
-# 该命令会打开npm的配置文件，请在空白处添加
+# 该命令会打开npm的配置文件，请在空白处添加，此操作是配置淘宝镜像。
+# ELECTRON_BUILDER_BINARIES_MIRROR=http://npm.taobao.org/mirrors/electron-builder-binaries/
+# electron_mirror=https://cdn.npm.taobao.org/dist/electron/
+# registry=https://registry.npm.taobao.org/
+#### 当上面的配置在控制台输出404时，请手动替换成下面的配置。
 # registry=https://registry.npmmirror.com
 # ELECTRON_MIRROR=https://npmmirror.com/mirrors/electron/
 # ELECTRON_CUSTOM_DIR="{{ version }}"
