@@ -53,7 +53,6 @@ export default {
     ipcMain.handle('statr-server', async () => {
       try {
         const serveStatus = await Server.StatrServer()
-        console.log(serveStatus)
         return serveStatus
       } catch (error) {
         dialog.showErrorBox(

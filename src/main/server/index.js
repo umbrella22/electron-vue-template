@@ -30,7 +30,6 @@ export default {
   },
   StopServer () {
     return new Promise((resolve, reject) => {
-      console.log(server)
       if (server) {
         server.close()
         server.on('close', () => {
