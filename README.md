@@ -18,7 +18,7 @@
 
 - electron of react [Electron-react-template](https://github.com/umbrella22/electron-react-template)
 
-### To run a project, you need to have **node version 14** or higher and **use yarn as your dependency management tool**
+### To run a project, you need to have **node version 16** or higher and **use yarn as your dependency management tool**
 
 <p align="center">
   <a href="https://github.com/umbrella22/electron-vue-template">
