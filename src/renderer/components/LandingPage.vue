@@ -145,8 +145,8 @@ export default {
         },
       });
     });
-    ipcRenderer.on("UpdateMsg", (event, age) => {
-      console.log("UpdateMsg", age);
+    ipcRenderer.on("update-msg", (event, age) => {
+      console.log("update-msg", age);
       switch (age.state) {
         case -1:
           const msgdata = {
@@ -196,14 +196,7 @@ export default {
       ipcRenderer.invoke("open-win", data);
     },
     openDocument() {
-      let data = {
-        url: "/brower/index",
-        webview: true,
-        resizable: true,
-        width: 600,
-        height: 700,
-      };
-      ipcRenderer.invoke("open-win", data);
+      shell.openExternal("https://zh-sky.gitee.io/electron-vue-template-doc/Overview/#%E5%8A%9F%E8%83%BD")
     },
     getMessage() {
       message().then((res) => {
@@ -269,6 +262,7 @@ export default {
     ipcRenderer.removeAllListeners("confirm-download");
     ipcRenderer.removeAllListeners("download-progress");
     ipcRenderer.removeAllListeners("download-error");
+    ipcRenderer.removeAllListeners("update-msg");
   },
   computed: {
     text() {

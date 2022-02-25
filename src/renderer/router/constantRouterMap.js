@@ -71,18 +71,5 @@ export default [
         meta: { title: '表格', icon: 'table' }
       }
     ]
-  },
-  {
-    path: '/brower',
-    component: Layout,
-    hidden: true,
-    children: [
-      {
-        path: 'index',
-        name: '文档',
-        component: () => import('@/views/brower/index'),
-        meta: { title: '文档', icon: 'table' }
-      }
-    ]
   }
 ]

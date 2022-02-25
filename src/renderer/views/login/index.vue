@@ -173,12 +173,12 @@ $light_gray: #eee;
       align-items: center;
       color: white;
       backdrop-filter: saturate(180%) blur(20px);
-      background: rgba(0, 0, 0, 0.8);
+      background: rgba(0, 0, 0, .65);
       border-radius: 10px;
       box-shadow: 0 0.4px 0.6px rgba(0, 0, 0, 0.141),
         0 1px 1.3px rgba(0, 0, 0, 0.202), 0 1.9px 2.5px rgba(0, 0, 0, 0.25),
         0 3.4px 4.5px rgba(0, 0, 0, 0.298), 0 6.3px 8.4px rgba(0, 0, 0, 0.359),
-        0 15px 20px rgba(0, 0, 0, 0.5);
+        0 15px 20px rgba(0, 0, 0, .26);
       .login-btn {
         .btn {
           position: relative;

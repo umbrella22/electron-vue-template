@@ -54,7 +54,7 @@ class Update {
       state: type,
       msg: data || ''
     }
-    mainWindow.webContents.send('UpdateMsg', senddata)
+    mainWindow.webContents.send('update-msg', senddata)
   }
 
 
