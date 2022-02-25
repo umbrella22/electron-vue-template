@@ -1303,94 +1303,94 @@
   resolved "https://registry.npmmirror.com/@sindresorhus/is/-/is-0.14.0.tgz#9fb3a3cf3132328151f353de4632e01e52102bea"
   integrity sha512-9NET910DNaIPngYnLLPeg+Ogzqsi9uM4mSboU5y6p8S5DzMTVEsJZrawi+BoDNUVBa2DhJqQYUFvMDfgU062LQ==
 
-"@swc/core-android-arm-eabi@1.2.143":
-  version "1.2.143"
-  resolved "https://registry.npmmirror.com/@swc/core-android-arm-eabi/-/core-android-arm-eabi-1.2.143.tgz#06ed94a45ded81d69defc20263ebeaf12b835d10"
-  integrity sha512-OyRhH2NfHRm8jgN6KxpEX5fBg2KaGdocPQgSWzhk9QSnn+juacBXg6lE9lQEb1nekb36XusE51GNiImOnZI9RQ==
+"@swc/core-android-arm-eabi@1.2.145":
+  version "1.2.145"
+  resolved "https://registry.npmmirror.com/@swc/core-android-arm-eabi/-/core-android-arm-eabi-1.2.145.tgz#7003637654c944813be42239730efe5b046291a7"
+  integrity sha512-uHlRBYlnKfASaQ+I+GI80YVpylHG+R4IRd4UXPmCtsOqCkb5gPvunbWBwlWDcuseRxgAP6EA1uLyTE2YGxLmrQ==
 
-"@swc/core-android-arm64@1.2.143":
-  version "1.2.143"
-  resolved "https://registry.npmmirror.com/@swc/core-android-arm64/-/core-android-arm64-1.2.143.tgz#094ab2a9ebb7332b5f3bbd943756c7b7a1c34400"
-  integrity sha512-hMnZcFkoI26n3QakazyNmuMpaIm/pyC1KJXvp49wTaFazbeG0OqxbWvzUIK3vDnXJPuNf1m9c0jXtvQaXbacvQ==
+"@swc/core-android-arm64@1.2.145":
+  version "1.2.145"
+  resolved "https://registry.npmmirror.com/@swc/core-android-arm64/-/core-android-arm64-1.2.145.tgz#11703f2801cd599c9de9f8cfe7906015c891df05"
+  integrity sha512-o+bJBJOMYeS8cSadApt0NXqhDTj/h5Cg5aEfVRO3Tjxt7KxREMrAFRY0ITfOn7DHF00z+Gec5W+m6X8Mqvy0Xg==
 
-"@swc/core-darwin-arm64@1.2.143":
-  version "1.2.143"
-  resolved "https://registry.npmmirror.com/@swc/core-darwin-arm64/-/core-darwin-arm64-1.2.143.tgz#3c55564dd08c64101be2bc176edcfce3362a87b3"
-  integrity sha512-Mcd27MvxBCqNJ9HHEu2RH7lY0zcImSP1/3uivJ4eiiAE7WSUdrs9flhryZ7AlOfs0DR7b4fpjJgK0tZyg9K9Yw==
+"@swc/core-darwin-arm64@1.2.145":
+  version "1.2.145"
+  resolved "https://registry.npmmirror.com/@swc/core-darwin-arm64/-/core-darwin-arm64-1.2.145.tgz#11dbc71c346f6cdf8ccf2e16ccc0e5938b56b597"
+  integrity sha512-by8NYwS3bXQMlDBySAvKPtpkSjqz/+PpNaLpAbC5oCEx/mFBv37FxbTTDEMJ/Nw3uPG9z1VR+nCsYj8bb8rvLw==
 
-"@swc/core-darwin-x64@1.2.143":
-  version "1.2.143"
-  resolved "https://registry.npmmirror.com/@swc/core-darwin-x64/-/core-darwin-x64-1.2.143.tgz#94bb46a355ff13a8b6bc721e426fbf15f724e672"
-  integrity sha512-KV8147NuOqU6wCliAF+PmpbUecwUn0GynOUjb44kMbwCsYeH/Pm5FewGvyW9Dr7rnpnoT11pOUAJlcRzRfXrDA==
+"@swc/core-darwin-x64@1.2.145":
+  version "1.2.145"
+  resolved "https://registry.npmmirror.com/@swc/core-darwin-x64/-/core-darwin-x64-1.2.145.tgz#89e7687127f528fbd379c7411dc40ab2b1e02ab3"
+  integrity sha512-uSvGeY+7Wa0tfE7T3bYlTrUpZEZ8XGo1aCCQYHQ3tJk/v/pfhhEAg80O8sHsdn0DA7AkVWR3L3kqg2O0JAfF/A==
 
-"@swc/core-freebsd-x64@1.2.143":
-  version "1.2.143"
-  resolved "https://registry.npmmirror.com/@swc/core-freebsd-x64/-/core-freebsd-x64-1.2.143.tgz#7881b8538129661991971196c2c9933ab3b0d248"
-  integrity sha512-SU3hOtPqwaCxTO8jajEaNMO8aU0/5JduuRBbv843UzCz9S2on+dTYNkm94TsBxhX+JYN+T9yGi/tynoTjKj1QA==
+"@swc/core-freebsd-x64@1.2.145":
+  version "1.2.145"
+  resolved "https://registry.npmmirror.com/@swc/core-freebsd-x64/-/core-freebsd-x64-1.2.145.tgz#d7764dc78ef4514c114386845c8443b11c592f6c"
+  integrity sha512-br4Lsp2x2yNjrzre+wVPtUUMH86k7RfSlYXd6OrnuGAU7447yuMhziR17j096e4cY5BQhULtBhyiN5ZX+Rvj5g==
 
-"@swc/core-linux-arm-gnueabihf@1.2.143":
-  version "1.2.143"
-  resolved "https://registry.npmmirror.com/@swc/core-linux-arm-gnueabihf/-/core-linux-arm-gnueabihf-1.2.143.tgz#9410e592dbb6428be21b9d594a16df7ba3b5d1a1"
-  integrity sha512-ZGfb0Fz2jQqrRv3gg0gdzQfkZbqTAC9ac03fXx0KiNFgkAjnWNm0JYRQe0sxa1L5wBml2Sv4aAFIN1BHi6roVA==
+"@swc/core-linux-arm-gnueabihf@1.2.145":
+  version "1.2.145"
+  resolved "https://registry.npmmirror.com/@swc/core-linux-arm-gnueabihf/-/core-linux-arm-gnueabihf-1.2.145.tgz#b5177515aa1a625cf635772b595a17eb9e022e09"
+  integrity sha512-Xtbdm6KTRE5vpKdBTxxdTm8JlFrl486BBauG5IkA7x+kdz3HoULn9ESXPJggkKmjOf3CdFoIFVRBHNrH6nz2Zg==
 
-"@swc/core-linux-arm64-gnu@1.2.143":
-  version "1.2.143"
-  resolved "https://registry.npmmirror.com/@swc/core-linux-arm64-gnu/-/core-linux-arm64-gnu-1.2.143.tgz#aed181358f8df7d0fd6a28084da9bf03d0cc329f"
-  integrity sha512-roLB+QYf7omusDTNfqsAuFWMyeRjXi2Wp1abNh++7YZVhkZ57q1tUNJiqw6KJhaSd5KSQGpBygarDRvL70ZZ4Q==
+"@swc/core-linux-arm64-gnu@1.2.145":
+  version "1.2.145"
+  resolved "https://registry.npmmirror.com/@swc/core-linux-arm64-gnu/-/core-linux-arm64-gnu-1.2.145.tgz#5dd91213abe45aca98514faee6780686387ce005"
+  integrity sha512-ZpeIPj4ZrRaUizDcAelGlj+JDmlYqbVPe+2xXQvk3i8dy4gNDJbadJncmYG3/WGTNLyXpzK+MgevDW1FsNUo4g==
 
-"@swc/core-linux-arm64-musl@1.2.143":
-  version "1.2.143"
-  resolved "https://registry.npmmirror.com/@swc/core-linux-arm64-musl/-/core-linux-arm64-musl-1.2.143.tgz#3544732447718317cc35ad246c4ab0d7ff9e6481"
-  integrity sha512-66qRHVh2F4Z0b6G8n9CEKuKwYVIzfTlNHixwoqCgdCbHT5n1lUiWigDel1psCDbrD/p9nWTU0lfVtbqmKJWnPw==
+"@swc/core-linux-arm64-musl@1.2.145":
+  version "1.2.145"
+  resolved "https://registry.npmmirror.com/@swc/core-linux-arm64-musl/-/core-linux-arm64-musl-1.2.145.tgz#d4b15efe26815e6d6b826ae18395b0a431c9220e"
+  integrity sha512-h3EPP/ljEeJmCado/YSTWCVBUPf+Wee7Qa5a6vdu/kjAkCb1UTGV13VkQvEApPM2fmXXVQ3HQhnhuvO8U+lJIw==
 
-"@swc/core-linux-x64-gnu@1.2.143":
-  version "1.2.143"
-  resolved "https://registry.npmmirror.com/@swc/core-linux-x64-gnu/-/core-linux-x64-gnu-1.2.143.tgz#410c6900059510a3408c1f439ab8926ac795ee4b"
-  integrity sha512-FSn9E+uWSyLQtHFpJcj+jNU+NPxrwOMlB+XUObfRcZwRzV6W0KeGLwnwvuhByYmGE7ujvEGCEQpLP95ER88TzQ==
+"@swc/core-linux-x64-gnu@1.2.145":
+  version "1.2.145"
+  resolved "https://registry.npmmirror.com/@swc/core-linux-x64-gnu/-/core-linux-x64-gnu-1.2.145.tgz#c9f470c0a358040956ce8e749c2fc3fba9776ed2"
+  integrity sha512-YNQ26qLOf0XxxAWZo9DIMAFUrorCraqBkEVZrqd6CPm4NXzyFgjUEToi39S+ipdEEEjRT6Wty858hSjHN4OOUg==
 
-"@swc/core-linux-x64-musl@1.2.143":
-  version "1.2.143"
-  resolved "https://registry.npmmirror.com/@swc/core-linux-x64-musl/-/core-linux-x64-musl-1.2.143.tgz#0faf67e39c5e4ece043d170b7c5495a44a2d88f1"
-  integrity sha512-yCD0LkqUVTLz07MD1m5gajfdOobIqUdQ8E0ZarkcCqvd6eLygXb7U2fn0pZs1eadOqxLSjEjig1i2bCx655Z5w==
+"@swc/core-linux-x64-musl@1.2.145":
+  version "1.2.145"
+  resolved "https://registry.npmmirror.com/@swc/core-linux-x64-musl/-/core-linux-x64-musl-1.2.145.tgz#964995f6a59b57aa8302874bf072eb07b7fd5f9e"
+  integrity sha512-92tmgOiuQTYzN0SyExhnnmUinVNcdYXIPEVoIQZq7UdUHpgi2cJHDkfY8zzcRQ85aFwC0gIOzFcdnccWVSPdEw==
 
-"@swc/core-win32-arm64-msvc@1.2.143":
-  version "1.2.143"
-  resolved "https://registry.npmmirror.com/@swc/core-win32-arm64-msvc/-/core-win32-arm64-msvc-1.2.143.tgz#88a5bf3ee44207b44cb2a250ca57a7ea039bbde8"
-  integrity sha512-ehdvirsmL5yJ3J5HUcZD48VBFFiINX61FM5NTfRQgZgqGTyZo88iNTHsBmQXaEtp25y9xr6xXtKXeRGIBpuszg==
+"@swc/core-win32-arm64-msvc@1.2.145":
+  version "1.2.145"
+  resolved "https://registry.npmmirror.com/@swc/core-win32-arm64-msvc/-/core-win32-arm64-msvc-1.2.145.tgz#235300f8c4c85f5be04efaebca5ea48d904b0518"
+  integrity sha512-cv9UZT8/RWyaWZyvuS5fOT5YgA9opnsprQ6DKOJNljx2zCCHy+GulrwGYPk8cIGRuD3RSP/nOua7WPg8FE1ExA==
 
-"@swc/core-win32-ia32-msvc@1.2.143":
-  version "1.2.143"
-  resolved "https://registry.npmmirror.com/@swc/core-win32-ia32-msvc/-/core-win32-ia32-msvc-1.2.143.tgz#e6d3fc8aeb2e5177ae7dbbd5c85488f164c7cdb9"
-  integrity sha512-ZWENEbRo9Jbqm/3ezLGotYN7siIEYC5PoJQBi+P/Fg42xm7bUpewIbbGmizOMN0d0+OWVc2V1IFg9bbA0oZbpg==
+"@swc/core-win32-ia32-msvc@1.2.145":
+  version "1.2.145"
+  resolved "https://registry.npmmirror.com/@swc/core-win32-ia32-msvc/-/core-win32-ia32-msvc-1.2.145.tgz#c5091e7d918a1081fc2ee35ef66c59970244716e"
+  integrity sha512-bj00Ihd9DpKVIShXUTG0ivEd4eTPTq3uhksUz+1yUcH4neJADPM0vzkj/a/A7rSDMpgkm7Hn53QH6tU9kZvXgw==
 
-"@swc/core-win32-x64-msvc@1.2.143":
-  version "1.2.143"
-  resolved "https://registry.npmmirror.com/@swc/core-win32-x64-msvc/-/core-win32-x64-msvc-1.2.143.tgz#78fbb91aec9079de4b7bfae08769d20ba3c78297"
-  integrity sha512-IBJ4DLOtMOAzW1+fFkdoj0e85l+CLj+Zn3jjUtdlYKroEunA3xNGci5+Ak/NRvt4lnlPlyVyw+2JXsfpnV2FCA==
+"@swc/core-win32-x64-msvc@1.2.145":
+  version "1.2.145"
+  resolved "https://registry.npmmirror.com/@swc/core-win32-x64-msvc/-/core-win32-x64-msvc-1.2.145.tgz#dd1b780e2278ee477281791a364a42b1c918e249"
+  integrity sha512-DcJ2qg1Tazm+BfXHTSyIZe81iV1EVflcXex3V7hJ04Fc/1K9hAuXS0INrvVGtK3P70aFUoY7+2AYXcxbm3JdbQ==
 
-"@swc/core@^1.2.143":
-  version "1.2.143"
-  resolved "https://registry.npmmirror.com/@swc/core/-/core-1.2.143.tgz#2af9aa45a54d718510fa00895b5d3f91fb96d143"
-  integrity sha512-kZ1OVaNS183b3nMZBDQMev/ULpF/iUcF4bwlx+Nz6GH7D9qGTTbhiN7xWkoCWjcCY1TF8Bt7z1+ddX6ibPSc8w==
+"@swc/core@^1.2.145":
+  version "1.2.145"
+  resolved "https://registry.npmmirror.com/@swc/core/-/core-1.2.145.tgz#e8215b66f2987ba0430fec68f254798058abd5f8"
+  integrity sha512-E9cXql7G7XPSBZKZ8ALONLbuuPdC5Kj0I7D7CN+LGyAGLlhs7e70VJsq7RMT4o1UY7UkqbLU598C7KtSMpZFyg==
   optionalDependencies:
-    "@swc/core-android-arm-eabi" "1.2.143"
-    "@swc/core-android-arm64" "1.2.143"
-    "@swc/core-darwin-arm64" "1.2.143"
-    "@swc/core-darwin-x64" "1.2.143"
-    "@swc/core-freebsd-x64" "1.2.143"
-    "@swc/core-linux-arm-gnueabihf" "1.2.143"
-    "@swc/core-linux-arm64-gnu" "1.2.143"
-    "@swc/core-linux-arm64-musl" "1.2.143"
-    "@swc/core-linux-x64-gnu" "1.2.143"
-    "@swc/core-linux-x64-musl" "1.2.143"
-    "@swc/core-win32-arm64-msvc" "1.2.143"
-    "@swc/core-win32-ia32-msvc" "1.2.143"
-    "@swc/core-win32-x64-msvc" "1.2.143"
+    "@swc/core-android-arm-eabi" "1.2.145"
+    "@swc/core-android-arm64" "1.2.145"
+    "@swc/core-darwin-arm64" "1.2.145"
+    "@swc/core-darwin-x64" "1.2.145"
+    "@swc/core-freebsd-x64" "1.2.145"
+    "@swc/core-linux-arm-gnueabihf" "1.2.145"
+    "@swc/core-linux-arm64-gnu" "1.2.145"
+    "@swc/core-linux-arm64-musl" "1.2.145"
+    "@swc/core-linux-x64-gnu" "1.2.145"
+    "@swc/core-linux-x64-musl" "1.2.145"
+    "@swc/core-win32-arm64-msvc" "1.2.145"
+    "@swc/core-win32-ia32-msvc" "1.2.145"
+    "@swc/core-win32-x64-msvc" "1.2.145"
 
-"@swc/helpers@^0.3.3":
-  version "0.3.3"
-  resolved "https://registry.npmmirror.com/@swc/helpers/-/helpers-0.3.3.tgz#8ea0e4a96ba18c2d33463aa4dbc7b0ef46232cd6"
-  integrity sha512-NdRQSjcceaXsQDNYyK0wWyRvrn5rsvugK8vnTiRB2i0UCaD2slUFUq28tmojILW5A04oF+sZRMxd0Cy7xS/y0A==
+"@swc/helpers@^0.3.5":
+  version "0.3.5"
+  resolved "https://registry.npmmirror.com/@swc/helpers/-/helpers-0.3.5.tgz#5607d67e965d7ac409d94a98e7f7a2ac9759de96"
+  integrity sha512-VfC4vSeGiN9gx+NO8PrMvZP2Nh6Pjfaq/9PdcgVRl3SgDs/zLbDRIfpM5nia+c4Fvdfg0EnfhlLFgX7jFS2/Rg==
 
 "@szmarczak/http-timer@^1.1.2":
   version "1.1.2"
@@ -1551,10 +1551,10 @@
   resolved "https://registry.npmmirror.com/@types/node/-/node-14.18.11.tgz#9bd810a959e1728d78df0f68b5c825b8ea7156f4"
   integrity sha512-zCoCEMA+IPpsRkyCFBqew5vGb7r8RSiB3uwdu/map7uwLAfu1MTazW26/pUDWoNnF88vJz4W3U56i5gtXNqxGg==
 
-"@types/node@^17.0.19":
-  version "17.0.19"
-  resolved "https://registry.npmmirror.com/@types/node/-/node-17.0.19.tgz#726171367f404bfbe8512ba608a09ebad810c7e6"
-  integrity sha512-PfeQhvcMR4cPFVuYfBN4ifG7p9c+Dlh3yUZR6k+5yQK7wX3gDgVxBly4/WkBRs9x4dmcy1TVl08SY67wwtEvmA==
+"@types/node@^17.0.21":
+  version "17.0.21"
+  resolved "https://registry.npmmirror.com/@types/node/-/node-17.0.21.tgz#864b987c0c68d07b4345845c3e63b75edd143644"
+  integrity sha512-DBZCJbhII3r90XbQxI8Y9IjjiiOGlZ0Hr32omXIZvwwZ7p4DMMXGrKXVyPfuoBOri9XNtL0UK69jYIBIsRX3QQ==
 
 "@types/parse-json@^4.0.0":
   version "4.0.0"
@@ -3525,10 +3525,10 @@ electron-updater@^4.6.5:
     lodash.isequal "^4.5.0"
     semver "^7.3.5"
 
-electron@^17.0.1:
-  version "17.0.1"
-  resolved "https://registry.npmmirror.com/electron/-/electron-17.0.1.tgz#e6c7ad2be26e7be8a5a9bac16b21920ad2671224"
-  integrity sha512-CBReR/QEOpgwMdt59lWCtj9wC8oHB6aAjMF1lhXcGew132xtp+C5N6EaXb/fmDceVYLouziYjbNcpeXsWrqdpA==
+electron@^17.1.0:
+  version "17.1.0"
+  resolved "https://registry.npmmirror.com/electron/-/electron-17.1.0.tgz#7539937d294413af8efba69dc370cf7d2b0cdc72"
+  integrity sha512-X/qdldmQ8lA15NmeraubWCTtMeTO8K9Ser0wtSCgOXVh53Sr1Ea0VQQ7Q9LuGgWRVz4qtr40cntuEdM8icdmTw==
   dependencies:
     "@electron/get" "^1.13.0"
     "@types/node" "^14.6.2"
@@ -4213,7 +4213,7 @@ fast-deep-equal@^3.1.1, fast-deep-equal@^3.1.3:
   resolved "https://registry.npmmirror.com/fast-deep-equal/-/fast-deep-equal-3.1.3.tgz#3a7d56b559d6cbc3eb512325244e619a65c6c525"
   integrity sha512-f3qQ9oQy9j2AhBe/H9VC91wLmKBCCU/gDOnKNAYG5hswO7BLKj09Hc5HYNz9cGI++xlpDCIgDaitVs03ATR84Q==
 
-fast-glob@^3.2.7, fast-glob@^3.2.9:
+fast-glob@^3.1.1, fast-glob@^3.2.7:
   version "3.2.11"
   resolved "https://registry.npmmirror.com/fast-glob/-/fast-glob-3.2.11.tgz#a1172ad95ceb8a16e20caa5c5e56480e5129c1d9"
   integrity sha512-xrO3+1bxSo3ZVHAnqzyuewYT6aMFHRAd4Kcs92MAonjwQZLsK9d0SF1IyQ3k5PoirxTW0Oe/RqFgMQ6TcNE5Ew==
@@ -4420,6 +4420,15 @@ fs-extra@^10.0.0:
   version "10.0.0"
   resolved "https://registry.npmmirror.com/fs-extra/-/fs-extra-10.0.0.tgz#9ff61b655dde53fb34a82df84bb214ce802e17c1"
   integrity sha512-C5owb14u9eJwizKGdchcDUQeFtlSHHthBk8pbX9Vc1PFZrLombudjDnNns88aYslCyF6IY5SUw3Roz6xShcEIQ==
+  dependencies:
+    graceful-fs "^4.2.0"
+    jsonfile "^6.0.1"
+    universalify "^2.0.0"
+
+fs-extra@^10.0.1:
+  version "10.0.1"
+  resolved "https://registry.npmmirror.com/fs-extra/-/fs-extra-10.0.1.tgz#27de43b4320e833f6867cc044bfce29fdf0ef3b8"
+  integrity sha512-NbdoVMZso2Lsrn/QwLXOy6rm0ufY2zEOKCDzJR/0kBsb0E6qed0P3iYK+Ath3BfvXEeu4JhEtXLgILx5psUfag==
   dependencies:
     graceful-fs "^4.2.0"
     jsonfile "^6.0.1"
@@ -4988,7 +4997,7 @@ ignore@^4.0.6:
   resolved "https://registry.npmmirror.com/ignore/-/ignore-4.0.6.tgz#750e3db5862087b4737ebac8207ffd1ef27b25fc"
   integrity sha512-cyFDKrqc/YdcWFniJhzI42+AzS+gNwmUzOSFcRCQYwySuBBBy/KjuxWLZ/FHEH6Moq1NizMOBWyTcv8O4OZIMg==
 
-ignore@^5.1.1, ignore@^5.1.9, ignore@^5.2.0:
+ignore@^5.1.1, ignore@^5.1.4, ignore@^5.1.9:
   version "5.2.0"
   resolved "https://registry.npmmirror.com/ignore/-/ignore-5.2.0.tgz#6d3bac8fa7fe0d45d9f9be7bac2fc279577e345a"
   integrity sha512-CmxgYGiEPCLhfLnpPp1MoRmifwEIOgjcHXxOBjv7mY96c+eWScsOP9c112ZyLdWHi0FxHjI+4uVhKYp/gcdRmQ==
@@ -6161,7 +6170,7 @@ multispinner@^0.2.1:
     lodash.merge "^3.3.2"
     log-update "^1.0.2"
 
-nanoid@^3.2.0:
+nanoid@^3.2.0, nanoid@^3.3.1:
   version "3.3.1"
   resolved "https://registry.npmmirror.com/nanoid/-/nanoid-3.3.1.tgz#6347a18cac88af88f58af0b3594b723d5e99bb35"
   integrity sha512-n6Vs/3KGyxPQd6uO0eH4Bv0ojGSUvuLlIHtC3Y0kEO23YRge8H9x1GCzLn28YX0H66pMkxuaeESFq4tKISKwdw==
@@ -6735,12 +6744,21 @@ postcss@^7.0.36:
     picocolors "^0.2.1"
     source-map "^0.6.1"
 
-postcss@^8.4.5, postcss@^8.4.6:
+postcss@^8.4.5:
   version "8.4.6"
   resolved "https://registry.npmmirror.com/postcss/-/postcss-8.4.6.tgz#c5ff3c3c457a23864f32cb45ac9b741498a09ae1"
   integrity sha512-OovjwIzs9Te46vlEx7+uXB0PLijpwjXGKXjVGGPIGubGpq7uh5Xgf6D6FiJ/SzJMBosHDp6a2hiXOS97iBXcaA==
   dependencies:
     nanoid "^3.2.0"
+    picocolors "^1.0.0"
+    source-map-js "^1.0.2"
+
+postcss@^8.4.7:
+  version "8.4.7"
+  resolved "https://registry.npmmirror.com/postcss/-/postcss-8.4.7.tgz#f99862069ec4541de386bf57f5660a6c7a0875a8"
+  integrity sha512-L9Ye3r6hkkCeOETQX6iOaWZgjp3LL6Lpqm6EtgbKrgqGGteRMNb9vzBfRL96YOSu8o7x3MfIH9Mo5cPJFGrW6A==
+  dependencies:
+    nanoid "^3.3.1"
     picocolors "^1.0.0"
     source-map-js "^1.0.2"
 
@@ -7245,10 +7263,10 @@ sass-loader@^12.6.0:
     klona "^2.0.4"
     neo-async "^2.6.2"
 
-sass@^1.49.8:
-  version "1.49.8"
-  resolved "https://registry.npmmirror.com/sass/-/sass-1.49.8.tgz#9bbbc5d43d14862db07f1c04b786c9da9b641828"
-  integrity sha512-NoGOjvDDOU9og9oAxhRnap71QaTjjlzrvLnKecUJ3GxhaQBrV6e7gPuSPF28u1OcVAArVojPAe4ZhOXwwC4tGw==
+sass@^1.49.9:
+  version "1.49.9"
+  resolved "https://registry.npmmirror.com/sass/-/sass-1.49.9.tgz#b15a189ecb0ca9e24634bae5d1ebc191809712f9"
+  integrity sha512-YlYWkkHP9fbwaFRZQRXgDi3mXZShslVmmo+FVK3kHLUELHHEYrCmL1x6IUjC7wLS6VuJSAFXRQS/DxdsC4xL1A==
   dependencies:
     chokidar ">=3.0.0 <4.0.0"
     immutable "^4.0.0"
