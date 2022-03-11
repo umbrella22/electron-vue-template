@@ -98,9 +98,7 @@ export default {
       }
     },
     handleLogin() {
-      console.log(11111);
       this.$refs.loginForm.validate((valid) => {
-        console.log(valid);
         if (valid) {
           this.loading = true;
           this.$store

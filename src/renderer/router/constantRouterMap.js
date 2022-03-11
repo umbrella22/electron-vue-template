@@ -1,6 +1,4 @@
 import Layout from '@/layout'
-const Login = () => import('@/views/login')
-const Notfound = () => import('@/views/404')
 /**
 * hidden: true                   if `hidden:true` will not show in the sidebar(default is false)
 * alwaysShow: true               if set true, will always show the root menu, whatever its child routes length
@@ -26,21 +24,6 @@ const Notfound = () => import('@/views/404')
   }
  **/
 export default [
-  { path: '/login', component: Login, hidden: true },
-  { path: '*', component: Notfound, hidden: true },
-  {
-    path: '/',
-    component: Layout,
-    redirect: '/dashboard',
-    name: '主页',
-    hidden: true,
-    children: [{
-      path: 'dashboard',
-      name: '总览',
-      component: () => import('@/components/LandingPage')
-    }]
-  },
-
   {
     path: '/form',
     component: Layout,
@@ -51,12 +34,6 @@ export default [
         name: 'Form',
         component: () => import('@/views/form/index'),
         meta: { title: '表单', icon: 'form' }
-      },
-      {
-        path: 'index2',
-        name: 'Form2',
-        component: () => import('@/views/form/index'),
-        meta: { title: '表单2', icon: 'form' }
       }
     ]
   },
@@ -71,5 +48,18 @@ export default [
         meta: { title: '表格', icon: 'table' }
       }
     ]
-  }
+  },
+  {
+    path: '/permission',
+    component: Layout,
+    meta: { roles: ['admin'] },
+    children: [
+      {
+        path: 'index',
+        name: '权限',
+        component: () => import('@/views/permission/index'),
+        meta: { title: '权限', icon: 'table' }
+      }
+    ]
+  },
 ]

@@ -7,7 +7,13 @@
       :collapse="isCollapse"
     >
       <Logo :collapse="isCollapse" />
-      <sidebar-item v-for="route in routes" :key="route.name" :item="route" :base-path="route.path" :collapse="isCollapse"></sidebar-item>
+      <sidebar-item
+        v-for="route in permission_routes"
+        :key="route.name"
+        :item="route"
+        :base-path="route.path"
+        :collapse="isCollapse"
+      ></sidebar-item>
     </el-menu>
   </scroll-bar>
 </template>
@@ -21,14 +27,12 @@ import Logo from "./logo";
 export default {
   components: { SidebarItem, ScrollBar, Logo },
   computed: {
-    ...mapGetters(["sidebar"]),
-    routes() {
-      return this.$router.options.routes;
-    },
+    ...mapGetters(["sidebar", "permission_routes"]),
     isCollapse() {
+      console.log(this.$store.getters);
       return !this.sidebar.opened;
-    }
-  }
+    },
+  },
 };
 </script>
 <style rel="stylesheet/scss" lang="scss" scoped>
