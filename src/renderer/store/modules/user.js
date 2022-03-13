@@ -24,8 +24,6 @@ const user = {
     // 登录
     Login({ commit }, data) {
       return new Promise((resolve, reject) => {
-        console.log("这是传过来的登录信息", data);
-        console.log()
         if (data.username.includes("admin")) {
           commit("SET_TOKEN", "admin");
           commit("SET_NAME", "Super Admin");
@@ -57,7 +55,8 @@ const user = {
     },
     GetUserInfo({ commit, state }) {
       return new Promise((resolve, reject) => {
-        if (state.name.includes("admin")) {
+        console.log(state.name)
+        if (state.token.includes("admin")) {
           commit("SET_ROLES", ["admin"]);
         } else {
           commit("SET_ROLES", ["edit"]);

@@ -44,7 +44,7 @@
           <button type="button" class="btn" @click="handleLogin">登录</button>
         </div>
         <div class="tips">
-          <span style="margin-right:20px;">用户名: admin</span>
+          <span style="margin-right:20px;">用户名: admin或者editor</span>
           <span>密码：随便什么都行</span>
         </div>
       </el-form>
@@ -74,8 +74,8 @@ export default {
     };
     return {
       loginForm: {
-        username: "admin",
-        password: "admin",
+        username: "",
+        password: "",
       },
       loginRules: {
         username: [
