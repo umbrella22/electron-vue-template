@@ -2065,10 +2065,10 @@ autoprefixer@^10.4.2:
     picocolors "^1.0.0"
     postcss-value-parser "^4.2.0"
 
-axios@^0.26.0:
-  version "0.26.0"
-  resolved "https://registry.npmmirror.com/axios/-/axios-0.26.0.tgz#9a318f1c69ec108f8cd5f3c3d390366635e13928"
-  integrity sha512-lKoGLMYtHvFrPVt3r+RBMp9nh34N0M8zEfCWqdWZx6phynIEhQqAdydpyBAAG211zlhX9Rgu08cOamy6XjE5Og==
+axios@^0.26.1:
+  version "0.26.1"
+  resolved "https://registry.yarnpkg.com/axios/-/axios-0.26.1.tgz#1ede41c51fcf51bbbd6fd43669caaa4f0495aaa9"
+  integrity sha512-fPwcX4EvnSHuInCMItEhAGnaSEXRBjtzh9fOtsE6E1G6p7vl7edEeZe11QHf18+6+9gR5PbKV/sGKNaD8YaMeA==
   dependencies:
     follow-redirects "^1.14.8"
 
@@ -2948,13 +2948,13 @@ crypto-random-string@^2.0.0:
   resolved "https://registry.npmmirror.com/crypto-random-string/-/crypto-random-string-2.0.0.tgz#ef2a7a966ec11083388369baa02ebead229b30d5"
   integrity sha512-v1plID3y9r/lPhviJ1wrXpLeyUIGAZ2SHNYTEapm7/8A9nLPoyvVp3RK/EPFqn5kEznyWgYZNsRtYYIWbuG8KA==
 
-css-loader@^6.6.0:
-  version "6.6.0"
-  resolved "https://registry.npmmirror.com/css-loader/-/css-loader-6.6.0.tgz#c792ad5510bd1712618b49381bd0310574fafbd3"
-  integrity sha512-FK7H2lisOixPT406s5gZM1S3l8GrfhEBT3ZiL2UX1Ng1XWs0y2GPllz/OTyvbaHe12VgQrIXIzuEGVlbUhodqg==
+css-loader@^6.7.1:
+  version "6.7.1"
+  resolved "https://registry.yarnpkg.com/css-loader/-/css-loader-6.7.1.tgz#e98106f154f6e1baf3fc3bc455cb9981c1d5fd2e"
+  integrity sha512-yB5CNFa14MbPJcomwNh3wLThtkZgcNyI2bNMRt8iE5Z8Vwl7f8vQXFAzn2HDOJvtDq2NTZBUGMSUNNyrv3/+cw==
   dependencies:
     icss-utils "^5.1.0"
-    postcss "^8.4.5"
+    postcss "^8.4.7"
     postcss-modules-extract-imports "^3.0.0"
     postcss-modules-local-by-default "^4.0.0"
     postcss-modules-scope "^3.0.0"
@@ -3456,10 +3456,10 @@ end-of-stream@^1.1.0:
   dependencies:
     once "^1.4.0"
 
-enhanced-resolve@^5.8.3:
-  version "5.9.0"
-  resolved "https://registry.npmmirror.com/enhanced-resolve/-/enhanced-resolve-5.9.0.tgz#49ac24953ac8452ed8fed2ef1340fc8e043667ee"
-  integrity sha512-weDYmzbBygL7HzGGS26M3hGQx68vehdEg6VUmqSOaFzXExFqlnKuSvsEJCVGQHScS8CQMbrAqftT+AzzHNt/YA==
+enhanced-resolve@^5.9.2:
+  version "5.9.2"
+  resolved "https://registry.yarnpkg.com/enhanced-resolve/-/enhanced-resolve-5.9.2.tgz#0224dcd6a43389ebfb2d55efee517e5466772dd9"
+  integrity sha512-GIm3fQfwLJ8YZx2smuHpBKkXC1yOk+OBEmKckVyL0i/ea8mqDEykK3ld5dgH1QYPNyT/lIllxV2LULnxCHaHkA==
   dependencies:
     graceful-fs "^4.2.4"
     tapable "^2.2.0"
@@ -5946,10 +5946,10 @@ mimic-response@^1.0.0, mimic-response@^1.0.1:
   resolved "https://registry.npmmirror.com/mimic-response/-/mimic-response-1.0.1.tgz#4923538878eef42063cb8a3e3b0798781487ab1b"
   integrity sha512-j5EctnkH7amfV/q5Hgmoal1g2QHFJRraOtmx0JpIqkxhBhI/lJSl1nMpQ45hVarwNETOoWEimndZ4QK0RHxuxQ==
 
-mini-css-extract-plugin@2.5.3:
-  version "2.5.3"
-  resolved "https://registry.npmmirror.com/mini-css-extract-plugin/-/mini-css-extract-plugin-2.5.3.tgz#c5c79f9b22ce9b4f164e9492267358dbe35376d9"
-  integrity sha512-YseMB8cs8U/KCaAGQoqYmfUuhhGW0a9p9XvWXrxVOkE3/IiISTLw4ALNt7JR5B2eYauFM+PQGSbXMDmVbR7Tfw==
+mini-css-extract-plugin@2.6.0:
+  version "2.6.0"
+  resolved "https://registry.yarnpkg.com/mini-css-extract-plugin/-/mini-css-extract-plugin-2.6.0.tgz#578aebc7fc14d32c0ad304c2c34f08af44673f5e"
+  integrity sha512-ndG8nxCEnAemsg4FSgS+yNyHKgkTB4nPKqCOgh65j3/30qqC5RaSQQXMm++Y6sb6E1zRSxPkztj9fqxhS1Eo6w==
   dependencies:
     schema-utils "^4.0.0"
 
@@ -6036,11 +6036,6 @@ multispinner@^0.2.1:
     lodash.clonedeep "^3.0.2"
     lodash.merge "^3.3.2"
     log-update "^1.0.2"
-
-nanoid@^3.2.0:
-  version "3.2.0"
-  resolved "https://registry.npmmirror.com/nanoid/-/nanoid-3.2.0.tgz#62667522da6673971cca916a6d3eff3f415ff80c"
-  integrity sha512-fmsZYa9lpn69Ad5eDn7FMcnnSR+8R34W9qJEijxYhTbfOWzr22n1QxCMzXLK+ODyW2973V3Fux959iQoUxzUIA==
 
 nanoid@^3.3.1:
   version "3.3.1"
@@ -6616,19 +6611,19 @@ postcss@^7.0.36:
     picocolors "^0.2.1"
     source-map "^0.6.1"
 
-postcss@^8.4.5:
-  version "8.4.6"
-  resolved "https://registry.npmmirror.com/postcss/-/postcss-8.4.6.tgz#c5ff3c3c457a23864f32cb45ac9b741498a09ae1"
-  integrity sha512-OovjwIzs9Te46vlEx7+uXB0PLijpwjXGKXjVGGPIGubGpq7uh5Xgf6D6FiJ/SzJMBosHDp6a2hiXOS97iBXcaA==
-  dependencies:
-    nanoid "^3.2.0"
-    picocolors "^1.0.0"
-    source-map-js "^1.0.2"
-
 postcss@^8.4.7:
   version "8.4.7"
   resolved "https://registry.npmmirror.com/postcss/-/postcss-8.4.7.tgz#f99862069ec4541de386bf57f5660a6c7a0875a8"
   integrity sha512-L9Ye3r6hkkCeOETQX6iOaWZgjp3LL6Lpqm6EtgbKrgqGGteRMNb9vzBfRL96YOSu8o7x3MfIH9Mo5cPJFGrW6A==
+  dependencies:
+    nanoid "^3.3.1"
+    picocolors "^1.0.0"
+    source-map-js "^1.0.2"
+
+postcss@^8.4.8:
+  version "8.4.8"
+  resolved "https://registry.yarnpkg.com/postcss/-/postcss-8.4.8.tgz#dad963a76e82c081a0657d3a2f3602ce10c2e032"
+  integrity sha512-2tXEqGxrjvAO6U+CJzDL2Fk2kPHTv1jQsYkSoMeOis2SsYaXRO2COxTdQp99cYvif9JTXaAk9lYGc3VhJt7JPQ==
   dependencies:
     nanoid "^3.3.1"
     picocolors "^1.0.0"
@@ -8330,10 +8325,10 @@ webpack-sources@^3.2.3:
   resolved "https://registry.npmmirror.com/webpack-sources/-/webpack-sources-3.2.3.tgz#2d4daab8451fd4b240cc27055ff6a0c2ccea0cde"
   integrity sha512-/DyMEOrDgLKKIG0fmvtz+4dUX/3Ghozwgm6iPp8KRhvn+eQf9+Q7GWxVNMk3+uCPWfdXYC4ExGBckIXdFEfH1w==
 
-webpack@^5.69.1:
-  version "5.69.1"
-  resolved "https://registry.npmmirror.com/webpack/-/webpack-5.69.1.tgz#8cfd92c192c6a52c99ab00529b5a0d33aa848dc5"
-  integrity sha512-+VyvOSJXZMT2V5vLzOnDuMz5GxEqLk7hKWQ56YxPW/PQRUuKimPqmEIJOx8jHYeyo65pKbapbW464mvsKbaj4A==
+webpack@^5.70.0:
+  version "5.70.0"
+  resolved "https://registry.yarnpkg.com/webpack/-/webpack-5.70.0.tgz#3461e6287a72b5e6e2f4872700bc8de0d7500e6d"
+  integrity sha512-ZMWWy8CeuTTjCxbeaQI21xSswseF2oNOwc70QSKNePvmxE7XW36i7vpBMYZFAUHPwQiEbNGCEYIOOlyRbdGmxw==
   dependencies:
     "@types/eslint-scope" "^3.7.3"
     "@types/estree" "^0.0.51"
@@ -8344,7 +8339,7 @@ webpack@^5.69.1:
     acorn-import-assertions "^1.7.6"
     browserslist "^4.14.5"
     chrome-trace-event "^1.0.2"
-    enhanced-resolve "^5.8.3"
+    enhanced-resolve "^5.9.2"
     es-module-lexer "^0.9.0"
     eslint-scope "5.1.1"
     events "^3.2.0"
