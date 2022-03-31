@@ -1,7 +1,9 @@
 module.exports = {
   build: {
     env: require('./prod.env'),
-    DisableF12: true
+    DisableF12: true,
+    cleanConsole: true,
+    openDevTools: false,
   },
   dev: {
     env: require('./dev.env'),

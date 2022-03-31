@@ -26,14 +26,14 @@ function createMainWindow() {
       nodeIntegration: true,
       webSecurity: false,
       // 如果是开发模式可以使用devTools
-      devTools: process.env.NODE_ENV === 'development',
+      devTools: process.env.NODE_ENV === 'development' || config.build.openDevTools,
       // devTools: true,
       // 在macos中启用橡皮动画
       scrollBounce: process.platform === 'darwin'
     }
   })
   // 这里设置只有开发环境才注入显示开发者模式
-  if (process.env.NODE_ENV === 'development') {
+  if (process.env.NODE_ENV === 'development' || config.build.openDevTools) {
     menuconfig.push({
       label: '开发者设置',
       submenu: [{
@@ -51,14 +51,14 @@ function createMainWindow() {
 
   mainWindow.webContents.once('dom-ready', () => {
     mainWindow.show()
-    if (process.env.NODE_ENV === 'development') mainWindow.webContents.openDevTools(true)
+    if (process.env.NODE_ENV === 'development' || config.build.devTools) mainWindow.webContents.openDevTools(true)
     if (config.UseStartupChart) loadWindow.destroy()
   })
-  mainWindow.on('maximize',()=>{
-      mainWindow.webContents.send("w-max",true)
+  mainWindow.on('maximize', () => {
+    mainWindow.webContents.send("w-max", true)
   })
-  mainWindow.on('unmaximize',()=>{
-      mainWindow.webContents.send("w-max",false)
+  mainWindow.on('unmaximize', () => {
+    mainWindow.webContents.send("w-max", false)
   })
   mainWindow.on('closed', () => {
     mainWindow = null
