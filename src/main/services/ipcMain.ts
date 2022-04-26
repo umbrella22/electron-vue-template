@@ -3,10 +3,11 @@ import Server from '../server'
 import { winURL } from '../config/StaticPath'
 import DownloadFile from './downloadFile'
 import Update from './checkupdate';
+import { updater } from './HotUpdater'
 
 export default {
   Mainfunc(IsUseSysTitle: boolean) {
-    const updater = new Update();
+    const allUpdater = new Update();
     ipcMain.handle('IsUseSysTitle', async (event: IpcMainInvokeEvent, args: unknown) => {
       return IsUseSysTitle
     })
@@ -29,10 +30,13 @@ export default {
       new DownloadFile(BrowserWindow.fromWebContents(event.sender), msg.downloadUrl).start()
     })
     ipcMain.handle('check-update', (event, args) => {
-      updater.checkUpdate(BrowserWindow.fromWebContents(event.sender))
+      allUpdater.checkUpdate(BrowserWindow.fromWebContents(event.sender))
     })
     ipcMain.handle('confirm-update', () => {
-      updater.quitInstall()
+      allUpdater.quitInstall()
+    })
+    ipcMain.handle('hot-update', (event, arg) => {
+      updater(BrowserWindow.fromWebContents(event.sender))
     })
     ipcMain.handle('open-messagebox', async (event, arg) => {
       const res = await dialog.showMessageBox(BrowserWindow.fromWebContents(event.sender), {
