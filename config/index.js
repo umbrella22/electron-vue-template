@@ -4,6 +4,8 @@ module.exports = {
     DisableF12: true,
     cleanConsole: true,
     openDevTools: false,
+    hotPublishUrl: "",
+    hotPublishConfigName: "update-config"
   },
   dev: {
     env: require('./dev.env'),

@@ -3,10 +3,11 @@ import Server from '../server/index'
 import { winURL } from '../config/StaticPath'
 import downloadFile from './downloadFile'
 import Update from './checkupdate'
+import { updater } from './HotUpdater'
 
 export default {
   Mainfunc(IsUseSysTitle) {
-    const updater = new Update();
+    const allUpdater = new Update();
     ipcMain.handle('IsUseSysTitle', async () => {
       return IsUseSysTitle
     })
@@ -29,10 +30,13 @@ export default {
       downloadFile.download(BrowserWindow.fromWebContents(event.sender), msg.downloadUrL)
     })
     ipcMain.handle('check-update', (event, args) => {
-      updater.checkUpdate(BrowserWindow.fromWebContents(event.sender))
+      allUpdater.checkUpdate(BrowserWindow.fromWebContents(event.sender))
     })
     ipcMain.handle('confirm-update', () => {
-      updater.quitInstall()
+      allUpdater.quitInstall()
+    })
+    ipcMain.handle('hot-update', (event, arg) => {
+      updater(BrowserWindow.fromWebContents(event.sender))
     })
     ipcMain.handle('open-messagebox', async (event, arg) => {
       const res = await dialog.showMessageBox(BrowserWindow.fromWebContents(event.sender), {
@@ -148,14 +152,14 @@ export default {
           }
         })
       }
-      childWin.on('maximize',()=>{
-        if(cidJson.id != null){
-          BrowserWindow.fromId(cidJson.id).webContents.send("w-max",true)
+      childWin.on('maximize', () => {
+        if (cidJson.id != null) {
+          BrowserWindow.fromId(cidJson.id).webContents.send("w-max", true)
         }
       })
-      childWin.on('unmaximize',()=>{
-        if(cidJson.id != null){
-          BrowserWindow.fromId(cidJson.id).webContents.send("w-max",false)
+      childWin.on('unmaximize', () => {
+        if (cidJson.id != null) {
+          BrowserWindow.fromId(cidJson.id).webContents.send("w-max", false)
         }
       })
     })
