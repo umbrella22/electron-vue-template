@@ -10,7 +10,7 @@ import { app, BrowserWindow } from 'electron'
 import { gt } from 'semver'
 import { createHmac } from 'crypto'
 import extract from 'extract-zip'
-import { version } from '../../../package.json'
+import packagerFile from '../../../package.json'
 import { hotPublishConfig } from '../config/hotPublish'
 import axios, { AxiosResponse } from 'axios'
 
@@ -68,7 +68,7 @@ interface Res extends AxiosResponse<any> {
 export const updater = async (windows?: BrowserWindow): Promise<void> => {
     try {
         const res: Res = await request({ url: `${hotPublishConfig.url}/${hotPublishConfig.configName}.json?time=${new Date().getTime()}`, })
-        if (gt(res.data.version, version)) {
+        if (gt(res.data.version, packagerFile.version)) {
             await emptyDir(updatePath)
             const filePath = join(updatePath, res.data.name)
             updateInfo.status = 'downloading'
