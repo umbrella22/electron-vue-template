@@ -186,6 +186,15 @@ export default {
           break;
       }
     });
+    ipcRenderer.on('hot-update-status', (event, arg) => {
+      console.log(arg);
+      if(arg.status === 'finished'){
+        this.$message({
+          type: 'success',
+          message: '热更新成功'
+        });
+      }
+    })
   },
   methods: {
     openNewWin() {
