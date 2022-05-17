@@ -1,6 +1,6 @@
 {
   "name": "electron-vue-admin",
-  "version": "0.0.1",
+  "version": "0.0.0",
   "author": "sky <https://github.com/umbrella22>",
   "description": "An electron-vue project",
   "license": "MIT",
@@ -121,6 +121,7 @@
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^6.0.0",
     "eslint-webpack-plugin": "^3.1.1",
+    "extract-zip": "^2.0.1",
     "html-webpack-plugin": "^5.5.0",
     "mini-css-extract-plugin": "2.6.0",
     "multispinner": "^0.2.1",

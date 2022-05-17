@@ -27,6 +27,9 @@
           <el-button type="primary" round @click="CheckUpdate('two')"
             >检查更新（第二种方法）</el-button
           >
+          <el-button type="primary" round @click="CheckUpdate('three')"
+            >热更新</el-button
+          >
           <el-button type="primary" round @click="StartServer"
             >启动内置服务端</el-button
           >
@@ -36,9 +39,9 @@
           <el-button type="primary" round @click="getMessage"
             >查看消息</el-button
           >
-          <el-button type="primary" round @click="crash">模拟崩溃</el-button>
         </div>
         <div class="doc">
+          <el-button type="primary" round @click="crash">模拟崩溃</el-button>
           <el-button type="primary" round @click="openNewWin"
             >打开新窗口</el-button
           >
@@ -93,10 +96,10 @@ export default {
     filePath: "",
   }),
   created() {
-    console.log("环境打印示例")
+    console.log("环境打印示例");
     console.log(__lib);
-    console.log(process.env.TERGET_ENV)
-    console.log(process.env)
+    console.log(process.env.TERGET_ENV);
+    console.log(process.env);
     // 下载文件的监听
     ipcRenderer.on("download-progress", (event, arg) => {
       this.percentage = Number(arg);
@@ -170,6 +173,15 @@ export default {
           break;
       }
     });
+    ipcRenderer.on('hot-update-status',(event, age)=>{
+      console.log(age);
+      if(age.status === 'finished'){
+        this.$message({
+          type: 'success',
+          message: '热更新成功'
+        });
+      }
+    })
   },
   methods: {
     crash() {
@@ -220,6 +232,9 @@ export default {
             this.dialogVisible = true;
           });
 
+          break;
+        case "three":
+          ipcRenderer.invoke("hot-update");
           break;
 
         default:
