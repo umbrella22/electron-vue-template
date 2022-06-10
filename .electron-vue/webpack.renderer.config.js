@@ -30,6 +30,7 @@ function resolve(dir) {
 let rendererConfig = {
   entry: IsWeb ? { web: path.join(__dirname, '../src/renderer/main.js') } : { renderer: resolve('src/renderer/main.js') },
   infrastructureLogging: { level: 'warn' },
+  stats: 'none',
   module: {
     rules: [
       {

@@ -13,6 +13,9 @@ function resolve(dir) {
 }
 
 let mainConfig = {
+  infrastructureLogging: {
+    level: 'warn'
+  },
   entry: {
     main: path.join(__dirname, '../src/main/index.js')
   },
