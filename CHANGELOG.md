@@ -1,5 +1,9 @@
 # 更新日志
 
+# 2022 年 06 月 10 日
+
+- 当需要使用 jsx 时，关闭 esbuild
+
 ## 2021 年 08 月 26 日
 
 - 添加对 jsx 的支持
@@ -155,11 +159,15 @@ download(
 // unzips and makes path.txt point at the correct executable
 function extractFile(err, zipPath) {
   if (err) return onerror(err);
-  extract(zipPath, { dir: path.join(__dirname, "dist") }, function(err) {
+  extract(zipPath, { dir: path.join(__dirname, "dist") }, function (err) {
     if (err) return onerror(err);
-    fs.writeFile(path.join(__dirname, "path.txt"), platformPath, function(err) {
-      if (err) return onerror(err);
-    });
+    fs.writeFile(
+      path.join(__dirname, "path.txt"),
+      platformPath,
+      function (err) {
+        if (err) return onerror(err);
+      }
+    );
   });
 }
 
