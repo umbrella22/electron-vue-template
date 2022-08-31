@@ -40,6 +40,7 @@ class MainInit {
       frame: config.IsUseSysTitle,
       titleBarStyle: platform().includes('win32') ? 'default' : 'hidden',
       webPreferences: {
+        sandbox:false,
         contextIsolation: false,
         nodeIntegration: true,
         webSecurity: false,

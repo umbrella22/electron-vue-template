@@ -87,6 +87,7 @@ export default {
         show: false,
         frame: IsUseSysTitle,
         webPreferences: {
+          sandbox:false,
           nodeIntegration: true,
           contextIsolation: false,
           webSecurity: false,
