@@ -13,7 +13,8 @@ export const lang = {
         nodeVersion: "Node版本：",
         systemPlatform: "系统平台：",
         systemVersion: "系统版本：",
-        systemArch: "系统位数："
+        systemArch: "系统位数：",
+        currentEnvironment:'当前环境：'
     },
     buttons: {
         console: "控制台打印",

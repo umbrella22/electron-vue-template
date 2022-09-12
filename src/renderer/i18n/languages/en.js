@@ -13,7 +13,8 @@ export const lang = {
         nodeVersion: "Node version:",
         systemPlatform: "system platform:",
         systemVersion: "system version:",
-        systemArch: "system arch:"
+        systemArch: "system arch:",
+        currentEnvironment:"current environment:"
     },
     buttons: {
         console: "Console",

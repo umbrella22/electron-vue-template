@@ -33,6 +33,7 @@ export default {
         { name: this.$i18n.t("about.systemPlatform"), value: platform() },
         { name: this.$i18n.t("about.systemVersion"), value: release() },
         { name: this.$i18n.t("about.systemArch"), value: arch() + "位" },
+        { name: this.$i18n.t("about.currentEnvironment"), value: process.env?.NODE_ENV }
       ]
     }
   },
