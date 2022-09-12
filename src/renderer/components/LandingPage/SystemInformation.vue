@@ -27,6 +27,7 @@ export default {
         { name: "系统平台：", value: platform() },
         { name: "系统版本：", value: release() },
         { name: "系统位数：", value: arch() + "位" },
+        { name: "当前环境：", value: process.env?.NODE_ENV }
       ],
     };
   },

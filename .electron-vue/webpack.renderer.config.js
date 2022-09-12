@@ -13,6 +13,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 // const ESLintPlugin = require('eslint-webpack-plugin');
 const { VueLoaderPlugin } = require('vue-loader')
+const { getConfig } = require("./utils")
 
 function resolve(dir) {
   return path.join(__dirname, '..', dir)
@@ -72,7 +73,7 @@ let rendererConfig = {
     new MiniCssExtractPlugin(),
     new webpack.DefinePlugin({
       'process.env.TERGET_ENV': JSON.stringify(config[process.env.TERGET_ENV]),
-      'process.env': process.env.NODE_ENV === 'production' ? JSON.stringify(config.build.env) : JSON.stringify(config.dev.env),
+      'process.env': JSON.stringify(getConfig),
       'process.env.IS_WEB': IsWeb
     }),
     new HtmlWebpackPlugin({

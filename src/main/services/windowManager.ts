@@ -14,6 +14,7 @@ class MainInit {
   public mainWindow: BrowserWindow = null
 
   constructor() {
+    console.log("process.env.config",process.env.config)
     this.winURL = winURL
     this.shartURL = loadingURL
     if (process.env.NODE_ENV === 'development') {

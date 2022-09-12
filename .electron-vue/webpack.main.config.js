@@ -6,6 +6,7 @@ const path = require('path')
 const { dependencies } = require('../package.json')
 const webpack = require('webpack')
 const config = require('../config')
+const { getConfig } = require("./utils")
 
 function resolve(dir) {
   return path.join(__dirname, '..', dir)
@@ -43,6 +44,7 @@ let mainConfig = {
     new webpack.NoEmitOnErrorsPlugin(),
     new webpack.DefinePlugin({
       'process.env.TERGET_ENV': JSON.stringify(config[process.env.TERGET_ENV]),
+      'process.env.config':JSON.stringify(getConfig)
     })
   ],
   resolve: {
