@@ -20,7 +20,7 @@ router.beforeEach(async (to, from, next) => {
           const { roles } = await store.dispatch('GetUserInfo')
           const accessRoutes = await store.dispatch('GenerateRoutes', roles)
           router.addRoutes(accessRoutes)
-          next({ ...to, replace: true })
+          next()
         } catch (error) {
           await store.dispatch('LogOut')
           console.log(error)
