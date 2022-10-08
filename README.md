@@ -11,9 +11,9 @@
 
 [![Open in Visual Studio Code](https://open.vscode.dev/badges/open-in-vscode.svg)](https://open.vscode.dev/umbrella22/electron-vue-template)
 ![GitHub Repo stars](https://img.shields.io/github/stars/umbrella22/electron-vue-template)
-[![vue](https://img.shields.io/badge/vue-2.6.14-brightgreen.svg)](https://github.com/vuejs/vue)
+[![vue](https://img.shields.io/badge/vue-2.7.10-brightgreen.svg)](https://github.com/vuejs/vue)
 [![element-ui](https://img.shields.io/badge/element--ui-2.15.9-brightgreen.svg)](https://github.com/ElemeFE/element)
-[![electron](https://img.shields.io/badge/electron-17.0.2-brightgreen.svg)](https://github.com/electron/electron)
+[![electron](https://img.shields.io/badge/electron-19.0.17-brightgreen.svg)](https://github.com/electron/electron)
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/umbrella22/electron-vue-template/blob/master/LICENSE)
 
 - electron of react [Electron-react-template](https://github.com/umbrella22/electron-react-template)
