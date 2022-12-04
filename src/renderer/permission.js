@@ -6,7 +6,6 @@ var end = null
 const whiteList = ['/login'] // 不重定向白名单
 router.beforeEach(async (to, from, next) => {
   end = Performance.startExecute(`${from.path} => ${to.path} 路由耗时`) /// 路由性能监控
-
   if (store.getters.token) {
     if (to.path === '/login') {
       next({ path: '/' })
@@ -19,18 +18,18 @@ router.beforeEach(async (to, from, next) => {
         try {
           const { roles } = await store.dispatch('GetUserInfo')
           const accessRoutes = await store.dispatch('GenerateRoutes', roles)
-          router.addRoutes(accessRoutes)
-          next()
+          router.addRoute(...accessRoutes)
+          next({ ...to, replace: true })
         } catch (error) {
           await store.dispatch('LogOut')
-          console.log(error)
+          console.error(error)
           next('/login')
         }
       }
 
     }
   } else {
-    if (whiteList.indexOf(to.path) !== -1) {
+    if (whiteList.includes(to.path)) {
       next()
     } else {
       next('/login')
