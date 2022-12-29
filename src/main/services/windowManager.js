@@ -1,13 +1,13 @@
 import { BrowserWindow, Menu, app } from 'electron'
 import { platform } from "os"
 import menuconfig from '../config/menu'
-import config from '@config'
+import { openDevTools, IsUseSysTitle, UseStartupChart } from '../config/const'
 import setIpc from './ipcMain'
 import { winURL, loadingURL } from '../config/StaticPath'
 
 var loadWindow = null
 var mainWindow = null
-setIpc.Mainfunc(config.IsUseSysTitle)
+setIpc.Mainfunc(IsUseSysTitle)
 
 function createMainWindow() {
   /**
@@ -19,21 +19,21 @@ function createMainWindow() {
     width: 1700,
     minWidth: 1366,
     show: false,
-    frame: config.IsUseSysTitle,
+    frame: IsUseSysTitle,
     titleBarStyle: platform().includes('win32') ? 'default' : 'hidden',
     webPreferences: {
       contextIsolation: false,
       nodeIntegration: true,
       webSecurity: false,
       // 如果是开发模式可以使用devTools
-      devTools: process.env.NODE_ENV === 'development' || config.build.openDevTools,
+      devTools: process.env.NODE_ENV === 'development' || openDevTools,
       // devTools: true,
       // 在macos中启用橡皮动画
       scrollBounce: process.platform === 'darwin'
     }
   })
   // 这里设置只有开发环境才注入显示开发者模式
-  if (process.env.NODE_ENV === 'development' || config.build.openDevTools) {
+  if (process.env.NODE_ENV === 'development' || openDevTools) {
     menuconfig.push({
       label: '开发者设置',
       submenu: [{
@@ -51,8 +51,8 @@ function createMainWindow() {
 
   mainWindow.webContents.once('dom-ready', () => {
     mainWindow.show()
-    if (process.env.NODE_ENV === 'development' || config.build.devTools) mainWindow.webContents.openDevTools(true)
-    if (config.UseStartupChart) loadWindow.destroy()
+    if (process.env.NODE_ENV === 'development' || openDevTools) mainWindow.webContents.openDevTools(true)
+    if (UseStartupChart) loadWindow.destroy()
   })
   mainWindow.on('maximize', () => {
     mainWindow.webContents.send("w-max", true)
@@ -92,7 +92,7 @@ function loadingWindow() {
 }
 
 function initWindow() {
-  if (config.UseStartupChart) {
+  if (UseStartupChart) {
     return loadingWindow()
   } else {
     return createMainWindow()

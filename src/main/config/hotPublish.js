@@ -1,6 +1,6 @@
-import { build } from '@config/index.js'
+import { hotPublishUrl, hotPublishConfigName } from './const'
 
 export const hotPublishConfig = {
-    url: build.hotPublishUrl,
-    configName: build.hotPublishConfigName
+    url: hotPublishUrl,
+    configName: hotPublishConfigName
 }

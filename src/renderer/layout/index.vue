@@ -1,9 +1,9 @@
 <template>
-  <div class="app-wrapper" :class="IsUseSysTitle?'UseSysTitle':'NoUseSysTitle'">
+  <div class="app-wrapper" :class="IsUseSysTitle ? 'UseSysTitle' : 'NoUseSysTitle'">
     <div :class="classObj">
       <navbar></navbar>
       <div class="container-set">
-        <sidebar class="sidebar-container" :class="IsUseSysTitle?'UseSysTitle':'NoUseSysTitle'"></sidebar>
+        <sidebar class="sidebar-container" :class="IsUseSysTitle ? 'UseSysTitle' : 'NoUseSysTitle'"></sidebar>
         <div class="main-container">
           <app-main></app-main>
         </div>
@@ -15,6 +15,7 @@
 <script>
 import { Sidebar, AppMain, Navbar } from "./components";
 import ResizeMixin from "./mixin/ResizeHandler";
+import { ipcRenderer } from "electron";
 
 export default {
   name: "layout",
@@ -25,8 +26,13 @@ export default {
   },
   mixins: [ResizeMixin],
   data: () => ({
-    IsUseSysTitle: require("./../../../config").IsUseSysTitle
+    IsUseSysTitle: false
   }),
+  created() {
+    ipcRenderer.invoke("IsUseSysTitle").then(res => {
+      this.IsUseSysTitle = res;
+    });
+  },
   computed: {
     sidebar() {
       return this.$store.state.app.sidebar;
@@ -46,20 +52,24 @@ export default {
 
 <style rel="stylesheet/scss" lang="scss" scoped>
 @import "@/styles/mixin.scss";
+
 .app-wrapper {
   @include clearfix;
   position: relative;
   height: 100%;
   width: 100%;
+
   .container-set {
     position: relative;
     padding-top: 62px;
   }
 }
-.UseSysTitle{
-  top:0px;
+
+.UseSysTitle {
+  top: 0px;
 }
-.NoUseSysTitle{
-  top:38px
+
+.NoUseSysTitle {
+  top: 38px
 }
 </style>

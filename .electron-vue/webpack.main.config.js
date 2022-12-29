@@ -46,8 +46,7 @@ let mainConfig = {
   },
   plugins: [
     new webpack.DefinePlugin({
-      'process.env.TERGET_ENV': JSON.stringify(config[process.env.TERGET_ENV]),
-      'process.env.config':JSON.stringify(getConfig)
+      'process.env.userConfig':JSON.stringify(getConfig)
     })
   ],
   resolve: {

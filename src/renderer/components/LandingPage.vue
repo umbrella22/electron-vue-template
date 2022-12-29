@@ -19,64 +19,47 @@
         <div class="doc">
           <div class="title alt">{{ $t("buttonTips") }}</div>
           <el-button type="primary" round @click="open()">{{
-            $t("buttons.console")
-          }}</el-button>
+    $t("buttons.console")
+}}</el-button>
           <el-button type="primary" round @click="CheckUpdate('one')">{{
-            $t("buttons.checkUpdate")
-          }}</el-button>
+    $t("buttons.checkUpdate")
+}}</el-button>
         </div>
         <div class="doc">
           <el-button type="primary" round @click="CheckUpdate('two')">{{
-            $t("buttons.checkUpdate2")
-          }}</el-button>
+    $t("buttons.checkUpdate2")
+}}</el-button>
           <el-button type="primary" round @click="StartServer">{{
-            $t("buttons.startServer")
-          }}</el-button>
+    $t("buttons.startServer")
+}}</el-button>
           <el-button type="primary" round @click="StopServer">{{
-            $t("buttons.stopServer")
-          }}</el-button>
+    $t("buttons.stopServer")
+}}</el-button>
           <el-button type="primary" round @click="getMessage">{{
-            $t("buttons.viewMessage")
-          }}</el-button>
+    $t("buttons.viewMessage")
+}}</el-button>
         </div>
         <div class="doc">
           <el-button type="primary" round @click="openNewWin">{{
-            $t("buttons.openNewWindow")
-          }}</el-button>
+    $t("buttons.openNewWindow")
+}}</el-button>
           <el-button type="primary" round @click="openDocument">{{
-            $t("buttons.openDocument")
-          }}</el-button>
+    $t("buttons.openDocument")
+}}</el-button>
           <el-button type="primary" round @click="changeLanguage">{{
-            $t("buttons.changeLanguage")
-          }}</el-button>
+    $t("buttons.changeLanguage")
+}}</el-button>
         </div>
         <div class="doc">
-          <el-pagination
-            :current-page="1"
-            :page-sizes="[100, 200, 300, 400]"
-            :page-size="100"
-            layout="total, sizes, prev, pager, next, jumper"
-            :total="400"
-          >
+          <el-pagination :current-page="1" :page-sizes="[100, 200, 300, 400]" :page-size="100"
+            layout="total, sizes, prev, pager, next, jumper" :total="400">
           </el-pagination>
         </div>
       </div>
     </main>
-    <el-dialog
-      title="进度"
-      :visible.sync="dialogVisible"
-      :before-close="handleClose"
-      center
-      width="14%"
-      top="45vh"
-    >
+    <el-dialog title="进度" :visible.sync="dialogVisible" :before-close="handleClose" center width="14%" top="45vh">
       <div class="conten">
-        <el-progress
-          type="dashboard"
-          :percentage="percentage"
-          :color="colors"
-          :status="progressStaus"
-        ></el-progress>
+        <el-progress type="dashboard" :percentage="percentage" :color="colors" :status="progressStaus"></el-progress>
       </div>
     </el-dialog>
   </div>
@@ -110,9 +93,8 @@ export default {
   }),
   created() {
     console.log("环境打印示例");
-    console.log(__lib);
-    console.log(process.env.TERGET_ENV);
-    console.log(process.env);
+    console.log("__lib路径", __lib);
+    console.log("环境变量", process.env.userConfig);
     ipcRenderer.on("download-progress", (event, arg) => {
       this.percentage = Number(arg);
     });
@@ -188,7 +170,7 @@ export default {
     });
     ipcRenderer.on('hot-update-status', (event, arg) => {
       console.log(arg);
-      if(arg.status === 'finished'){
+      if (arg.status === 'finished') {
         this.$message({
           type: 'success',
           message: '热更新成功'
@@ -200,7 +182,7 @@ export default {
     openNewWin() {
       let data = {
         url: "/form/index",
-        resizable:true,
+        resizable: true,
       };
       ipcRenderer.invoke("open-win", data);
     },
@@ -233,7 +215,7 @@ export default {
       });
     },
     // 获取electron方法
-    open() {},
+    open() { },
     CheckUpdate(data) {
       switch (data) {
         case "one":
@@ -307,7 +289,7 @@ main {
   justify-content: space-between;
 }
 
-main > div {
+main>div {
   flex-basis: 50%;
 }
 
@@ -333,20 +315,25 @@ main > div {
   font-size: 18px;
   margin-bottom: 10px;
 }
+
 .doc {
   margin-bottom: 10px;
 }
+
 .doc p {
   color: black;
   margin-bottom: 10px;
 }
+
 .doc .el-button {
   margin-top: 10px;
   margin-right: 10px;
 }
-.doc .el-button + .el-button {
+
+.doc .el-button+.el-button {
   margin-left: 0;
 }
+
 .conten {
   text-align: center;
 }

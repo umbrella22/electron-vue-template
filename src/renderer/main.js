@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import { ipcRenderer } from 'electron'
 
 import App from './App'
 import router from './router'
@@ -19,9 +20,11 @@ import loadLanguage from "./i18n"
 const languages = loadLanguage()
 
 if (!process.env.IS_WEB) {
-  if (!require('../../config').IsUseSysTitle) {
-    require('@/styles/custom-title.scss')
-  }
+  ipcRenderer.invoke("IsUseSysTitle").then(res => {
+    if (!res) {
+      require('@/styles/custom-title.scss')
+    }
+  });
 }
 
 // 创建 i18n
@@ -36,7 +39,7 @@ Vue.use(ElementUI, {
 })
 
 Vue.config.productionTip = false
-/* eslint-disable no-new */
+
 const vue = new Vue({
   components: { App },
   router,

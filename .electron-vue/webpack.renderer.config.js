@@ -92,8 +92,7 @@ let rendererConfig = {
     new VueLoaderPlugin(),
     new MiniCssExtractPlugin(),
     new webpack.DefinePlugin({
-      'process.env.TERGET_ENV': JSON.stringify(config[process.env.TERGET_ENV]),
-      'process.env': JSON.stringify(getConfig),
+      'process.env.userConfig': JSON.stringify(getConfig),
       'process.env.IS_WEB': IsWeb
     }),
     new HtmlWebpackPlugin({

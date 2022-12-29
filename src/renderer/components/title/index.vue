@@ -1,15 +1,15 @@
 <!--  -->
 <template>
-  <div class="window-title" v-if="!IsUseSysTitle&&isNotMac&&!IsWeb">
+  <div class="window-title" v-if="!IsUseSysTitle&&!IsWeb">
     <!-- 软件logo预留位置 -->
-    <div style="-webkit-app-region: drag;" class="logo">
+    <div style="-webkit-app-region: drag;" class="logo" v-if="isNotMac">
       <svg-icon icon-class="electron-logo"></svg-icon>
     </div>
     <!-- 菜单栏位置 -->
     <div></div>
     <!-- 中间标题位置 -->
     <div style="-webkit-app-region: drag;" class="title"></div>
-    <div class="controls-container">
+    <div class="controls-container" v-if="isNotMac">
       <div class="windows-icon-bg" @click="Mini">
         <svg-icon icon-class="mini" class-name="icon-size"></svg-icon>
       </div>
@@ -70,7 +70,6 @@ export default {
   width: 100%;
   height: 30px;
   line-height: 30px;
-  background-color: #ffffff;
   display: flex;
   -webkit-app-region: drag;
   position: fixed;
