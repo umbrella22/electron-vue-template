@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import { ipcRenderer } from 'electron'
 
 import App from './App'
 import router from './router'
@@ -13,9 +14,11 @@ import './icons'
 import '@/styles/index.scss'
 
 if (!process.env.IS_WEB) {
-  if (!require('../../config').IsUseSysTitle) {
-    require('@/styles/custom-title.scss')
-  }
+  ipcRenderer.invoke("IsUseSysTitle").then(res => {
+    if (!res) {
+      require('@/styles/custom-title.scss')
+    }
+  });
 }
 
 Vue.use(ElementUI)

@@ -1,24 +1,20 @@
 <!--  -->
 <template>
-  <div class="window-title" v-if="!IsUseSysTitle && isNotMac && !IsWeb">
+  <div class="window-title" v-if="!IsUseSysTitle && !IsWeb">
     <!-- 软件logo预留位置 -->
-    <div style="-webkit-app-region: drag;" class="logo">
+    <div style="-webkit-app-region: drag;" class="logo" v-if="isNotMac">
       <svg-icon icon-class="electron-logo"></svg-icon>
     </div>
     <!-- 菜单栏位置 -->
     <div></div>
     <!-- 中间标题位置 -->
     <div style="-webkit-app-region: drag;" class="title"></div>
-    <div class="controls-container">
+    <div class="controls-container" v-if="isNotMac">
       <div class="windows-icon-bg" @click="Mini">
         <svg-icon icon-class="mini" class-name="icon-size"></svg-icon>
       </div>
       <div class="windows-icon-bg" @click="MixOrReduction">
-        <svg-icon
-          v-if="mix"
-          icon-class="reduction"
-          class-name="icon-size"
-        ></svg-icon>
+        <svg-icon v-if="mix" icon-class="reduction" class-name="icon-size"></svg-icon>
         <svg-icon v-else icon-class="mix" class-name="icon-size"></svg-icon>
       </div>
       <div class="windows-icon-bg close-icon" @click="Close">
@@ -45,7 +41,7 @@ export default {
     });
   },
 
-  mounted() {},
+  mounted() { },
 
   methods: {
     Mini() {
@@ -73,12 +69,15 @@ export default {
   position: fixed;
   top: 0;
   z-index: 99999;
+
   .title {
     text-align: center;
   }
+
   .logo {
     margin-left: 20px;
   }
+
   .controls-container {
     display: flex;
     flex-grow: 0;
@@ -90,21 +89,25 @@ export default {
     height: 100%;
     width: 138px;
     margin-left: auto;
+
     .windows-icon-bg {
       display: inline-block;
       -webkit-app-region: no-drag;
       height: 100%;
       width: 33.34%;
       color: rgba(129, 129, 129, 0.6);
+
       .icon-size {
         width: 12px;
         height: 15px;
       }
     }
+
     .windows-icon-bg:hover {
       background-color: rgba(182, 182, 182, 0.2);
       color: #333;
     }
+
     .close-icon:hover {
       background-color: rgba(232, 17, 35, 0.9);
       color: #fff;

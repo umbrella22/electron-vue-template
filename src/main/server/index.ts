@@ -1,16 +1,15 @@
 /* eslint-disable prefer-promise-reject-errors */
 import app from './server'
 import { createServer } from 'http'
-import config from '@config/index'
-const port = config.BuiltInServerPort
+import {BuiltInServerPort} from '../config/const'
 var server = null
-app.set('port', port)
+app.set('port', BuiltInServerPort)
 
 export default {
   StatrServer() {
     return new Promise((resolve, reject) => {
       server = createServer(app)
-      server.listen(port)
+      server.listen(BuiltInServerPort)
       server.on('error', (error) => {
         switch (error.code) {
           case 'EACCES':

@@ -1,10 +1,10 @@
 import setIpc from './ipcMain'
-import config from '@config/index'
 import menuconfig from '../config/menu'
 
 import { app, BrowserWindow, Menu, dialog } from 'electron'
 import { platform } from 'os'
 import { winURL, loadingURL } from '../config/StaticPath'
+import { openDevTools, IsUseSysTitle, UseStartupChart } from '../config/const'
 
 class MainInit {
 
@@ -14,7 +14,7 @@ class MainInit {
   public mainWindow: BrowserWindow = null
 
   constructor() {
-    console.log("process.env.config",process.env.config)
+    console.log("process.env.userConfig",process.env.userConfig)
     this.winURL = winURL
     this.shartURL = loadingURL
     if (process.env.NODE_ENV === 'development') {
@@ -28,7 +28,7 @@ class MainInit {
       })
     }
     // 启用协议，这里暂时只用于自定义头部的时候使用
-    setIpc.Mainfunc(config.IsUseSysTitle)
+    setIpc.Mainfunc(IsUseSysTitle)
   }
   // 主窗口函数
   createMainWindow() {
@@ -38,7 +38,7 @@ class MainInit {
       width: 1700,
       minWidth: 1366,
       show: false,
-      frame: config.IsUseSysTitle,
+      frame: IsUseSysTitle,
       titleBarStyle: platform().includes('win32') ? 'default' : 'hidden',
       webPreferences: {
         sandbox:false,
@@ -46,7 +46,7 @@ class MainInit {
         nodeIntegration: true,
         webSecurity: false,
         // 如果是开发模式可以使用devTools
-        devTools: process.env.NODE_ENV === 'development',
+        devTools: process.env.NODE_ENV === 'development' || openDevTools,
         // devTools: true,
         // 在macos中启用橡皮动画
         scrollBounce: process.platform === 'darwin'
@@ -61,10 +61,10 @@ class MainInit {
     // dom-ready之后显示界面
     this.mainWindow.webContents.once('dom-ready', () => {
       this.mainWindow.show()
-      if (config.UseStartupChart) this.loadWindow.destroy()
+      if (UseStartupChart) this.loadWindow.destroy()
     })
     // 开发模式下自动开启devtools
-    if (process.env.NODE_ENV === 'development') {
+    if (process.env.NODE_ENV === 'development' || openDevTools) {
       this.mainWindow.webContents.openDevTools({ mode: 'undocked', activate: true })
     }
     // 当确定渲染进程卡死时，分类型进行告警操作
@@ -193,7 +193,7 @@ class MainInit {
   }
   // 初始化窗口函数
   initWindow() {
-    if (config.UseStartupChart) {
+    if (UseStartupChart) {
       return this.loadingWindow(this.shartURL)
     } else {
       return this.createMainWindow()

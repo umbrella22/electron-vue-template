@@ -16,8 +16,8 @@
       </div>
 
       <div class="right-side">
+        <div class="title alt">您可以点击的按钮测试功能</div>
         <div class="doc">
-          <div class="title alt">您可以点击的按钮测试功能</div>
           <el-button type="primary" round @click="open()">控制台打印</el-button>
           <el-button type="primary" round @click="CheckUpdate('one')"
             >检查更新</el-button
@@ -97,9 +97,8 @@ export default {
   }),
   created() {
     console.log("环境打印示例");
-    console.log(__lib);
-    console.log(process.env.TERGET_ENV);
-    console.log(process.env);
+    console.log("__lib地址：",__lib);
+    console.log("process.env.userConfig:",process.env.userConfig);
     // 下载文件的监听
     ipcRenderer.on("download-progress", (event, arg) => {
       this.percentage = Number(arg);
@@ -313,6 +312,7 @@ main > div {
 }
 .doc {
   margin-bottom: 20px;
+  display: flex;
 }
 .doc p {
   color: black;
