@@ -13,7 +13,7 @@ router.beforeEach(async (to, from, next) => {
       console.log(store.getters)
       const hasRoles = store.getters.roles && store.getters.roles.length > 0;
 
-      if (hasRoles && store.getters.permission_routes) {
+      if (hasRoles && store.getters.permission_routes && store.getters.permission_routes.length > 0) {
         next()
       } else {
         try {
