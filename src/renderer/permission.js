@@ -10,18 +10,22 @@ router.beforeEach(async (to, from, next) => {
     if (to.path === '/login') {
       next({ path: '/' })
     } else {
+      console.log(store.getters)
       const hasRoles = store.getters.roles && store.getters.roles.length > 0;
 
-      if (hasRoles && store.getters.permission_routes.length > 0) {
+      if (hasRoles && store.getters.permission_routes) {
         next()
       } else {
         try {
           const { roles } = await store.dispatch('GetUserInfo')
           const accessRoutes = await store.dispatch('GenerateRoutes', roles)
-          router.addRoute(...accessRoutes)
+          accessRoutes.forEach(item => {
+            router.addRoute(item)
+          })
           next({ ...to, replace: true })
         } catch (error) {
           await store.dispatch('LogOut')
+          store.commit('RESET_ROUTERS')
           console.error(error)
           next('/login')
         }

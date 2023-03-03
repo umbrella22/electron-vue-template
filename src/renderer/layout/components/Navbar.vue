@@ -2,16 +2,12 @@
   <el-menu :class="'navbar-header-fixed' + (isMac ? ' dragTitle' : '')" mode="horizontal">
     <div class="top-right">
       <div class="hb-bd">
-        <hamburger
-          class="hamburger-container"
-          :toggleClick="toggleSideBar"
-          :isActive="sidebar.opened"
-        ></hamburger>
+        <hamburger class="hamburger-container" :toggleClick="toggleSideBar" :isActive="sidebar.opened"></hamburger>
         <breadcrumb></breadcrumb>
       </div>
 
       <div class="top-select">
-        <div class="go-index">{{time}}</div>
+        <div class="go-index">{{ time }}</div>
         <div class="select-right">
           <el-dropdown trigger="click">
             <div>
@@ -21,7 +17,7 @@
                 </div>
               </el-image>
               <div class="el-dropdown-link">
-               尊敬的： {{name}}
+                尊敬的： {{ name }}
                 <i class="el-icon-arrow-down el-icon--right"></i>
               </div>
             </div>
@@ -71,6 +67,7 @@ export default {
     },
     logout() {
       this.$store.dispatch("LogOut").then(() => {
+        this.$store.commit('RESET_ROUTERS')
         this.$message({
           message: "退出成功",
           type: "success"
@@ -103,16 +100,19 @@ export default {
   right: 0;
   z-index: 1002;
   height: 62px;
+
   .hamburger-container {
     line-height: 58px;
     height: 50px;
     float: left;
     padding: 0 10px;
   }
+
   .logo {
     width: 199px;
     height: 62px;
   }
+
   .top-right {
     display: flex;
     width: 100%;
@@ -120,24 +120,29 @@ export default {
     background-color: #ffffff;
     justify-content: space-between;
     padding: 0 19px;
+
     .hb-bd {
       display: flex;
       justify-content: center;
       align-items: center;
     }
+
     .avatar {
       width: 30px;
       height: 30px;
       margin-right: 10px;
+
       ::v-deep img {
         width: 100%;
         height: 100%;
         border-radius: 50%;
       }
     }
+
     .top-select {
       display: flex;
       align-items: center;
+
       .go-index {
         color: #333333;
         font-weight: 400;
@@ -145,14 +150,17 @@ export default {
         padding-right: 20px;
         border-right: 1px solid #cccccc;
       }
-      .select-right ::v-deep .el-dropdown > span {
+
+      .select-right ::v-deep .el-dropdown>span {
         font-size: 6px;
       }
+
       .select-right {
         .el-dropdown-link {
           color: #333333;
           font-weight: 400;
         }
+
         ::v-deep .el-dropdown-selfdefine {
           display: flex;
           align-items: center;

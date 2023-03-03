@@ -27,7 +27,7 @@ export default [
   {
     path: '/form',
     component: Layout,
-    meta: { title: '表单', icon: 'form' },
+    meta: { title: '表单', icon: 'form', roles: ['admin', 'edit'] },
     children: [
       {
         path: 'index',
@@ -40,6 +40,7 @@ export default [
   {
     path: '/table',
     component: Layout,
+    meta: { roles: ['admin', 'edit'] },
     children: [
       {
         path: 'index',

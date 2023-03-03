@@ -1,3 +1,4 @@
+import { resetRouter } from '@/router'
 const user = {
   state: {
     token: JSON.parse(localStorage.getItem('token')),
@@ -26,10 +27,12 @@ const user = {
       return new Promise((resolve, reject) => {
         if (data.username.includes("admin")) {
           commit("SET_TOKEN", "admin");
+          commit("SET_ROLES", ["admin"]);
           commit("SET_NAME", "Super Admin");
 
         } else {
           commit("SET_TOKEN", "edit");
+          commit("SET_ROLES", ["edit"]);
           commit("SET_NAME", "Edit");
         }
 
@@ -40,8 +43,10 @@ const user = {
     // 登出
     LogOut({ commit }) {
       return new Promise((resolve, reject) => {
+        commit("SET_NAME", "");
         commit("SET_TOKEN", "");
         commit("SET_ROLES", []);
+        resetRouter();
         resolve();
       });
     },
