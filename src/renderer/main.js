@@ -5,6 +5,7 @@ import Router from 'vue-router'
 
 import App from './App'
 import router from './router'
+import { usePermission } from './permission'
 // 引用element
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
@@ -32,6 +33,8 @@ Vue.use(PiniaVuePlugin) // 确保pinia在最先挂载
 Vue.use(Router)
 // 创建 i18n
 Vue.use(VueI18n) // 新版本必须要这个，不知道为什么
+
+usePermission() // 放在后面，确保加载顺序
 
 const i18n = new VueI18n({
   locale: 'zh-CN', // 设置默认语言
