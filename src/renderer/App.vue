@@ -7,11 +7,9 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import CHeader from "./components/title";
-export default {
-  components: { CHeader }
-};
+
 </script>
 
 <style>

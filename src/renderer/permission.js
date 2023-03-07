@@ -1,31 +1,33 @@
 import router from './router'
-import store from './store'
 import Performance from '@/tools/performance'
+import { usePermissionStore } from "@/store/permission"
+import { useUserStore } from "@/store/user"
 
-var end = null
+
+let end = null
 const whiteList = ['/login'] // 不重定向白名单
 router.beforeEach(async (to, from, next) => {
+  const { GenerateRoutes, routers } = usePermissionStore()
+  const { GetUserInfo, token, roles, logOut } = useUserStore()
   end = Performance.startExecute(`${from.path} => ${to.path} 路由耗时`) /// 路由性能监控
-  if (store.getters.token) {
+  if (token) {
     if (to.path === '/login') {
       next({ path: '/' })
     } else {
-      console.log(store.getters)
-      const hasRoles = store.getters.roles && store.getters.roles.length > 0;
-
-      if (hasRoles && store.getters.permission_routes && store.getters.permission_routes.length > 0) {
+      console.log(roles, routers, token)
+      const hasRoles = roles && roles.length > 0;
+      if (hasRoles && routers && routers.length > 0) {
         next()
       } else {
         try {
-          const { roles } = await store.dispatch('GetUserInfo')
-          const accessRoutes = await store.dispatch('GenerateRoutes', roles)
+          const roles = await GetUserInfo()
+          const accessRoutes = await GenerateRoutes(roles)
           accessRoutes.forEach(item => {
             router.addRoute(item)
           })
           next({ ...to, replace: true })
         } catch (error) {
-          await store.dispatch('LogOut')
-          store.commit('RESET_ROUTERS')
+          await logOut()
           console.error(error)
           next('/login')
         }

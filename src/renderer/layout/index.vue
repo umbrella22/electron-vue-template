@@ -12,42 +12,29 @@
   </div>
 </template>
 
-<script>
-import { Sidebar, AppMain, Navbar } from "./components";
-import ResizeMixin from "./mixin/ResizeHandler";
+<script setup>
+import { ref, computed } from "vue";
+import AppMain from "./components/AppMain";
+import Navbar from "./components/Navbar";
+import Sidebar from "./components/Sidebar";
+import { useAppStore } from "@/store/app";
 import { ipcRenderer } from "electron";
 
-export default {
-  name: "layout",
-  components: {
-    Sidebar,
-    AppMain,
-    Navbar
-  },
-  mixins: [ResizeMixin],
-  data: () => ({
-    IsUseSysTitle: false
-  }),
-  created() {
-    ipcRenderer.invoke("IsUseSysTitle").then(res => {
-      this.IsUseSysTitle = res;
-    });
-  },
-  computed: {
-    sidebar() {
-      return this.$store.state.app.sidebar;
-    },
-    device() {
-      return this.$store.state.app.device;
-    },
-    classObj() {
-      return {
-        hideSidebar: !this.sidebar.opened,
-        openSidebar: this.sidebar.opened
-      };
-    }
-  }
-};
+const { sidebarStatus } = useAppStore();
+const IsUseSysTitle = ref(false);
+const sidebarSwitch = computed(() => sidebarStatus.opened)
+
+ipcRenderer.invoke("IsUseSysTitle").then(res => {
+  IsUseSysTitle.value = res;
+});
+
+const classObj = computed(() => {
+  return {
+    hideSidebar: !sidebarSwitch.value,
+    openSidebar: sidebarSwitch.value
+  };
+});
+
 </script>
 
 <style rel="stylesheet/scss" lang="scss" scoped>

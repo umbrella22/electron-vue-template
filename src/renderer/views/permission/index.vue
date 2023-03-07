@@ -10,15 +10,9 @@
   </div>
 </template>
 
-<script>
-import { mapGetters } from "vuex";
-
-export default {
-  name: "dashboard",
-  computed: {
-    ...mapGetters(["name", "roles"]),
-  },
-};
+<script setup>
+import { useUserStore } from "@/store/user";
+const { name, roles } = useUserStore();
 </script>
 
 <style rel="stylesheet/scss" lang="scss" scoped>
@@ -26,6 +20,7 @@ export default {
   &-container {
     margin: 30px;
   }
+
   &-text {
     font-size: 30px;
     line-height: 46px;

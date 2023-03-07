@@ -1,39 +1,29 @@
 <template>
   <scroll-bar>
-    <el-menu
-      mode="vertical"
-      :show-timeout="200"
-      :default-active="$route.path"
-      :collapse="isCollapse"
-    >
+    <el-menu mode="vertical" :show-timeout="200" :default-active="$route.path" :collapse="isCollapse">
       <Logo :collapse="isCollapse" />
-      <sidebar-item
-        v-for="route in permission_routes"
-        :key="route.name"
-        :item="route"
-        :base-path="route.path"
-        :collapse="isCollapse"
-      ></sidebar-item>
+      <sidebar-item v-for="route in routes_list" :key="route.name" :item="route" :base-path="route.path"
+        :collapse="isCollapse"></sidebar-item>
     </el-menu>
   </scroll-bar>
 </template>
 
-<script>
-import { mapGetters } from "vuex";
+<script setup>
+import { computed, defineComponent } from "vue";
 import SidebarItem from "./SidebarItem";
 import ScrollBar from "@/components/ScrollBar";
 import Logo from "./logo";
+import { useAppStore } from "@/store/app"
+import { usePermissionStore } from "@/store/permission"
+defineComponent({
+  name: 'Sidebar'
+})
+const { sidebarStatus } = useAppStore()
+const { routers } = usePermissionStore()
 
-export default {
-  components: { SidebarItem, ScrollBar, Logo },
-  computed: {
-    ...mapGetters(["sidebar", "permission_routes"]),
-    isCollapse() {
-      console.log(this.$store.getters);
-      return !this.sidebar.opened;
-    },
-  },
-};
+const routes_list = computed(() => routers)
+
+const isCollapse = computed(() => !sidebarStatus.opened)
 </script>
 <style rel="stylesheet/scss" lang="scss" scoped>
 .title {
@@ -45,11 +35,13 @@ export default {
   color: #333333;
   background-color: #ffffff;
   padding: 0 20px;
+
   .logo-set {
     width: 21px;
     height: 21px;
   }
 }
+
 .minititle {
   padding: 0 10px;
   transition: padding 0.28s;

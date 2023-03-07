@@ -1,13 +1,17 @@
+import { defineStore } from "pinia"
+
 // 需要在头部传入路由表并且在用户登录的时候进行此操作
 // 引入路由表
 import { constantRouterMap, asyncRoutes } from '@/router'
+
 /**
- * 通过meta.role判断是否与当前用户权限匹配
+ * 通过meta.role判断是否与当前用户权限匹配，此处也可以根据自己的需求进行修改。比如按位与
  * @param roles  权限
  * @param route  总的路由表
  */
 function hasPermission(roles, route) {
     if (route.meta && route.meta.roles) {
+        console.log(route.meta, roles.some(role => route.meta.roles.includes(role)))
         return roles.some(role => route.meta.roles.includes(role))
     } else {
         return true
@@ -35,43 +39,30 @@ function filterAsyncRouter(routes, roles) {
     return res
 }
 
-const permission = {
-    state: {
+export const usePermissionStore = defineStore({
+    id: 'permission',
+    state: () => ({
         routers: [],
-        addRouters: []
-    },
-    mutations: {
-        SET_ROUTERS: (state, routers) => {
-            state.addRouters = routers
-            state.routers = constantRouterMap.concat(routers)
-            console.log(state.routers)
-        },
-        RESET_ROUTERS: (state, routers) => {
-            state.addRouters = routers
-            state.routers = routers
-        }
-    },
+    }),
     actions: {
-        GenerateRoutes({ commit }, data) {
+        GenerateRoutes(roles) {
             return new Promise(resolve => {
-                const roles = data
                 let accessedRouters = []
                 // 在这里当是管理员权限时,就给予所有的路由表
                 if (roles === 'admin') {
-                    accessedRouters = asyncRoutes || []
+                    accessedRouters = asyncRoutes
                 } else {
-                    // 根据需通过得到的权限于路由表中对比得到该用户应有的边栏
                     accessedRouters = filterAsyncRouter(asyncRoutes, roles)
-                    // 根据产品类型再次处理路由表
                 }
-                commit('SET_ROUTERS', accessedRouters)
-                resolve(accessedRouters)
+                this.routers = constantRouterMap.concat(accessedRouters)
+                resolve(this.routers)
             })
         },
-        ResetRoutes({ commit }, data) {
-            commit('RESET_ROUTERS', [])
+        ResetRoutes() {
+            return new Promise(resolve => {
+                this.routers = []
+                resolve()
+            })
         }
-    }
-}
-
-export default permission
+    },
+})

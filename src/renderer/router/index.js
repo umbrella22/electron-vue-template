@@ -1,10 +1,7 @@
-import Vue from 'vue'
 import Router from 'vue-router'
 import Layout from '@/layout'
 // 引入路由表
 import asyncRouterMap from './constantRouterMap'
-
-Vue.use(Router)
 
 
 export const constantRouterMap = [{

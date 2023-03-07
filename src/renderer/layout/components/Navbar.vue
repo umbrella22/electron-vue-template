@@ -2,7 +2,7 @@
   <el-menu :class="'navbar-header-fixed' + (isMac ? ' dragTitle' : '')" mode="horizontal">
     <div class="top-right">
       <div class="hb-bd">
-        <hamburger class="hamburger-container" :toggleClick="toggleSideBar" :isActive="sidebar.opened"></hamburger>
+        <hamburger class="hamburger-container" :toggleClick="toggleSideBar" :isActive="sidebarComp.opened"></hamburger>
         <breadcrumb></breadcrumb>
       </div>
 
@@ -17,7 +17,7 @@
                 </div>
               </el-image>
               <div class="el-dropdown-link">
-                尊敬的： {{ name }}
+                尊敬的： {{ userName }}
                 <i class="el-icon-arrow-down el-icon--right"></i>
               </div>
             </div>
@@ -39,55 +39,52 @@
   </el-menu>
 </template>
 
-<script>
+<script setup>
+import { ref, onMounted, onUnmounted, computed, defineComponent } from "vue";
+import { useAppStore } from "@/store/app"
+import { useUserStore } from "@/store/user"
 import { format } from "date-fns";
-import { mapGetters } from "vuex";
 import Breadcrumb from "@/components/Breadcrumb";
 import Hamburger from "@/components/Hamburger";
-export default {
-  components: {
-    Breadcrumb,
-    Hamburger
-  },
-  data: () => ({
-    time: "",
-    userImage: require("@/assets/user.png"),
-    isMac: process.platform === "darwin"
-  }),
-  mounted() {
-    this.set_time();
-    this.timer = setInterval(() => {
-      this.set_time();
-    }, 60000);
-    console.log(this.userImage)
-  },
-  methods: {
-    toggleSideBar() {
-      this.$store.dispatch("ToggleSideBar");
-    },
-    logout() {
-      this.$store.dispatch("LogOut").then(() => {
-        this.$store.commit('RESET_ROUTERS')
-        this.$message({
-          message: "退出成功",
-          type: "success"
-        });
-        this.$router.push('/login')
-      });
-    },
-    set_time() {
-      this.time = format(new Date(), "yyyy/MM/dd HH:mm");
-    }
-  },
-  computed: {
-    ...mapGetters(["name", "role", "sidebar"])
-  },
-  beforeDestroy() {
-    console.log("销毁计时器------------");
-    clearInterval(this.timer);
-    this.timer = null;
-  }
-};
+import userImage from "@/assets/user.png"
+import { Message } from "element-ui"
+import { useRouter } from "@/hooks/use-router";
+
+defineComponent({
+  name: 'Navbar'
+})
+
+const time = ref("")
+const isMac = process.platform === "darwin"
+let timer = null
+onMounted(() => {
+  timer = setInterval(() => {
+    time.value = format(new Date(), "yyyy/MM/dd HH:mm");
+  }, 60000);
+})
+onUnmounted(() => {
+  clearInterval(timer);
+  timer = null;
+})
+
+const { ToggleSideBar, sidebarStatus } = useAppStore()
+const sidebarComp = computed(() => sidebarStatus)
+const toggleSideBar = () => {
+  ToggleSideBar()
+}
+
+const { logOut, name } = useUserStore()
+const router = useRouter()
+const userName = computed(() => name)
+const logout = () => {
+  logOut().then(() => {
+    Message({
+      message: "退出成功",
+      type: "success"
+    });
+    router.push('/login')
+  })
+}
 </script>
 
 <style rel="stylesheet/scss" lang="scss" scoped>
