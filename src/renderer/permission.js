@@ -1,3 +1,5 @@
+// 这个文件废弃，但是我没删，直接将代码写进 router/index.js 里，确保加载顺序
+
 import router from './router'
 import Performance from '@/tools/performance'
 import { usePermissionStore } from "@/store/permission"

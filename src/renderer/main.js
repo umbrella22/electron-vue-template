@@ -5,7 +5,6 @@ import Router from 'vue-router'
 
 import App from './App'
 import router from './router'
-import './permission'
 // 引用element
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
@@ -29,16 +28,15 @@ if (!process.env.IS_WEB) {
     }
   });
 }
+Vue.use(PiniaVuePlugin) // 确保pinia在最先挂载
 Vue.use(Router)
 // 创建 i18n
 Vue.use(VueI18n) // 新版本必须要这个，不知道为什么
-Vue.use(PiniaVuePlugin)
 
 const i18n = new VueI18n({
   locale: 'zh-CN', // 设置默认语言
   messages: languages, // 设置语言包
 });
-usePermission()
 Vue.use(ElementUI, {
   i18n: (key, value) => i18n.t(key, value)
 })
