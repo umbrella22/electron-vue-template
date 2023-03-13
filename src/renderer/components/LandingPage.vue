@@ -19,50 +19,24 @@
         <div class="title alt">您可以点击的按钮测试功能</div>
         <div class="doc">
           <el-button type="primary" round @click="open()">控制台打印</el-button>
-          <el-button type="primary" round @click="CheckUpdate('one')"
-            >检查更新</el-button
-          >
+          <el-button type="primary" round @click="CheckUpdate('one')">检查更新</el-button>
         </div>
         <div class="doc">
-          <el-button type="primary" round @click="CheckUpdate('two')"
-            >检查更新（第二种方法）</el-button
-          >
-          <el-button type="primary" round @click="CheckUpdate('three')"
-            >热更新</el-button
-          >
-          <el-button type="primary" round @click="StartServer"
-            >启动内置服务端</el-button
-          >
-          <el-button type="primary" round @click="StopServer"
-            >关闭内置服务端</el-button
-          >
-          <el-button type="primary" round @click="getMessage"
-            >查看消息</el-button
-          >
+          <el-button type="primary" round @click="CheckUpdate('two')">检查更新（第二种方法）</el-button>
+          <el-button type="primary" round @click="CheckUpdate('three')">热更新</el-button>
+          <el-button type="primary" round @click="StartServer">启动内置服务端</el-button>
+          <el-button type="primary" round @click="StopServer">关闭内置服务端</el-button>
+          <el-button type="primary" round @click="getMessage">查看消息</el-button>
         </div>
         <div class="doc">
           <el-button type="primary" round @click="crash">模拟崩溃</el-button>
-          <el-button type="primary" round @click="openNewWin"
-            >打开新窗口</el-button
-          >
+          <el-button type="primary" round @click="openNewWin">打开新窗口</el-button>
         </div>
       </div>
     </main>
-    <el-dialog
-      title="进度"
-      :visible.sync="dialogVisible"
-      :before-close="handleClose"
-      center
-      width="14%"
-      top="45vh"
-    >
+    <el-dialog title="进度" :visible.sync="dialogVisible" :before-close="handleClose" center width="14%" top="45vh">
       <div class="conten">
-        <el-progress
-          type="dashboard"
-          :percentage="percentage"
-          :color="colors"
-          :status="progressStaus"
-        ></el-progress>
+        <el-progress type="dashboard" :percentage="percentage" :color="colors" :status="progressStaus"></el-progress>
       </div>
     </el-dialog>
   </div>
@@ -70,7 +44,7 @@
 
 <script>
 import SystemInformation from "./LandingPage/SystemInformation";
-import { message } from "@/api/login";
+// import { message } from "@renderer/api/login";
 import { ipcRenderer } from "electron";
 export default {
   name: "landing-page",
@@ -81,7 +55,7 @@ export default {
       name: "yyy",
       age: "12",
     },
-    logo: require("@/assets/logo.png"),
+    logo: require("@renderer/assets/logo.png"),
     textarray: [],
     percentage: 0,
     colors: [
@@ -97,8 +71,8 @@ export default {
   }),
   created() {
     console.log("环境打印示例");
-    console.log("__lib地址：",__lib);
-    console.log("process.env.userConfig:",process.env.userConfig);
+    console.log("__lib地址：", __lib);
+    console.log("process.env.userConfig:", process.env.userConfig);
     // 下载文件的监听
     ipcRenderer.on("download-progress", (event, arg) => {
       this.percentage = Number(arg);
@@ -172,9 +146,9 @@ export default {
           break;
       }
     });
-    ipcRenderer.on('hot-update-status',(event, age)=>{
+    ipcRenderer.on('hot-update-status', (event, age) => {
       console.log(age);
-      if(age.status === 'finished'){
+      if (age.status === 'finished') {
         this.$message({
           type: 'success',
           message: '热更新成功'
@@ -219,7 +193,7 @@ export default {
       });
     },
     // 获取electron方法
-    open() {},
+    open() { },
     CheckUpdate(data) {
       switch (data) {
         case "one":
@@ -284,7 +258,7 @@ main {
   justify-content: space-between;
 }
 
-main > div {
+main>div {
   flex-basis: 50%;
 }
 
@@ -310,14 +284,17 @@ main > div {
   font-size: 18px;
   margin-bottom: 10px;
 }
+
 .doc {
   margin-bottom: 20px;
   display: flex;
 }
+
 .doc p {
   color: black;
   margin-bottom: 10px;
 }
+
 .conten {
   text-align: center;
 }

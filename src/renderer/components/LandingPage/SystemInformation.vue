@@ -10,31 +10,26 @@
   </div>
 </template>
 
-<script>
+<script lang="ts" setup>
 import { platform, release, arch } from "os";
-export default {
-  data() {
-    return {
-      tips: [
-        { name: "当前页面路径：", value: this.$route.path },
-        { name: "当前页面名称：", value: this.$route.name },
-        { name: "Vue版本：", value: require("vue/package.json").version },
-        {
-          name: "Electron版本：",
-          value: process.versions.electron || "浏览器环境",
-        },
-        { name: "Node版本：", value: process.versions.node || "浏览器环境" },
-        { name: "系统平台：", value: platform() },
-        { name: "系统版本：", value: release() },
-        { name: "系统位数：", value: arch() + "位" },
-        { name: "当前环境：", value: process.env?.NODE_ENV }
-      ],
-    };
+import { reactive } from "vue";
+import { useRoute } from "vue-router";
+const route = useRoute();
+const tips = reactive([
+  { name: "当前页面路径：", value: route.path },
+  { name: "当前页面名称：", value: route.name },
+  { name: "Vue版本：", value: require("vue/package.json").version },
+  {
+    name: "Electron版本：",
+    value: process.versions.electron || "浏览器环境",
   },
-  mounted() {
-    console.log(this.$route);
-  },
-};
+  { name: "Node版本：", value: process.versions.node || "浏览器环境" },
+  { name: "系统平台：", value: platform() },
+  { name: "系统版本：", value: release() },
+  { name: "系统位数：", value: arch() + "位" },
+  { name: "当前环境：", value: process.env?.NODE_ENV }
+
+])
 </script>
 
 <style scoped>

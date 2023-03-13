@@ -1,5 +1,5 @@
 // 仅示例
-import request from '@/utils/request'
+import request from '@renderer/utils/request'
 
 // export function login (data) {
 //   return request({
@@ -16,7 +16,7 @@ import request from '@/utils/request'
 //     params: { token }
 //   })
 // }
-export function message () {
+export function message() {
   return request({
     url: '/message',
     method: 'get'

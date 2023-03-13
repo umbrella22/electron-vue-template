@@ -20,7 +20,7 @@ function resolve(dir) {
 }
 
 let rendererConfig = {
-  entry: IsWeb ? { web: path.join(__dirname, '../src/renderer/main.js') } : { renderer: resolve('src/renderer/main.js') },
+  entry: IsWeb ? { web: path.join(__dirname, '../src/renderer/main.ts') } : { renderer: resolve('src/renderer/main.ts') },
   infrastructureLogging: { level: 'warn' },
   stats: 'none',
   module: {
@@ -72,7 +72,7 @@ let rendererConfig = {
     new VueLoaderPlugin(),
     new MiniCssExtractPlugin(),
     new webpack.DefinePlugin({
-      'process.env.userConfig':JSON.stringify(getConfig),
+      'process.env.userConfig': JSON.stringify(getConfig),
       'process.env.IS_WEB': IsWeb
     }),
     new HtmlWebpackPlugin({
@@ -107,10 +107,10 @@ let rendererConfig = {
   },
   resolve: {
     alias: {
-      '@': resolve('src/renderer'),
-      'vue$': 'vue/dist/vue.esm.js'
+      '@renderer': resolve('src/renderer'),
+      'vue$': 'vue'
     },
-    extensions: ['.js', '.vue', '.json', '.css', '.node']
+    extensions: ['.vue', '.ts', '.js', '.jsx', '.tsx', '.json'],
   },
   target: IsWeb ? 'web' : 'electron-renderer'
 }
