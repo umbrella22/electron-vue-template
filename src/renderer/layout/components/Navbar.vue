@@ -2,7 +2,7 @@
   <el-menu :class="'navbar-header-fixed' + (isMac ? ' dragTitle' : '')" mode="horizontal">
     <div class="top-right">
       <div class="hb-bd">
-        <hamburger class="hamburger-container" :toggleClick="toggleSideBar" :isActive="sidebarComp.opened"></hamburger>
+        <hamburger class="hamburger-container" @toggle-click="toggleSideBar" :isActive="sidebarComp.opened"></hamburger>
         <breadcrumb></breadcrumb>
       </div>
 

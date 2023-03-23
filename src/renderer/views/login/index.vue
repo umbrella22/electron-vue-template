@@ -35,7 +35,7 @@
 <script setup>
 import { isvalidUsername } from "@/utils/validate";
 import { useUserStore } from "@/store/user";
-import { reactive, ref } from "vue"
+import { ref } from "vue"
 import { useRouter } from "@/hooks/use-router";
 
 const { login } = useUserStore()
@@ -60,7 +60,7 @@ const loginForm = ref({
   password: "",
 });
 const loginFormRef = ref()
-const loginRules = reactive({
+const loginRules = ref({
   username: [
     { required: true, trigger: "blur", validator: validateUsername },
   ],
