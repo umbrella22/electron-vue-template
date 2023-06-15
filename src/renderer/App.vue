@@ -1,17 +1,17 @@
 <template>
   <div>
     <c-header></c-header>
-    <transition name="fade" mode="out-in">
-      <router-view></router-view>
-    </transition>
+    <router-view v-slot="{ Component }">
+      <transition name="fade" mode="out-in">
+        <component :is="Component" />
+      </transition>
+    </router-view>
   </div>
 </template>
 
-<script>
+<script setup>
 import CHeader from "./components/title";
-export default {
-  components: { CHeader },
-};
+
 </script>
 
 <style>

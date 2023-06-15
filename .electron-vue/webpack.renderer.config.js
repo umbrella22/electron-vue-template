@@ -73,7 +73,9 @@ let rendererConfig = {
     new MiniCssExtractPlugin(),
     new webpack.DefinePlugin({
       'process.env.userConfig': JSON.stringify(getConfig),
-      'process.env.IS_WEB': IsWeb
+      'process.env.IS_WEB': IsWeb,
+      '__VUE_OPTIONS_API__': true,
+      '__VUE_PROD_DEVTOOLS__': false
     }),
     new HtmlWebpackPlugin({
       filename: 'index.html',
