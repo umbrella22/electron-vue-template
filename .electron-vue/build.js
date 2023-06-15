@@ -55,7 +55,7 @@ function build() {
       options: { persistentOutput: true }
     }
   ], {
-    exitOnError: false
+    exitOnError: true
   })
   tasksLister.run()
 }
