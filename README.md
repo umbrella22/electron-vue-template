@@ -2,14 +2,13 @@
 
 > This is a project based on electron-vue, using the elementUI, vuex, vue-router, axios technology stack. This project is divided into two branches. The master maintains the original project structure and features for dependency updates, and the SynchronizedUpdates branch. It keeps the original file structure and the code part is completely customized by me personally; it includes: a complete background management interface, nedb database package, and two complete update download methods. If you feel redundant, you can delete it yourself.
 
-[中文文档地址](https://github.com/umbrella22/electron-vue-template/blob/master/README_ZH.md)
 [中文在线文档](https://umbrella22.github.io/electron-vue-template-doc/)
 [国内访问地址](https://gitee.com/Zh-Sky/electron-vue-template)
 [国内文档访问地址](https://zh-sky.gitee.io/electron-vue-template-doc/)
-[vite版本](https://github.com/umbrella22/electron-vite-template)
-[vite版本（码云）](https://gitee.com/Zh-Sky/electron-vite-template)
+[vite 版本](https://github.com/umbrella22/electron-vite-template)
+[vite 版本（码云）](https://gitee.com/Zh-Sky/electron-vite-template)
 
-[![Open in Visual Studio Code](https://open.vscode.dev/badges/open-in-vscode.svg)](https://open.vscode.dev/umbrella22/electron-vue-template)
+[Open in Visual Studio Code](https://open.vscode.dev/umbrella22/electron-vue-template)
 ![GitHub Repo stars](https://img.shields.io/github/stars/umbrella22/electron-vue-template)
 [![vue](https://img.shields.io/badge/vue-2.7.10-brightgreen.svg)](https://github.com/vuejs/vue)
 [![element-ui](https://img.shields.io/badge/element--ui-2.15.9-brightgreen.svg)](https://github.com/ElemeFE/element)
@@ -34,11 +33,9 @@
   </a>
 </p>
 
-
-
 #### Build Setup
 
-``` bash
+```bash
 # install dependencies
 yarn or yarn install
 
@@ -50,7 +47,9 @@ yarn build
 
 
 ```
+
 ---
+
 # Function list
 
 - Auto update
