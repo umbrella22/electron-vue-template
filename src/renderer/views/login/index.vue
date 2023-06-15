@@ -85,7 +85,7 @@ const handleLogin = () => {
       loading.value = true;
       login(loginForm.value).then(() => {
         loading.value = false;
-        router.push({ path: "/" });
+        router.push({ path: "/" }).catch((err) => { });
       }).catch(() => {
         loading.value = false;
       })

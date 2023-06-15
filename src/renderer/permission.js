@@ -14,7 +14,6 @@ export function usePermission() {
             if (to.path === '/login') {
                 next({ path: '/' })
             } else {
-                console.log(roles, routers, token)
                 const hasRoles = roles && roles.length > 0;
                 if (hasRoles && routers && routers.length > 0) {
                     next()

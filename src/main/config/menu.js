@@ -14,7 +14,38 @@ const menu = [
       accelerator: 'CmdOrCtrl+F4',
       role: 'close'
     }]
-  }, {
+  },
+  {
+    label: '编辑',
+    submenu: [{
+      label: '撤销',
+      accelerator: 'CmdOrCtrl+Z',
+      role: 'undo'
+    },
+    {
+      label: '重做',
+      accelerator: 'Shift+CmdOrCtrl+Z',
+      role: 'redo'
+    },
+    {
+      label: '剪切',
+      accelerator: 'CmdOrCtrl+X',
+      role: 'cut'
+    },
+    {
+      label: '复制',
+      accelerator: 'CmdOrCtrl+C',
+      role: 'copy'
+    },
+    {
+      label: '粘贴',
+      accelerator: 'CmdOrCtrl+V',
+      role: 'paste'
+    }
+    ]
+  },
+
+  {
     label: '帮助',
     submenu: [{
       label: '关于',
@@ -24,7 +55,7 @@ const menu = [
       }
     }]
   }]
-function info () {
+function info() {
   dialog.showMessageBox({
     title: '关于',
     type: 'info',
