@@ -130,7 +130,7 @@
     "nprogress": "^0.2.0",
     "pinia": "^2.0.33",
     "portfinder": "^1.0.32",
-    "postcss": "^8.4.24",
+    "postcss": "^8.4.31",
     "postcss-loader": "^7.3.3",
     "sass": "^1.63.4",
     "sass-loader": "^13.3.2",
