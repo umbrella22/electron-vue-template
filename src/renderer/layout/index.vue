@@ -1,9 +1,15 @@
 <template>
-  <div class="app-wrapper" :class="IsUseSysTitle ? 'UseSysTitle' : 'NoUseSysTitle'">
+  <div
+    class="app-wrapper"
+    :class="IsUseSysTitle ? 'UseSysTitle' : 'NoUseSysTitle'"
+  >
     <div :class="classObj">
       <navbar></navbar>
       <div class="container-set">
-        <sidebar class="sidebar-container" :class="IsUseSysTitle ? 'UseSysTitle' : 'NoUseSysTitle'"></sidebar>
+        <sidebar
+          class="sidebar-container"
+          :class="IsUseSysTitle ? 'UseSysTitle' : 'NoUseSysTitle'"
+        ></sidebar>
         <div class="main-container">
           <app-main></app-main>
         </div>
@@ -22,26 +28,22 @@ import { ipcRenderer } from "electron";
 
 const { sidebarStatus } = useAppStore();
 const IsUseSysTitle = ref(false);
-const sidebarSwitch = computed(() => sidebarStatus.opened)
+const sidebarSwitch = computed(() => sidebarStatus.opened);
 
-ipcRenderer.invoke("IsUseSysTitle").then(res => {
+ipcRenderer.invoke("IsUseSysTitle").then((res) => {
   IsUseSysTitle.value = res;
 });
 
 const classObj = computed(() => {
   return {
     hideSidebar: !sidebarSwitch.value,
-    openSidebar: sidebarSwitch.value
+    openSidebar: sidebarSwitch.value,
   };
 });
-
 </script>
 
 <style rel="stylesheet/scss" lang="scss" scoped>
-@import "@/styles/mixin.scss";
-
 .app-wrapper {
-  @include clearfix;
   position: relative;
   height: 100%;
   width: 100%;
@@ -57,6 +59,6 @@ const classObj = computed(() => {
 }
 
 .NoUseSysTitle {
-  top: 38px
+  top: 38px;
 }
 </style>
