@@ -1,20 +1,21 @@
 process.env.NODE_ENV = 'production'
 
-import { join } from 'path'
 import { say } from 'cfonts'
 import { deleteAsync } from 'del'
 import chalk from 'chalk'
-// import { rollup, OutputOptions } from "rollup";
 import { Listr } from 'listr2'
-// import rollupOptions from "./rollup.config";
+import { Configuration, rspack } from '@rspack/core'
 import { errorLog, doneLog } from './log'
-import { getArgv } from './utils'
+import { DetailedError, getArgv } from './utils'
+import {
+  createMainConfig,
+  createPreloadConfig,
+  createRendererConfig,
+} from './rspack.config'
 
-// const mainOpt = rollupOptions(process.env.NODE_ENV, "main");
-// const preloadOpt = rollupOptions(process.env.NODE_ENV, "preload");
-const { clean = false, targe = 'client' } = getArgv()
+const { clean = false, target = 'client' } = getArgv()
 const isCI = process.env.CI || false
-if (targe === 'web') web()
+if (target === 'web') web()
 else unionBuild()
 
 async function cleanBuid() {
@@ -24,9 +25,6 @@ async function cleanBuid() {
     'dist/web/*',
     'build/*',
     '!build/icons',
-    '!build/lib',
-    '!build/lib/electron-build.*',
-    '!build/icons/icon.*',
   ])
   doneLog(`clear done`)
   if (clean) process.exit()
@@ -39,40 +37,19 @@ async function unionBuild() {
   const tasksLister = new Listr(
     [
       {
-        title: 'building main process',
-        task: async () => {
-          try {
-            // const build = await rollup(mainOpt);
-            // await build.write(mainOpt.output as OutputOptions);
-          } catch (error) {
-            errorLog(`failed to build main process\n`)
-            return Promise.reject(error)
-          }
-        },
-      },
-      {
-        title: 'building preload process',
-        task: async () => {
-          try {
-            // const build = await rollup(preloadOpt);
-            // await build.write(preloadOpt.output as OutputOptions);
-          } catch (error) {
-            errorLog(`failed to build main process\n`)
-            return Promise.reject(error)
-          }
-        },
-      },
-      {
-        title: 'building renderer process',
+        title: '正在构建资源文件',
         task: async (_, tasks) => {
           try {
-            // const { build } = await import("vite");
-            // await build({ configFile: join(__dirname, "vite.config.mts") });
-            tasks.output = `take it away ${chalk.yellow(
+            await pack([
+              createMainConfig(),
+              createPreloadConfig({ filename: 'index.ts' }),
+              createRendererConfig({ target }),
+            ])
+            tasks.output = `资源文件构建完成，等待 ${chalk.yellow(
               '`electron-builder`',
-            )}\n`
+            )} 打包\n`
           } catch (error) {
-            errorLog(`failed to build renderer process\n`)
+            errorLog(`\n 资源文件构建失败 \n`)
             return Promise.reject(error)
           }
         },
@@ -88,11 +65,40 @@ async function unionBuild() {
 
 async function web() {
   await deleteAsync(['dist/web/*', '!.gitkeep'])
-  // const { build } = await import("vite");
-  // build({ configFile: join(__dirname, "vite.config.mts") }).then((res) => {
-  //   doneLog(`web build success`);
-  //   process.exit();
-  // });
+  await pack(createRendererConfig({ target }))
+  doneLog(`web build success`)
+  process.exit()
+}
+function pack(
+  config: Configuration | Configuration[],
+): Promise<string | undefined> {
+  return new Promise((resolve, reject) => {
+    rspack(config, (err: DetailedError | null, stats) => {
+      if (err) reject(err.stack || err)
+      else if (stats?.hasErrors()) {
+        let err = ''
+
+        stats
+          .toString({
+            chunks: false,
+            colors: true,
+          })
+          .split(/\r?\n/)
+          .forEach((line) => {
+            err += `    ${line}\n`
+          })
+
+        reject(err)
+      } else {
+        resolve(
+          stats?.toString({
+            chunks: false,
+            colors: true,
+          }),
+        )
+      }
+    })
+  })
 }
 
 function greeting() {

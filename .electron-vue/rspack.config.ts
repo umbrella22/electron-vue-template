@@ -1,16 +1,8 @@
-import { resolve } from 'path'
 import { Configuration, rspack } from '@rspack/core'
 import { CreateLoader, CreatePlugins } from './tools'
+import { join } from 'path'
 import { VueLoaderPlugin } from 'vue-loader'
-
-const workPath = resolve(__dirname, '..')
-const extensions = ['.mjs', '.ts', '.js', '.json', '.node']
-
-const tsConfig = resolve(workPath, 'tsconfig.json')
-const alias = {
-  '@main': resolve(workPath, 'src', 'main'),
-  '@renderer': resolve(workPath, 'src', 'renderer'),
-}
+import { extensions, tsConfig, workPath } from './utils'
 
 const getCommonConfig = (
   env: 'development' | 'none' | 'production',
@@ -40,10 +32,10 @@ export const createMainConfig = (
   const commonConfig = getCommonConfig(env)
   return {
     ...commonConfig,
-    entry: resolve(workPath, 'src', 'main', 'index.ts'),
+    entry: join(workPath, 'src', 'main', 'index.ts'),
     output: {
-      path: resolve(workPath, 'dist', 'electron', 'main'),
-      filename: '[name].js',
+      path: join(workPath, 'dist', 'electron', 'main'),
+      filename: 'main.js',
     },
     target: 'electron-main',
   }
@@ -59,18 +51,26 @@ export const createPreloadConfig = ({
   const commonConfig = getCommonConfig(env)
   return {
     ...commonConfig,
-    entry: resolve(workPath, 'src', 'preload', filename),
+    entry: join(workPath, 'src', 'preload', filename),
     output: {
-      path: resolve(workPath, 'dist', 'electron', 'preload'),
-      filename: '[name].js',
+      path: join(workPath, 'dist', 'electron', 'main'),
+      filename: 'main-preload.js',
     },
     target: 'electron-preload',
   }
 }
 
-export const createRendererConfig = (
-  env: 'development' | 'none' | 'production' = 'development',
-): Configuration => {
+export const createRendererConfig = ({
+  env = 'development',
+  target = 'client',
+}: {
+  env?: 'development' | 'none' | 'production'
+  target: 'web' | 'client'
+}): Configuration => {
+  const copyPath =
+    target === 'client'
+      ? join(workPath, 'dist', 'electron', 'renderer', 'public')
+      : join(workPath, 'dist', 'web', 'public')
   const loaderHelper = new CreateLoader()
   const pluginHelper = new CreatePlugins()
 
@@ -86,23 +86,38 @@ export const createRendererConfig = (
       },
     })
     .end()
+
   const plugins = pluginHelper
     .useDefaultEnvPlugin()
     .add(new VueLoaderPlugin())
     .add(
       new rspack.HtmlRspackPlugin({
-        template: resolve(workPath, 'src', 'index.html'),
+        template: join(workPath, 'src', 'index.html'),
       }),
+    )
+    .add(
+      env === 'production'
+        ? new rspack.CopyRspackPlugin({
+            patterns: [
+              {
+                from: join(workPath, 'src', 'renderer', 'public'),
+                to: copyPath,
+                globOptions: {
+                  ignore: ['.*'],
+                },
+              },
+            ],
+          })
+        : undefined,
     )
     .end()
   const commonConfig = getCommonConfig(env)
 
   return {
     ...commonConfig,
-    target: 'electron-renderer',
-    entry: resolve(workPath, 'src', 'renderer', 'main.ts'),
+    entry: join(workPath, 'src', 'renderer', 'main.ts'),
     output: {
-      path: resolve(workPath, 'dist', 'electron', 'renderer'),
+      path: join(workPath, 'dist', 'electron', 'renderer'),
       filename: '[name].js',
     },
     plugins,

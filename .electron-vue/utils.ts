@@ -82,10 +82,10 @@ export const electronLog = (data: any, color: string) => {
       log += `  ${line}\n`
     })
     console.log(
-      chalk[color].bold(`┏ ----- 主程序日志 -------------------`) +
+      chalk[color].bold(`┏ ------- 主进程日志 -----------`) +
         '\n\n' +
         log +
-        chalk[color].bold('┗ ----------------------------') +
+        chalk[color].bold('┗ -------------------------------') +
         '\n',
     )
   }
@@ -167,4 +167,12 @@ export const createEnvPlugin = (
     }),
   )
   return new rspack.DefinePlugin(envs)
+}
+
+export const workPath = join(__dirname, '..')
+export const extensions = ['.mjs', '.ts', '.js', '.json', '.node']
+export const tsConfig = join(workPath, 'tsconfig.json')
+
+export interface DetailedError extends Error {
+  details?: string
 }

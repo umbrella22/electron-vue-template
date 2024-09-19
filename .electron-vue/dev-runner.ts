@@ -10,17 +10,21 @@ import config from '../config'
 import { say } from 'cfonts'
 import { spawn } from 'child_process'
 import type { ChildProcess } from 'child_process'
-import { electronLog, getArgv, logStats, removeJunk } from './utils'
+import {
+  DetailedError,
+  electronLog,
+  getArgv,
+  logStats,
+  removeJunk,
+  workPath,
+} from './utils'
 import {
   createMainConfig,
   createPreloadConfig,
   createRendererConfig,
 } from './rspack.config'
 import { errorLog } from './log'
-
-interface DetailedError extends Error {
-  details?: string
-}
+const { target = 'client' } = getArgv()
 
 let electronProcess: ChildProcess | null = null
 let manualRestart = false
@@ -28,16 +32,24 @@ let manualRestart = false
 async function startRenderer(): Promise<void> {
   Portfinder.basePort = config.dev.port || 9080
   const port = await Portfinder.getPortPromise()
+  const compiler = rspack(createRendererConfig({ target }))
+
+  compiler.hooks.done.tap('done', (stats) => {
+    logStats('渲染进程', stats)
+  })
   process.env.PORT = String(port)
   const server = new RspackDevServer(
     {
       port,
+      static: {
+        directory: join(workPath, 'src', 'renderer', 'public'),
+        publicPath: '/public/',
+      },
     },
-    rspack(createRendererConfig()),
+    compiler,
   )
   await server.start()
   console.log('\n\n' + chalk.blue(`  正在准备主进程，请等待...`) + '\n\n')
-  return
 }
 
 function startMain(): Promise<void> {
@@ -46,6 +58,10 @@ function startMain(): Promise<void> {
       createMainConfig(),
       createPreloadConfig({ filename: 'index.ts' }),
     ])
+    rsWatcher.hooks.watchRun.tapAsync('watch-run', (compilation, done) => {
+      logStats(`主进程`, chalk.white.bold(`正在处理资源文件...`))
+      done()
+    })
     rsWatcher.watch(
       {
         ignored: /node_modules/,
@@ -53,6 +69,7 @@ function startMain(): Promise<void> {
         poll: false,
       },
       (err: DetailedError | null, stats) => {
+        logStats(`主进程`, stats)
         if (err || stats?.hasErrors()) {
           errorLog(err?.stack ?? err)
           if (err?.details) {
@@ -71,15 +88,15 @@ function startMain(): Promise<void> {
           setTimeout(() => {
             manualRestart = false
           }, 5000)
-          resolve()
         }
+        resolve()
       },
     )
   })
 }
 
 function startElectron() {
-  var args = [
+  let args = [
     '--inspect=5858',
     join(__dirname, '../dist/electron/main/main.js'),
   ]
@@ -124,6 +141,10 @@ function greeting() {
 }
 
 async function init() {
+  if (target === 'web') {
+    await startRenderer()
+    return
+  }
   greeting()
   try {
     await startRenderer()

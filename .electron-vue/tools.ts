@@ -10,8 +10,8 @@ type ListItemType = RspackPluginInstance | RspackPluginFunction | RuleSetRule
 export class BaseCreate<T extends ListItemType> {
   protected list: T[] = []
 
-  add(item: T): this {
-    this.list.push(item)
+  add(item: T | undefined): this {
+    item && this.list.push(item)
     return this
   }
 

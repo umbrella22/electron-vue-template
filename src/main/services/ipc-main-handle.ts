@@ -57,7 +57,7 @@ export class IpcMainHandleClass implements IIpcMainHandle {
         devTools: process.env.NODE_ENV === 'development',
         // 在macos中启用橡皮动画
         scrollBounce: process.platform === 'darwin',
-        preload: getPreloadFile('preload'),
+        preload: getPreloadFile('main-preload'),
       },
     })
     // 开发模式下自动开启devtools

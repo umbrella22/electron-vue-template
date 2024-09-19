@@ -21,7 +21,7 @@ export interface IpcRendererEventListener<Send = void> {
     : (webContents: Electron.WebContents, args: Send) => void
 }
 
-export interface IpcChannelMainClass {
+export class IpcChannelMainClass {
   IsUseSysTitle: IpcMainEventListener<void, boolean>
   /**
    * 退出应用
@@ -73,7 +73,7 @@ export interface IpcChannelMainClass {
     sendData?: unknown
   }>
 }
-export interface IpcChannelRendererClass {
+export class IpcChannelRendererClass {
   // ipcRenderer
   DownloadProgress: IpcRendererEventListener<number>
   DownloadError: IpcRendererEventListener<Boolean>

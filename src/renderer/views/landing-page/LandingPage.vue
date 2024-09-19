@@ -62,21 +62,11 @@
 import SystemInformation from './components/system-info-mation.vue'
 import { message } from '@renderer/api/login'
 import logo from '@renderer/assets/logo.png'
-import { onUnmounted, ref } from 'vue'
+import { ref } from 'vue'
 import { i18nt, setLanguage, globalLang } from '@renderer/i18n'
 import { useStoreTemplate } from '@renderer/store/modules/template'
 
-const { ipcRendererChannel, shell, crash } = window
-
-// if (!ipcRenderer) {
-//   ipcRenderer = {} as any;
-//   ipcRenderer.on =
-//     ipcRenderer.invoke =
-//     ipcRenderer.removeAllListeners =
-//     (...args: any): any => {
-//       console.log("not electron");
-//     };
-// }
+const { ipcRendererChannel, crash } = window
 
 const percentage = ref(0)
 const colors = ref([
@@ -260,17 +250,6 @@ ipcRendererChannel.UpdateProcessStatus.on((event, msg) => {
   console.log(msg)
   updateStatus.value = msg.status
 })
-// onUnmounted(() => {
-//   console.log("销毁了哦");
-//   ipcRenderer.removeAllListeners("confirm-message");
-//   ipcRenderer.removeAllListeners("download-done");
-//   ipcRenderer.removeAllListeners("download-paused");
-//   ipcRenderer.removeAllListeners("confirm-stop");
-//   ipcRenderer.removeAllListeners("confirm-start");
-//   ipcRenderer.removeAllListeners("confirm-download");
-//   ipcRenderer.removeAllListeners("download-progress");
-//   ipcRenderer.removeAllListeners("download-error");
-// });
 </script>
 
 <style scoped lang="scss">
