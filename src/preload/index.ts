@@ -1,4 +1,4 @@
-import { contextBridge, ipcRenderer, IpcRendererEvent, shell } from 'electron'
+import { contextBridge, ipcRenderer, shell } from 'electron'
 import { platform, release, arch } from 'os'
 import { onUnmounted } from 'vue'
 import { IpcChannelMainClass, IpcChannelRendererClass } from '../ipc/index'
