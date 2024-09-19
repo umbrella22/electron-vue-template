@@ -17,7 +17,7 @@
     "build:web": "tsx .electron-vue/build.ts --target web",
     "pack:resources": "tsx .electron-vue/hot-updater.ts",
     "dep:upgrade": "yarn upgrade-interactive --latest",
-    "postinstall": "electron-builder -c build.json install-app-deps"
+    "postinstall": "electron-builder install-app-deps"
   },
   "dependencies": {
     "electron-updater": "^6.3.4"
