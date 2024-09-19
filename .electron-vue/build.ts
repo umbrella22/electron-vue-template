@@ -26,7 +26,7 @@ async function cleanBuid() {
     'build/*',
     '!build/icons',
   ])
-  doneLog(`clear done`)
+  doneLog(`清理构建目录成功`)
   if (clean) process.exit()
 }
 
@@ -47,9 +47,9 @@ async function unionBuild() {
               createRendererConfig({ env: 'production', target }),
             ])
             okayLog(
-              `资源文件构建完成，等待 ${chalk.yellow(
-                '`electron-builder`',
-              )} 打包\n`,
+              `资源文件构建完成，构建交付 ${chalk.yellow(
+                'electron-builder',
+              )} 请稍等...\n`,
             )
             console.timeEnd('构建耗时')
           } catch (error) {
