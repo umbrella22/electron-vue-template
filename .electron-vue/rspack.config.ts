@@ -26,9 +26,11 @@ const getCommonConfig = (
   }
 }
 
-export const createMainConfig = (
-  env: 'development' | 'none' | 'production' = 'development',
-): Configuration => {
+export const createMainConfig = ({
+  env = 'development',
+}: {
+  env?: 'development' | 'none' | 'production'
+}): Configuration => {
   const commonConfig = getCommonConfig(env)
   return {
     ...commonConfig,
@@ -112,7 +114,6 @@ export const createRendererConfig = ({
     )
     .end()
   const commonConfig = getCommonConfig(env)
-
   return {
     ...commonConfig,
     entry: join(workPath, 'src', 'renderer', 'main.ts'),

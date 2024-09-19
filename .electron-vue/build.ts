@@ -5,7 +5,7 @@ import { deleteAsync } from 'del'
 import chalk from 'chalk'
 import { Listr } from 'listr2'
 import { Configuration, rspack } from '@rspack/core'
-import { errorLog, doneLog } from './log'
+import { errorLog, doneLog, okayLog } from './log'
 import { DetailedError, getArgv } from './utils'
 import {
   createMainConfig,
@@ -32,22 +32,26 @@ async function cleanBuid() {
 
 async function unionBuild() {
   greeting()
+  console.time('构建耗时')
   await cleanBuid()
 
   const tasksLister = new Listr(
     [
       {
-        title: '正在构建资源文件',
+        title: '构建资源文件',
         task: async (_, tasks) => {
           try {
             await pack([
-              createMainConfig(),
-              createPreloadConfig({ filename: 'index.ts' }),
-              createRendererConfig({ target }),
+              createMainConfig({ env: 'production' }),
+              createPreloadConfig({ env: 'production', filename: 'index.ts' }),
+              createRendererConfig({ env: 'production', target }),
             ])
-            tasks.output = `资源文件构建完成，等待 ${chalk.yellow(
-              '`electron-builder`',
-            )} 打包\n`
+            okayLog(
+              `资源文件构建完成，等待 ${chalk.yellow(
+                '`electron-builder`',
+              )} 打包\n`,
+            )
+            console.timeEnd('构建耗时')
           } catch (error) {
             errorLog(`\n 资源文件构建失败 \n`)
             return Promise.reject(error)

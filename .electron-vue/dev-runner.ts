@@ -55,7 +55,7 @@ async function startRenderer(): Promise<void> {
 function startMain(): Promise<void> {
   return new Promise((resolve, reject) => {
     const rsWatcher = rspack([
-      createMainConfig(),
+      createMainConfig({}),
       createPreloadConfig({ filename: 'index.ts' }),
     ])
     rsWatcher.hooks.watchRun.tapAsync('watch-run', (compilation, done) => {
