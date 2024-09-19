@@ -12,15 +12,16 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "importHelpers": true,
-    "target": "es2017",
+    "target": "ESNext",
     "paths": {
       "@config/*": ["config/*"],
       "@renderer/*": ["src/renderer/*"],
       "@main/*": ["src/main/*"]
     },
     "typeRoots": ["node_modules/@types"],
-    "types": ["element-plus/global"],
-    "lib": ["es2018", "dom"]
+    "lib": ["es2018", "dom"],
+    "forceConsistentCasingInFileNames": true,
+    "strict": true
   },
   "include": ["src/**/*", "customTypes/*"],
   "exclude": ["node_modules"]

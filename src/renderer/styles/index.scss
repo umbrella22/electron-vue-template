@@ -1,4 +1,7 @@
 @import './transition.scss';
+@import './custom-title.scss';
+
+html, body, #app { width: 100%; height: 100%; }
 
 body {
   -moz-osx-font-smoothing: grayscale;
@@ -13,7 +16,18 @@ html {
   box-sizing: border-box;
 
   ::-webkit-scrollbar {
-    display: none;
+    width: 6px;
+    height: 6px;
+    background-color: none;
+  }
+
+  ::-webkit-scrollbar-track {
+    background-color: none;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: #555;
   }
 }
 
