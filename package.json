@@ -38,7 +38,7 @@
     "del": "^7.1.0",
     "dotenv": "^16.4.5",
     "electron": "^32.1.0",
-    "electron-builder -c build.json": "^25.0.5",
+    "electron-builder": "^25.0.5",
     "electron-devtools-vendor": "^3.0.0",
     "fs-extra": "^11.2.0",
     "listr2": "^8.2.4",
