@@ -16,6 +16,7 @@ import request from '@renderer/utils/request'
 //     params: { token }
 //   })
 // }
+
 export function message() {
   return request({
     url: '/message',

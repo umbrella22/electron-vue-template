@@ -1,8 +1,7 @@
 import { createRouter, createWebHashHistory } from "vue-router";
-// 引入路由表
-import routerMap from "./constantRouterMap";
+import routerMap from './constant-router-map'
 
 export default createRouter({
-  history: createWebHashHistory(),
-  routes: routerMap,
-});
+    history: createWebHashHistory(),
+    routes: routerMap
+})

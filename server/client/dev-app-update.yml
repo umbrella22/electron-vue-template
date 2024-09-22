@@ -1,8 +1,0 @@
-version: 10.1.6
-files:
-  - url: electron-vue-admin Setup 0.0.1.exe
-    sha512: 4DWVpNYMStt7RrHvsEYxeJWKCPyZBr0RgChtNxXx7YD8Bq+u/3w+3zjUAX53DCKHtDKHDybkjiudMR3hA9b5lw==
-    size: 57816468
-path: electron-vue-admin Setup 0.0.1.exe
-sha512: 4DWVpNYMStt7RrHvsEYxeJWKCPyZBr0RgChtNxXx7YD8Bq+u/3w+3zjUAX53DCKHtDKHDybkjiudMR3hA9b5lw==
-releaseDate: '2020-10-28T05:48:11.228Z'
