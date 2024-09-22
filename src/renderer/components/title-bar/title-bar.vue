@@ -21,7 +21,7 @@ const { ipcRendererChannel, systemInfo } = window
 
 const IsUseSysTitle = ref(false)
 const isNotMac = ref(false)
-const IsWeb = ref(!!ipcRendererChannel)
+const IsWeb = ref(!ipcRendererChannel)
 
 isNotMac.value = systemInfo.platform !== 'darwin'
 
