@@ -3,10 +3,17 @@ import type {
   RspackPluginInstance,
   RuleSetRule,
   DefinePluginOptions,
+  WebpackPluginInstance,
+  WebpackPluginFunction,
 } from '@rspack/core'
 import { buildCssLoaders, createEnvPlugin, CssLoaderOptions } from './utils'
 
-type ListItemType = RspackPluginInstance | RspackPluginFunction | RuleSetRule
+type ListItemType =
+  | RspackPluginInstance
+  | RspackPluginFunction
+  | RuleSetRule
+  | WebpackPluginInstance
+  | WebpackPluginFunction
 
 export class BaseCreate<T extends ListItemType> {
   protected list: T[] = []
@@ -67,7 +74,10 @@ export class CreateLoader extends BaseCreate<RuleSetRule> {
 }
 
 export class CreatePlugins extends BaseCreate<
-  RspackPluginInstance | RspackPluginFunction
+  | RspackPluginInstance
+  | RspackPluginFunction
+  | WebpackPluginInstance
+  | WebpackPluginFunction
 > {
   useDefaultEnvPlugin(otherEnv?: DefinePluginOptions): this {
     this.add(createEnvPlugin(otherEnv))
