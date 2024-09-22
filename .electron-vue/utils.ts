@@ -167,7 +167,6 @@ export const createEnvPlugin = (
       return [key, val]
     }),
   )
-  console.log(envs)
   return new rspack.DefinePlugin(envs)
 }
 

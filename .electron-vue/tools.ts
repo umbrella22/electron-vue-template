@@ -64,6 +64,7 @@ export class CreateLoader extends BaseCreate<RuleSetRule> {
   }
 
   useDefaultScriptLoader(): this {
+    this.add(this.defaultScriptLoader)
     return this
   }
   useDefaultResourceLoader(): this {
