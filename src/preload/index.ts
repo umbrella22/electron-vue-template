@@ -4,7 +4,7 @@ import { onUnmounted } from 'vue'
 import { IpcChannelMainClass, IpcChannelRendererClass } from '../ipc/index'
 
 function getIpcRenderer() {
-  const IpcRenderer = {}
+  const IpcRenderer: Record<string, any> = {}
   Object.keys(new IpcChannelMainClass()).forEach((channel) => {
     IpcRenderer[channel] = {
       invoke: async (args: any) => ipcRenderer.invoke(channel, args),

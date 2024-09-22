@@ -7,6 +7,7 @@ import {
   type LightningcssLoaderOptions,
   type RspackPluginInstance,
   type RuleSetRule,
+  type DefinePluginOptions,
 } from '@rspack/core'
 
 const argv = minimist(process.argv.slice(2))
@@ -153,19 +154,20 @@ export const buildCssLoaders = (options?: CssLoaderOptions) => {
 }
 
 export const createEnvPlugin = (
-  otherEnv: Record<string, string> = {},
+  otherEnv: DefinePluginOptions = {},
 ): RspackPluginInstance => {
   const baseEnv = Object.assign({}, getConfig())
   const clientEnvs = Object.fromEntries(
     Object.entries(baseEnv).map(([key, val]) => {
-      return [`import.meta.env.${key}`, val]
+      return [`import.meta.env.${key}`, JSON.stringify(val)]
     }),
   )
   const envs = Object.fromEntries(
     Object.entries({ ...clientEnvs, ...otherEnv }).map(([key, val]) => {
-      return [key, JSON.stringify(val)]
+      return [key, val]
     }),
   )
+  console.log(envs)
   return new rspack.DefinePlugin(envs)
 }
 

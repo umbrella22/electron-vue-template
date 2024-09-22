@@ -7,8 +7,8 @@
       "url": "http://127.0.0.1"
     }
   ],
-  "productName": "electron-vite-template",
-  "appId": "org.sky.electron-vite-template",
+  "productName": "electron-vue-template",
+  "appId": "org.sky.electron-vue-template",
   "directories": {
     "output": "build"
   },

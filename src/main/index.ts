@@ -17,9 +17,8 @@ async function onAppReady() {
   defaultIpc()
   creactMenu()
   new InitWindow().initWindow()
-  // Todo: 此处需要在打包后移除
   if (import.meta.env.NODE_ENV === 'development') {
-    const { VUEJS3_DEVTOOLS } = await import('electron-devtools-vendor')
+    const { VUEJS3_DEVTOOLS } = require('electron-devtools-vendor')
     session.defaultSession.loadExtension(VUEJS3_DEVTOOLS, {
       allowFileAccess: true,
     })

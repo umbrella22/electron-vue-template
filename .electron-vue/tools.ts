@@ -2,6 +2,7 @@ import type {
   RspackPluginFunction,
   RspackPluginInstance,
   RuleSetRule,
+  DefinePluginOptions,
 } from '@rspack/core'
 import { buildCssLoaders, createEnvPlugin, CssLoaderOptions } from './utils'
 
@@ -68,8 +69,8 @@ export class CreateLoader extends BaseCreate<RuleSetRule> {
 export class CreatePlugins extends BaseCreate<
   RspackPluginInstance | RspackPluginFunction
 > {
-  useDefaultEnvPlugin(): this {
-    this.add(createEnvPlugin())
+  useDefaultEnvPlugin(otherEnv?: DefinePluginOptions): this {
+    this.add(createEnvPlugin(otherEnv))
     return this
   }
 }

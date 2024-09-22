@@ -22,28 +22,28 @@ export interface IpcRendererEventListener<Send = void> {
 }
 
 export class IpcChannelMainClass {
-  IsUseSysTitle: IpcMainEventListener<void, boolean>
+  IsUseSysTitle!: IpcMainEventListener<void, boolean>
   /**
    * 退出应用
    */
-  AppClose: IpcMainEventListener
-  CheckUpdate: IpcMainEventListener
-  ConfirmUpdate: IpcMainEventListener
-  OpenMessagebox: IpcMainEventListener<
+  AppClose!: IpcMainEventListener
+  CheckUpdate!: IpcMainEventListener
+  ConfirmUpdate!: IpcMainEventListener
+  OpenMessagebox!: IpcMainEventListener<
     Electron.MessageBoxOptions,
     Electron.MessageBoxReturnValue
   >
-  StartDownload: IpcMainEventListener<string>
-  OpenErrorbox: IpcMainEventListener<{ title: string; message: string }>
-  StartServer: IpcMainEventListener<void, string>
-  StopServer: IpcMainEventListener<void, string>
-  HotUpdate: IpcMainEventListener
+  StartDownload!: IpcMainEventListener<string>
+  OpenErrorbox!: IpcMainEventListener<{ title: string; message: string }>
+  StartServer!: IpcMainEventListener<void, string>
+  StopServer!: IpcMainEventListener<void, string>
+  HotUpdate!: IpcMainEventListener
 
   /**
    *
    * 打开窗口
    */
-  OpenWin: IpcMainEventListener<{
+  OpenWin!: IpcMainEventListener<{
     /**
      * 新的窗口地址
      *
@@ -75,10 +75,10 @@ export class IpcChannelMainClass {
 }
 export class IpcChannelRendererClass {
   // ipcRenderer
-  DownloadProgress: IpcRendererEventListener<number>
-  DownloadError: IpcRendererEventListener<Boolean>
-  DownloadPaused: IpcRendererEventListener<Boolean>
-  DownloadDone: IpcRendererEventListener<{
+  DownloadProgress!: IpcRendererEventListener<number>
+  DownloadError!: IpcRendererEventListener<Boolean>
+  DownloadPaused!: IpcRendererEventListener<Boolean>
+  DownloadDone!: IpcRendererEventListener<{
     /**
      * 下载的文件路径
      *
@@ -86,11 +86,11 @@ export class IpcChannelRendererClass {
      */
     filePath: string
   }>
-  UpdateMsg: IpcRendererEventListener<{
+  UpdateMsg!: IpcRendererEventListener<{
     state: number
     msg: string | ProgressInfo
   }>
-  UpdateProcessStatus: IpcRendererEventListener<{
+  UpdateProcessStatus!: IpcRendererEventListener<{
     status:
       | 'init'
       | 'downloading'
@@ -101,20 +101,20 @@ export class IpcChannelRendererClass {
     message: string
   }>
 
-  SendDataTest: IpcRendererEventListener<unknown>
-  BrowserViewTabDataUpdate: IpcRendererEventListener<{
+  SendDataTest!: IpcRendererEventListener<unknown>
+  BrowserViewTabDataUpdate!: IpcRendererEventListener<{
     bvWebContentsId: number
     title: string
     url: string
     status: 1 | -1 // 1 添加/更新 -1 删除
   }>
-  BrowserViewTabPositionXUpdate: IpcRendererEventListener<{
+  BrowserViewTabPositionXUpdate!: IpcRendererEventListener<{
     dragTabOffsetX: number
     positionX: number
     bvWebContentsId: number
   }>
-  BrowserTabMouseup: IpcRendererEventListener
-  HotUpdateStatus: IpcRendererEventListener<{
+  BrowserTabMouseup!: IpcRendererEventListener
+  HotUpdateStatus!: IpcRendererEventListener<{
     status: string
     message: string
   }>

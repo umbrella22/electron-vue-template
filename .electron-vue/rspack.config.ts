@@ -90,7 +90,12 @@ export const createRendererConfig = ({
     .end()
 
   const plugins = pluginHelper
-    .useDefaultEnvPlugin()
+    .useDefaultEnvPlugin({
+      // 如果不是ui组件库使用，强烈建议关闭
+      __VUE_OPTIONS_API__: true,
+      __VUE_PROD_DEVTOOLS__: false,
+      __VUE_PROD_HYDRATION_MISMATCH_DETAILS__: false,
+    })
     .add(new VueLoaderPlugin())
     .add(
       new rspack.HtmlRspackPlugin({
