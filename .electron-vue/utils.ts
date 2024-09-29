@@ -130,8 +130,11 @@ const cssLoaders = (options?: CssLoaderOptions) => {
   }
   return {
     less: generateLoaders('less'),
-    sass: generateLoaders('sass', { indentedSyntax: true }),
-    scss: generateLoaders('sass'),
+    sass: generateLoaders('sass', {
+      indentedSyntax: true,
+      api: 'modern-compiler',
+    }),
+    scss: generateLoaders('sass', { api: 'modern-compiler' }),
     stylus: generateLoaders('stylus'),
     styl: generateLoaders('stylus'),
   }
