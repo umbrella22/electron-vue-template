@@ -69,12 +69,6 @@ function getAppRootPath(path: string) {
     ? join(__dirname, '..', '..', '..', '..', path).replace(/\\/g, '\\\\')
     : join(__dirname, '..', '..', '..', path).replace(/\\/g, '\\\\')
 }
-console.log(
-  'process.env.__static',
-  getAppRootPath(config.DllFolder),
-  getAppRootPath(config.HotUpdateFolder),
-  import.meta.env.NODE_ENV,
-)
 
 export const winURL = filePath.winURL[env]
 export const loadingURL = filePath.loadingURL[env]
