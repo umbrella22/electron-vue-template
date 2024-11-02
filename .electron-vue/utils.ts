@@ -32,7 +32,7 @@ export const logStats = (proc: string, data: any) => {
   let log = ''
 
   log += chalk.yellow.bold(
-    `┏ ${proc} "编译过程" ${new Array(19 - proc.length + 1).join('-')}`,
+    `┏ ${proc} "编译日志" ${new Array(19 - proc.length + 1).join('-')}`,
   )
   log += '\n\n'
 
