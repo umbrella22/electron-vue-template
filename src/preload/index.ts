@@ -1,7 +1,6 @@
 import { contextBridge, ipcRenderer, shell } from 'electron'
 import { platform, release, arch } from 'os'
-import { onUnmounted } from 'vue'
-import { IpcChannelMainClass, IpcChannelRendererClass } from '../ipc/index'
+import { IpcChannelMainClass, IpcChannelRendererClass } from '@ipcManager/index'
 
 function getIpcRenderer() {
   const IpcRenderer: Record<string, any> = {}
@@ -13,16 +12,12 @@ function getIpcRenderer() {
   Object.keys(new IpcChannelRendererClass()).forEach((channel) => {
     IpcRenderer[channel] = {
       on: (listener: (...args: any[]) => void) => {
+        ipcRenderer.removeListener(channel, listener)
         ipcRenderer.on(channel, listener)
-        onUnmounted(() => {
-          ipcRenderer.removeListener(channel, listener)
-        })
       },
       once: (listener: (...args: any[]) => void) => {
+        ipcRenderer.removeListener(channel, listener)
         ipcRenderer.once(channel, listener)
-        onUnmounted(() => {
-          ipcRenderer.removeListener(channel, listener)
-        })
       },
       removeAllListeners: () => ipcRenderer.removeAllListeners(channel),
     }

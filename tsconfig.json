@@ -15,6 +15,7 @@
     "target": "ESNext",
     "paths": {
       "@config/*": ["config/*"],
+      "@ipcManager/*": ["src/ipc-manager/*"],
       "@renderer/*": ["src/renderer/*"],
       "@main/*": ["src/main/*"]
     },

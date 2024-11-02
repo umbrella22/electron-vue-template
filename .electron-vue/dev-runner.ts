@@ -1,5 +1,6 @@
 process.env.NODE_ENV = 'development'
 
+import readline from 'node:readline'
 import electron from 'electron'
 import chalk from 'chalk'
 import { join } from 'path'
@@ -24,10 +25,43 @@ import {
   createRendererConfig,
 } from './rspack.config'
 import { errorLog } from './log'
-const { target = 'client' } = getArgv()
+const { target = 'client', controlledRestart = false } = getArgv()
 
 let electronProcess: ChildProcess | null = null
 let manualRestart = false
+let readlineInterface: readline.Interface | null = null
+
+interface Shortcut {
+  key: string
+  description: string
+  action: () => void
+}
+
+const shortcutList: Shortcut[] = [
+  {
+    key: 'r',
+    description: '重启主进程',
+    action() {
+      restartElectron()
+    },
+  },
+  {
+    key: 'q',
+    description: '退出',
+    action() {
+      electronProcess?.kill()
+      readlineInterface?.close()
+      process.exit()
+    },
+  },
+  {
+    key: 'h',
+    description: '显示帮助',
+    action() {
+      showHelp()
+    },
+  },
+]
 
 async function startRenderer(): Promise<void> {
   Portfinder.basePort = config.dev.port || 9080
@@ -79,15 +113,8 @@ function startMain(): Promise<void> {
           }
           throw new Error('Error occured in main process')
         }
-        if (electronProcess) {
-          manualRestart = true
-          electronProcess.pid && process.kill(electronProcess.pid)
-          electronProcess = null
-          electronProcess = null
-          startElectron()
-          setTimeout(() => {
-            manualRestart = false
-          }, 5000)
+        if (electronProcess && !controlledRestart) {
+          restartElectron()
         }
         resolve()
       },
@@ -118,8 +145,55 @@ function startElectron() {
   })
 
   electronProcess.on('close', () => {
-    if (!manualRestart) process.exit()
+    if (!manualRestart) {
+      readlineInterface?.close()
+      process.exit()
+    }
   })
+}
+
+function restartElectron() {
+  manualRestart = true
+  electronProcess?.pid && process.kill(electronProcess.pid)
+  electronProcess = null
+  electronProcess = null
+  startElectron()
+  setTimeout(() => {
+    manualRestart = false
+  }, 5000)
+}
+
+function onInputAction(input: string) {
+  if (!controlledRestart && input === 'r') {
+    console.log(
+      chalk.yellow.bold(
+        '受控重启被禁用，请在启动时使用 --controlledRestart 选项启用',
+      ),
+    )
+    return
+  }
+  const shortcut = shortcutList.find((shortcut) => shortcut.key === input)
+  if (shortcut) {
+    shortcut.action()
+  }
+}
+
+function initReadline() {
+  readlineInterface = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout,
+  })
+  readlineInterface.on('line', onInputAction)
+}
+
+function showHelp() {
+  console.log(chalk.green.bold('可用快捷键：\n'))
+  shortcutList.forEach((shortcut) => {
+    console.log(
+      `输入 ${chalk.green.bold(shortcut.key)} + 回车 ${shortcut.description}`,
+    )
+  })
+  console.log('\n')
 }
 
 function greeting() {
@@ -138,6 +212,7 @@ function greeting() {
     })
   } else console.log(chalk.yellow.bold('\n  rspack-electron'))
   console.log(chalk.blue(`准备启动...`) + '\n')
+  showHelp()
 }
 
 async function init() {
@@ -150,6 +225,7 @@ async function init() {
     await startRenderer()
     await startMain()
     startElectron()
+    initReadline()
   } catch (error) {
     console.error(error)
     process.exit(1)

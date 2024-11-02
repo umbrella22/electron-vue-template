@@ -1,4 +1,4 @@
-import { IWebContentSend } from '@main/ipc'
+import { IWebContentSend } from '@ipcManager/index'
 
 export const webContentSend: IWebContentSend = new Proxy(
   {},
