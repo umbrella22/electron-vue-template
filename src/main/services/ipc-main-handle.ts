@@ -4,7 +4,7 @@ import { updater } from '../services/hot-updater'
 import DownloadFile from '../services/download-file'
 import Update from '../services/check-update'
 import config from '@config/index'
-import { IIpcMainHandle } from '../../ipc/index'
+import { IIpcMainHandle } from '@ipcManager/index'
 import { webContentSend } from './web-content-send'
 
 export class IpcMainHandleClass implements IIpcMainHandle {
@@ -16,10 +16,9 @@ export class IpcMainHandleClass implements IIpcMainHandle {
     event: Electron.IpcMainInvokeEvent,
     args: string,
   ) => void | Promise<void> = (event, downloadUrl) => {
-    new DownloadFile(
-      BrowserWindow.fromWebContents(event.sender),
-      downloadUrl,
-    ).start()
+    const windwos = BrowserWindow.fromWebContents(event.sender)
+    if (!windwos) return
+    new DownloadFile(windwos, downloadUrl).start()
   }
   StartServer: (
     event: Electron.IpcMainInvokeEvent,
@@ -35,7 +34,9 @@ export class IpcMainHandleClass implements IIpcMainHandle {
   HotUpdate: (event: Electron.IpcMainInvokeEvent) => void | Promise<void> = (
     event,
   ) => {
-    updater(BrowserWindow.fromWebContents(event.sender))
+    const windows = BrowserWindow.fromWebContents(event.sender)
+    if (!windows) return
+    updater(windows)
   }
   OpenWin: (
     event: Electron.IpcMainInvokeEvent,
@@ -71,7 +72,7 @@ export class IpcMainHandleClass implements IIpcMainHandle {
         // 检查支付时候自动关闭小窗口
         const testUrl = setInterval(() => {
           const Url = childWin.webContents.getURL()
-          if (Url.includes(arg.PayUrl)) {
+          if (arg.PayUrl && Url.includes(arg.PayUrl)) {
             childWin.close()
           }
         }, 1200)
@@ -99,7 +100,9 @@ export class IpcMainHandleClass implements IIpcMainHandle {
   CheckUpdate: (event: Electron.IpcMainInvokeEvent) => void | Promise<void> = (
     event,
   ) => {
-    this.allUpdater.checkUpdate(BrowserWindow.fromWebContents(event.sender))
+    const windows = BrowserWindow.fromWebContents(event.sender)
+    if (!windows) return
+    this.allUpdater.checkUpdate(windows)
   }
   ConfirmUpdate: (event: Electron.IpcMainInvokeEvent) => void | Promise<void> =
     () => {

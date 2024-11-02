@@ -1,5 +1,5 @@
-import { ipcRenderer, shell } from 'electron'
-import type { IIpcRendererInvoke, IIpcRendererOn } from '../src/ipc/index'
+import { shell } from 'electron'
+import type { IIpcRendererInvoke, IIpcRendererOn } from '@ipcManager/index'
 type IpcRendererInvoke = {
   [key in keyof IIpcRendererInvoke]: {
     invoke: IIpcRendererInvoke[key]

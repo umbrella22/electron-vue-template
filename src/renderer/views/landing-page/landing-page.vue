@@ -196,7 +196,7 @@ ipcRendererChannel.DownloadDone.on((event, age) => {
   // });
 })
 // electron-updater upload
-ipcRendererChannel.UpdateMsg.on((event, age) => {
+ipcRendererChannel.updateMsg.on((event, age) => {
   switch (age.state) {
     case -1:
       const msgdata = {

@@ -1,5 +1,6 @@
 process.env.NODE_ENV = 'development'
 
+import readline from 'node:readline'
 import electron from 'electron'
 import chalk from 'chalk'
 import { join } from 'path'
@@ -28,6 +29,7 @@ const { target = 'client' } = getArgv()
 
 let electronProcess: ChildProcess | null = null
 let manualRestart = false
+let readlineInterface: readline.Interface | null = null
 
 async function startRenderer(): Promise<void> {
   Portfinder.basePort = config.dev.port || 9080
@@ -118,10 +120,22 @@ function startElectron() {
   })
 
   electronProcess.on('close', () => {
-    if (!manualRestart) process.exit()
+    if (!manualRestart) {
+      readlineInterface?.close()
+      process.exit()
+    }
   })
 }
 
+function onInputAction(input: string) {}
+
+function initReadline() {
+  readlineInterface = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout,
+  })
+  readlineInterface.on('line', onInputAction)
+}
 function greeting() {
   const cols = process.stdout.columns
   let text: string | boolean = ''

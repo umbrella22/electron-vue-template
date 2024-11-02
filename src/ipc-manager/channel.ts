@@ -86,7 +86,7 @@ export class IpcChannelRendererClass {
      */
     filePath: string
   }>
-  UpdateMsg!: IpcRendererEventListener<{
+  updateMsg!: IpcRendererEventListener<{
     state: number
     msg: string | ProgressInfo
   }>
