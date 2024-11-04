@@ -60,7 +60,6 @@
 
 <script setup lang="ts">
 import SystemInformation from './components/system-info-mation.vue'
-import { message } from '@renderer/api/login'
 import logo from '@renderer/assets/logo.png'
 import { ref } from 'vue'
 import { i18nt, setLanguage, globalLang } from '@renderer/i18n'
@@ -93,9 +92,6 @@ setTimeout(() => {
   console.log(`storeTemplate`, storeTemplate.getTest1)
 }, 1000)
 
-const elPageSize = ref(100)
-const elCPage = ref(1)
-
 function changeLanguage() {
   setLanguage(globalLang.value === 'zh-cn' ? 'en' : 'zh-cn')
 }
@@ -109,32 +105,16 @@ function openNewWin() {
     url: '/form/index',
   }
   ipcRendererChannel.OpenWin.invoke(data)
-  // ipcRenderer.invoke("open-win", data);
 }
 function getMessage() {
-  message().then((res) => {
-    // ElMessageBox.alert(res.data, "提示", {
-    //   confirmButtonText: "确定",
-    // });
-  })
+  console.log('API is obsolete')
+
 }
 function StopServer() {
-  ipcRendererChannel.StopServer.invoke().then((res) => {
-    // ElMessage({
-    //   type: "success",
-    //   message: "已关闭",
-    // });
-  })
+  ipcRendererChannel.StopServer.invoke()
 }
 function StartServer() {
-  ipcRendererChannel.StartServer.invoke().then((res) => {
-    if (res) {
-      // ElMessage({
-      //   type: "success",
-      //   message: res,
-      // });
-    }
-  })
+  ipcRendererChannel.StartServer.invoke()
 }
 // 获取electron方法
 function open() {}
