@@ -9,10 +9,9 @@ yarn-error.log*
 
 # Editor directories and files
 .idea
-.vscode
 *.suo
 *.ntvs*
 *.njsproj
 *.sln
 server/client/electron-vue-admin Setup 0.0.1.exe
-build/builder-effective-config.yaml
+/build/builder-effective-config.yaml

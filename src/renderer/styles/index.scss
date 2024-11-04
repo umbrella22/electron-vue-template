@@ -1,8 +1,11 @@
-@import './variables.scss';
-@import './mixin.scss';
-@import './transition.scss';
-@import './element-ui.scss';
-@import './sidebar.scss';
+@import './transition.css';
+
+html,
+body,
+#app {
+  width: 100%;
+  height: 100%;
+}
 
 body {
   -moz-osx-font-smoothing: grayscale;
@@ -13,15 +16,22 @@ body {
   padding: 0;
 }
 
-svg {
-  display: inline-block !important;
-}
-
 html {
   box-sizing: border-box;
 
   ::-webkit-scrollbar {
-    display: none;
+    width: 6px;
+    height: 6px;
+    background-color: none;
+  }
+
+  ::-webkit-scrollbar-track {
+    background-color: none;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background-color: #555;
   }
 }
 

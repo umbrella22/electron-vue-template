@@ -1,0 +1,29 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "resolveJsonModule": true,
+    "baseUrl": "./",
+    "outDir": "./dist/electron",
+    "sourceMap": true,
+    "declaration": false,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "ESNext",
+    "paths": {
+      "@config/*": ["config/*"],
+      "@ipcManager/*": ["src/ipc-manager/*"],
+      "@renderer/*": ["src/renderer/*"],
+      "@main/*": ["src/main/*"]
+    },
+    "typeRoots": ["node_modules/@types"],
+    "lib": ["es2018", "dom"],
+    "forceConsistentCasingInFileNames": true,
+    "strict": true
+  },
+  "include": ["src/**/*", "customTypes/*"],
+  "exclude": ["node_modules"]
+}

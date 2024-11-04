@@ -1,17 +1,12 @@
 <template>
-  <div id="app">
-    <c-header></c-header>
-    <transition name="fade" mode="out-in">
-      <router-view></router-view>
-    </transition>
-  </div>
+  <title-bar />
+  <router-view v-slot="{ Component }">
+    <component :is="Component" />
+  </router-view>
 </template>
 
-<script setup>
-import CHeader from "./components/title";
-
+<script setup lang="ts">
+import TitleBar from '@renderer/components/title-bar/title-bar.vue'
 </script>
 
-<style>
-/* CSS */
-</style>
+<style></style>
