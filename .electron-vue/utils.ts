@@ -2,13 +2,6 @@ import { config } from 'dotenv'
 import { join } from 'path'
 import minimist from 'minimist'
 import chalk from 'chalk'
-import {
-  rspack,
-  type LightningcssLoaderOptions,
-  type RspackPluginInstance,
-  type RuleSetRule,
-  type DefinePluginOptions,
-} from '@rspack/core'
 
 const argv = minimist(process.argv.slice(2))
 const rootResolve = (...pathSegments) => join(__dirname, '..', ...pathSegments)
@@ -90,87 +83,6 @@ export const electronLog = (data: any, color: string) => {
         '\n',
     )
   }
-}
-
-export interface CssLoaderOptions {
-  lightningcssOptions: LightningcssLoaderOptions
-  sourceMap: boolean
-}
-
-const cssLoaders = (options?: CssLoaderOptions) => {
-  const { lightningcssOptions, sourceMap } = options ?? {}
-  const cssLoader = {
-    loader: 'css-loader',
-    options: {
-      sourceMap,
-      esModule: false,
-    },
-  }
-
-  const lightningcssLoader = {
-    loader: 'builtin:lightningcss-loader',
-    options: {
-      ...lightningcssOptions,
-    },
-  }
-  // 这里就是生成loader和其对应的配置
-  const generateLoaders = (loader: string, loaderOptions?: any) => {
-    const loaders = ['vue-style-loader', cssLoader, lightningcssLoader]
-
-    if (loader) {
-      loaders.push({
-        loader: loader + '-loader',
-        options: Object.assign({}, loaderOptions, {
-          sourceMap,
-        }),
-      })
-    }
-
-    return loaders
-  }
-  return {
-    less: generateLoaders('less'),
-    sass: generateLoaders('sass', {
-      indentedSyntax: true,
-      api: 'modern-compiler',
-    }),
-    scss: generateLoaders('sass', { api: 'modern-compiler' }),
-    stylus: generateLoaders('stylus'),
-    styl: generateLoaders('stylus'),
-  }
-}
-
-export const buildCssLoaders = (options?: CssLoaderOptions) => {
-  const output: RuleSetRule[] = []
-  const loaders = cssLoaders(options)
-
-  for (const extension in loaders) {
-    const loader = loaders[extension]
-    output.push({
-      test: new RegExp('\\.' + extension + '$'),
-      use: loader,
-      type: 'javascript/auto',
-    })
-  }
-
-  return output
-}
-
-export const createEnvPlugin = (
-  otherEnv: DefinePluginOptions = {},
-): RspackPluginInstance => {
-  const baseEnv = Object.assign({}, getConfig())
-  const clientEnvs = Object.fromEntries(
-    Object.entries(baseEnv).map(([key, val]) => {
-      return [`import.meta.env.${key}`, JSON.stringify(val)]
-    }),
-  )
-  const envs = Object.fromEntries(
-    Object.entries({ ...clientEnvs, ...otherEnv }).map(([key, val]) => {
-      return [key, val]
-    }),
-  )
-  return new rspack.DefinePlugin(envs)
 }
 
 export const workPath = join(__dirname, '..')
