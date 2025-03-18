@@ -8,7 +8,7 @@
 
 [国内访问地址](https://gitee.com/Zh-Sky/electron-vue-template)
 
-### 请确保您的 node 版本大于等于 16.
+### 请确保您的 node 版本大于等于 20.
 
 #### 如何安装
 
@@ -19,8 +19,7 @@ npm config edit
 # ELECTRON_MIRROR=https://npmmirror.com/mirrors/electron/
 # ELECTRON_BUILDER_BINARIES_MIRROR=https://npmmirror.com/mirrors/electron-builder-binaries/
 # 然后关闭该窗口，重启命令行.
-# 使用yarn安装
-npm install
+npm ci
 
 # 启动之后，会在9080端口监听
 npm run dev
