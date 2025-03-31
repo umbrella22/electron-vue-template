@@ -6,7 +6,7 @@ import chalk from 'chalk'
 import { join } from 'path'
 import { rspack } from '@rspack/core'
 import { RspackDevServer } from '@rspack/dev-server'
-import Portfinder from 'portfinder'
+import { detect } from 'detect-port'
 import config from '../config'
 import { say } from 'cfonts'
 import { spawn } from 'child_process'
@@ -64,8 +64,7 @@ const shortcutList: Shortcut[] = [
 ]
 
 async function startRenderer(): Promise<void> {
-  Portfinder.basePort = config.dev.port || 9080
-  const port = await Portfinder.getPortPromise()
+  const port = await detect(config.dev.port || 9080)
   const compiler = rspack(createRendererConfig({ target }))
 
   compiler.hooks.done.tap('done', (stats) => {

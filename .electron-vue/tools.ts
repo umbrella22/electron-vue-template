@@ -1,12 +1,14 @@
-import type {
-  RspackPluginFunction,
-  RspackPluginInstance,
-  RuleSetRule,
-  DefinePluginOptions,
-  WebpackPluginInstance,
-  WebpackPluginFunction,
+import {
+  type RspackPluginFunction,
+  type RspackPluginInstance,
+  type RuleSetRule,
+  type DefinePluginOptions,
+  type WebpackPluginInstance,
+  type WebpackPluginFunction,
+  type LightningcssLoaderOptions,
+  rspack,
 } from '@rspack/core'
-import { buildCssLoaders, createEnvPlugin, CssLoaderOptions } from './utils'
+import { getConfig } from './utils'
 
 type ListItemType =
   | RspackPluginInstance
@@ -83,4 +85,85 @@ export class CreatePlugins extends BaseCreate<
     this.add(createEnvPlugin(otherEnv))
     return this
   }
+}
+
+export interface CssLoaderOptions {
+  lightningcssOptions: LightningcssLoaderOptions
+  sourceMap: boolean
+}
+
+const cssLoaders = (options?: CssLoaderOptions) => {
+  const { lightningcssOptions, sourceMap } = options ?? {}
+  const cssLoader = {
+    loader: 'css-loader',
+    options: {
+      sourceMap,
+      esModule: false,
+    },
+  }
+
+  const lightningcssLoader = {
+    loader: 'builtin:lightningcss-loader',
+    options: {
+      ...lightningcssOptions,
+    },
+  }
+  // 这里就是生成loader和其对应的配置
+  const generateLoaders = (loader: string, loaderOptions?: any) => {
+    const loaders = ['vue-style-loader', cssLoader, lightningcssLoader]
+
+    if (loader) {
+      loaders.push({
+        loader: loader + '-loader',
+        options: Object.assign({}, loaderOptions, {
+          sourceMap,
+        }),
+      })
+    }
+
+    return loaders
+  }
+  return {
+    less: generateLoaders('less'),
+    sass: generateLoaders('sass', {
+      indentedSyntax: true,
+      api: 'modern-compiler',
+    }),
+    scss: generateLoaders('sass', { api: 'modern-compiler' }),
+    stylus: generateLoaders('stylus'),
+    styl: generateLoaders('stylus'),
+  }
+}
+
+export const buildCssLoaders = (options?: CssLoaderOptions) => {
+  const output: RuleSetRule[] = []
+  const loaders = cssLoaders(options)
+
+  for (const extension in loaders) {
+    const loader = loaders[extension]
+    output.push({
+      test: new RegExp('\\.' + extension + '$'),
+      use: loader,
+      type: 'javascript/auto',
+    })
+  }
+
+  return output
+}
+
+export const createEnvPlugin = (
+  otherEnv: DefinePluginOptions = {},
+): RspackPluginInstance => {
+  const baseEnv = Object.assign({}, getConfig())
+  const clientEnvs = Object.fromEntries(
+    Object.entries(baseEnv).map(([key, val]) => {
+      return [`import.meta.env.${key}`, JSON.stringify(val)]
+    }),
+  )
+  const envs = Object.fromEntries(
+    Object.entries({ ...clientEnvs, ...otherEnv }).map(([key, val]) => {
+      return [key, val]
+    }),
+  )
+  return new rspack.DefinePlugin(envs)
 }

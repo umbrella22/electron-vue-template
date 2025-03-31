@@ -24,7 +24,7 @@ $ git clone https://github.com/umbrella22/electron-vite-template.git
 # Go into the repository
 $ cd electron-vue-template
 # install dependencies
-$ npm install
+$ npm ci
 
 # serve with hot reload at localhost:9080
 $ npm run dev
