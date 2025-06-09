@@ -17,7 +17,8 @@
     "source.fixAll.eslint": "explicit"
   },
   "[javascript]": {
-    "editor.formatOnSave": true
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "[typescript]": {
     "editor.formatOnSave": true,
