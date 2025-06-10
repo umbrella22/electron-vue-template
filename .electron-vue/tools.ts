@@ -31,8 +31,8 @@ export class BaseCreate<T extends ListItemType> {
 }
 
 export class CreateLoader extends BaseCreate<RuleSetRule> {
-  private defaultScriptLoader: RuleSetRule = {
-    test: /\.m?[jt]s$/,
+  private typeScriptLoader: RuleSetRule = {
+    test: /\.m?[t]s$/,
     exclude: [/node_modules/],
     loader: 'builtin:swc-loader',
     options: {
@@ -41,6 +41,15 @@ export class CreateLoader extends BaseCreate<RuleSetRule> {
           syntax: 'typescript',
         },
       },
+    },
+    type: 'javascript/auto',
+  }
+  private javascriptLoader: RuleSetRule = {
+    test: /\.m?[j]s$/,
+    exclude: [/node_modules/],
+    loader: 'builtin:swc-loader',
+    options: {
+      isModule: 'unknown',
     },
     type: 'javascript/auto',
   }
@@ -66,7 +75,7 @@ export class CreateLoader extends BaseCreate<RuleSetRule> {
   }
 
   useDefaultScriptLoader(): this {
-    this.add(this.defaultScriptLoader)
+    this.add(this.typeScriptLoader).add(this.javascriptLoader)
     return this
   }
   useDefaultResourceLoader(): this {
