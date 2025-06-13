@@ -133,6 +133,7 @@ const cssLoaders = (options?: CssLoaderOptions) => {
     return loaders
   }
   return {
+    css: generateLoaders(''),
     less: generateLoaders('less'),
     sass: generateLoaders('sass', {
       indentedSyntax: true,
