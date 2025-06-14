@@ -103,13 +103,6 @@ export interface CssLoaderOptions {
 
 const cssLoaders = (options?: CssLoaderOptions) => {
   const { lightningcssOptions, sourceMap } = options ?? {}
-  const cssLoader = {
-    loader: 'css-loader',
-    options: {
-      sourceMap,
-      esModule: false,
-    },
-  }
 
   const lightningcssLoader = {
     loader: 'builtin:lightningcss-loader',
@@ -119,9 +112,9 @@ const cssLoaders = (options?: CssLoaderOptions) => {
   }
   // 这里就是生成loader和其对应的配置
   const generateLoaders = (loader: string, loaderOptions?: any) => {
-    const loaders = ['vue-style-loader', cssLoader, lightningcssLoader]
+    const loaders = [lightningcssLoader]
 
-    if (loader) {
+    if (loader && loader !== 'css') {
       loaders.push({
         loader: loader + '-loader',
         options: Object.assign({}, loaderOptions, {
@@ -133,7 +126,7 @@ const cssLoaders = (options?: CssLoaderOptions) => {
     return loaders
   }
   return {
-    css: generateLoaders(''),
+    css: generateLoaders('css'),
     less: generateLoaders('less'),
     sass: generateLoaders('sass', {
       indentedSyntax: true,
@@ -154,7 +147,7 @@ export const buildCssLoaders = (options?: CssLoaderOptions) => {
     output.push({
       test: new RegExp('\\.' + extension + '$'),
       use: loader,
-      type: 'javascript/auto',
+      type: 'css/auto',
     })
   }
 

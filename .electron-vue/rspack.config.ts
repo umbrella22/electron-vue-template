@@ -130,5 +130,8 @@ export const createRendererConfig = ({
     module: {
       rules,
     },
+    experiments: {
+      css: true,
+    },
   }
 }
