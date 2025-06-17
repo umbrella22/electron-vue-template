@@ -31,8 +31,8 @@ export class BaseCreate<T extends ListItemType> {
 }
 
 export class CreateLoader extends BaseCreate<RuleSetRule> {
-  private defaultScriptLoader: RuleSetRule = {
-    test: /\.m?[jt]s$/,
+  private typeScriptLoader: RuleSetRule = {
+    test: /\.m?[t]s$/,
     exclude: [/node_modules/],
     loader: 'builtin:swc-loader',
     options: {
@@ -41,6 +41,15 @@ export class CreateLoader extends BaseCreate<RuleSetRule> {
           syntax: 'typescript',
         },
       },
+    },
+    type: 'javascript/auto',
+  }
+  private javascriptLoader: RuleSetRule = {
+    test: /\.m?[j]s$/,
+    exclude: [/node_modules/],
+    loader: 'builtin:swc-loader',
+    options: {
+      isModule: 'unknown',
     },
     type: 'javascript/auto',
   }
@@ -66,7 +75,7 @@ export class CreateLoader extends BaseCreate<RuleSetRule> {
   }
 
   useDefaultScriptLoader(): this {
-    this.add(this.defaultScriptLoader)
+    this.add(this.typeScriptLoader).add(this.javascriptLoader)
     return this
   }
   useDefaultResourceLoader(): this {
@@ -94,13 +103,6 @@ export interface CssLoaderOptions {
 
 const cssLoaders = (options?: CssLoaderOptions) => {
   const { lightningcssOptions, sourceMap } = options ?? {}
-  const cssLoader = {
-    loader: 'css-loader',
-    options: {
-      sourceMap,
-      esModule: false,
-    },
-  }
 
   const lightningcssLoader = {
     loader: 'builtin:lightningcss-loader',
@@ -110,9 +112,9 @@ const cssLoaders = (options?: CssLoaderOptions) => {
   }
   // 这里就是生成loader和其对应的配置
   const generateLoaders = (loader: string, loaderOptions?: any) => {
-    const loaders = ['vue-style-loader', cssLoader, lightningcssLoader]
+    const loaders = [lightningcssLoader]
 
-    if (loader) {
+    if (loader && loader !== 'css') {
       loaders.push({
         loader: loader + '-loader',
         options: Object.assign({}, loaderOptions, {
@@ -124,6 +126,7 @@ const cssLoaders = (options?: CssLoaderOptions) => {
     return loaders
   }
   return {
+    css: generateLoaders('css'),
     less: generateLoaders('less'),
     sass: generateLoaders('sass', {
       indentedSyntax: true,
@@ -144,7 +147,7 @@ export const buildCssLoaders = (options?: CssLoaderOptions) => {
     output.push({
       test: new RegExp('\\.' + extension + '$'),
       use: loader,
-      type: 'javascript/auto',
+      type: 'css/auto',
     })
   }
 
