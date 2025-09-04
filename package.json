@@ -41,7 +41,7 @@
     "chalk": "^5.4.1",
     "del": "^7.1.0",
     "dotenv": "^16.5.0",
-    "electron": "^34.5.8",
+    "electron": "^35.7.5",
     "electron-builder": "^26.0.12",
     "electron-devtools-vendor": "^3.0.0",
     "fs-extra": "^11.3.0",
