@@ -73,6 +73,10 @@ export const createRendererConfig = ({
     target === 'client'
       ? join(workPath, 'dist', 'electron', 'renderer', 'public')
       : join(workPath, 'dist', 'web', 'public')
+  const outputPath =
+    target === 'client'
+      ? join(workPath, 'dist', 'electron', 'renderer')
+      : join(workPath, 'dist', 'web')
   const loaderHelper = new CreateLoader()
   const pluginHelper = new CreatePlugins()
 
@@ -123,7 +127,7 @@ export const createRendererConfig = ({
     ...commonConfig,
     entry: join(workPath, 'src', 'renderer', 'main.ts'),
     output: {
-      path: join(workPath, 'dist', 'electron', 'renderer'),
+      path: outputPath,
       filename: '[name].js',
     },
     plugins,
