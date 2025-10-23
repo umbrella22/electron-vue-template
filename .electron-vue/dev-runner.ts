@@ -63,8 +63,7 @@ const shortcutList: Shortcut[] = [
   },
 ]
 
-async function startRenderer(): Promise<void> {
-  const port = await detect(config.dev.port || 9080)
+async function startRenderer(port: number): Promise<void> {
   const compiler = rspack(createRendererConfig({ target }))
 
   compiler.hooks.done.tap('done', (stats) => {
@@ -215,14 +214,18 @@ function greeting() {
 }
 
 async function init() {
+  const port = await detect(config.dev.port || 9080)
   if (target === 'web') {
-    await startRenderer()
+    await startRenderer(port)
     return
   }
+
+  // 清空控制台，只保留构建进度和日志
+  console.clear()
+
   greeting()
   try {
-    await startRenderer()
-    await startMain()
+    await Promise.all([startRenderer(port), startMain()])
     startElectron()
     initReadline()
   } catch (error) {
