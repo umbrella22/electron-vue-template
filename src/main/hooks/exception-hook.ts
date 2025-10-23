@@ -30,6 +30,8 @@ export interface UseProcessExceptionRetrun {
     window: BrowserWindow,
     listener?: (event: Event, details: Details) => void,
   ) => void
+
+  mainWindowGone: (window: BrowserWindow, listener?: () => void) => void
 }
 interface Message {
   title: string
@@ -145,8 +147,30 @@ export const useProcessException = (): UseProcessExceptionRetrun => {
         })
     })
   }
+
+  const mainWindowGone = (window: BrowserWindow, listener?: () => void) => {
+    window.on('unresponsive', () => {
+      if (listener) {
+        listener()
+        return
+      }
+      dialog
+        .showMessageBox(window, {
+          type: 'warning',
+          title: '警告',
+          buttons: ['重载', '退出'],
+          message: '图形化进程失去响应，是否等待其恢复？',
+          noLink: true,
+        })
+        .then((res) => {
+          if (res.response === 0) window!.reload()
+          else window!.close()
+        })
+    })
+  }
   return {
     renderProcessGone,
     childProcessGone,
+    mainWindowGone,
   }
 }

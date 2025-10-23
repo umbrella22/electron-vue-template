@@ -6,6 +6,7 @@ import {
   singleQuote,
   trailingComma,
 } from '@ikaros-cli/prettier-config'
+
 export default {
   endOfLine,
   htmlWhitespaceSensitivity,

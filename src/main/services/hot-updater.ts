@@ -97,7 +97,7 @@ export const updater = async (windows?: BrowserWindow): Promise<void> => {
     }
   } catch (error) {
     updateInfo.status = 'failed'
-    updateInfo.message = error
+    updateInfo.message = error instanceof Error ? error.message : String(error)
 
     if (windows) webContentSend.HotUpdateStatus(windows.webContents, updateInfo)
   }

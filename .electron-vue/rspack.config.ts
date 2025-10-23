@@ -3,6 +3,9 @@ import { CreateLoader, CreatePlugins } from './tools'
 import { join } from 'path'
 import { VueLoaderPlugin } from 'vue-loader'
 import { extensions, tsConfig, workPath } from './utils'
+import { UnoCSSRspackPlugin } from '@unocss/webpack/rspack'
+
+import unocssConfig from '../uno.config'
 
 const getCommonConfig = (
   env: 'development' | 'none' | 'production',
@@ -90,6 +93,7 @@ export const createRendererConfig = ({
     .end()
 
   const plugins = pluginHelper
+    .add(UnoCSSRspackPlugin(unocssConfig))
     .useDefaultEnvPlugin({
       // 如果不是ui组件库使用，强烈建议关闭
       __VUE_OPTIONS_API__: true,

@@ -38,7 +38,10 @@ export class IpcChannelMainClass {
   StartServer!: IpcMainEventListener<void, string>
   StopServer!: IpcMainEventListener<void, string>
   HotUpdate!: IpcMainEventListener
-
+  /**
+   * 窗口准备就绪
+   */
+  WinReady!: IpcMainEventListener
   /**
    *
    * 打开窗口

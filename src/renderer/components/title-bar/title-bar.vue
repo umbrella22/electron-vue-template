@@ -34,13 +34,14 @@ ipcRendererChannel.IsUseSysTitle.invoke().then((res) => {
 .window-title {
   width: 100%;
   height: 30px;
-  line-height: 30px;
-  background-color: #ffffff;
+  line-height: 28px;
+  background-color: var(--background-color);
   display: flex;
   -webkit-app-region: drag;
   position: fixed;
   top: 0;
   z-index: 99999;
+  align-items: center;
 
   .icon-logo {
     width: 1em;

@@ -11,23 +11,26 @@
 </template>
 
 <script setup lang="ts">
-import { i18nt } from "@renderer/i18n";
-import { computed, ref } from "vue";
-import { useRoute } from "vue-router";
+import { i18nt } from '@renderer/i18n'
+import { computed, ref } from 'vue'
+import { useRoute } from 'vue-router'
 
-const { path, name } = useRoute();
-const { systemInfo } = window;
+const { path, name } = useRoute()
+const { systemInfo } = window
 
 let tips = ref(
   computed(() => [
-    { name: i18nt.value.about.language, value: i18nt.value.about.languageValue },
+    {
+      name: i18nt.value.about.language,
+      value: i18nt.value.about.languageValue,
+    },
     { name: i18nt.value.about.currentPagePath, value: path },
     { name: i18nt.value.about.currentPageName, value: name },
     { name: i18nt.value.about.systemPlatform, value: systemInfo.platform },
     { name: i18nt.value.about.systemVersion, value: systemInfo.release },
-    { name: i18nt.value.about.systemArch, value: systemInfo.arch + "位" },
-  ])
-);
+    { name: i18nt.value.about.systemArch, value: systemInfo.arch + '位' },
+  ]),
+)
 </script>
 
 <style scoped lang="scss">

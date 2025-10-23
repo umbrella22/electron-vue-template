@@ -21,8 +21,6 @@
           <button class="btu" @click="CheckUpdate('one')">
             {{ i18nt.buttons.checkUpdate }}
           </button>
-        </div>
-        <div class="doc">
           <button class="btu" @click="CheckUpdate('two')">
             {{ i18nt.buttons.checkUpdate2 }}
           </button>
@@ -32,20 +30,12 @@
           <!-- <button class="btu" @click="CheckUpdate('four')">
             {{ i18nt.buttons.ForcedUpdate }}
           </button> -->
-          <button class="btu" @click="StartServer">
-            {{ i18nt.buttons.startServer }}
-          </button>
-          <button class="btu" @click="StopServer">
-            {{ i18nt.buttons.stopServer }}
-          </button>
           <button class="btu" @click="getMessage">
             {{ i18nt.buttons.viewMessage }}
           </button>
           <button class="btu" @click="startCrash">
             {{ i18nt.buttons.simulatedCrash }}
           </button>
-        </div>
-        <div class="doc">
           <button class="btu" @click="openNewWin">
             {{ i18nt.buttons.openNewWindow }}
           </button>
@@ -53,6 +43,11 @@
             {{ i18nt.buttons.changeLanguage }}
           </button>
         </div>
+        <div class="doc">
+          <Tabs direction="vertical" />
+          <i class="i-tdesign:activity" />
+        </div>
+        <div class="doc"></div>
       </div>
     </main>
   </div>
@@ -60,6 +55,7 @@
 
 <script setup lang="ts">
 import SystemInformation from './components/system-info-mation.vue'
+import Tabs from '@renderer/components/tabs/tab-index.vue'
 import logo from '@renderer/assets/logo.png'
 import { ref } from 'vue'
 import { i18nt, setLanguage, globalLang } from '@renderer/i18n'
@@ -76,7 +72,7 @@ const colors = ref([
   { color: '#5cb87a', percentage: 100 },
 ] as string | ColorInfo[])
 const dialogVisible = ref(false)
-const progressStaus = ref(null)
+const progressStaus = ref<string | null>(null)
 const filePath = ref('')
 const updateStatus = ref('')
 const showForcedUpdate = ref(false)
@@ -108,7 +104,6 @@ function openNewWin() {
 }
 function getMessage() {
   console.log('API is obsolete')
-
 }
 function StopServer() {
   ipcRendererChannel.StopServer.invoke()
@@ -118,7 +113,7 @@ function StartServer() {
 }
 // 获取electron方法
 function open() {}
-function CheckUpdate(data) {
+function CheckUpdate(data: string) {
   switch (data) {
     case 'one':
       ipcRendererChannel.CheckUpdate.invoke()

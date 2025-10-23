@@ -15,18 +15,20 @@ class MainInit {
       details: Details,
     ) => void,
   ) => void
+  private mainWindowGone: (window: BrowserWindow, listener?: () => void) => void
 
   constructor() {
-    const { childProcessGone } = useProcessException()
+    const { childProcessGone, mainWindowGone } = useProcessException()
     this.winURL = winURL
     this.shartURL = loadingURL
     this.childProcessGone = childProcessGone
+    this.mainWindowGone = mainWindowGone
   }
   // 主窗口函数
   createMainWindow() {
     this.mainWindow = new BrowserWindow({
       titleBarOverlay: {
-        color: '#fff',
+        color: '#F2F3F5',
       },
       titleBarStyle: config.IsUseSysTitle ? 'default' : 'hidden',
       height: 800,
@@ -50,7 +52,7 @@ class MainInit {
     this.mainWindow.loadURL(this.winURL)
     // dom-ready之后显示界面
     this.mainWindow.once('ready-to-show', () => {
-      this.mainWindow!.show()
+      // this.mainWindow!.show()
       if (config.UseStartupChart) this.loadWindow!.destroy()
     })
     // 开发模式下自动开启devtools
@@ -61,20 +63,7 @@ class MainInit {
       })
     }
     // 不知道什么原因，反正就是这个窗口里的页面触发了假死时执行
-    this.mainWindow.on('unresponsive', () => {
-      dialog
-        .showMessageBox(this.mainWindow, {
-          type: 'warning',
-          title: '警告',
-          buttons: ['重载', '退出'],
-          message: '图形化进程失去响应，是否等待其恢复？',
-          noLink: true,
-        })
-        .then((res) => {
-          if (res.response === 0) this.mainWindow!.reload()
-          else this.mainWindow!.close()
-        })
-    })
+    this.mainWindowGone(this.mainWindow)
     /**
      * 新的gpu崩溃检测，详细参数详见：http://www.electronjs.org/docs/api/app
      * @returns {void}
@@ -104,7 +93,6 @@ class MainInit {
     this.loadWindow.loadURL(loadingURL)
     this.loadWindow.show()
     this.loadWindow.setAlwaysOnTop(true)
-    // 延迟两秒可以根据情况后续调快，= =，就相当于个，sleep吧，就那种。 = =。。。
     setTimeout(() => {
       this.createMainWindow()
     }, 1500)

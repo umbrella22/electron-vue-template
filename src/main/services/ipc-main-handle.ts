@@ -67,7 +67,7 @@ export class IpcMainHandleClass implements IIpcMainHandle {
     }
     childWin.loadURL(winURL + `#${arg.url}`)
     childWin.once('ready-to-show', () => {
-      childWin.show()
+      // childWin.show()
       if (arg.IsPay) {
         // 检查支付时候自动关闭小窗口
         const testUrl = setInterval(() => {
@@ -114,16 +114,18 @@ export class IpcMainHandleClass implements IIpcMainHandle {
   ) =>
     | Electron.MessageBoxReturnValue
     | Promise<Electron.MessageBoxReturnValue> = async (event, arg) => {
-    const res = await dialog.showMessageBox(
-      BrowserWindow.fromWebContents(event.sender),
-      {
-        type: arg.type || 'info',
-        title: arg.title || '',
-        buttons: arg.buttons || [],
-        message: arg.message || '',
-        noLink: arg.noLink || true,
-      },
-    )
+    const window = BrowserWindow.fromWebContents(event.sender)
+    if (!window) {
+      // Optionally, handle the case where window is null
+      throw new Error('No window found for event sender')
+    }
+    const res = await dialog.showMessageBox(window, {
+      type: arg.type || 'info',
+      title: arg.title || '',
+      buttons: arg.buttons || [],
+      message: arg.message || '',
+      noLink: arg.noLink || true,
+    })
     return res
   }
   OpenErrorbox: (
@@ -131,5 +133,12 @@ export class IpcMainHandleClass implements IIpcMainHandle {
     arg: { title: string; message: string },
   ) => void | Promise<void> = (event, arg) => {
     dialog.showErrorBox(arg.title, arg.message)
+  }
+  WinReady: (event: Electron.IpcMainInvokeEvent) => void | Promise<void> = (
+    event,
+  ) => {
+    const windows = BrowserWindow.fromWebContents(event.sender)
+    if (!windows) return
+    windows.show()
   }
 }
