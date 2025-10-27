@@ -29,18 +29,6 @@
           <button class="btu" @click="CheckUpdate('three')">
             {{ i18nt.buttons.checkUpdateInc }}
           </button>
-          <!-- <button class="btu" @click="CheckUpdate('four')">
-            {{ i18nt.buttons.ForcedUpdate }}
-          </button> -->
-          <button class="btu" @click="StartServer">
-            {{ i18nt.buttons.startServer }}
-          </button>
-          <button class="btu" @click="StopServer">
-            {{ i18nt.buttons.stopServer }}
-          </button>
-          <button class="btu" @click="getMessage">
-            {{ i18nt.buttons.viewMessage }}
-          </button>
           <button class="btu" @click="startCrash">
             {{ i18nt.buttons.simulatedCrash }}
           </button>
@@ -64,8 +52,9 @@ import logo from '@renderer/assets/logo.png'
 import { ref } from 'vue'
 import { i18nt, setLanguage, globalLang } from '@renderer/i18n'
 import { useStoreTemplate } from '@renderer/store/modules/template'
+import { invoke, vueListen, IpcChannel } from '@renderer/utils/ipcRenderer'
 
-const { ipcRendererChannel, crash } = window
+const { crash } = window
 
 const percentage = ref(0)
 const colors = ref([
@@ -104,33 +93,23 @@ function openNewWin() {
   const data = {
     url: '/form/index',
   }
-  ipcRendererChannel.OpenWin.invoke(data)
-}
-function getMessage() {
-  console.log('API is obsolete')
-
-}
-function StopServer() {
-  ipcRendererChannel.StopServer.invoke()
-}
-function StartServer() {
-  ipcRendererChannel.StartServer.invoke()
+  invoke(IpcChannel.OpenWin, data)
 }
 // 获取electron方法
 function open() {}
 function CheckUpdate(data) {
   switch (data) {
     case 'one':
-      ipcRendererChannel.CheckUpdate.invoke()
+      invoke(IpcChannel.CheckUpdate)
       console.log('启动检查')
       break
     case 'two':
-      ipcRendererChannel.StartDownload.invoke('https://xxx').then(() => {
+      invoke(IpcChannel.StartDownload, 'https://xxx').then(() => {
         dialogVisible.value = true
       })
       break
     case 'three':
-      ipcRendererChannel.HotUpdate.invoke()
+      invoke(IpcChannel.HotUpdate)
       break
     case 'four':
       showForcedUpdate.value = true
@@ -140,32 +119,29 @@ function CheckUpdate(data) {
       break
   }
 }
-function handleClose() {
-  dialogVisible.value = false
-}
 
-ipcRendererChannel.DownloadProgress.on((event, arg) => {
+vueListen(IpcChannel.DownloadProgress, (event, arg) => {
   percentage.value = Number(arg)
 })
-ipcRendererChannel.DownloadError.on((event, arg) => {
+vueListen(IpcChannel.DownloadError, (event, arg) => {
   if (arg) {
     progressStaus.value = 'exception'
     percentage.value = 40
     colors.value = '#d81e06'
   }
 })
-ipcRendererChannel.DownloadPaused.on((event, arg) => {
+vueListen(IpcChannel.DownloadPaused, (event, arg) => {
   if (arg) {
     progressStaus.value = 'warning'
     // ElMessageBox.alert("下载由于未知原因被中断！", "提示", {
     //   confirmButtonText: "重试",
     //   callback: (action) => {
-    //     ipcRenderer.invoke("start-download");
+    //     invoke(IpcChannel.StartDownload);
     //   },
     // });
   }
 })
-ipcRendererChannel.DownloadDone.on((event, age) => {
+vueListen(IpcChannel.DownloadDone, (event, age) => {
   filePath.value = age.filePath
   progressStaus.value = 'success'
   // ElMessageBox.alert("更新下载完成！", "提示", {
@@ -176,7 +152,7 @@ ipcRendererChannel.DownloadDone.on((event, age) => {
   // });
 })
 // electron-updater upload
-ipcRendererChannel.updateMsg.on((event, age) => {
+vueListen(IpcChannel.UpdateMsg, (event, age) => {
   switch (age.state) {
     case -1:
       const msgdata = {
@@ -184,7 +160,7 @@ ipcRendererChannel.updateMsg.on((event, age) => {
         message: age.msg as string,
       }
       dialogVisible.value = false
-      ipcRendererChannel.OpenErrorbox.invoke(msgdata)
+      invoke(IpcChannel.OpenErrorbox, msgdata)
       break
     case 0:
       console.log('check-update')
@@ -203,13 +179,13 @@ ipcRendererChannel.updateMsg.on((event, age) => {
       break
     case 4:
       progressStaus.value = 'success'
-      ipcRendererChannel.ConfirmUpdate.invoke()
+      invoke(IpcChannel.ConfirmUpdate)
       break
     default:
       break
   }
 })
-ipcRendererChannel.UpdateProcessStatus.on((event, msg) => {
+vueListen(IpcChannel.UpdateProcessStatus, (event, msg) => {
   switch (msg.status) {
     case 'downloading':
       console.log('正在下载')
