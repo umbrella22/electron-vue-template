@@ -16,18 +16,19 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
-const { ipcRendererChannel, systemInfo } = window
+import { ref, onMounted } from 'vue'
+import { invoke } from '@renderer/utils/ipcRenderer'
+import { IpcChannel } from '@ipcManager/index'
+
+const { systemInfo } = window
 
 const IsUseSysTitle = ref(false)
 const isNotMac = ref(false)
-const IsWeb = ref(!ipcRendererChannel)
+const IsWeb = ref(!window.ipcRendererChannel)
 
 isNotMac.value = systemInfo.platform !== 'darwin'
 
-ipcRendererChannel.IsUseSysTitle.invoke().then((res) => {
-  IsUseSysTitle.value = res
-})
+IsUseSysTitle.value = await invoke(IpcChannel.IsUseSysTitle)
 </script>
 
 <style rel="stylesheet/scss" lang="scss" scoped>

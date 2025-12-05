@@ -35,9 +35,6 @@ export class IpcChannelMainClass {
   >
   StartDownload!: IpcMainEventListener<string>
   OpenErrorbox!: IpcMainEventListener<{ title: string; message: string }>
-  StartServer!: IpcMainEventListener<void, string>
-  StopServer!: IpcMainEventListener<void, string>
-  HotUpdate!: IpcMainEventListener
   /**
    * 窗口准备就绪
    */
@@ -76,11 +73,12 @@ export class IpcChannelMainClass {
     sendData?: unknown
   }>
 }
+
 export class IpcChannelRendererClass {
   // ipcRenderer
   DownloadProgress!: IpcRendererEventListener<number>
-  DownloadError!: IpcRendererEventListener<Boolean>
-  DownloadPaused!: IpcRendererEventListener<Boolean>
+  DownloadError!: IpcRendererEventListener<boolean>
+  DownloadPaused!: IpcRendererEventListener<boolean>
   DownloadDone!: IpcRendererEventListener<{
     /**
      * 下载的文件路径
@@ -89,7 +87,7 @@ export class IpcChannelRendererClass {
      */
     filePath: string
   }>
-  updateMsg!: IpcRendererEventListener<{
+  UpdateMsg!: IpcRendererEventListener<{
     state: number
     msg: string | ProgressInfo
   }>
@@ -121,4 +119,100 @@ export class IpcChannelRendererClass {
     status: string
     message: string
   }>
+}
+
+export class IpcChannelBrowserClass {
+  /**
+   * 打开浏览器演示窗口
+   */
+  OpenBrowserDemoWindow!: IpcMainEventListener
+
+  /**
+   * 获取最后一个拖拽的浏览器标签数据
+   */
+  GetLastBrowserDemoTabData!: IpcMainEventListener<
+    void,
+    {
+      positionX: number
+      bvWebContentsId: number
+      title: string
+      url: string
+    }
+  >
+
+  /**
+   * 添加默认的 BrowserView
+   */
+  AddDefaultBrowserView!: IpcMainEventListener<
+    void,
+    { bvWebContentsId: number }
+  >
+
+  /**
+   * 选择浏览器标签
+   */
+  SelectBrowserDemoTab!: IpcMainEventListener<number, boolean>
+
+  /**
+   * 销毁浏览器标签
+   */
+  DestroyBrowserDemoTab!: IpcMainEventListener<number>
+
+  /**
+   * 浏览器标签跳转到指定 URL
+   */
+  BrowserDemoTabJumpToUrl!: IpcMainEventListener<{
+    bvWebContentsId: number
+    url: string
+  }>
+
+  /**
+   * 浏览器标签鼠标按下事件
+   */
+  BrowserTabMousedown!: IpcMainEventListener<{
+    offsetX: number
+  }>
+
+  /**
+   * 浏览器标签鼠标移动事件
+   */
+  BrowserTabMousemove!: IpcMainEventListener<{
+    screenX: number
+    screenY: number
+    startX: number
+    startY: number
+    bvWebContentsId: number
+  }>
+
+  /**
+   * 浏览器标签鼠标抬起事件
+   */
+  BrowserTabMouseup!: IpcMainEventListener
+}
+
+export class IpcChannelPrintClass {
+  /**
+   * 获取打印机列表
+   */
+  GetPrinters!: IpcMainEventListener<void, Electron.PrinterInfo[]>
+
+  /**
+   * 执行打印操作
+   */
+  PrintHandlePrint!: IpcMainEventListener<
+    Electron.WebContentsPrintOptions,
+    { success: boolean; failureReason: string }
+  >
+
+  /**
+   * 打开打印演示窗口
+   */
+  OpenPrintDemoWindow!: IpcMainEventListener
+}
+
+export class IpcChannelHotUpdaterClass {
+  /**
+   * 执行热更新
+   */
+  HotUpdate!: IpcMainEventListener
 }

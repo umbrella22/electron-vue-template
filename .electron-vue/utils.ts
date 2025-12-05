@@ -4,7 +4,8 @@ import minimist from 'minimist'
 import chalk from 'chalk'
 
 const argv = minimist(process.argv.slice(2))
-const rootResolve = (...pathSegments) => join(__dirname, '..', ...pathSegments)
+const rootResolve = (...pathSegments: any[]) =>
+  join(__dirname, '..', ...pathSegments)
 
 export const getEnv = () => argv['m']
 export const getArgv = () => argv

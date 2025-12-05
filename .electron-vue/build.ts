@@ -69,7 +69,7 @@ async function unionBuild() {
 
 async function web() {
   await deleteAsync(['dist/web/*', '!.gitkeep'])
-  await pack(createRendererConfig({ target }))
+  await pack(createRendererConfig({ env: 'production', target }))
   doneLog(`web build success`)
   process.exit()
 }

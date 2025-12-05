@@ -14,4 +14,5 @@ const store = createPinia()
 app.use(router)
 app.use(store)
 errorHandler(app)
+
 app.mount('#app')
