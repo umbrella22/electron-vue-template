@@ -43,7 +43,15 @@ async function unionBuild() {
           try {
             await pack([
               createMainConfig({ env: 'production' }),
-              createPreloadConfig({ env: 'production', filename: 'index.ts' }),
+              createPreloadConfig({
+                env: 'production',
+                filename: 'index.ts',
+                outputFilename: 'main-preload.js',
+              }),
+              createPreloadConfig({
+                env: 'production',
+                filename: 'loader-preload.ts',
+              }),
               createRendererConfig({ env: 'production', target }),
             ])
             okayLog(

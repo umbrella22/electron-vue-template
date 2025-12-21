@@ -42,7 +42,7 @@ const filePath = {
       'dist',
       'electron',
       'renderer',
-      'pubilc',
+      'public',
     ).replace(/\\/g, '\\\\'),
   },
   getPreloadFile(fileName: string) {
@@ -75,3 +75,6 @@ export const loadingURL = filePath.loadingURL[env]
 export const lib = process.env.__lib
 export const updateFolder = process.env.__updateFolder
 export const getPreloadFile = filePath.getPreloadFile
+
+export const browserDemoURL = `${winURL}#/full-screen/Browser`
+export const printURL = `${winURL}#/full-screen/Print`

@@ -1,175 +1,534 @@
-﻿<!doctype html>
-<html>
+﻿<!DOCTYPE html>
+<html lang="en">
 
 <head>
-  <meta charset="utf-8">
-  <title></title>
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Launcher Loading</title>
   <style>
-    html {
-      height: 100%;
-      min-height: 100%;
-      overflow: hidden;
-      user-select: none;
-      -webkit-app-region: no-drag;
+    :root {
+      /* Common Constants */
+      --font-mono: "Courier New", monospace;
+      --font-sans: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+
+      /* Dark Theme (Default) */
+      --bg-start: #1a1a1a;
+      --bg-end: #0d0d0d;
+      --primary: #e0e0e0;
+      --accent: #2e7d32;
+      --accent-dim: rgba(46, 125, 50, 0.3);
+      --text-main: #e0e0e0;
+      --text-sub: #888;
+      --ring-color: #444;
+      --grid-color: rgba(255, 255, 255, 0.03);
+      --line-color: #333;
+      --border-color: #333;
+      --console-mask: linear-gradient(to top, black 80%, transparent 100%);
+
+      /* Visual Enhancements */
+      --ring-opacity-1: 0.5;
+      --ring-opacity-2: 0.3;
+      --glow-text: 0 0 10px var(--accent-dim);
+      --glow-component: drop-shadow(0 0 5px var(--accent-dim));
+      --glow-ring: drop-shadow(0 0 2px rgba(255, 255, 255, 0.1));
+
+      --error: #d32f2f;
+      --error-dim: rgba(211, 47, 47, 0.3);
     }
 
-    html body {
-      background-size: 163px;
-      font: 14px/21px Monaco, sans-serif;
-      color: #999;
-      -webkit-font-smoothing: antialiased;
-      -webkit-text-size-adjust: 100%;
-      -moz-text-size-adjust: 100%;
-      -ms-text-size-adjust: 100%;
-      text-size-adjust: 100%;
-      height: 100%;
-      min-height: 100%;
-      margin: 0px;
+    @media (prefers-color-scheme: light) {
+      :root {
+        --bg-start: #f2f4f8;
+        --bg-end: #e0e5ec;
+        --primary: #1a1a1a;
+        --accent: #2e7d32;
+        /* Keep consistent brand color */
+        --accent-dim: rgba(46, 125, 50, 0.15);
+        --text-main: #1a1a1a;
+        --text-sub: #666;
+        --ring-color: #5e6d82;
+        /* Much darker for visibility */
+        --grid-color: rgba(0, 0, 0, 0.06);
+        --line-color: #ccc;
+        --border-color: #ccc;
+        --console-mask: linear-gradient(to top, white 80%, transparent 100%);
+
+        /* Light Mode Adjustments */
+        --ring-opacity-1: 0.8;
+        /* Increased opacity */
+        --ring-opacity-2: 0.5;
+        /* Increased opacity */
+        --glow-text: none;
+        --glow-component: none;
+        --glow-ring: none;
+      }
     }
 
-    html body h4 {
+    /* Error State Overrides */
+    body.state-error {
+      --accent: var(--error);
+      --accent-dim: var(--error-dim);
+    }
+
+    body.state-error .loader-svg {
+      animation: shake 0.5s cubic-bezier(.36, .07, .19, .97) both;
+    }
+
+    body.state-error .loader-ring-outer,
+    body.state-error .loader-hex {
+      stroke: var(--error);
+    }
+
+    body.state-error .loading-text {
+      fill: var(--error);
+    }
+
+    @keyframes shake {
+
+      10%,
+      90% {
+        transform: translate3d(-1px, 0, 0);
+      }
+
+      20%,
+      80% {
+        transform: translate3d(2px, 0, 0);
+      }
+
+      30%,
+      50%,
+      70% {
+        transform: translate3d(-4px, 0, 0);
+      }
+
+      40%,
+      60% {
+        transform: translate3d(4px, 0, 0);
+      }
+    }
+
+    body {
       margin: 0;
-    }
-
-    /* .loading-line {
-      height: 1px;
-      width: 100%;
-      position: absolute;
-    }
-
-    .top {
-      background: linear-gradient(-225deg, #ff3cac 0%, #2b86c5 58%, #ff3cac 100%);
-
-      top: 0;
-    }
-
-    .left {
-      background: linear-gradient(-225deg, #ff3cac 0%, #2b86c5 58%, #ff3cac 100%);
-      right: 99px;
-      transform: rotate(90deg);
-      width: 600px;
-    }
-
-    .right {
-      left: 99px;
-      transform: rotate(90deg);
-      width: 600px;
-      background: linear-gradient(-225deg, #ff3cac 0%, #2b86c5 58%, #ff3cac 100%);
-    }
-
-    .bottom {
-      background: linear-gradient(-225deg, #ff3cac 0%, #2b86c5 58%, #ff3cac 100%);
-
-      bottom: 0;
-    } */
-
-    .scene {
-      position: relative;
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100%;
-      background: #222;
-      position: relative;
+      height: 100vh;
+      background: linear-gradient(135deg, var(--bg-start) 0%, var(--bg-end) 100%);
+      font-family: var(--font-sans);
+      overflow: hidden;
+      color: var(--text-main);
     }
 
-    .loader {
+    .container {
       position: relative;
-      width: 15em;
-      height: 15em;
-      background: linear-gradient(-225deg, #ff3cac9e 0%, #562b7c9e 52%, #2b86c59e 100%);
-      border-radius: 50%;
-      animation: spin 0.5s linear infinite;
-    }
-
-    span {
-      position: absolute;
       width: 100%;
       height: 100%;
-      border-radius: inherit;
-      background: inherit;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
     }
 
-    span:nth-child(1) {
-      filter: blur(5px);
-    }
-
-    span:nth-child(2) {
-      filter: blur(10px);
-    }
-
-    span:nth-child(3) {
-      filter: blur(25px);
-    }
-
-    span:nth-child(4) {
-      filter: blur(50px);
-    }
-
-    span::after {
+    /* Background Grid */
+    .grid-bg {
       position: absolute;
-      content: "";
-      top: 10px;
-      left: 10px;
-      right: 10px;
-      bottom: 10px;
-      background: #222;
-      border-radius: inherit;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image:
+        linear-gradient(var(--grid-color) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+      background-size: 40px 40px;
+      pointer-events: none;
+      z-index: 0;
     }
 
-    .text {
-      position: absolute;
-      opacity: 0;
-      animation: breath 3s ease-in-out infinite;
+    /* Main Loader SVG */
+    .loader-svg {
+      width: 600px;
+      height: 400px;
+      z-index: 2;
+      animation: entry-scale 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+      animation-delay: 0.1s;
     }
 
-    @keyframes breath {
+    /* SVG Elements Styles */
+    .loader-ring-outer {
+      transform-origin: 0px 0px;
+      /* transform-box: fill-box; removed to fix rotation center */
+      animation: spin 10s linear infinite;
+      stroke: var(--ring-color);
+      opacity: var(--ring-opacity-1);
+      filter: var(--glow-ring);
+    }
+
+    .loader-ring-outer:nth-child(2) {
+      opacity: var(--ring-opacity-2);
+      animation-duration: 15s;
+      animation-direction: reverse;
+    }
+
+    .loader-hex {
+      transform-origin: 0px 0px;
+      /* transform-box: fill-box; removed to fix rotation center */
+      animation: spin 3s linear infinite;
+      stroke: var(--text-main);
+      filter: var(--glow-component);
+    }
+
+    .loader-ring-inner {
+      transform-origin: 0px 0px;
+      /* transform-box: fill-box; removed to fix rotation center */
+      animation: spin 1.5s linear infinite reverse;
+      stroke: var(--accent);
+      filter: var(--glow-component);
+    }
+
+    .loader-core {
+      transform-origin: 0px 0px;
+      /* transform-box: fill-box; removed to fix rotation center */
+      animation: pulse-core 1s ease-in-out infinite alternate;
+      fill: var(--accent);
+      filter: var(--glow-component);
+    }
+
+    .deco-line {
+      stroke: var(--line-color);
+    }
+
+    .loading-text {
+      font-family: var(--font-mono);
+      font-size: 14px;
+      font-weight: bold;
+      fill: var(--text-main);
+      letter-spacing: 2px;
+      text-shadow: var(--glow-text);
+    }
+
+    .loading-percent {
+      font-family: var(--font-mono);
+      font-weight: bold;
+      font-size: 32px;
+      fill: var(--accent);
+      text-shadow: 0 0 10px var(--accent-dim);
+    }
+
+    .loading-sub {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      fill: var(--text-sub);
+    }
+
+    /* Animations */
+    @keyframes spin {
       from {
-        opacity: 0.05;
+        transform: rotate(0deg);
       }
 
-      50% {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    @keyframes pulse-core {
+      0% {
+        transform: scale(0.8) rotate(45deg);
+        opacity: 0.6;
+      }
+
+      100% {
+        transform: scale(1.2) rotate(45deg);
         opacity: 1;
       }
+    }
+
+    /* Entrance Animations */
+    @keyframes entry-fade {
+      from {
+        opacity: 0;
+      }
 
       to {
-        opacity: 0.05;
+        opacity: 1;
       }
     }
 
-    @keyframes spin {
+    @keyframes entry-slide-down {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+
       to {
-        transform: rotate(1turn);
+        opacity: 1;
+        transform: translateY(0);
       }
     }
 
-    /* @keyframes slidein{
-      from{
+    @keyframes entry-slide-up {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
 
+      to {
+        opacity: 1;
+        transform: translateY(0);
       }
-      to{
-        
+    }
+
+    @keyframes entry-scale {
+      from {
+        opacity: 0;
+        transform: scale(0.9);
+        filter: blur(5px);
       }
-    } */
+
+      to {
+        opacity: 1;
+        transform: scale(1);
+        filter: blur(0);
+      }
+    }
+
+    /* Boot Log Console */
+    .console-log {
+      position: absolute;
+      bottom: 40px;
+      left: 40px;
+      width: 400px;
+      height: 80px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--text-sub);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      z-index: 1;
+      mask-image: var(--console-mask);
+      -webkit-mask-image: var(--console-mask);
+
+      animation: entry-slide-up 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+      animation-delay: 0.6s;
+    }
+
+    .log-line {
+      margin: 2px 0;
+      white-space: nowrap;
+      opacity: 0.7;
+    }
+
+    .log-line.highlight {
+      color: var(--accent);
+      opacity: 1;
+    }
+
+    .log-line.error {
+      color: #d32f2f;
+      opacity: 1;
+    }
+
+    /* Header Info */
+    .header-info {
+      position: absolute;
+      top: 40px;
+      left: 40px;
+      font-family: var(--font-mono);
+      color: var(--text-sub);
+      font-size: 12px;
+      z-index: 1;
+      animation: entry-slide-down 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+      animation-delay: 0.2s;
+    }
+
+    .header-info h1 {
+      margin: 0;
+      color: var(--text-main);
+      font-size: 24px;
+      letter-spacing: 4px;
+      margin-bottom: 8px;
+    }
+
+    /* Version tag */
+    .version-tag {
+      position: absolute;
+      top: 40px;
+      right: 40px;
+      font-family: var(--font-mono);
+      color: var(--text-sub);
+      font-size: 12px;
+      border: 1px solid var(--border-color);
+      padding: 4px 8px;
+      z-index: 1;
+      animation: entry-slide-down 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+      animation-delay: 0.4s;
+    }
   </style>
 </head>
 
 <body>
-  <div class="scene">
-    <!-- <i class="loading-line top"></i>
-    <i class="loading-line right"></i>
-    <i class="loading-line bottom"></i>
-    <i class="loading-line left"></i> -->
-    <div class="loader">
-      <span></span>
-      <span></span>
-      <span></span>
-      <span></span>
-    </div>
-    <div class="text">正在准备资源中...</div>
+
+  <div class="grid-bg"></div>
+
+  <div class="header-info">
+    <h1>IKAROS</h1>
+    <div>NEURAL NETWORK CONNECTION TERMINAL</div>
   </div>
 
+  <div class="version-tag">
+    VER. 1.0.0.BUILD.2025
+  </div>
+
+  <div class="container">
+    <svg class="loader-svg" viewBox="0 0 800 450">
+      <!-- Centered Group -->
+      <g transform="translate(400, 225)">
+        <!-- Outer Ring -->
+        <circle class="loader-ring-outer" cx="0" cy="0" r="60" fill="none" stroke-width="1" stroke-dasharray="4 12" />
+        <circle class="loader-ring-outer" cx="0" cy="0" r="70" fill="none" stroke-width="1" stroke-dasharray="2 30" />
+
+        <!-- Hexagon -->
+        <path class="loader-hex" d="M40 0 L20 34.6 L-20 34.6 L-40 0 L-20 -34.6 L20 -34.6 Z" fill="none" stroke-width="2"
+          stroke-dasharray="30 10" />
+
+        <!-- Inner Ring -->
+        <circle class="loader-ring-inner" cx="0" cy="0" r="28" fill="none" stroke-width="2" stroke-dasharray="50 100" />
+
+        <!-- Core -->
+        <rect class="loader-core" x="-8" y="-8" width="16" height="16" />
+
+        <!-- Text Info -->
+        <text y="90" text-anchor="middle" class="loading-text">SYSTEM INITIALIZING...</text>
+        <text id="load-percent" y="130" text-anchor="middle" class="loading-percent">0%</text>
+        <text id="load-code" y="150" text-anchor="middle" class="loading-sub">WAITING FOR SYNC</text>
+      </g>
+
+      <!-- Decorative Lines -->
+      <line class="deco-line" x1="0" y1="225" x2="300" y2="225" stroke-width="1" opacity="0.3" />
+      <line class="deco-line" x1="500" y1="225" x2="800" y2="225" stroke-width="1" opacity="0.3" />
+    </svg>
+  </div>
+
+  <div class="console-log" id="console-log">
+    <div class="log-line">System boot sequence initiated...</div>
+  </div>
+
+  <script>
+    class LauncherLoader {
+      constructor() {
+        this.percentEl = document.getElementById('load-percent');
+        this.codeEl = document.getElementById('load-code');
+        this.consoleEl = document.getElementById('console-log');
+        this.percent = 0;
+        this.setupIpcListeners();
+      }
+
+      setupIpcListeners() {
+        // 检查是否有 lifecycle API（通过 preload 暴露）
+        if (window.lifecycle) {
+          // 生命周期更新
+          window.lifecycle.onUpdate((data) => {
+            if (data.percent !== undefined) {
+              this.setPercent(data.percent);
+            }
+            if (data.message) {
+              this.setText(data.message);
+            }
+            if (data.subText) {
+              this.setSubText(data.subText);
+            }
+          });
+
+          // 生命周期日志
+          window.lifecycle.onLog((data) => {
+            this.log(data.message, data.type);
+          });
+
+          // 生命周期错误
+          window.lifecycle.onError((data) => {
+            this.setError(data.message, data.code);
+          });
+
+          console.log('[Loader] IPC listeners initialized');
+        } else {
+          console.log('[Loader] Running in demo mode (no IPC)');
+          // 如果没有 lifecycle API，运行演示模式
+          this.runDemoMode();
+        }
+      }
+
+      runDemoMode() {
+        setTimeout(() => {
+          let p = 0;
+          const demoInterval = setInterval(() => {
+            p += 1;
+            this.setPercent(p);
+
+            if (Math.random() > 0.8) {
+              const codes = ['CHECKING_UPDATES', 'VERIFYING_HASH', 'LOADING_ASSETS', 'SYNC_DATA', 'CONNECTING_NEURAL'];
+              this.setSubText("PROCESS: " + codes[Math.floor(Math.random() * codes.length)]);
+              this.log("Loaded module: " + Math.random().toString(36).substr(2, 5));
+            }
+
+            if (p >= 100) {
+              clearInterval(demoInterval);
+              this.log("System Ready.", "highlight");
+              this.setText("LAUNCHING");
+            }
+          }, 50);
+        }, 1800);
+      }
+
+      setPercent(value) {
+        this.percent = Math.min(100, Math.max(0, value));
+        this.percentEl.textContent = `${Math.floor(this.percent)}%`;
+
+        // Update styles based on completion
+        if (this.percent >= 100) {
+          this.percentEl.style.fill = '#4caf50'; // Brighter green
+          this.codeEl.textContent = 'READY TO LAUNCH';
+        }
+      }
+
+      setText(text) {
+        document.querySelector('.loading-text').textContent = text;
+      }
+
+      setSubText(text) {
+        this.codeEl.textContent = text;
+      }
+
+      setError(message, code) {
+        document.body.classList.add('state-error');
+        this.setText(message || 'SYSTEM FAILURE');
+        this.setSubText(code || 'FATAL_ERROR');
+        this.log("CRITICAL ERROR: " + (message || "Unknown"), "error");
+        this.percentEl.textContent = "ERR";
+      }
+
+      log(message, type = 'info') {
+        const line = document.createElement('div');
+        line.className = `log-line ${type}`;
+        const time = new Date().toISOString().split('T')[1].split('.')[0];
+        line.textContent = `[${time}] ${message}`;
+
+        this.consoleEl.appendChild(line);
+
+        // Keep only last 10 lines
+        while (this.consoleEl.children.length > 10) {
+          this.consoleEl.removeChild(this.consoleEl.firstChild);
+        }
+      }
+    }
+
+    // Expose API globally
+    window.loader = new LauncherLoader();
+
+    // Example of how to trigger failure manually:
+    // window.loader.setError("CONNECTION REFUSED", "ERR_NETWORK_TIMEOUT");
+  </script>
 </body>
 
 </html>

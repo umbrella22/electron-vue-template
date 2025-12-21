@@ -3,6 +3,9 @@ import { CreateLoader, CreatePlugins } from './tools'
 import { join } from 'path'
 import { VueLoaderPlugin } from 'vue-loader'
 import { extensions, tsConfig, workPath } from './utils'
+import { UnoCSSRspackPlugin } from '@unocss/webpack/rspack'
+
+import unocssConfig from '../uno.config'
 
 const getCommonConfig = (
   env: 'development' | 'none' | 'production',
@@ -46,17 +49,22 @@ export const createMainConfig = ({
 export const createPreloadConfig = ({
   env = 'development',
   filename,
+  outputFilename,
 }: {
   env?: 'development' | 'none' | 'production'
   filename: string
+  outputFilename?: string
 }): Configuration => {
   const commonConfig = getCommonConfig(env)
+  // 从 filename 中提取输出文件名（去掉扩展名）
+  const baseName = filename.replace(/\.(ts|js)$/, '')
+  const finalOutputFilename = outputFilename || `${baseName}.js`
   return {
     ...commonConfig,
     entry: join(workPath, 'src', 'preload', filename),
     output: {
       path: join(workPath, 'dist', 'electron', 'main'),
-      filename: 'main-preload.js',
+      filename: finalOutputFilename,
     },
     target: 'electron-preload',
   }
@@ -94,6 +102,7 @@ export const createRendererConfig = ({
     .end()
 
   const plugins = pluginHelper
+    .add(UnoCSSRspackPlugin(unocssConfig))
     .useDefaultEnvPlugin({
       // 如果不是ui组件库使用，强烈建议关闭
       __VUE_OPTIONS_API__: true,

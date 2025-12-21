@@ -16,7 +16,6 @@
     "build:clean": "tsx .electron-vue/build.ts --clean",
     "build:web": "tsx .electron-vue/build.ts --target web",
     "pack:resources": "tsx .electron-vue/hot-updater.ts",
-    "dep:upgrade": "yarn upgrade-interactive --latest",
     "postinstall": "electron-builder install-app-deps"
   },
   "engines": {
@@ -27,6 +26,7 @@
     "electron-updater": "^6.6.8"
   },
   "devDependencies": {
+    "@iconify-json/tdesign": "^1.2.11",
     "@ikaros-cli/prettier-config": "^0.5.0",
     "@ikaros-cli/stylelint-config": "^0.6.0",
     "@rspack/core": "^1.6.8",
@@ -36,6 +36,9 @@
     "@types/minimist": "^1.2.5",
     "@types/node": "^22.13.1",
     "@types/semver": "^7.7.1",
+    "@unocss/preset-icons": "^66.5.10",
+    "@unocss/preset-wind4": "^66.5.10",
+    "@unocss/webpack": "^66.5.10",
     "adm-zip": "^0.5.16",
     "axios": "^1.12.2",
     "cfonts": "^3.3.1",
@@ -44,17 +47,21 @@
     "detect-port": "^2.1.0",
     "dotenv": "16.5.0",
     "electron": "^38.4.0",
+    "electron-log": "^5.4.3",
     "electron-builder": "^26.1.0",
     "electron-devtools-installer": "^4.0.0",
     "electron-store": "^11.0.2",
     "fs-extra": "^11.3.3",
+    "highlight.js": "^11.11.1",
     "listr2": "^9.0.5",
     "minimist": "^1.2.8",
+    "naive-ui": "^2.43.2",
     "pinia": "3.0.4",
     "sass-embedded": "^1.97.1",
     "sass-loader": "^16.0.6",
     "tsx": "^4.21.0",
     "typescript": "^5.9.3",
+    "unocss": "^66.5.10",
     "vue": "^3.5.26",
     "vue-loader": "^17.4.2",
     "vue-router": "^4.6.4"

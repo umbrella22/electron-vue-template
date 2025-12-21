@@ -1,8 +1,9 @@
 'use strict'
 
-import { useMainDefaultIpc } from './services/ipc-main'
+import { useMainDefaultIpc } from './services/ipc/ipc-main'
 import { app } from 'electron'
-import InitWindow from './services/window-manager'
+import { windowLogger } from './services/logger/log-service'
+import InitWindow from './services/window/window-manager'
 import { useDisableButton } from './hooks/disable-button-hook'
 import { useProcessException } from '@main/hooks/exception-hook'
 import { useMenu } from '@main/hooks/menu-hook'
@@ -17,16 +18,17 @@ async function onAppReady() {
   defaultIpc()
   creactMenu()
   new InitWindow().initWindow()
-  if (import.meta.env.NODE_ENV === 'development') {
+  if (process.env.NODE_ENV === 'development') {
     const {
       installExtension,
       VUEJS_DEVTOOLS,
     } = require('electron-devtools-installer')
     installExtension(VUEJS_DEVTOOLS)
       .then((pluginInfo: Electron.Extension) =>
-        console.info('devtools-installed', pluginInfo.name),
+        windowLogger.info('devtools-installed', pluginInfo.name),
       )
-      .catch((err: Error) => console.warn('devtools-install-error', err))
+      .catch((err: Error) => windowLogger.warn('devtools-install-error', err))
+    windowLogger.info('devtools-installed', 'vue-devtools')
   }
 }
 
@@ -39,13 +41,13 @@ app.on('window-all-closed', () => {
   app.quit()
 })
 app.on('browser-window-created', () => {
-  console.log('window-created')
+  windowLogger.info('window-created')
 })
 
 if (process.defaultApp) {
   if (process.argv.length >= 2) {
     app.removeAsDefaultProtocolClient('electron-vue-template')
-    console.log('由于框架特殊性开发环境下无法使用')
+    windowLogger.warn('protocol-client-dev-mode-disabled')
   }
 } else {
   app.setAsDefaultProtocolClient('electron-vue-template')
