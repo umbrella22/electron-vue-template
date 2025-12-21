@@ -27,9 +27,9 @@
     "electron-updater": "^6.6.8"
   },
   "devDependencies": {
-    "@ikaros-cli/prettier-config": "^0.4.1",
-    "@ikaros-cli/stylelint-config": "^0.5.0",
-    "@rspack/core": "^1.5.5",
+    "@ikaros-cli/prettier-config": "^0.5.0",
+    "@ikaros-cli/stylelint-config": "^0.6.0",
+    "@rspack/core": "^1.6.8",
     "@rspack/dev-server": "^1.1.4",
     "@types/adm-zip": "^0.5.7",
     "@types/fs-extra": "^11.0.4",
@@ -45,17 +45,18 @@
     "dotenv": "16.5.0",
     "electron": "^38.4.0",
     "electron-builder": "^26.1.0",
-    "electron-devtools-vendor": "^3.0.0",
-    "fs-extra": "^11.3.2",
+    "electron-devtools-installer": "^4.0.0",
+    "electron-store": "^11.0.2",
+    "fs-extra": "^11.3.3",
     "listr2": "^9.0.5",
     "minimist": "^1.2.8",
-    "pinia": "3.0.3",
-    "sass-embedded": "^1.93.2",
-    "sass-loader": "^16.0.5",
-    "tsx": "^4.20.6",
+    "pinia": "3.0.4",
+    "sass-embedded": "^1.97.1",
+    "sass-loader": "^16.0.6",
+    "tsx": "^4.21.0",
     "typescript": "^5.9.3",
-    "vue": "^3.5.22",
+    "vue": "^3.5.26",
     "vue-loader": "^17.4.2",
-    "vue-router": "^4.6.3"
+    "vue-router": "^4.6.4"
   }
 }

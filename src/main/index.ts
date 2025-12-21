@@ -1,7 +1,7 @@
 'use strict'
 
 import { useMainDefaultIpc } from './services/ipc-main'
-import { app, session } from 'electron'
+import { app } from 'electron'
 import InitWindow from './services/window-manager'
 import { useDisableButton } from './hooks/disable-button-hook'
 import { useProcessException } from '@main/hooks/exception-hook'
@@ -18,11 +18,15 @@ async function onAppReady() {
   creactMenu()
   new InitWindow().initWindow()
   if (import.meta.env.NODE_ENV === 'development') {
-    const { VUEJS3_DEVTOOLS } = require('electron-devtools-vendor')
-    session.defaultSession.loadExtension(VUEJS3_DEVTOOLS, {
-      allowFileAccess: true,
-    })
-    console.log('已安装: vue-devtools')
+    const {
+      installExtension,
+      VUEJS_DEVTOOLS,
+    } = require('electron-devtools-installer')
+    installExtension(VUEJS_DEVTOOLS)
+      .then((pluginInfo: Electron.Extension) =>
+        console.info('devtools-installed', pluginInfo.name),
+      )
+      .catch((err: Error) => console.warn('devtools-install-error', err))
   }
 }
 

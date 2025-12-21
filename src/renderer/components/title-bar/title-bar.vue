@@ -16,7 +16,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref } from 'vue'
 import { invoke } from '@renderer/utils/ipcRenderer'
 import { IpcChannel } from '@ipcManager/index'
 
