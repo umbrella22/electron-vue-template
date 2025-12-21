@@ -22,11 +22,25 @@ export default defineConfig({
     }),
     presetTypography(),
     presetWind4({
+      dark: 'class',
       preflights: {
         reset: true,
       },
     }),
   ],
+  theme: {
+    colors: {
+      bg: 'var(--background-color)',
+      text: 'var(--text-color)',
+      primary: 'var(--primary-color)',
+      secondary: 'var(--secondary-color)',
+      view: 'var(--main-view-bg-color)',
+      glass: 'var(--glass)',
+      glassStrong: 'var(--glass-strong)',
+      borderLight: 'var(--border-light)',
+      card: 'var(--card-bg)',
+    }
+  },
   transformers: [
     transformerVariantGroup(),
     transformerDirectives({

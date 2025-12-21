@@ -49,17 +49,22 @@ export const createMainConfig = ({
 export const createPreloadConfig = ({
   env = 'development',
   filename,
+  outputFilename,
 }: {
   env?: 'development' | 'none' | 'production'
   filename: string
+  outputFilename?: string
 }): Configuration => {
   const commonConfig = getCommonConfig(env)
+  // 从 filename 中提取输出文件名（去掉扩展名）
+  const baseName = filename.replace(/\.(ts|js)$/, '')
+  const finalOutputFilename = outputFilename || `${baseName}.js`
   return {
     ...commonConfig,
     entry: join(workPath, 'src', 'preload', filename),
     output: {
       path: join(workPath, 'dist', 'electron', 'main'),
-      filename: 'main-preload.js',
+      filename: finalOutputFilename,
     },
     target: 'electron-preload',
   }

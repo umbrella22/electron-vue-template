@@ -88,7 +88,11 @@ function startMain(): Promise<void> {
   return new Promise((resolve, reject) => {
     const rsWatcher = rspack([
       createMainConfig({}),
-      createPreloadConfig({ filename: 'index.ts' }),
+      createPreloadConfig({
+        filename: 'index.ts',
+        outputFilename: 'main-preload.js',
+      }),
+      createPreloadConfig({ filename: 'loader-preload.ts' }),
     ])
     rsWatcher.hooks.watchRun.tapAsync('watch-run', (compilation, done) => {
       logStats(`主进程`, chalk.white.bold(`正在处理资源文件...`))

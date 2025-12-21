@@ -11,3 +11,4 @@ export class HotUpdaterClass implements IIpcHotUpdaterHandle {
     updater(windows)
   }
 }
+

@@ -41,13 +41,13 @@ class Timer {
    * @returns {Object}
    * @date 2019-11-25
    */
-  interval(interval: number, callback: Function) {
+  interval(interval: number, callback: (() => unknown) | null) {
     this.timeout(interval).then(() => {
       typeof callback === 'function' &&
         callback() !== false &&
         this.interval(interval, callback)
     })
-    return { then: (c) => (callback = c) }
+    return { then: (c: () => unknown) => (callback = c) }
   }
 
   /**

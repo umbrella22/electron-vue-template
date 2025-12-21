@@ -1,12 +1,68 @@
-// :root[theme='dark'] {
-//   --background-color: #181818;
-//   --text-color: #c1c1c1;
-//   --primary-color: #409eff;
-// }
-
 :root {
+  /* Base Colors */
   --background-color: #f2f3f5;
-  --text-color: #ffffff;
-  --primary-color: #409eff;
+  --text-color: #333333;
+  --primary-color: #409eff; /* Accent Blue for Light Mode */
+  --secondary-color: #555555;
+  
+  /* Layout Colors */
   --main-view-bg-color: #f9f9fc;
+  --glass: rgba(255, 255, 255, 0.65);
+  --glass-strong: rgba(245, 245, 245, 0.85);
+  --border-light: rgba(0, 0, 0, 0.08);
+  --card-bg: rgba(255, 255, 255, 0.6);
+  
+  /* Typography */
+  --font-ui: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-code: "Courier New", monospace;
+  
+  /* Status Colors */
+  --success: #2e7d32;
+  --error: #c62828;
+  
+  /* Text/Title Colors */
+  --primary: #1a1a1a; /* Main Text Color (Titles) */
+  --secondary: #555555; /* Subtext Color */
+
+  /* Gradients */
+  --bg-start: #eef2f5;
+  --bg-end: #dbe4ed;
+}
+
+html.dark {
+  /* Base Colors */
+  --background-color: #050505; /* Deep Black */
+  --background-gradient: linear-gradient(135deg, #111111 0%, #050505 100%);
+  --text-color: #e0e0e0;
+  
+  /* Accent Color - PRTS Green */
+  --primary-color: #00e676; /* Brighter Neon Green for Dark Mode */
+  --primary-dim: #00a854;
+  
+  /* Layout Colors */
+  --main-view-bg-color: transparent;
+  --glass: rgba(0, 0, 0, 0.7);
+  --glass-strong: rgba(20, 20, 20, 0.9); /* Dark Sidebar */
+  --border-light: rgba(255, 255, 255, 0.1);
+  --card-bg: rgba(30, 30, 30, 0.6);
+  
+  /* Text/Title Colors */
+  --primary: #ffffff; /* White Titles */
+  --secondary: #a0a0a0; /* Grey Subtext */
+  
+  /* Effects */
+  --glow-text: 0 0 10px rgba(0, 230, 118, 0.4);
+  --glow-component: drop-shadow(0 0 5px rgba(0, 230, 118, 0.4));
+  
+  /* Gradients */
+  --bg-start: #1a1a1a;
+  --bg-end: #0d0d0d;
+}
+
+body {
+  background: var(--background-gradient, var(--background-color));
+  color: var(--text-color);
+  transition: background-color 0.3s, color 0.3s;
+  margin: 0;
+  font-family: var(--font-ui);
 }

@@ -17,17 +17,18 @@ interface AnyObject {
   [key: string]: any
 }
 
-interface memoryInfo {
+export interface memoryInfo {
   jsHeapSizeLimit: number
   totalJSHeapSize: number
   usedJSHeapSize: number
 }
 
 declare global {
+  interface Performance {
+    memory?: memoryInfo
+  }
+
   interface Window {
-    performance: {
-      memory: memoryInfo
-    }
     ipcRendererChannel: IpcRendererInvoke & IpcRendererOn
     systemInfo: {
       platform: string

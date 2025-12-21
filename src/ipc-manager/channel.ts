@@ -33,12 +33,41 @@ export class IpcChannelMainClass {
     Electron.MessageBoxOptions,
     Electron.MessageBoxReturnValue
   >
-  StartDownload!: IpcMainEventListener<string>
+  GetDownloadPath!: IpcMainEventListener<void, string>
+  SelectDownloadPath!: IpcMainEventListener<void, string | null>
+  StartDownload!: IpcMainEventListener<{
+    id: string
+    url: string
+  }>
   OpenErrorbox!: IpcMainEventListener<{ title: string; message: string }>
   /**
    * 窗口准备就绪
    */
   WinReady!: IpcMainEventListener
+  /**
+   * 设置窗口标题栏覆盖颜色
+   */
+  SetTitleBarOverlay!: IpcMainEventListener<{ isDark: boolean }>
+  /**
+   * 设置并持久化标题栏颜色集
+   */
+  SetTitleBarOverlayColors!: IpcMainEventListener<{
+    light?: string
+    dark?: string
+    symbolLight?: string
+    symbolDark?: string
+  }>
+  /**
+   * 获取当前主题模式
+   */
+  GetTheme!: IpcMainEventListener<
+    void,
+    { themeMode: 'system' | 'light' | 'dark'; isDark: boolean }
+  >
+  /**
+   * 设置主题模式并同步到所有窗口
+   */
+  SetTheme!: IpcMainEventListener<{ themeMode: 'system' | 'light' | 'dark' }>
   /**
    *
    * 打开窗口
@@ -76,10 +105,49 @@ export class IpcChannelMainClass {
 
 export class IpcChannelRendererClass {
   // ipcRenderer
-  DownloadProgress!: IpcRendererEventListener<number>
-  DownloadError!: IpcRendererEventListener<boolean>
+  /**
+   * 主题变化通知（广播到所有窗口）
+   */
+  ThemeChanged!: IpcRendererEventListener<{
+    themeMode: 'system' | 'light' | 'dark'
+    isDark: boolean
+  }>
+  /**
+   * 生命周期更新通知（发送到 loader 窗口）
+   */
+  LifecycleUpdate!: IpcRendererEventListener<{
+    percent: number
+    message: string
+    subText: string
+    phase: string
+  }>
+  /**
+   * 生命周期日志通知（发送到 loader 窗口）
+   */
+  LifecycleLog!: IpcRendererEventListener<{
+    message: string
+    type: 'info' | 'highlight' | 'error'
+  }>
+  /**
+   * 生命周期错误通知（发送到 loader 窗口）
+   */
+  LifecycleError!: IpcRendererEventListener<{
+    message: string
+    code?: string
+  }>
+  DownloadProgress!: IpcRendererEventListener<{
+    id: string
+    progress: number
+    receivedBytes: number
+    totalBytes: number
+  }>
+  DownloadError!: IpcRendererEventListener<{
+    id: string
+    message?: string
+  }>
   DownloadPaused!: IpcRendererEventListener<boolean>
   DownloadDone!: IpcRendererEventListener<{
+    id: string
     /**
      * 下载的文件路径
      *
@@ -104,7 +172,7 @@ export class IpcChannelRendererClass {
 
   SendDataTest!: IpcRendererEventListener<unknown>
   BrowserViewTabDataUpdate!: IpcRendererEventListener<{
-    bvWebContentsId: number
+    browserContentViewWebContentsId: number
     title: string
     url: string
     status: 1 | -1 // 1 添加/更新 -1 删除
@@ -112,7 +180,7 @@ export class IpcChannelRendererClass {
   BrowserViewTabPositionXUpdate!: IpcRendererEventListener<{
     dragTabOffsetX: number
     positionX: number
-    bvWebContentsId: number
+    browserContentViewWebContentsId: number
   }>
   BrowserTabMouseup!: IpcRendererEventListener
   HotUpdateStatus!: IpcRendererEventListener<{
@@ -134,7 +202,7 @@ export class IpcChannelBrowserClass {
     void,
     {
       positionX: number
-      bvWebContentsId: number
+      browserContentViewWebContentsId: number
       title: string
       url: string
     }
@@ -145,7 +213,7 @@ export class IpcChannelBrowserClass {
    */
   AddDefaultBrowserView!: IpcMainEventListener<
     void,
-    { bvWebContentsId: number }
+    { browserContentViewWebContentsId: number }
   >
 
   /**
@@ -162,7 +230,7 @@ export class IpcChannelBrowserClass {
    * 浏览器标签跳转到指定 URL
    */
   BrowserDemoTabJumpToUrl!: IpcMainEventListener<{
-    bvWebContentsId: number
+    browserContentViewWebContentsId: number
     url: string
   }>
 
@@ -181,7 +249,7 @@ export class IpcChannelBrowserClass {
     screenY: number
     startX: number
     startY: number
-    bvWebContentsId: number
+    browserContentViewWebContentsId: number
   }>
 
   /**

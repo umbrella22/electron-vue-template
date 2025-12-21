@@ -1,4 +1,5 @@
 import { WebContents, app, dialog } from 'electron'
+import { crashLogger, windowLogger } from '../services/logger/log-service'
 import type {
   Details,
   RenderProcessGoneDetails,
@@ -52,6 +53,7 @@ export const useProcessException = (): UseProcessExceptionRetrun => {
         listener(event, webContents, details)
         return
       }
+      crashLogger.error('render-process-gone', details.reason, details)
       const message: Message = {
         title: '',
         buttons: [],
@@ -87,6 +89,7 @@ export const useProcessException = (): UseProcessExceptionRetrun => {
           noLink: true,
         })
         .then((res) => {
+          crashLogger.info('render-process-action', res.response === 0 ? 'reload' : 'close')
           if (res.response === 0) webContents.reload()
           else webContents.close()
         })
@@ -101,6 +104,7 @@ export const useProcessException = (): UseProcessExceptionRetrun => {
         listener(event, details)
         return
       }
+      crashLogger.error('child-process-gone', details.type, details.reason, details)
       const message: Message = {
         title: '',
         buttons: [],
@@ -140,8 +144,10 @@ export const useProcessException = (): UseProcessExceptionRetrun => {
           // 当显卡出现崩溃现象时使用该设置禁用显卡加速模式。
           if (res.response === 0) {
             if (details.type === 'GPU') app.disableHardwareAcceleration()
+            crashLogger.info('child-process-action', 'reload')
             window.reload()
           } else {
+            crashLogger.info('child-process-action', 'close')
             window.close()
           }
         })
@@ -154,6 +160,7 @@ export const useProcessException = (): UseProcessExceptionRetrun => {
         listener()
         return
       }
+      windowLogger.warn('unresponsive', window.id)
       dialog
         .showMessageBox(window, {
           type: 'warning',
@@ -163,6 +170,7 @@ export const useProcessException = (): UseProcessExceptionRetrun => {
           noLink: true,
         })
         .then((res) => {
+          windowLogger.info('unresponsive-action', res.response === 0 ? 'reload' : 'close')
           if (res.response === 0) window!.reload()
           else window!.close()
         })

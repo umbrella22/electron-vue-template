@@ -1,103 +1,115 @@
 <template>
-  <div class="window-title" v-if="!IsUseSysTitle && isNotMac && !IsWeb">
-    <!-- 软件logo预留位置 -->
-    <div style="-webkit-app-region: drag" class="logo">
+  <div class="window-title" :class="{ 'is-mac': !isNotMac }">
+    <!-- MacOS traffic lights placeholder or custom positioning -->
+    <div v-if="!isNotMac" class="mac-traffic-lights-placeholder"></div>
+
+    <!-- 软件logo预留位置 (Only show on Windows/Linux or if desired) -->
+    <div v-if="isNotMac && !IsWeb" style="-webkit-app-region: drag" class="logo">
       <img
         src="@renderer/assets/icons/svg/electron-logo.svg"
         class="icon-logo"
       />
     </div>
-    <!-- 菜单栏位置 -->
-    <div></div>
+    
     <!-- 中间标题位置 -->
-    <div style="-webkit-app-region: drag" class="title"></div>
+    <div style="-webkit-app-region: drag" class="title">
+      <SystemInformation :compact="true" />
+    </div>
+
   </div>
-  <div v-else-if="!IsUseSysTitle && !isNotMac" class="window-title"></div>
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
-import { invoke } from '@renderer/utils/ipcRenderer'
-import { IpcChannel } from '@ipcManager/index'
+import { ref } from 'vue'
+import SystemInformation from '@renderer/components/system-info/system-info-mation.vue'
 
 const { systemInfo } = window
 
-const IsUseSysTitle = ref(false)
-const isNotMac = ref(false)
+const isNotMac = ref(systemInfo.platform !== 'darwin')
 const IsWeb = ref(!window.ipcRendererChannel)
 
-isNotMac.value = systemInfo.platform !== 'darwin'
-
-IsUseSysTitle.value = await invoke(IpcChannel.IsUseSysTitle)
 </script>
 
-<style rel="stylesheet/scss" lang="scss" scoped>
+<style scoped>
 .window-title {
   width: 100%;
-  height: 30px;
-  line-height: 28px;
-  background-color: var(--background-color);
+  height: 32px; /* Slightly taller for PRTS look */
+  line-height: 32px;
+  background-color: transparent; /* Transparent for glass effect */
   display: flex;
   -webkit-app-region: drag;
   position: fixed;
   top: 0;
   z-index: 99999;
   align-items: center;
+}
 
-  .icon-logo {
-    width: 1em;
-    height: 1em;
-    vertical-align: -0.15em;
-    fill: currentColor;
-    overflow: hidden;
-  }
+.mac-traffic-lights-placeholder {
+  width: 70px; /* Reserve space for traffic lights */
+  height: 100%;
+  -webkit-app-region: drag;
+}
 
-  .title {
-    text-align: center;
-    color: #9d9d9d;
-  }
+.icon-logo {
+  width: 1em;
+  height: 1em;
+  vertical-align: -0.15em;
+  fill: currentColor;
+  overflow: hidden;
+}
 
-  .logo {
-    margin: 0 10px;
-  }
+.title {
+  text-align: center;
+  color: var(--text-color);
+  flex: 1;
+  font-family: var(--font-code, "Courier New", monospace);
+  font-weight: bold;
+  font-size: 12px;
+  letter-spacing: 2px;
+}
 
-  .controls-container {
-    display: flex;
-    flex-grow: 0;
-    flex-shrink: 0;
-    text-align: center;
-    position: relative;
-    z-index: 3000;
-    -webkit-app-region: no-drag;
-    height: 100%;
-    width: 138px;
-    margin-left: auto;
+.logo {
+  margin: 0 10px;
+  color: var(--text-color);
+}
 
-    .windows-icon-bg {
-      display: inline-block;
-      -webkit-app-region: no-drag;
-      height: 100%;
-      width: 33.34%;
-      color: rgba(129, 129, 129, 0.6);
+.controls-container {
+  display: flex;
+  flex-grow: 0;
+  flex-shrink: 0;
+  text-align: center;
+  position: relative;
+  z-index: 3000;
+  -webkit-app-region: no-drag;
+  height: 100%;
+  width: 138px;
+  margin-left: auto;
+}
 
-      .icon-size {
-        width: 12px;
-        height: 15px;
-        vertical-align: -0.15em;
-        fill: currentColor;
-        overflow: hidden;
-      }
-    }
+.windows-icon-bg {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  -webkit-app-region: no-drag;
+  height: 100%;
+  width: 46px;
+  color: var(--text-color);
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
 
-    .windows-icon-bg:hover {
-      background-color: rgba(182, 182, 182, 0.2);
-      color: #333;
-    }
+.icon-size {
+  width: 12px;
+  height: 12px;
+  fill: currentColor;
+}
 
-    .close-icon:hover {
-      background-color: rgba(232, 17, 35, 0.9);
-      color: #fff;
-    }
-  }
+.windows-icon-bg:hover {
+  background-color: var(--border-light);
+}
+
+.close-icon:hover {
+  background-color: #c42b1c;
+  color: #fff;
 }
 </style>

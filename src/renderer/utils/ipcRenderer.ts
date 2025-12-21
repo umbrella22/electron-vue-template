@@ -1,7 +1,6 @@
 import {
   IIpcRendererInvoke,
   IIpcRendererOn,
-  IpcChannel,
 } from '@ipcManager/index'
 import { onUnmounted } from 'vue'
 
@@ -12,9 +11,9 @@ import { onUnmounted } from 'vue'
  */
 export function invoke<T extends keyof IIpcRendererInvoke>(
   channel: T,
-  args?: any,
-): Promise<any> {
-  return window.ipcRendererChannel[channel].invoke(args)
+  ...args: Parameters<IIpcRendererInvoke[T]>
+): ReturnType<IIpcRendererInvoke[T]> {
+  return (window.ipcRendererChannel[channel].invoke as any)(...args)
 }
 
 /**
