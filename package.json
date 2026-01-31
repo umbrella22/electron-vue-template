@@ -48,7 +48,7 @@
     "dotenv": "16.5.0",
     "electron": "^38.4.0",
     "electron-log": "^5.4.3",
-    "electron-builder": "^26.1.0",
+    "electron-builder": "^26.6.0",
     "electron-devtools-installer": "^4.0.0",
     "electron-store": "^11.0.2",
     "fs-extra": "^11.3.3",
