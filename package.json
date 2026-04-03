@@ -46,7 +46,7 @@
     "del": "7.1.0",
     "detect-port": "^2.1.0",
     "dotenv": "16.5.0",
-    "electron": "^38.4.0",
+    "electron": "^39.8.5",
     "electron-log": "^5.4.3",
     "electron-builder": "^26.6.0",
     "electron-devtools-installer": "^4.0.0",
