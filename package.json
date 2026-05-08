@@ -40,7 +40,7 @@
     "@unocss/preset-wind4": "^66.5.10",
     "@unocss/webpack": "^66.5.10",
     "adm-zip": "^0.5.16",
-    "axios": "^1.12.2",
+    "axios": "^1.15.2",
     "cfonts": "^3.3.1",
     "chalk": "^5.6.2",
     "del": "7.1.0",
