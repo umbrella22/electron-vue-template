@@ -1,12 +1,12 @@
 # Electron-vue-template
 
 ![GitHub Repo stars](https://img.shields.io/github/stars/umbrella22/electron-vue-template)
-[![vue](https://img.shields.io/badge/vue-3.5.26-brightgreen.svg)](https://github.com/vuejs/vue-next)
-[![rspack](https://img.shields.io/badge/rspack-1.6.8-brightgreen.svg)](https://rspack.dev/index)
-[![electron](https://img.shields.io/badge/electron-38.4.0-brightgreen.svg)](https://github.com/electron/electron)
+[![vue](https://img.shields.io/badge/vue-3.5.35-brightgreen.svg)](https://github.com/vuejs/vue-next)
+[![rspack](https://img.shields.io/badge/rspack-2.0.6-brightgreen.svg)](https://rspack.dev/index)
+[![electron](https://img.shields.io/badge/electron-42.2.0-brightgreen.svg)](https://github.com/electron/electron)
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/umbrella22/electron-vue-template/blob/master/LICENSE)
 
-### 请确保您的 node 版本大于等于 20.
+### 请确保您的 node 版本大于等于 20
 
 #### 如何安装
 

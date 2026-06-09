@@ -2,8 +2,8 @@
   <div class="print-page">
     <div class="tool-header">
       <div class="header-left">
-        <n-avatar size="medium" :style="{ backgroundColor: 'var(--border-light)', color: 'var(--text-color)' }">
-          <div class="i-tdesign-printer text-lg" />
+        <n-avatar size="medium" :style="avatarStyle">
+          <div class="i-tdesign-printer text-lg"></div>
         </n-avatar>
         <div class="tool-title">{{ i18nt.print.print }}</div>
       </div>
@@ -58,24 +58,44 @@
                   v-model:value="margins.marginType"
                   :options="marginTypeOptions"
                 />
-                <n-grid v-if="margins.marginType === 'custom'" :x-gap="12" :cols="4">
+                <n-grid
+                  v-if="margins.marginType === 'custom'"
+                  :x-gap="12"
+                  :cols="4"
+                >
                   <n-grid-item>
-                    <n-input-number v-model:value="margins.top" size="small" :show-button="false">
+                    <n-input-number
+                      v-model:value="margins.top"
+                      size="small"
+                      :show-button="false"
+                    >
                       <template #suffix>T</template>
                     </n-input-number>
                   </n-grid-item>
                   <n-grid-item>
-                    <n-input-number v-model:value="margins.bottom" size="small" :show-button="false">
+                    <n-input-number
+                      v-model:value="margins.bottom"
+                      size="small"
+                      :show-button="false"
+                    >
                       <template #suffix>B</template>
                     </n-input-number>
                   </n-grid-item>
                   <n-grid-item>
-                    <n-input-number v-model:value="margins.left" size="small" :show-button="false">
+                    <n-input-number
+                      v-model:value="margins.left"
+                      size="small"
+                      :show-button="false"
+                    >
                       <template #suffix>L</template>
                     </n-input-number>
                   </n-grid-item>
                   <n-grid-item>
-                    <n-input-number v-model:value="margins.right" size="small" :show-button="false">
+                    <n-input-number
+                      v-model:value="margins.right"
+                      size="small"
+                      :show-button="false"
+                    >
                       <template #suffix>R</template>
                     </n-input-number>
                   </n-grid-item>
@@ -88,40 +108,47 @@
 
       <div class="content-column">
         <n-card :title="i18nt.print.preview" size="small" class="content-card">
-           <div class="preview-area">
-              <div class="preview-box"></div>
-              <n-image
-                width="200"
-                src="https://img2.baidu.com/it/u=2173864545,554093748&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=882"
-                object-fit="contain"
-              />
-           </div>
+          <div class="preview-area">
+            <div class="preview-box"></div>
+            <n-image
+              width="200"
+              src="https://img2.baidu.com/it/u=2173864545,554093748&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=882"
+              object-fit="contain"
+            />
+          </div>
         </n-card>
       </div>
     </div>
   </div>
 </template>
 <script lang="ts" setup>
-import { ref, onMounted, toRaw, Ref, computed } from 'vue'
+import { ref, onMounted, toRaw, computed } from 'vue'
 import { i18nt } from '@renderer/i18n'
 import { invoke, IpcChannel } from '@renderer/utils/ipcRenderer'
 import type { WebContentsPrintOptions } from 'electron'
-import { 
-  NSelect, 
-  NButton, 
-  NCard, 
-  NSpace, 
-  NAlert, 
-  NGrid, 
-  NGridItem, 
-  NTag, 
-  NFormItem, 
+import {
+  NSelect,
+  NButton,
+  NCard,
+  NSpace,
+  NAlert,
+  NGrid,
+  NGridItem,
+  NTag,
+  NFormItem,
   NInputNumber,
   NImage,
-  NAvatar
+  NAvatar,
 } from 'naive-ui'
 
+type PrintMargins = NonNullable<WebContentsPrintOptions['margins']>
+type PrintPageSize = NonNullable<WebContentsPrintOptions['pageSize']>
+
 const selName = ref('')
+const avatarStyle = {
+  backgroundColor: 'var(--border-light)',
+  color: 'var(--text-color)',
+}
 const printers = ref<Electron.PrinterInfo[]>([])
 const printerOptions = computed(() => {
   return printers.value.map((p) => ({
@@ -133,7 +160,12 @@ const printerOptions = computed(() => {
 const silent = ref(false)
 const printBackground = ref(false)
 const color = ref(true)
-const marginTypes = ref(['default', 'none', 'printableArea', 'custom'])
+const marginTypes = ref<PrintMargins['marginType'][]>([
+  'default',
+  'none',
+  'printableArea',
+  'custom',
+])
 const marginTypeOptions = computed(() => {
   return marginTypes.value.map((t) => ({
     label: t,
@@ -141,15 +173,22 @@ const marginTypeOptions = computed(() => {
   }))
 })
 
-const margins: Ref<WebContentsPrintOptions['margins']> = ref({
+const margins = ref<PrintMargins>({
   marginType: 'default',
   top: 0,
   bottom: 0,
   left: 0,
   right: 0,
 })
-const pageSizeString = ref<string>('A4')
-const pageSizeOptions = ref(['A3', 'A4', 'A5', 'Legal', 'Letter', 'Tabloid'])
+const pageSizeString = ref<Extract<PrintPageSize, string>>('A4')
+const pageSizeOptions = ref<Extract<PrintPageSize, string>[]>([
+  'A3',
+  'A4',
+  'A5',
+  'Legal',
+  'Letter',
+  'Tabloid',
+])
 const pageSizeOptionsComputed = computed(() => {
   return pageSizeOptions.value.map((s) => ({
     label: s,
@@ -157,19 +196,17 @@ const pageSizeOptionsComputed = computed(() => {
   }))
 })
 
-const pageSizeObject = ref({ width: 210000, height: 297000 })
+const pageSizeObject = ref<Exclude<PrintPageSize, string>>({
+  width: 210000,
+  height: 297000,
+})
 const selPageSizeType = ref(0) // 0 string  1 Size
 
 onMounted(async () => {
   // 获取打印机列表
   printers.value = await invoke(IpcChannel.GetPrinters)
   if (printers.value.length) {
-    const defaultItem = printers.value.find((v) => v.isDefault)
-    if (defaultItem) {
-      selName.value = defaultItem.name
-    } else {
-      selName.value = printers.value[0].name
-    }
+    selName.value = printers.value[0].name
   }
 })
 
@@ -246,7 +283,7 @@ async function print() {
   justify-content: center;
   height: 100%;
   gap: 20px;
-  background: rgba(0,0,0,0.02);
+  background: rgba(0, 0, 0, 0.02);
   border-radius: 4px;
   padding: 20px;
 }

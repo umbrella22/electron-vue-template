@@ -5,7 +5,6 @@ import electron from 'electron'
 import chalk from 'chalk'
 import { join } from 'path'
 import { rspack } from '@rspack/core'
-import { RspackDevServer } from '@rspack/dev-server'
 import { detect } from 'detect-port'
 import config from '../config'
 import { say } from 'cfonts'
@@ -65,6 +64,7 @@ const shortcutList: Shortcut[] = [
 
 async function startRenderer(port: number): Promise<void> {
   const compiler = rspack(createRendererConfig({ target }))
+  const { RspackDevServer } = await import('@rspack/dev-server')
 
   compiler.hooks.done.tap('done', (stats) => {
     logStats('渲染进程', stats)

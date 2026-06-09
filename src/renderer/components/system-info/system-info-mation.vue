@@ -12,8 +12,8 @@
     <!-- Normal Mode: Vertical List -->
     <div v-else class="items">
       <div class="item" v-for="(item, index) in tips" :key="index">
-        <div class="name" v-text="item.name" />
-        <div class="value" v-text="item.value" />
+        <div class="name" v-text="item.name"></div>
+        <div class="value" v-text="item.value"></div>
       </div>
     </div>
   </div>

@@ -1,11 +1,9 @@
 import { Configuration, rspack } from '@rspack/core'
 import { CreateLoader, CreatePlugins } from './tools'
 import { join } from 'path'
-import { VueLoaderPlugin } from 'vue-loader'
+import { VizePlugin } from '@vizejs/rspack-plugin'
 import { extensions, tsConfig, workPath } from './utils'
-import { UnoCSSRspackPlugin } from '@unocss/webpack/rspack'
-
-import unocssConfig from '../uno.config'
+import { UnoCSSRspackNativePlugin } from 'rspack-unocss-plugin'
 
 const getCommonConfig = (
   env: 'development' | 'none' | 'production',
@@ -94,22 +92,17 @@ export const createRendererConfig = ({
     .useDefaultCssLoader()
     .add({
       test: /\.vue$/,
-      loader: 'vue-loader',
-      options: {
-        experimentalInlineMatchResource: true,
-      },
+      use: [{ loader: '@vizejs/rspack-plugin/loader' }],
     })
     .end()
 
   const plugins = pluginHelper
-    .add(UnoCSSRspackPlugin(unocssConfig))
-    .useDefaultEnvPlugin({
-      // 如果不是ui组件库使用，强烈建议关闭
-      __VUE_OPTIONS_API__: true,
-      __VUE_PROD_DEVTOOLS__: false,
-      __VUE_PROD_HYDRATION_MISMATCH_DETAILS__: false,
-    })
-    .add(new VueLoaderPlugin())
+    .add(
+      new UnoCSSRspackNativePlugin({
+        include: [/\.unocss-entry$/],
+      }),
+    )
+    .add(new VizePlugin())
     .add(
       new rspack.HtmlRspackPlugin({
         template: join(workPath, 'src', 'index.html'),

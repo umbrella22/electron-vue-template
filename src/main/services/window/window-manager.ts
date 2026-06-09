@@ -129,6 +129,7 @@ class MainInit {
       transparent: true,
       resizable: false,
       webPreferences: {
+        sandbox: false,
         experimentalFeatures: true,
         preload: getPreloadFile('loader-preload'),
       },

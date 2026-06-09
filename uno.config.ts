@@ -9,6 +9,9 @@ import {
 import presetWind4 from '@unocss/preset-wind4'
 
 export default defineConfig({
+  content: {
+    filesystem: ['src/renderer/**/*.{vue,ts,tsx,js,jsx,html}'],
+  },
   presets: [
     presetAttributify(),
     presetIcons({
@@ -39,7 +42,7 @@ export default defineConfig({
       glassStrong: 'var(--glass-strong)',
       borderLight: 'var(--border-light)',
       card: 'var(--card-bg)',
-    }
+    },
   },
   transformers: [
     transformerVariantGroup(),

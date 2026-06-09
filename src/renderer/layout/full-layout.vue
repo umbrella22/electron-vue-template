@@ -8,6 +8,8 @@
   </div>
 </template>
 
+<script setup lang="ts"></script>
+
 <style scoped lang="scss">
 .bg-body {
   padding-top: 30px; /* Account for custom title bar */

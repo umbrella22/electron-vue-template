@@ -3,7 +3,7 @@
     <div class="tool-header" v-if="currentTool">
       <div class="header-left">
         <n-avatar size="medium" :style="{ backgroundColor: 'var(--border-light)', color: 'var(--text-color)' }">
-          <div :class="currentTool.avatar" class="text-lg" />
+          <div :class="currentTool.avatar" class="text-lg"></div>
         </n-avatar>
         <div class="tool-title">{{ currentTool.name }}</div>
       </div>

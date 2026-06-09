@@ -7,7 +7,7 @@
         clearable
       >
         <template #prefix>
-          <div class="i-tdesign-search text-lg text-gray-500" />
+          <div class="i-tdesign-search text-lg text-gray-500"></div>
         </template>
       </n-input>
     </div>
@@ -23,7 +23,7 @@
         >
           <n-avatar size="large" class="item-avatar">
             <n-icon>
-              <div :class="item.avatar" class="text-base" />
+              <div :class="item.avatar" class="text-base"></div>
             </n-icon>
           </n-avatar>
           <div class="item-info">

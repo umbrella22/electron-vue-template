@@ -11,25 +11,25 @@
       <div class="flex gap-2">
         <n-button type="primary" @click="handleAddDownload">
           <template #icon>
-            <div class="i-tdesign-download" />
+            <div class="i-tdesign-download"></div>
           </template>
           {{ i18nt.download.download }}
         </n-button>
         <n-button @click="handleStartAll">
           <template #icon>
-            <div class="i-tdesign-play-circle" />
+            <div class="i-tdesign-play-circle"></div>
           </template>
           {{ i18nt.download.startAll }}
         </n-button>
         <n-button @click="handlePauseAll">
           <template #icon>
-            <div class="i-tdesign-pause-circle" />
+            <div class="i-tdesign-pause-circle"></div>
           </template>
           {{ i18nt.download.pauseAll }}
         </n-button>
         <n-button type="error" ghost @click="handleCancelAll">
           <template #icon>
-            <div class="i-tdesign-close-circle" />
+            <div class="i-tdesign-close-circle"></div>
           </template>
           {{ i18nt.download.cancelAll }}
         </n-button>
@@ -39,7 +39,7 @@
     <div
       class="location-section flex items-center gap-4 p-4 bg-card rounded-lg border border-borderLight"
     >
-      <div class="i-tdesign-folder-open text-xl text-primary" />
+      <div class="i-tdesign-folder-open text-xl text-primary"></div>
       <span class="text-secondary font-bold">
         {{ i18nt.download.location }}
       </span>
@@ -84,7 +84,7 @@
                         ? 'i-tdesign-pause'
                         : 'i-tdesign-play'
                     "
-                  />
+                  ></div>
                 </template>
               </n-button>
               <n-button
@@ -95,7 +95,7 @@
                 @click="cancelItem(item.id)"
               >
                 <template #icon>
-                  <div class="i-tdesign-close" />
+                  <div class="i-tdesign-close"></div>
                 </template>
               </n-button>
             </div>
