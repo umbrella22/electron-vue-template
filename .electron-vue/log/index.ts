@@ -1,17 +1,26 @@
 import chalk from 'chalk'
+import { LinearReporter } from './reporter'
+
+export * from './reporter'
+
+const fallbackReporter = new LinearReporter()
 
 export const doneLog = (text: string) => {
-  console.log('\n' + chalk.bgGreen.white(' DONE ') + ' ', text)
+  fallbackReporter.log({ source: 'build', level: 'success', message: text })
 }
 export const errorLog = (text: string | Error | null) => {
-  console.log('\n ' + chalk.bgRed.white(' ERROR ') + ' ', text)
+  fallbackReporter.log({ source: 'build', level: 'error', message: text })
 }
 export const okayLog = (text: string) => {
-  console.log('\n ' + chalk.bgBlue.white(' OKAY ') + ' ', text)
+  fallbackReporter.log({ source: 'build', level: 'info', message: text })
 }
 export const warningLog = (text: string) => {
-  console.log('\n ' + chalk.bgYellow.white(' WARNING ') + ' ', text)
+  fallbackReporter.log({ source: 'build', level: 'warning', message: text })
 }
 export const infoLog = (text: string) => {
-  console.log('\n ' + chalk.bgCyan.white(' INFO ') + ' ', text)
+  fallbackReporter.log({ source: 'build', level: 'info', message: text })
+}
+
+export const legacyDoneLog = (text: string) => {
+  console.log('\n' + chalk.bgGreen.white(' DONE ') + ' ', text)
 }

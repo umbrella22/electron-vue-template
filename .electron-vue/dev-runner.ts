@@ -12,9 +12,7 @@ import { spawn } from 'child_process'
 import type { ChildProcess } from 'child_process'
 import {
   DetailedError,
-  electronLog,
   getArgv,
-  logStats,
   removeJunk,
   workPath,
 } from './utils'
@@ -23,12 +21,19 @@ import {
   createPreloadConfig,
   createRendererConfig,
 } from './rspack.config'
-import { errorLog } from './log'
-const { target = 'client', controlledRestart = false } = getArgv()
+import { bindDashboardInput, createReporter } from './log'
+const {
+  target = 'client',
+  controlledRestart = false,
+  plain = false,
+  dashboard = true,
+} = getArgv()
+const reporter = createReporter({ plain: Boolean(plain), dashboard: Boolean(dashboard) })
 
 let electronProcess: ChildProcess | null = null
 let manualRestart = false
 let readlineInterface: readline.Interface | null = null
+let disposeDashboardInput: (() => void) | null = null
 
 interface Shortcut {
   key: string
@@ -49,8 +54,7 @@ const shortcutList: Shortcut[] = [
     description: '退出',
     action() {
       electronProcess?.kill()
-      readlineInterface?.close()
-      process.exit()
+      shutdown()
     },
   },
   {
@@ -67,7 +71,12 @@ async function startRenderer(port: number): Promise<void> {
   const { RspackDevServer } = await import('@rspack/dev-server')
 
   compiler.hooks.done.tap('done', (stats) => {
-    logStats('渲染进程', stats)
+    reporter.updateStatus({ renderer: stats.hasErrors() ? '失败' : '完成' })
+    reporter.log({
+      source: 'renderer',
+      level: stats.hasErrors() ? 'error' : 'success',
+      message: stats.toString({ colors: reporter.capabilities.supportsAnsi, chunks: false }),
+    })
   })
   process.env.PORT = String(port)
   const server = new RspackDevServer(
@@ -81,7 +90,7 @@ async function startRenderer(port: number): Promise<void> {
     compiler,
   )
   await server.start()
-  console.log('\n\n' + chalk.blue(`  正在准备主进程，请等待...`) + '\n\n')
+  reporter.updateStatus({ port, renderer: '运行中', message: '正在准备主进程' })
 }
 
 function startMain(): Promise<void> {
@@ -94,8 +103,9 @@ function startMain(): Promise<void> {
       }),
       createPreloadConfig({ filename: 'loader-preload.ts' }),
     ])
-    rsWatcher.hooks.watchRun.tapAsync('watch-run', (compilation, done) => {
-      logStats(`主进程`, chalk.white.bold(`正在处理资源文件...`))
+    rsWatcher.hooks.watchRun.tapAsync('watch-run', (_, done) => {
+      reporter.updateStatus({ main: '编译中' })
+      reporter.log({ source: 'main', level: 'info', message: '正在处理资源文件...' })
       done()
     })
     rsWatcher.watch(
@@ -105,15 +115,24 @@ function startMain(): Promise<void> {
         poll: false,
       },
       (err: DetailedError | null, stats) => {
-        logStats(`主进程`, stats)
+        reporter.updateStatus({ main: err || stats?.hasErrors() ? '失败' : '完成' })
+        reporter.log({
+          source: 'main',
+          level: err || stats?.hasErrors() ? 'error' : 'success',
+          message: stats?.toString({ colors: reporter.capabilities.supportsAnsi, chunks: false }) ?? err,
+        })
         if (err || stats?.hasErrors()) {
-          errorLog(err?.stack ?? err)
           if (err?.details) {
-            console.error(err.details)
+            reporter.log({ source: 'main', level: 'error', message: err.details })
           } else {
-            console.error(stats?.toString({}))
+            reporter.log({
+              source: 'main',
+              level: 'error',
+              message: stats?.toString({ colors: reporter.capabilities.supportsAnsi }) ?? null,
+            })
           }
-          throw new Error('Error occured in main process')
+          reject(new Error('Error occured in main process'))
+          return
         }
         if (electronProcess && !controlledRestart) {
           restartElectron()
@@ -138,18 +157,19 @@ function startElectron() {
   }
 
   electronProcess = spawn(electron as any, args)
+  reporter.updateStatus({ electron: '运行中' })
 
   electronProcess.stdout?.on('data', (data: string) => {
-    electronLog(removeJunk(data), 'blue')
+    reporter.log({ source: 'electron', level: 'info', message: removeJunk(data) || null })
   })
   electronProcess.stderr?.on('data', (data: string) => {
-    electronLog(removeJunk(data), 'red')
+    reporter.log({ source: 'electron', level: 'error', message: removeJunk(data) || null })
   })
 
   electronProcess.on('close', () => {
+    reporter.updateStatus({ electron: '已退出' })
     if (!manualRestart) {
-      readlineInterface?.close()
-      process.exit()
+      shutdown()
     }
   })
 }
@@ -158,7 +178,8 @@ function restartElectron() {
   manualRestart = true
   electronProcess?.pid && process.kill(electronProcess.pid)
   electronProcess = null
-  electronProcess = null
+  reporter.updateStatus({ electron: '重启中' })
+  reporter.log({ source: 'system', level: 'warning', message: '正在重启主进程' })
   startElectron()
   setTimeout(() => {
     manualRestart = false
@@ -167,11 +188,11 @@ function restartElectron() {
 
 function onInputAction(input: string) {
   if (!controlledRestart && input === 'r') {
-    console.log(
-      chalk.yellow.bold(
-        '受控重启被禁用，请在启动时使用 --controlledRestart 选项启用',
-      ),
-    )
+    reporter.log({
+      source: 'system',
+      level: 'warning',
+      message: '受控重启被禁用，请在启动时使用 --controlledRestart 选项启用',
+    })
     return
   }
   const shortcut = shortcutList.find((shortcut) => shortcut.key === input)
@@ -181,6 +202,11 @@ function onInputAction(input: string) {
 }
 
 function initReadline() {
+  if (reporter.mode === 'dashboard') {
+    disposeDashboardInput = bindDashboardInput(reporter, onInputAction)
+    return
+  }
+
   readlineInterface = readline.createInterface({
     input: process.stdin,
     output: process.stdout,
@@ -189,13 +215,7 @@ function initReadline() {
 }
 
 function showHelp() {
-  console.log(chalk.green.bold('可用快捷键：\n'))
-  shortcutList.forEach((shortcut) => {
-    console.log(
-      `输入 ${chalk.green.bold(shortcut.key)} + 回车 ${shortcut.description}`,
-    )
-  })
-  console.log('\n')
+  reporter.setShortcuts(shortcutList)
 }
 
 function greeting() {
@@ -206,26 +226,35 @@ function greeting() {
   else if (cols > 76) text = 'rspack-|electron'
   else text = false
 
-  if (text) {
+  if (text && reporter.mode === 'linear') {
     say(text, {
       colors: ['yellow'],
       font: 'simple3d',
       space: false,
     })
-  } else console.log(chalk.yellow.bold('\n  rspack-electron'))
-  console.log(chalk.blue(`准备启动...`) + '\n')
+  } else if (reporter.mode === 'linear') console.log(chalk.yellow.bold('\n  rspack-electron'))
+  reporter.updateStatus({ target, message: '准备启动' })
   showHelp()
+}
+
+function shutdown(code = 0) {
+  disposeDashboardInput?.()
+  readlineInterface?.close()
+  reporter.stop()
+  process.exit(code)
 }
 
 async function init() {
   const port = await detect(config.dev.port || 9080)
+  reporter.start()
+  reporter.updateStatus({
+    port,
+    target,
+  })
   if (target === 'web') {
     await startRenderer(port)
     return
   }
-
-  // 清空控制台，只保留构建进度和日志
-  console.clear()
 
   greeting()
   try {
@@ -233,9 +262,15 @@ async function init() {
     startElectron()
     initReadline()
   } catch (error) {
-    console.error(error)
-    process.exit(1)
+    reporter.log({ source: 'system', level: 'error', message: error as Error })
+    shutdown(1)
   }
 }
+
+process.on('SIGINT', () => shutdown())
+process.on('uncaughtException', (error) => {
+  reporter.log({ source: 'system', level: 'error', message: error })
+  shutdown(1)
+})
 
 init()
