@@ -39,7 +39,7 @@
     "@unocss/preset-icons": "^66.7.0",
     "@unocss/preset-wind4": "^66.7.0",
     "@vizejs/rspack-plugin": "^0.188.0",
-    "adm-zip": "^0.5.17",
+    "adm-zip": "^0.6.0",
     "axios": "^1.17.0",
     "cfonts": "^3.3.1",
     "chalk": "^5.6.2",
